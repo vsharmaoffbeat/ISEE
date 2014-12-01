@@ -7,12 +7,12 @@ schedulerModule.controller('SchedulerController', function ($scope, SchedulerSer
     $scope.schdulerEndTime = '11:30 PM'
 
     $scope.$watch('schdulerStartTime', function () {
-        refreshSchduler()
+        $scope.refreshSchduler()
 
     }, true);
 
     $scope.$watch('schdulerEndTime', function () {
-        refreshSchduler()
+        $scope.refreshSchduler()
 
     }, true);
 

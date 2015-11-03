@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+
+    <div class="col-md-3"></div>
+
+    <div class="page">
+
+        <div class="col-md-6 main_login">
+            <label class="login_form_title">Login</label><label class="pull-right resionSEE_form_title">resionSEE</label>
+            <form class="form-horizontal" role="form" method="post" action="#">
+
+                <div class="form-group">
+                    <label for="name" class="col-md-3 control-label">User Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="User Name" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-3 control-label">Password</label>
+                    <div class="col-md-9">
+                        <input type="password" class="form-control" id="email" name="email" placeholder="Password" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3 bottom_save_area">
+                        <input id="submit" name="submit" type="submit" value="Ok" class="btn btn-primary isee_submit">
+
+                        <input id="submit" name="submit" type="submit" value="Cancel" class="btn btn-primary isee_cancel">
+                    </div>
+
+                    <div class="col-md-4  selectContainer">
+                        <select name="language" class="form-control language_box">
+                            <option value="">Language</option>
+                            <option value="arabic">Arabic</option>
+                            <option value="english">English</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3"></div>
+
+</div>
+
+
+@section customcss{
+
+    <style>
+    </style>
+
+}
+
+
+@section scripts
+    {
+
+
+}

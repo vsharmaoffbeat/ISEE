@@ -1,0 +1,950 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="AddInfo" xml:space="preserve">
+    <value>Información Celular</value>
+  </data>
+  <data name="AddNewEmployee" xml:space="preserve">
+    <value>Agregar un nuevo empleado </value>
+  </data>
+  <data name="AddRequestFaild" xml:space="preserve">
+    <value>Fallo de escritura</value>
+  </data>
+  <data name="AllGroups" xml:space="preserve">
+    <value>Todos los Grupos</value>
+  </data>
+  <data name="All_Groups" xml:space="preserve">
+    <value>Todos Los Grupos</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Oficina</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Regreso</value>
+  </data>
+  <data name="BefowSearch" xml:space="preserve">
+    <value>Sin resultado de búsqueda</value>
+  </data>
+  <data name="BuildingNum" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Cel" xml:space="preserve">
+    <value>Celular</value>
+  </data>
+  <data name="ChangeAdress" xml:space="preserve">
+    <value>Cambiar dirección</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Comuna</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colores</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Cantidad enviada</value>
+  </data>
+  <data name="CurrentDate" xml:space="preserve">
+    <value>Fecha Actual </value>
+  </data>
+  <data name="CusRemark1" xml:space="preserve">
+    <value>Comentario 1</value>
+  </data>
+  <data name="CusRemark2" xml:space="preserve">
+    <value>Comentario 2</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="CustomerDetailsLabel" xml:space="preserve">
+    <value>Información del Cliente</value>
+  </data>
+  <data name="CustomerNum" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="CustomerToBuinding" xml:space="preserve">
+    <value>Domicilio</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="DayStatus" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="EditDetails" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EmpDiary" xml:space="preserve">
+    <value>Diario</value>
+  </data>
+  <data name="EmplDetails" xml:space="preserve">
+    <value>Información del Empleado</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Empleado</value>
+  </data>
+  <data name="Employee_groups" xml:space="preserve">
+    <value>Grupos de Empleado</value>
+  </data>
+  <data name="Employee_help" xml:space="preserve">
+    <value>Ayuda Empleado</value>
+  </data>
+  <data name="Employee_N" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="EmpToCustomer" xml:space="preserve">
+    <value>Reporte de visitas</value>
+  </data>
+  <data name="EndDay" xml:space="preserve">
+    <value>Día de Término</value>
+  </data>
+  <data name="Entry" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="ErrorLogIn" xml:space="preserve">
+    <value>Error de Conexión</value>
+  </data>
+  <data name="ExistEmployee" xml:space="preserve">
+    <value>Empleado Existente</value>
+  </data>
+  <data name="ExpHeader" xml:space="preserve">
+    <value>Más Opciones</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FillEmployeeHours" xml:space="preserve">
+    <value>Horario de trabajo</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Flip" xml:space="preserve">
+    <value>Reverso</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Piso</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="GridViewAlwaysVisibleNewRow" xml:space="preserve">
+    <value>Haga Click para agregar un nuevo asunto</value>
+  </data>
+  <data name="GridViewClearFilter" xml:space="preserve">
+    <value>Limpiar Filtro</value>
+  </data>
+  <data name="GridViewFilter" xml:space="preserve">
+    <value>Filtro</value>
+  </data>
+  <data name="GridViewFilterAnd" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="GridViewFilterContains" xml:space="preserve">
+    <value>Contiene</value>
+  </data>
+  <data name="GridViewFilterDoesNotContain" xml:space="preserve">
+    <value>No Contiene</value>
+  </data>
+  <data name="GridViewFilterEndsWith" xml:space="preserve">
+    <value>Termina con</value>
+  </data>
+  <data name="GridViewFilterIsContainedIn" xml:space="preserve">
+    <value>Esta contenido en</value>
+  </data>
+  <data name="GridViewFilterIsGreaterThan" xml:space="preserve">
+    <value>Es mayor que</value>
+  </data>
+  <data name="GridViewFilterIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>Es mayor o igual a</value>
+  </data>
+  <data name="GridViewFilterIsLessThan" xml:space="preserve">
+    <value>Menor que </value>
+  </data>
+  <data name="GridViewFilterIsLessThanOrEqualTo" xml:space="preserve">
+    <value>Es menor o igual a </value>
+  </data>
+  <data name="GridViewFilterIsNotEqualTo" xml:space="preserve">
+    <value>No es igual a</value>
+  </data>
+  <data name="GridViewFilterIsEqualTo" xml:space="preserve">
+    <value>Es igual a </value>
+  </data>
+  <data name="GridViewFilterMatchCase" xml:space="preserve">
+    <value>Mayúscula y Minúsculas </value>
+  </data>
+  <data name="GridViewFilterOr" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="GridViewFilterSelectAll" xml:space="preserve">
+    <value>Selecciona Todo</value>
+  </data>
+  <data name="GridViewFilterShowRowsWithValueThat" xml:space="preserve">
+    <value>Mostrar filas con el valores de </value>
+  </data>
+  <data name="GridViewFilterStartsWith" xml:space="preserve">
+    <value>Empiece con</value>
+  </data>
+  <data name="GridViewGroupPanelText" xml:space="preserve">
+    <value>Arrastre un título de la columna y soltar para agrupar por columna</value>
+  </data>
+  <data name="GridViewGroupPanelTopText" xml:space="preserve">
+    <value>Título de Grupo</value>
+  </data>
+  <data name="GridViewGroupPanelTopTextGrouped" xml:space="preserve">
+    <value>Agrupado por</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Grupos</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historial</value>
+  </data>
+  <data name="InsertStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="LabelAbout" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="LabelClear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="LabelCustomer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="LabelEmployee" xml:space="preserve">
+    <value>Empleado</value>
+  </data>
+  <data name="LabelLogIn" xml:space="preserve">
+    <value>Ingresar</value>
+  </data>
+  <data name="LabelMap" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="LabelReports" xml:space="preserve">
+    <value>Reportes</value>
+  </data>
+  <data name="LastApp" xml:space="preserve">
+    <value>Última aplicación</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="LastPoint" xml:space="preserve">
+    <value>Último Punto</value>
+  </data>
+  <data name="Level1" xml:space="preserve">
+    <value>Clasificación Principal</value>
+  </data>
+  <data name="Level2" xml:space="preserve">
+    <value>Clasificación Secundaria</value>
+  </data>
+  <data name="LimitElements" xml:space="preserve">
+    <value>Máximo 5 empleados</value>
+  </data>
+  <data name="ListReports" xml:space="preserve">
+    <value>Lista de Reportes</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="Manufacture" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="MsgHistory" xml:space="preserve">
+    <value>Historial de SMS</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NextVisit" xml:space="preserve">
+    <value>Próxima Visita</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="OKBut" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="Phone1" xml:space="preserve">
+    <value>Teléfono 1</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>Teléfono 2</value>
+  </data>
+  <data name="PhoneType" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="Remark1" xml:space="preserve">
+    <value>Nota Secundaria al Cliente</value>
+  </data>
+  <data name="Remark2" xml:space="preserve">
+    <value>Comentario del Cliente</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Solicitud</value>
+  </data>
+  <data name="ResultSearch" xml:space="preserve">
+    <value>Resultado de Búsqueda</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Archivado ERROR</value>
+  </data>
+  <data name="SaveOk" xml:space="preserve">
+    <value>Archivado OK</value>
+  </data>
+  <data name="Scheduler" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="SearchCustomer" xml:space="preserve">
+    <value>Buscar clientes</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Reporte de horarios</value>
+  </data>
+  <data name="SelectEmployee" xml:space="preserve">
+    <value>Seleccionar empleado</value>
+  </data>
+  <data name="SendApp" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SendLinkAppError" xml:space="preserve">
+    <value>Envío aplicación ERROR</value>
+  </data>
+  <data name="SendLinkAppOk" xml:space="preserve">
+    <value>Envío aplicación OK</value>
+  </data>
+  <data name="SendSMS" xml:space="preserve">
+    <value>Envío de SMS</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="ShowBelow" xml:space="preserve">
+    <value>Mostrar Siguiente</value>
+  </data>
+  <data name="ShowBelowFullWin" xml:space="preserve">
+    <value>Ver Pantalla Completa</value>
+  </data>
+  <data name="ShowFullWay" xml:space="preserve">
+    <value>Mostrar Ruta</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>Mostrar Mapa</value>
+  </data>
+  <data name="ShowReport" xml:space="preserve">
+    <value>Mostrar Reporte</value>
+  </data>
+  <data name="ShowWithCustomers" xml:space="preserve">
+    <value>Mostrar con Clientes</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMSDesc" xml:space="preserve">
+    <value>Descripción SMS</value>
+  </data>
+  <data name="StartDay" xml:space="preserve">
+    <value>Día de Inicio</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Status_0" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="Status_1" xml:space="preserve">
+    <value>Seleccione cliente</value>
+  </data>
+  <data name="Status_2" xml:space="preserve">
+    <value>Cliente seleccionado</value>
+  </data>
+  <data name="Status_3" xml:space="preserve">
+    <value>Cliente cerca</value>
+  </data>
+  <data name="Status_4" xml:space="preserve">
+    <value>Cliente lejos</value>
+  </data>
+  <data name="Status_stop" xml:space="preserve">
+    <value>Detención sin cliente</value>
+  </data>
+  <data name="StopPoint" xml:space="preserve">
+    <value>Punto de Parada</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Calle</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Horario</value>
+  </data>
+  <data name="Time1" xml:space="preserve">
+    <value>Entrada/Salida</value>
+  </data>
+  <data name="Time2" xml:space="preserve">
+    <value>Entrada/Salida</value>
+  </data>
+  <data name="Time3" xml:space="preserve">
+    <value>Entrada/Salida</value>
+  </data>
+  <data name="TimeDiary" xml:space="preserve">
+    <value>Registro de Horas</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Línea de Tiempo</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="Treatment" xml:space="preserve">
+    <value>Tratamiento</value>
+  </data>
+  <data name="TreatmentDate" xml:space="preserve">
+    <value>Día de Tratamiento</value>
+  </data>
+  <data name="TypeMsg" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="UpdateAdress" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="ValidatingTime1" xml:space="preserve">
+    <value>Se necesita Hora de Termino</value>
+  </data>
+  <data name="ValidatingTime2" xml:space="preserve">
+    <value>Antes de Entrar en Puerto</value>
+  </data>
+  <data name="ValidatingTime3" xml:space="preserve">
+    <value>Disponibles Después de Puerto Previo</value>
+  </data>
+  <data name="ValidatingTime4" xml:space="preserve">
+    <value>Sin Inicio ni Final</value>
+  </data>
+  <data name="VisitInterval" xml:space="preserve">
+    <value>Períodicidad de visita (días)</value>
+  </data>
+  <data name="WarnigMapCustomer" xml:space="preserve">
+    <value>Debe Seleccionar un Cliente</value>
+  </data>
+  <data name="WarningBuilding" xml:space="preserve">
+    <value>Debe seleccionar domicilio</value>
+  </data>
+  <data name="WarningCancelEditEmployee" xml:space="preserve">
+    <value>Deshacer cambios</value>
+  </data>
+  <data name="WarningErrorChangeBuilding" xml:space="preserve">
+    <value>Cambio de domicilio ERROR</value>
+  </data>
+  <data name="WarningFullCity" xml:space="preserve">
+    <value>La Ciudad No Existe</value>
+  </data>
+  <data name="WarningGPS" xml:space="preserve">
+    <value>Sin Datos de Localización</value>
+  </data>
+  <data name="WarningMapDate" xml:space="preserve">
+    <value>Fecha&gt;Fecha Actual</value>
+  </data>
+  <data name="WarningMapEmployee" xml:space="preserve">
+    <value>Debe seleccionar empleado</value>
+  </data>
+  <data name="WarningString" xml:space="preserve">
+    <value>Nombre o Contraseña vacios</value>
+  </data>
+  <data name="WarningTimeGps" xml:space="preserve">
+    <value>Tiempo de Comienzo Largo Fin de Tiempo</value>
+  </data>
+  <data name="WarningValidation" xml:space="preserve">
+    <value>Contenido Inválido </value>
+  </data>
+  <data name="WarrningStringSMS" xml:space="preserve">
+    <value>Debe ingresar un Tipo de Mensaje o No de Teléfono</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Semana</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Código Postal</value>
+  </data>
+  <data name="WarningExistEmployee" xml:space="preserve">
+    <value>Empleado no existe</value>
+    <comment>map</comment>
+  </data>
+  <data name="EmployeeCustomerContact" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="EndDayTime" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="StartDayTime" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="TypeDragDrop" xml:space="preserve">
+    <value>TipoArrastrarySoltar</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="TypeFindTree" xml:space="preserve">
+    <value>TipoBuscarArbol</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="AddNode" xml:space="preserve">
+    <value>Agregar Rama</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="DeleteNode" xml:space="preserve">
+    <value>Eliminar Rama</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+    <comment>Employee Search</comment>
+  </data>
+  <data name="TextDropAfter" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="TextDropBefore" xml:space="preserve">
+    <value>Soltar Antes</value>
+  </data>
+  <data name="TextDropIn" xml:space="preserve">
+    <value>Soltar en</value>
+  </data>
+  <data name="TextDropRoot" xml:space="preserve">
+    <value>Soltar Ruta</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Región</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Contraseña Admón</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Adress" xml:space="preserve">
+    <value>Dirección</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="AgrementCustomer" xml:space="preserve">
+    <value>Documento</value>
+    <comment>Aגצןמ</comment>
+  </data>
+  <data name="ContactEmployee" xml:space="preserve">
+    <value>Nombre de Contacto</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="ContactMail" xml:space="preserve">
+    <value>Correo de Contacto</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="FactoryName" xml:space="preserve">
+    <value>Empresa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="HF" xml:space="preserve">
+    <value>No. de Empresa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="PageCompany" xml:space="preserve">
+    <value>Pagina de la empresa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="CompanyDetails" xml:space="preserve">
+    <value>Detalles de la Empresa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="UpdatePass" xml:space="preserve">
+    <value>Actualizar Contraseña</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="UploadLogo" xml:space="preserve">
+    <value>Carga de Logo</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="BoxMain" xml:space="preserve">
+    <value>Correo principal de la Compañía</value>
+    <comment>Outlook</comment>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+    <comment>Outlook</comment>
+  </data>
+  <data name="ListBoxs" xml:space="preserve">
+    <value>Lista de Correo</value>
+    <comment>Outlook</comment>
+  </data>
+  <data name="ServerOutlook" xml:space="preserve">
+    <value>Nombre de Dominio de Exchange</value>
+    <comment>Outlook</comment>
+  </data>
+  <data name="Sinchronization" xml:space="preserve">
+    <value>Frecuencia de sincronización</value>
+    <comment>Outlook</comment>
+  </data>
+  <data name="CenterCity" xml:space="preserve">
+    <value>Centro de la Ciudad</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="MapProvider" xml:space="preserve">
+    <value>Proveedor de Mapa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="MinDistanation" xml:space="preserve">
+    <value>Distancia Mínima</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="MinStopTime" xml:space="preserve">
+    <value>Tiempo mínimo de parada</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="MitingTime" xml:space="preserve">
+    <value>Hora de Encuentro</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Routing" xml:space="preserve">
+    <value>Ruta en Mapa</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="SendSmsStartStop" xml:space="preserve">
+    <value>Envío de SMS de inicio/Término App</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="WorkerDays" xml:space="preserve">
+    <value>Dias laborables</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="WorkerTime" xml:space="preserve">
+    <value>Horario Laboral</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoría</value>
+    <comment>AdminTree</comment>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Empresa</value>
+    <comment>AdminTree</comment>
+  </data>
+  <data name="Tree" xml:space="preserve">
+    <value>Árbol</value>
+    <comment>AdminTree</comment>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="DeleteLeaf" xml:space="preserve">
+    <value>Eliminar Hoja</value>
+    <comment>admin</comment>
+  </data>
+  <data name="Multi" xml:space="preserve">
+    <value>Multi</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Solo</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Resultado de búsqueda</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="ApplicationExit" xml:space="preserve">
+    <value>Salir de la Aplicación, ¿Está seguro?</value>
+  </data>
+  <data name="Fri" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="Mon" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="Sat" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="Sun" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="Thu" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="Tue" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="Wed" xml:space="preserve">
+    <value>Miércoles</value>
+  </data>
+  <data name="AddToRoot" xml:space="preserve">
+    <value>Agregar al tronco</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Seleccionar Todo</value>
+  </data>
+  <data name="MessageSendSMS" xml:space="preserve">
+    <value>SMS enviado</value>
+  </data>
+  <data name="WarningAddBranch" xml:space="preserve">
+    <value>Rama sin datos</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="WarningDeleteBranch" xml:space="preserve">
+    <value>no se puede borrar rama =&gt; existen datos</value>
+    <comment>Admin</comment>
+  </data>
+  <data name="DragItemToTree" xml:space="preserve">
+    <value>Arrastre el item al Árbol</value>
+    <comment>Admin(drag item to tree after save new employee(customer))</comment>
+  </data>
+  <data name="NewEmployee" xml:space="preserve">
+    <value>Agregar empleado</value>
+    <comment>Admin tab</comment>
+  </data>
+  <data name="NewCustomer" xml:space="preserve">
+    <value>Agregar cliente</value>
+    <comment>Admin tab</comment>
+  </data>
+  <data name="WarninigReport" xml:space="preserve">
+    <value>דוחות ניתן להציג רק בשימוש בדפדפן</value>
+  </data>
+  <data name="FullAddress" xml:space="preserve">
+    <value>Dirección completa</value>
+  </data>
+  <data name="WarningChangeAddressGoogle" xml:space="preserve">
+    <value>Faltan datos: región/comuna/calle/número</value>
+    <comment>Change address</comment>
+  </data>
+  <data name="DateWatermarkContent" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="TimeWatermarkContent" xml:space="preserve">
+    <value>Horario</value>
+  </data>
+  <data name="VisitTime" xml:space="preserve">
+    <value>Tiempo de visita (min)</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Cargando.....</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+    <comment>button close form</comment>
+  </data>
+  <data name="FirstNameCus" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="LastNameCus" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="GridViewFilterIsNotContainedIn" xml:space="preserve">
+    <value>Is not contained in</value>
+  </data>
+  <data name="GridViewFilterIsNotNull" xml:space="preserve">
+    <value>Is not null</value>
+  </data>
+  <data name="GridViewFilterIsNull" xml:space="preserve">
+    <value>Is null</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Precaución</value>
+  </data>
+  <data name="InsertAdress" xml:space="preserve">
+    <value>Cargar dirección</value>
+  </data>
+  <data name="AboutString" xml:space="preserve">
+    <value>ISEE permite administrar eficientemente los recursos de una empresa, efectuando referencias cruzadas  entre información provista por ejecutivos de venta y datos de negocios complementarios, entregando así una herramienta combinada de marketing y operaciones</value>
+  </data>
+  <data name="ReportParameters" xml:space="preserve">
+    <value>Parámetros del Reporte</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="SearchParams" xml:space="preserve">
+    <value>Buscar por</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="Number1" xml:space="preserve">
+    <value>Código</value>
+    <comment>SearchReport</comment>
+  </data>
+  <data name="WarningChangeBuildingNew" xml:space="preserve">
+    <value>Cambio de domicilio exitoso. Deber archivar datos del cliente para finalizar</value>
+  </data>
+</root>

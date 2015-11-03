@@ -1,0 +1,119 @@
+﻿@using ISEE.Resources
+@{
+    ViewBag.Title = "Admin";
+    Layout = "  ~/Views/Shared/_Layout.cshtml";
+}
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script src="~/Scripts/Custom/jstree.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+<script src="~/Scripts/Custom/Admin.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/Custom/AdminController.js"></script>
+<div class="container admin_area">
+
+    <!----=============/////////=============TREE PANEL START==============//////=====================----->
+    <!-- tree_left_tab -->
+    <div class="col-md-3 col-xs-12 tree_left_asidebar">
+        <div class="list-group text-left">
+            <a class="LoadTreeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Tree</a>
+            <a class="LoadCategoryParital list-group-item tree_panel_tab">category</a>
+            <a class="LoadEmployeeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewEmployee</a>
+            <a class="LoadCustomerParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewCustomer</a>
+        </div>
+    </div>
+
+
+    <div ng-app="TreeDetails">
+        <div ng-controller="SearchCtrl">
+            <div class="col-md-9 col-xs-12 employee_right_asidebar">
+                <div id="bindPartial_AdminTree" class="partialDivs">
+                    @{Html.RenderAction("_AdminTree", "Admin");}
+                </div>
+                <div id="bindPartial_Category" style="display:none">
+                    @{Html.RenderAction("_Category", "Admin");}
+                </div>
+                <div id="bindPartial_NewEmployee" style="display:none">
+                    @{Html.RenderAction("_NewEmployee", "Admin");}
+                </div>
+                <div id="bindPartial_NewCustomer" style="display:none">
+                    @{Html.RenderAction("_NewCustomer", "Admin");}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //TODO Remove
+        var header = $('.isee_main_header');
+        for (var i = 0; i < header.length; i++) {
+            if (i > 0)
+                $(header[i]).hide();
+        }
+        var footer = $('.container.isee_footer');
+        for (var i = 0; i < footer.length; i++) {
+            if (i > 0)
+                $(footer[i]).hide();
+        }
+        $("#popup_div").dialog({ autoOpen: false });
+        $('.LoadTreeParital').click(function (data) {
+            $('#bindPartial_AdminTree').show();
+            $('#bindPartial_Category').hide();
+            $('#bindPartial_NewEmployee').hide();
+            $('#bindPartial_NewCustomer').hide();
+        });
+        $('.LoadCategoryParital').click(function (data) {
+            $('#bindPartial_AdminTree').hide();
+            $('#bindPartial_Category').show();
+            $('#bindPartial_NewEmployee').hide();
+            $('#bindPartial_NewCustomer').hide();
+
+        });
+        $('.LoadEmployeeParital').click(function (data) {
+            $('#bindPartial_AdminTree').hide();
+            $('#bindPartial_Category').hide();
+            $('#bindPartial_NewEmployee').show();
+            $('#bindPartial_NewCustomer').hide();
+
+        });
+        $('.LoadCustomerParital').click(function (data) {
+            $('#bindPartial_AdminTree').hide();
+            $('#bindPartial_Category').hide();
+            $('#bindPartial_NewEmployee').hide();
+            $('#bindPartial_NewCustomer').show();
+        });
+    });
+</script>
+<script>
+    var datepicker1;
+    var datepicker2;
+    $(function () {
+        //TODO Remove
+        //var header = $('.main_header');
+        //for (var i = 0; i < header.length; i++) {
+        //    if (i > 0)
+        //        $(header[i]).hide();
+        //}
+    });
+    $(function () {
+        $("#datepicker1,#datepicker2").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());;
+        $("#datepicker2").datepicker({
+            onSelect: function () {
+                datepicker2 = $(this).datepicker('getDate');
+            }
+        });
+        $("#datepicker1").datepicker({
+            onSelect: function () {
+                datepicker1 = $(this).datepicker('getDate');
+            }
+        });
+    });
+
+</script>

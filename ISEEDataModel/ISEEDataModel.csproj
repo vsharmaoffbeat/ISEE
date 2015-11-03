@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7A7124A0-E83E-42D2-87AB-7A5BF17740C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ISEEDataModel</RootNamespace>
+    <AssemblyName>ISEEDataModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AddressTypeTable.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AgentToFactory.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AgentUser.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AspNetRole.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AspNetUser.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AspNetUserClaim.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AspNetUserLogin.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Building.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Calendar.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\CalendarStatusDay.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\City.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\CitySyn.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClientInsertLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClientLoginLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClientLogoutLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClientParamMode.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ClientWatchdogKillLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Country.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Customer.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\CustomerEmployeeContact.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\CustomerRequest.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\CustomerToBuilding.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\C__MigrationHistory.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\DiaryDayStatu.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Employee.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeActive.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeClientParams_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeDiarySm.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeDiaryTemplate.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeDiaryTime.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeExtra.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeGpsLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeGpsPoint.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeGpsStatus_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeGroup.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeSmsSend.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\EmployeeToGroup.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Factory.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryDairyTemplet.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryDistance.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryLogo.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryParm.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryUsePay.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\FactoryUsePrice.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GeocodeStringResponse.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GeocodeToTable.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GisSource.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GpsEmployeeCustomer.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GpsInputLog_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GpsParametrs_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Holiday_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ISEEDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISEEDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ISEEDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ISEEDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ISEEDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\JobManager.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\LanguageList.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\MainStringTable.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\MethodLog.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\MoblieApplicationRequest.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\PeriodicJob.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\PhoneManufacture.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\PhoneType.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ProesssParm.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\RepoetStringLabel.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ReportCategory.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ReportLocalParmeter.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ReportName.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ReportPanel.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\ReportPanelType.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\RequsetToFactoryLevel1.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\RequsetToFactoryLevel2.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Services\UserFactory.cs" />
+    <Compile Include="Repository\StarLinkClient.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\State.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\Street.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\StreetSyn_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\sysdiagram.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\SystemSmsSend.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\TableTestItay_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\TestCalendar_old.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\TreeLocation.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\UserLogEntry.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Repository\ISEEDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ISEEDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="Repository\ISEEDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ISEEDataModel.edmx</DependentUpon>
+      <LastGenOutput>ISEEDataModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Repository\ISEEDataModel.edmx.diagram">
+      <DependentUpon>ISEEDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="Repository\ISEEDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ISEEDataModel.edmx</DependentUpon>
+      <LastGenOutput>ISEEDataModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

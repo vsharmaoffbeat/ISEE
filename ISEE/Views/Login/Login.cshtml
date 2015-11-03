@@ -1,0 +1,169 @@
+﻿@using ISEE.Resources
+@{
+    ViewBag.Title = "login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="//code.angularjs.org/1.4.0/angular.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/Custom/LoginController.js"></script>
+
+<div class="login_cover_background">
+    <!---- today current changes--->
+    <div class="login_oval" style="float:right;"></div>
+    <!---- today current changes--->
+</div>
+
+
+<div class="container" ng-app="LoginDetails">
+
+    <div class="col-md-4"></div>
+    <div class="col-md-4 main_login" ng-controller="LoginCtrl">
+        <label class="login_form_title">@ISEE.Resources.Resource.LogIn</label><label class="pull-right resionSEE_form_title">resionSEE</label>
+        <form class="form-horizontal" role="form" method="post" novalidate name="login" ng-submit="Login(IsFormValid)">
+            <div class="form-group">
+                <label for="name" class="col-md-4 control-label">@ISEE.Resources.Resource.UserName</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="@ISEE.Resources.Resource.UserName" ng-model="LoginData.UserName" value="" required>
+                    <span style="color:red" ng-show="showValidation">*</span>
+                     @*<p ng-show="login.UserName.$error.required" style="color:red">*</p>
+                        <div class="form-group" ng-class="{ 'has-error': login.login.$touched && login.v.$invalid }"></div>*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-md-4 control-label">@ISEE.Resources.Resource.Password</label>
+                <div class="col-md-8">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="@ISEE.Resources.Resource.Password" ng-model="LoginData.Password">
+                    <span style="color:red" ng-show="showValidation">*</span>
+                     @*<p ng-show="login.Password.$error.required" style="color:red">*</p>
+                        <div class="form-group" ng-class="{ 'has-error': login.password.$touched && login.v.$invalid }"></div>*@
+                </div>
+            </div>
+
+            <div class="form-group login_save_data">
+
+                <div class="col-md-7 col-xs-7">
+
+                    <button type="submit" class="btn btn-default pull-left login_btn" ng-click="LoginFirst()">@ISEE.Resources.Resource.OK</i></button>
+
+                    <button type="reset" class="btn btn-default pull-left login_btn reset_cancel">@ISEE.Resources.Resource.Cancel</i></button>
+                </div>
+
+                <div class="col-md-5 col-xs-5">
+                    <select name="language" class="form-control language_box" ng-model="CountryCode"
+                            data-ng-options="s.LanguageNickname as s.LanguageNickname for s in CountryCodeList"
+                            data-ng-change="SetSelectedCountry()">
+                        <option value=" ">
+                            Language
+                        </option>
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+
+
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+
+
+
+
+
+@*<div class="container" ng-app="LoginDetails">
+
+        <div class="col-md-3"></div>
+
+        <div class="page" ng-controller="LoginCtrl">
+
+            <div class="col-md-6 main_login">
+                <label class="login_form_title">@ISEE.Resources.Resource.LogIn</label><label class="pull-right resionSEE_form_title">resionSEE</label>
+                <form class="form-horizontal" role="form" method="post"novalidate  name="login" ng-submit="Login(IsFormValid)">
+
+                    <div class="form-group">
+                        <label for="name" class="col-md-3 control-label">@ISEE.Resources.Resource.UserName</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="@ISEE.Resources.Resource.UserName" ng-model="LoginData.UserName" required  >
+                            <p ng-show="login.UserName.$error.required" style="color:red">*</p>
+                            <div class="form-group" ng-class="{ 'has-error': login.login.$touched && login.v.$invalid }"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-md-3 control-label">@ISEE.Resources.Resource.Password</label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="@ISEE.Resources.Resource.Password" ng-model="LoginData.Password">
+                            <p ng-show="login.Password.$error.required" style="color:red">*</p>
+                            <div class="form-group" ng-class="{ 'has-error': login.password.$touched && login.v.$invalid }"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-3 bottom_save_area">
+                            <input id="submit" name="submit" type="submit" value="@ISEE.Resources.Resource.Save" class="btn btn-primary isee_submit">
+
+                            <input id="submit" name="submit" type="submit" value="@ISEE.Resources.Resource.Cancel" class="btn btn-primary isee_cancel">
+                        </div>
+
+                        <div class="col-md-4  selectContainer">
+                            <select name="language" class="form-control language_box" ng-model="CountryCode"
+                                    data-ng-options="s.LanguageNickname as s.LanguageNickname for s in CountryCodeList"
+                                    data-ng-change="SetSelectedCountry()">
+                                <option value=" ">
+                                    Language
+                                </option>
+                                <option value="arabic">Arabic</option>
+                                <option value="english">English</option>
+                                <option value="french">French</option>
+                                <option value="german">German</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3"></div>
+        <div ng-messages="login.UserName.$error">
+
+            <p ng-message="required">User name is required.</p>
+        </div>
+        <div class="help-block" ng-messages="login.UserName.$error" ng-if="login.UserName.$touched">
+
+            <p ng-message="required">User name is required.</p>
+        </div>
+    </div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+@section customcss{
+
+    <style>
+    </style>
+
+}
+
+
+@section scripts
+    {
+
+
+}

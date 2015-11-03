@@ -1,0 +1,207 @@
+﻿<form role="form" method="post" action="#" autocomplete="on">
+    <div class="row first_tree_rightbar">
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Type Find Tree</label>
+                <select class="form-control tree_select_option" ng-model="choice">
+                    <option value='' selected="selected">Employee</option>
+                    <option value="2">Customer</option>
+                </select>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+
+
+            <div class="form-group">
+                <label for="usr">Type Drag drop</label>
+                <select class="form-control tree_select_option" ng-model="choiceType">
+                    <option value='' selected="selected">Multi</option>
+                    <option value="2">Single</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xs-12 tree_save_button">
+            <button type="button" class="btn btn-default button_color"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-default button_color"><i class="fa fa-pencil"></i></button>
+            <button type="submit" class="btn btn-default button_color"><i class="fa fa-save"></i></button>
+        </div>
+
+    </div>
+
+    <div class="row second_tree_rightbar" ng-hide="choice==2">
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Last Name</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="usr">First Name</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Number</label>
+                <input type="number" class="form-control">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row third_tree_rightbar" ng-show="choice==2">
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">State</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="usr">Contact Name</label>
+                <input type="text" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">City</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="usr">Company Name</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Street</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="usr">Phone1</label>
+                <input type="number" class="form-control fields" />
+
+            </div>
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Bulding Number</label>
+                <input type="number" class="form-control fields" />
+            </div>
+
+            <div class="form-group">
+                <label for="usr">Customer Number</label>
+                <input type="number" class="form-control fields" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row fourth_tree_rightbar">
+
+        <div class="col-md-12 col-xs-12 search_result_header">
+            <h5 class="text-right">Search result</h5>
+        </div>
+
+        <div class="col-md-6 col-xs-12 tree_scroll_panel">
+
+            <div class="col-lg-12 col-xs-12 tree_demo_company">
+                <div class="form-group">
+                    <input type="text" class="form-control tree_panel_search">
+                </div>
+                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Leaf</button>
+                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Node</button>
+                <button type="button" class="btn btn-default button_color" onclick="demo_create()">Add Node</button>
+
+                <div class="col-lg-12 col-sm-12 tree_second_company">
+
+                    <div id="jstree_demo_div"></div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-xs-12">
+
+            <div class="col-md-6 col-xs-12 tree_grid_panel">
+
+                <div class="tree_tg-wrap">
+                    <table class="tree_tg">
+                        <tr>
+                            <th class="tree_tg-zqgi"></th>
+                            <th class="tree_tg-z1n2">Name</th>
+                            <th class="tree_tg-z1n2">Phone1</th>
+                        </tr>
+                    </table>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        var jsonData = [
+     { "id": "ajson1", "parent": "#", "text": "Simple root node" },
+     { "id": "ajson2", "parent": "#", "text": "Root node 2" },
+     { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
+     { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
+        ];
+        $("#jstree_demo_div").jstree({
+            "core": {
+                "check_callback": true,
+                "data": jsonData
+            },
+            "plugins": ["dnd", "types", "changed", "state"]
+        });
+    })
+    function demo_create() {
+        debugger;
+        var ref = $('#jstree_demo_div').jstree(true),
+            sel = ref.get_selected();
+        if (!sel.length) { return false; }
+        sel = sel[0];
+        sel = ref.create_node(sel, { "type": "file" });
+        if (sel) {
+            ref.edit(sel);
+        }
+    };
+    function demo_rename() {
+        var ref = $('#jstree_demo_div').jstree(true),
+            sel = ref.get_selected();
+        if (!sel.length) { return false; }
+        sel = sel[0];
+        ref.edit(sel);
+    };
+    function demo_delete() {
+        var ref = $('#jstree_demo_div').jstree(true),
+            sel = ref.get_selected();
+        if (!sel.length) { return false; }
+        ref.delete_node(sel);
+    };
+</script>

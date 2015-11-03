@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="728be7015af54ed9a0485c5940b523ba" Name="Diagram1">
+        <EntityTypeShape EntityType="ISEEModel.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AddressTypeTable" Width="1.5" PointX="1.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AgentToFactory" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AgentUser" Width="1.5" PointX="10.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AspNetRole" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.AspNetUser" Width="1.5" PointX="6" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Building" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Calendar" Width="1.5" PointX="14" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.CalendarStatusDay" Width="1.5" PointX="11.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.City" Width="1.5" PointX="1.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.CitySyn" Width="1.5" PointX="3.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ClientInsertLog" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ClientLoginLog" Width="1.5" PointX="5.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ClientLogoutLog" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ClientParamMode" Width="1.5" PointX="7.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ClientWatchdogKillLog" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Country" Width="1.5" PointX="1.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Customer" Width="1.5" PointX="3" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.CustomerEmployeeContact" Width="1.5" PointX="11.25" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.CustomerRequest" Width="1.5" PointX="7.5" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.CustomerToBuilding" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.DiaryDayStatu" Width="1.5" PointX="12" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Employee" Width="1.5" PointX="9" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeActive" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeClientParams_old" Width="1.5" PointX="16.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeDiarySm" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeDiaryTemplate" Width="1.5" PointX="14.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeDiaryTime" Width="1.5" PointX="16.25" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeExtra" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeGpsLog" Width="1.5" PointX="11.25" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeGpsPoint" Width="1.5" PointX="11.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeGpsStatus_old" Width="1.5" PointX="16.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeGroup" Width="1.5" PointX="3" PointY="54.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeSmsSend" Width="1.5" PointX="11.25" PointY="40.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.EmployeeToGroup" Width="1.5" PointX="14.25" PointY="41" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Factory" Width="1.5" PointX="0.5" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryDairyTemplet" Width="1.5" PointX="16.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryDistance" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryLogo" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryParm" Width="1.5" PointX="3" PointY="57.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryUsePay" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.FactoryUsePrice" Width="1.5" PointX="5.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GeocodeStringResponse" Width="1.5" PointX="1.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GeocodeToTable" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GisSource" Width="1.5" PointX="7.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GpsEmployeeCustomer" Width="1.5" PointX="13.5" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GpsInputLog_old" Width="1.5" PointX="18.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.GpsParametrs_old" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Holiday_old" Width="1.5" PointX="14" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.JobManager" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.LanguageList" Width="1.5" PointX="20.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.MainStringTable" Width="1.5" PointX="20.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.MethodLog" Width="1.5" PointX="20.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.MoblieApplicationRequest" Width="1.5" PointX="11.25" PointY="46.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.PeriodicJob" Width="1.5" PointX="20.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.PhoneManufacture" Width="1.5" PointX="4.5" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.PhoneType" Width="1.5" PointX="6.75" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ProesssParm" Width="1.5" PointX="20.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.RepoetStringLabel" Width="1.5" PointX="10.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ReportCategory" Width="1.5" PointX="5.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ReportLocalParmeter" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ReportName" Width="1.5" PointX="8" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ReportPanel" Width="1.5" PointX="10.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.ReportPanelType" Width="1.5" PointX="8" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.RequsetToFactoryLevel1" Width="1.5" PointX="3" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.RequsetToFactoryLevel2" Width="1.5" PointX="5.25" PointY="63.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.StarLinkClient" Width="1.5" PointX="18.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.State" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.Street" Width="1.5" PointX="1.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.StreetSyn_old" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.sysdiagram" Width="1.5" PointX="20.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.SystemSmsSend" Width="1.5" PointX="8.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.TableTestItay_old" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.TestCalendar_old" Width="1.5" PointX="22.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.TreeLocation" Width="1.5" PointX="22.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.UserLogEntry" Width="1.5" PointX="22.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="ISEEModel.FK_GeocodeToTable_0" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Building_Street" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Customer_Building" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerToBuilding_Building" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Calendar_CalendarStatusDay" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Calendar_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Calendar_DiaryDayStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTime_Calendar" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Holiday_CalendarStatusDay" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_City_0" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CitySyn_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Street_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_GeocodeToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Holiday_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_State_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Customer_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerEmployeeContact_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerRequest_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerEmployeeContact_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerRequest_RequsetToFactoryLevel2" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerToBuilding_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTemplate_DiaryDayStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Employee_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_Employee_PhoneType" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTemplate_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTime_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsLog_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsPoints_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeSmsSend_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_MoblieApplicationRequest_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_EmployeeGpsPoints" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeGroup_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_EmployeeGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_FactoryParm_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_RequsetToFactoryLevel1_Factory" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_GeocodeToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_PhoneType_PhoneManufacture" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_ReportLocalParmeter_0" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_ReportName_0" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_ReportPanel_0" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_ReportPanel_1" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.FK_StreetSyn_Street" ManuallyRouted="false" />
+        <AssociationConnector Association="ISEEModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -119,7 +119,6 @@
     <Folder Include="Content\css\font-awesome-4.4.0\fonts\" />
     <Folder Include="Content\css\font-awesome-4.4.0\less\" />
     <Folder Include="Content\css\font-awesome-4.4.0\scss\" />
-    <Folder Include="Content\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -170,6 +169,16 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\responsive.css" />
+    <Content Include="Content\themes\default-dark\32px.png" />
+    <Content Include="Content\themes\default-dark\40px.png" />
+    <Content Include="Content\themes\default-dark\style.css" />
+    <Content Include="Content\themes\default-dark\style.min.css" />
+    <Content Include="Content\themes\default-dark\throbber.gif" />
+    <Content Include="Content\themes\default\32px.png" />
+    <Content Include="Content\themes\default\40px.png" />
+    <Content Include="Content\themes\default\style.css" />
+    <Content Include="Content\themes\default\style.min.css" />
+    <Content Include="Content\themes\default\throbber.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -209,9 +218,13 @@
     <Content Include="Scripts\Custom\jstree.min.js" />
     <Content Include="Scripts\Custom\jstreedemo.js" />
     <Content Include="Scripts\Custom\LoginController.js" />
+    <Content Include="Content\themes\default-dark\Thumbs.db" />
+    <Content Include="Content\themes\default\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jstree.js" />
+    <Content Include="Scripts\jstree.min.js" />
     <Content Include="Scripts\js\bootstrap-datetimepicker.fr.js" />
     <Content Include="Scripts\js\bootstrap-select.js" />
     <Content Include="Scripts\js\bootstrap.min.js" />

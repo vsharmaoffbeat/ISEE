@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ISEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ISEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -985,6 +985,20 @@
           <Property Name="Factort" Type="int" Nullable="false" />
           <Property Name="UpdateCounter" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'iSEE.dbo.TreeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TreeView">
+          <Key>
+            <PropertyRef Name="TreeID" />
+          </Key>
+          <Property Name="TreeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FactoryID" Type="int" />
+          <Property Name="Decription" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="CustomerID" Type="int" />
+        </EntityType>
         <EntityType Name="UserLogEntry">
           <Key>
             <PropertyRef Name="ID" />
@@ -1687,6 +1701,17 @@
           <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeView" EntityType="Self.TreeView" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[TreeView].[TreeID] AS [TreeID], 
+[TreeView].[ParentID] AS [ParentID], 
+[TreeView].[BranchID] AS [BranchID], 
+[TreeView].[FactoryID] AS [FactoryID], 
+[TreeView].[Decription] AS [Decription], 
+[TreeView].[EmployeeID] AS [EmployeeID], 
+[TreeView].[CustomerID] AS [CustomerID]
+FROM [dbo].[TreeView] AS [TreeView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Building_Street" Association="Self.FK_Building_Street">
             <End Role="Street" EntitySet="Street" />
             <End Role="Building" EntitySet="Building" />
@@ -1888,8 +1913,7 @@
             <End Role="StreetSyn-old" EntitySet="StreetSyn-old" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ISEEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3836,7 +3860,20 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="TreeViews" EntityType="ISEEModel.TreeView" />
         </EntityContainer>
+        <EntityType Name="TreeView">
+          <Key>
+            <PropertyRef Name="TreeID" />
+          </Key>
+          <Property Name="TreeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryID" Type="Int32" />
+          <Property Name="Decription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="CustomerID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4907,6 +4944,19 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="TreeViews">
+            <EntityTypeMapping TypeName="ISEEModel.TreeView">
+              <MappingFragment StoreEntitySet="TreeView">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

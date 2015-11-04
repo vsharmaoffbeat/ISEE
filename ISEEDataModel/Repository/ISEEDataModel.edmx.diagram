@@ -74,7 +74,7 @@
         <EntityTypeShape EntityType="ISEEModel.RequsetToFactoryLevel1" Width="1.5" PointX="3" PointY="63.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.RequsetToFactoryLevel2" Width="1.5" PointX="5.25" PointY="63.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.StarLinkClient" Width="1.5" PointX="18.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ISEEModel.State" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ISEEModel.State" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />v
         <EntityTypeShape EntityType="ISEEModel.Street" Width="1.5" PointX="1.5" PointY="19.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.StreetSyn_old" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.sysdiagram" Width="1.5" PointX="20.75" PointY="20.75" IsExpanded="true" />
@@ -132,6 +132,7 @@
         <AssociationConnector Association="ISEEModel.FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_StreetSyn_Street" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ISEEModel.TreeView" Width="1.5" PointX="1.870383991799496" PointY="25.342093956350393" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

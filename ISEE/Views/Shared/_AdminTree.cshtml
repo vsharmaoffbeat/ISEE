@@ -26,8 +26,8 @@
         </div>
 
         <div class="col-md-6 col-xs-12 tree_save_button">
-            <button type="button" class="btn btn-default button_color"><i class="fa fa-search"></i></button>
-            <button type="button" class="btn btn-default button_color"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-default button_color"><i class="fa fa-search" ng-click="search()"></i></button>
+            <button type="button" class="btn btn-default button_color"><i class="fa fa-pencil" ng-click="clear()"></i></button>
             <button type="submit" class="btn btn-default button_color"><i class="fa fa-save"></i></button>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="usr">Last Name</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="EmployeeSearchData.LastName">
             </div>
         </div>
 
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="usr">First Name</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" ng-model="EmployeeSearchData.FirstName">
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="usr">Number</label>
-                <input type="number" class="form-control">
+                <input type="number" class="form-control" ng-model="EmployeeSearchData.phone">
             </div>
         </div>
 
@@ -63,12 +63,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">State</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="CustomerSearchData.state">
             </div>
 
             <div class="form-group">
                 <label for="usr">Contact Name</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="CustomerSearchData.contactName">
             </div>
 
         </div>
@@ -76,24 +76,24 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">City</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="CustomerSearchData.city">
             </div>
 
             <div class="form-group">
                 <label for="usr">Company Name</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="CustomerSearchData.companyName">
             </div>
         </div>
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Street</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="CustomerSearchData.street">
             </div>
 
             <div class="form-group">
                 <label for="usr">Phone1</label>
-                <input type="number" class="form-control fields" />
+                <input type="number" class="form-control fields" ng-model="CustomerSearchData.phone1" />
 
             </div>
         </div>
@@ -101,12 +101,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Bulding Number</label>
-                <input type="number" class="form-control fields" />
+                <input type="number" class="form-control fields" ng-model="CustomerSearchData.buldingNumber" />
             </div>
 
             <div class="form-group">
                 <label for="usr">Customer Number</label>
-                <input type="number" class="form-control fields" />
+                <input type="number" class="form-control fields" ng-model="CustomerSearchData.customerNumber" />
             </div>
         </div>
 
@@ -143,11 +143,53 @@
             <div class="col-md-6 col-xs-12 tree_grid_panel">
 
                 <div class="tree_tg-wrap">
-                    <table class="tree_tg">
+                    <table class="tree_tg" id="employeeGrid">
                         <tr>
                             <th class="tree_tg-zqgi"></th>
                             <th class="tree_tg-z1n2">Name</th>
                             <th class="tree_tg-z1n2">Phone1</th>
+                        </tr>
+
+                        @*<td>{{gridOption.id}}</td>
+            <td>{{gridOption.FirstName}}</td>
+            <td>{{gridOption.MainPhone}}</td>*@
+
+
+                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
+
+
+                            <td class="tg-dx8v_category">
+                                <span style="display:none;" id='{gridOption.id}'>{{gridOption.id}}</span>
+                            </td>
+
+
+                            <td class="tg-dx8v_category" style="text-align:left !important;">
+
+                                {{gridOption.LastName}}&nbsp;{{gridOption.FirstName}}
+                            </td>
+                            <td class="tg-dx8v_category" style="text-align:left !important;">
+                                {{gridOption.MainAreaPhone}}-{{gridOption.MainPhone}}
+                            </td>
+
+
+                        </tr>
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" class="tree-drop">
+
+
+                            <td class="tg-dx8v_category">
+                                <span style="display:none;" id='gridOption.id'>{{gridCustOptions.id}}</span>
+                            </td>
+
+
+                            <td class="tg-dx8v_category" style="text-align:left !important;">
+
+                                {{gridCustOptions.LastName}}&nbsp;{{gridCustOptions.FirstName}}
+                            </td>
+                            <td class="tg-dx8v_category" style="text-align:left !important;">
+                                {{gridCustOptions.AreaPhone1}}-{{gridOption.Phone1}}
+                            </td>
+
+
                         </tr>
                     </table>
                 </div>
@@ -165,21 +207,91 @@
 </form>
 
 <script type="text/javascript">
-    $(function () {
-        var jsonData = [
-     { "id": "ajson1", "parent": "#", "text": "Simple root node" },
-     { "id": "ajson2", "parent": "#", "text": "Root node 2" },
-     { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
-     { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
-        ];
+    //$(function () {
+    //    var jsonData = [
+    // { "id": "ajson1", "parent": "#", "text": "Simple root node" },
+    // { "id": "ajson2", "parent": "#", "text": "Root node 2" },
+    // { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
+    // { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
+    //    ];
+    //    $("#jstree_demo_div").jstree({
+    //        "core": {
+    //            "check_callback": true,
+    //            "data": jsonData
+    //        },
+    //        "plugins": ["dnd", "types", "changed", "state"]
+    //    });
+    //})
+
+
+    var treeJsonData = [
+    { "id": "ajsontest1", "parent": "#", "text": "Simple root node" },
+    { "id": "ajsontest2", "parent": "#", "text": "Root node 2" },
+    { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
+    { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
+    ];
+
+    //this will hold reference to the tr we have dragged and its helper
+    var c = {};
+
+    $(document).ready(function () {
         $("#jstree_demo_div").jstree({
-            "core": {
+
+            'core': {
                 "check_callback": true,
-                "data": jsonData
+                'data': treeJsonData
             },
-            "plugins": ["dnd", "types", "changed", "state"]
+            "plugins": ["dnd"]
         });
-    })
+
+        var notinprogress = true;
+        document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
+            //This will be the top-most DOM element under cursor
+            var target = e.target;
+            if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
+                notinprogress = false;
+                var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name") };
+                treeJsonData.push(newNode);
+                resfreshJSTree();
+                notinprogress = true;
+                c = {};
+            }
+        });
+
+    });
+
+    var draggedDivElement;
+
+
+
+    $("#employeeGrid tr.tree-drop").draggable({
+        helper: "clone",
+        start: function (event, ui) {
+            c.tr = this;
+            c.helper = ui.helper;
+        }
+    });
+
+    var prevTarget = null;
+
+    function resfreshJSTree() {
+        $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
+        $('#jstree_demo_div').jstree(true).refresh();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function demo_create() {
         debugger;
         var ref = $('#jstree_demo_div').jstree(true),

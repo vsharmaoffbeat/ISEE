@@ -14,6 +14,42 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     var SysIdLevel1max = {};
     var OverallSecondarys = [];
 
+
+    $scope.$watch('choice', function (value) {
+        if (value == '2') {
+            $scope.EmployeeSearchData = null;
+            $scope.gridOptions = null;
+            $scope.EmployeeSearchData = {
+                FirstName: '',
+                LastName: '',
+                phone: ''
+            };
+
+           
+        }
+        else {
+
+            $scope.CustomerSearchData = null;
+            $scope.gridCustOptions = null;
+            $scope.CustomerSearchData = {
+                state: '',
+                city: '',
+                street: '',
+                buldingNumber: '',
+                customerNumber: '',
+                contactName: '',
+                companyName: '',
+                phone1: ''
+            };
+        }
+        // Here i get always the same value
+        console.log("Selected goalType, text: " + value);//
+    });
+    $scope.selectType = function () {
+        debugger;
+
+
+    }
     //ContactService.getMaxValue().then(function (d) {
     //    var array = $.makeArray(d.data);
     //    Math.max.apply(Math, array.map(function (maxvalue) {
@@ -128,6 +164,72 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             //  $window.alert("Save SuccessFully");
         })
     }
+
+    //Tree Tab Code
+    $scope.clear = function () {
+        if ($scope.choice == "" || $scope.choice == undefined) {
+            $scope.clearControlsEmployee();
+            $scope.datareturneds = null;
+         
+
+        }
+        else if ($scope.choice == "2") {
+            $scope.clearControlsCustomers();
+            $scope.datareturneds = null;
+        }
+    }
+    $scope.EmployeeSearchData = {
+        FirstName: '',
+        LastName: '',
+        phone: ''
+    };
+
+    $scope.CustomerSearchData = {
+        state: '',
+        city: '',
+        street: '',
+        buldingNumber: '',
+        customerNumber: '',
+        contactName: '',
+        companyName: '',
+        phone1: ''
+    };
+    //$scope.GetEmployeeData = function () {
+    //    ContactService.GetEmployeeData($scope.)
+
+    //}
+
+
+
+    $scope.search = function () {
+        if ($scope.choice == "" || $scope.choice == undefined) {
+            debugger;
+            ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
+                if (d.data.length > 0) {
+                    $scope.gridOptions = d.data;
+                }
+                else {
+                    alert('No Records Founded');
+                }
+            }, function (error) {
+                alert('Error !');
+            });
+        }
+        else if ($scope.choice == "2") {
+            debugger;
+            ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
+                if (d.data.length > 0) {
+                    $scope.gridCustOptions = d.data;
+                }
+                else {
+                    alert('No Records Founded');
+                }
+            }, function (error) {
+                alert('Error !');
+            });
+        }
+    }
+    //ContactService.
 })
 
 
@@ -182,5 +284,66 @@ module.service('ContactService', function ($http) {
         //    headers: { 'content-type': 'application/json' }
         //});
     };
+    //Tree Tab control
+    contacts.GetEmployeeData = function (d) {
+        debugger;
+        return $http({
+            url: '/Admin/GetEmployee',
+            method: 'POST',
+            //data: JSON.stringify(main),
+            data: d,
+            headers: { 'content-type': 'application/json' }
+        });
+        //$http({
+        //    url: '/Data/SaveSecondary',
+        //    method: 'POST',
+        //    data: JSON.stringify(Secondarys),
+        //    headers: { 'content-type': 'application/json' }
+        //});
+    };
+    contacts.GetCustomersData = function (d) {
+        debugger;
+        return $http({
+            url: '/Admin/GetCustomers',
+            method: 'POST',
+            //data: JSON.stringify(main),
+            data: d,
+            headers: { 'content-type': 'application/json' }
+        });
+        //$http({
+        //    url: '/Data/SaveSecondary',
+        //    method: 'POST',
+        //    data: JSON.stringify(Secondarys),
+        //    headers: { 'content-type': 'application/json' }
+        //});
+    };
+
+    //Emp.GetEmployees = function (d) {
+    //    return $http({
+    //        url: '/Admin/GetEmployees',
+    //        method: 'POST',
+    //        data: d,
+    //        headers: { 'content-type': 'application/json' }
+    //    });
+    //};
     return contacts;
+});
+
+
+module.directive('draggable', function () {
+    return {
+        // A = attribute, E = Element, C = Class and M = HTML Comment
+        restrict: 'A',
+        //The link function is responsible for registering DOM listeners as well as updating the DOM.
+        link: function (scope, element, attrs) {
+            element.draggable({
+                revert: true,
+                helper: "clone",
+                start: function (event, ui) {
+                    c.tr = this;
+                    c.helper = ui.helper;
+                }
+            });
+        }
+    };
 });

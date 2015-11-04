@@ -103,5 +103,6 @@ namespace ISEEDataModel.Repository
         public DbSet<TestCalendar_old> TestCalendar_old { get; set; }
         public DbSet<TreeLocation> TreeLocations { get; set; }
         public DbSet<UserLogEntry> UserLogEntries { get; set; }
+        public DbSet<TreeView> TreeViews { get; set; }
     }
 }

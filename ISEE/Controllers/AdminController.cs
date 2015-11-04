@@ -15,11 +15,11 @@ namespace ISEE.Controllers
         {
             return View();
         }
-
+        ISEEEntities dataCntext = new ISEEEntities();
         public ActionResult Admin()
         {
-            if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
-                return RedirectToAction("login", "login");
+            //if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
+            //    return RedirectToAction("login", "login");
             return View();
         }
         public ActionResult _NewEmployee()
@@ -35,6 +35,58 @@ namespace ISEE.Controllers
         {
             return View();
         }
+
+
+        public JsonResult GetEmployee(string firstname, string lastname, string phone)
+        {
+            firstname = string.IsNullOrEmpty(firstname) ? null : firstname;
+            lastname = string.IsNullOrEmpty(lastname) ? null : lastname;
+            phone = string.IsNullOrEmpty(phone) ? null : phone;
+
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                bool _Active = true;
+                var empData = dataCntext.Employees.Where(x => x.Factory == factoryId
+                                                         && x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
+                                                         && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))
+                                                         && x.EmployeeNum.Contains(phone == null ? x.EmployeeNum : phone)
+                                                         && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum).Select(x => new { FirstName = x.FirstName, LastName = x.LastName, MainPhone = x.MainPhone, id = x.EmployeeId, x.MainAreaPhone }).ToList();
+                return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetCustomers(int state, int city, int street, string buldingNumber, string customerNumber, string contactName, string companyName, string phone1)
+        //           , int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone)
+        {
+            //firstname = string.IsNullOrEmpty(firstname) ? null : firstname;
+            //lastname = string.IsNullOrEmpty(lastname) ? null : lastname;
+            //phone = string.IsNullOrEmpty(phone) ? null : phone;
+
+            using (ISEEEntities context = new ISEEEntities())
+            {
+
+                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                bool _Active = true;
+
+                var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == factoryId &&
+                    //  (_state != 0 ? x.Building.StateCode == _state : x.Building.StateCode == null) &&
+                                                                                                            x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
+                                                                                                            x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
+                                                                                                            x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
+                                                                                                            x.Building.Number.Contains(buldingNumber == null ? x.Building.Number : buldingNumber) &&
+                                                                                                            x.CustomerNumber.CompareTo(customerNumber == null ? x.CustomerNumber : customerNumber) == 0 &&
+                                                                                                            x.FirstName.Contains(contactName == null ? x.FirstName : contactName) &&
+                    // (x.LastName == null || x.LastName.Contains(_LN == null ? x.LastName : _LN)) &&
+                    // (x.AreaPhone1 == null || x.AreaPhone1.Contains(_area == null ? x.AreaPhone1 : _area)) &&
+                                                                                                            (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
+                                                                                                            (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).Select(c => new { c.FirstName,c.CustomerId,c.LastName,c.AreaPhone1,c.Phone1}).ToList();
+                return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+
+
+
         public ActionResult _Category()
         {
             return View();
@@ -128,7 +180,7 @@ namespace ISEE.Controllers
         }
 
         #region Category Tab
-         #region Category Level
+        #region Category Level
 
 
         public JsonResult getAll()
@@ -144,7 +196,7 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities dataContext = new ISEEEntities())
             {
-                var factoryLevel2list = dataContext.RequsetToFactoryLevel2.Where(d => d.RequestSysIdLevel1 == sysIdLevel1).Select(x => new { x.RequestDescCodeLevel2, x.RequsetOrder, x.RequestSysIdLevel1, x.RequestSysIdLevel2 ,x.StatusCode}).ToList();
+                var factoryLevel2list = dataContext.RequsetToFactoryLevel2.Where(d => d.RequestSysIdLevel1 == sysIdLevel1).Select(x => new { x.RequestDescCodeLevel2, x.RequsetOrder, x.RequestSysIdLevel1, x.RequestSysIdLevel2, x.StatusCode }).ToList();
                 return Json(factoryLevel2list, JsonRequestBehavior.AllowGet);
             }
         }
@@ -235,7 +287,24 @@ namespace ISEE.Controllers
         #endregion
 
         #endregion
+        #region Tree Tab
+        //  public List<Employee> GetEmployees(Guid factoryGuid,string _LN, string _FN,  string _Num, int _Manuf, int _Phonetype,bool _Active)
+        //{
 
+
+        //       // int factory = (int)HttpContext.Current.Session["FactoryId"];
+        //    int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+        //        var abc= dataCntext.Employees.Where(x => x.Factory == factoryId
+        //                                                          && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
+        //                                                          && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
+        //                                                          && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
+        //                                                          && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
+        //                                                          && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
+        //                                                          && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum).ToList();
+
+
+        //}
+        #endregion
 
     }
 }

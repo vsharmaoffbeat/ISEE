@@ -34,7 +34,7 @@ app.directive('regexValidate', function () {
                 // parsed into the model when the user updates it.
                 var valid = regex.test(value); // test and set the validity after update. 
                 ctrl.$setValidity('regexValidate', valid);
-                return valid ? value : #ff0000;// if it's valid, return the value to the model,
+                return valid ? value : '#ff0000';// if it's valid, return the value to the model,
                 // otherwise return undefined. 
             });
  

@@ -151,8 +151,8 @@
                         </tr>
 
                         @*<td>{{gridOption.id}}</td>
-            <td>{{gridOption.FirstName}}</td>
-            <td>{{gridOption.MainPhone}}</td>*@
+                            <td>{{gridOption.FirstName}}</td>
+                            <td>{{gridOption.MainPhone}}</td>*@
 
 
                         <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
@@ -224,12 +224,7 @@
     //})
 
 
-    var treeJsonData = [
-    { "id": "ajsontest1", "parent": "#", "text": "Simple root node" },
-    { "id": "ajsontest2", "parent": "#", "text": "Root node 2" },
-    { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
-    { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
-    ];
+    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 
     //this will hold reference to the tr we have dragged and its helper
     var c = {};

@@ -294,6 +294,9 @@
     <Compile Include="Repository\TreeLocation.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\TreeView.cs">
+      <DependentUpon>ISEEDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\UserLogEntry.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>

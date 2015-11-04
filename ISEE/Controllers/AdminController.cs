@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+
 
 namespace ISEE.Controllers
 {
@@ -33,7 +35,14 @@ namespace ISEE.Controllers
 
         public ActionResult _AdminTree()
         {
-            return View();
+            List<ISEE.Models.jstreenode> treeList = new List<ISEE.Models.jstreenode>();
+            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest1", text = "Sample Test Node" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest2", text = "Root Node" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest3", parent = "ajsontest2", text = "Child Node 1" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest4", parent = "ajsontest2", text = "Child Node 2" });
+            var serializer = new JavaScriptSerializer();
+            ViewBag.JsonData = serializer.Serialize(treeList);
+            return PartialView();
         }
 
 
@@ -79,7 +88,7 @@ namespace ISEE.Controllers
                     // (x.LastName == null || x.LastName.Contains(_LN == null ? x.LastName : _LN)) &&
                     // (x.AreaPhone1 == null || x.AreaPhone1.Contains(_area == null ? x.AreaPhone1 : _area)) &&
                                                                                                             (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-                                                                                                            (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).Select(c => new { c.FirstName,c.CustomerId,c.LastName,c.AreaPhone1,c.Phone1}).ToList();
+                                                                                                            (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).Select(c => new { c.FirstName, c.CustomerId, c.LastName, c.AreaPhone1, c.Phone1 }).ToList();
                 return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }

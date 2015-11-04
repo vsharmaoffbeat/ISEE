@@ -47,9 +47,9 @@
 
                     <button type="reset" class="btn btn-default pull-left login_btn reset_cancel">@ISEE.Resources.Resource.Cancel</button>
                 </div>
-
+                <img src='/images/img/cl.png'/>
                 <div class="col-md-5 col-xs-5">
-                    <select name="language" class="form-control language_box" ng-model="CountryCode"
+                    @*<select name="language" class="form-control language_box" ng-model="CountryCode"
                             data-ng-options="s.LanguageNickname as s.LanguageNickname for s in CountryCodeList"
                             data-ng-change="SetSelectedCountry()">
                         <option value=" ">
@@ -60,6 +60,14 @@
                         <option value="french">French</option>
                         <option value="german">German</option>
                         <option value="other">Other</option>
+                    </select>*@
+                    <select name="language" class="" ng-model="CountryCode" ng-change="SetSelectedCountry()">
+                        <option data-content="<img src='/images/img/cl.png'>" value="de"></option>
+                        <option data-content="<img src='/images/img/de.png'>" value="de"></option>
+                        <option data-content="<img src='/images/img/es.png'>" value="en"></option>
+                        <option data-content="<img src='/images/img/mx.png'>" value="mx"></option>
+                        <option data-content="<img src='/images/img/ru.png'>" value="ru"></option>
+                        <option data-content="<img src='/images/img/us.png'>" value="es"></option>
                     </select>
                 </div>
 

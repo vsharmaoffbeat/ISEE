@@ -1,0 +1,1911 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ISEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AddressTypeTable">
+    <Key>
+      <PropertyRef Name="AddressTypeTable" />
+    </Key>
+    <Property Name="AddressTypeTable" Type="int" Nullable="false" />
+    <Property Name="Table" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AgentToFactory">
+    <Key>
+      <PropertyRef Name="AgentToFactoryPk" />
+    </Key>
+    <Property Name="AgentToFactoryPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="AgentFk" Type="int" Nullable="false" />
+    <Property Name="FactoryFk" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AgentUser">
+    <Key>
+      <PropertyRef Name="AgentUserPk" />
+    </Key>
+    <Property Name="AgentUserPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PasswordId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ActiveAgent" Type="int" Nullable="false" />
+    <Property Name="MainCountry" Type="int" />
+    <Property Name="MobileUserPrice" Type="float" Nullable="false" />
+    <Property Name="SmsProvider" Type="int" Nullable="false" />
+    <Property Name="SmsPrice" Type="float" Nullable="false" />
+    <Property Name="BrowserPrice" Type="float" Nullable="false" />
+    <Property Name="FactoryPrice" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Building">
+    <Key>
+      <PropertyRef Name="BuildingCode" />
+    </Key>
+    <Property Name="BuildingCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StateCode" Type="int" Nullable="false" />
+    <Property Name="CityCode" Type="int" Nullable="false" />
+    <Property Name="StreetCode" Type="int" Nullable="false" />
+    <Property Name="Entry" Type="nchar" MaxLength="10" />
+    <Property Name="Number" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ZipCode" Type="nchar" MaxLength="10" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+    <Property Name="BuildingComment" Type="varchar" MaxLength="100" />
+    <Property Name="GisAccuracy" Type="int" />
+    <Property Name="GisSource" Type="int" />
+    <Property Name="CountTransitions" Type="int" />
+    <Property Name="AvergeDistance" Type="float" />
+  </EntityType>
+  <EntityType Name="Calendar">
+    <Key>
+      <PropertyRef Name="CalendarID" />
+    </Key>
+    <Property Name="CalendarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="DiaryDayStatus" Type="int" Nullable="false" />
+    <Property Name="DayDesc" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CalendarStatusDay">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Daystatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityCode" />
+    </Key>
+    <Property Name="CityCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StateCode" Type="int" Nullable="false" />
+    <Property Name="CityDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CityDescEn" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CitySyn">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StateCode" Type="int" />
+    <Property Name="CityCode" Type="int" Nullable="false" />
+    <Property Name="SynDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientInsertLog">
+    <Key>
+      <PropertyRef Name="InsertSysId" />
+    </Key>
+    <Property Name="InsertSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="InsertTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="PlatformType" Type="int" Nullable="false" />
+    <Property Name="BatteryLevel" Type="int" />
+    <Property Name="IsGpsEnabled" Type="int" />
+    <Property Name="GpsPointsDispatched" Type="int" />
+    <Property Name="SendCounter" Type="int" />
+  </EntityType>
+  <EntityType Name="ClientLoginLog">
+    <Key>
+      <PropertyRef Name="LoginSysId" />
+    </Key>
+    <Property Name="LoginSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="LoginTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="PlatformType" Type="int" Nullable="false" />
+    <Property Name="WasActiveBefore" Type="int" Nullable="false" />
+    <Property Name="BatteryLevel" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MobileClientVersion" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientLogoutLog">
+    <Key>
+      <PropertyRef Name="LogoutSysId" />
+    </Key>
+    <Property Name="LogoutSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="LogoutTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="PlatformType" Type="int" Nullable="false" />
+    <Property Name="BatteryLevel" Type="int" />
+    <Property Name="IsGpsEnabled" Type="int" />
+    <Property Name="GpsPointsDispatched" Type="int" />
+    <Property Name="SendCounter" Type="int" />
+  </EntityType>
+  <EntityType Name="ClientParamModes">
+    <Key>
+      <PropertyRef Name="Mode" />
+    </Key>
+    <Property Name="Mode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModeDesc" Type="nvarchar" MaxLength="50" />
+    <Property Name="DataSendInterval" Type="int" Nullable="false" />
+    <Property Name="SampleRate" Type="int" Nullable="false" />
+    <Property Name="GpsSigLossSleep" Type="int" Nullable="false" />
+    <Property Name="StandingGpsSleep" Type="int" Nullable="false" />
+    <Property Name="MinimalAccuracyReq" Type="int" Nullable="false" />
+    <Property Name="GpsLossTimeOutWithRecep" Type="int" Nullable="false" />
+    <Property Name="GpsLossTimeOutNoRecep" Type="int" Nullable="false" />
+    <Property Name="SamplesToDetermineStand" Type="int" Nullable="false" />
+    <Property Name="StandingAvgDistance" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientWatchdogKillLog">
+    <Key>
+      <PropertyRef Name="WatchdogKillSysId" />
+    </Key>
+    <Property Name="WatchdogKillSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="WatchdogKillTimeUtc" Type="datetime" Nullable="false" />
+    <Property Name="LastTransmissionGmt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryCode" />
+    </Key>
+    <Property Name="CountryCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="CountryDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CountryDescEn" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentGmt" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="BuildingCode" Type="int" Nullable="false" />
+    <Property Name="CustomerNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Floor" Type="nchar" MaxLength="10" />
+    <Property Name="Apartment" Type="nchar" MaxLength="10" />
+    <Property Name="AreaPhone1" Type="nvarchar" MaxLength="10" />
+    <Property Name="Phone1" Type="nchar" MaxLength="10" />
+    <Property Name="AreaPhone2" Type="nchar" MaxLength="10" />
+    <Property Name="Phone2" Type="nchar" MaxLength="10" />
+    <Property Name="AreaCelolar" Type="nchar" MaxLength="10" />
+    <Property Name="Celolar" Type="nchar" MaxLength="10" />
+    <Property Name="AreaFax" Type="nchar" MaxLength="10" />
+    <Property Name="Fax" Type="nchar" MaxLength="10" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerRemark1" Type="nvarchar" MaxLength="100" />
+    <Property Name="CustomerRemark2" Type="nvarchar" MaxLength="100" />
+    <Property Name="CustomerStatus" Type="int" />
+    <Property Name="VisitInterval" Type="int" />
+    <Property Name="NextVisit" Type="date" />
+    <Property Name="CustomerKey" Type="uniqueidentifier" />
+    <Property Name="VisitDate" Type="int" />
+    <Property Name="VisitTime" Type="int" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="CustomerActive" Type="int" />
+    <Property Name="CustomerLinkDistance" Type="int" />
+    <Property Name="GisSource" Type="int" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+  </EntityType>
+  <EntityType Name="CustomerEmployeeContact">
+    <Key>
+      <PropertyRef Name="CustomerToEmployeeSysId" />
+    </Key>
+    <Property Name="CustomerToEmployeeSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="UpdateDate" Type="smalldatetime" />
+    <Property Name="CustomerToEmployeeStatus" Type="int" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="EmployeeGroupId" Type="int" />
+  </EntityType>
+  <EntityType Name="CustomerRequest">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="RequestSysIdLevel2" Type="int" Nullable="false" />
+    <Property Name="Request" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Treatment" Type="nvarchar" MaxLength="500" />
+    <Property Name="TreatmentDate" Type="date" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerToBuilding">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="BuildingCode" Type="int" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="Remark1" Type="nvarchar" MaxLength="100" />
+    <Property Name="Remark2" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DiaryDayStatus">
+    <Key>
+      <PropertyRef Name="DayStatus" />
+    </Key>
+    <Property Name="DayStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DayDesc" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SysCreatDate" Type="datetime" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="EmployeeNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartDay" Type="date" />
+    <Property Name="EndDay" Type="date" />
+    <Property Name="Status" Type="int" />
+    <Property Name="PhoneManufactory" Type="int" Nullable="false" />
+    <Property Name="PhoneType" Type="int" Nullable="false" />
+    <Property Name="LastSendApp" Type="datetime" />
+    <Property Name="MainAreaPhone" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MainPhone" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SecondAreaPhone" Type="nchar" MaxLength="10" />
+    <Property Name="SecondPhone" Type="nchar" MaxLength="10" />
+    <Property Name="EmployeeKey" Type="uniqueidentifier" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerLinkDistanceThreshold" Type="int" />
+    <Property Name="DefultClientParamMode" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeActive">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="LogInTime" Type="datetime" Nullable="false" />
+    <Property Name="LastTransmit" Type="datetime" Nullable="false" />
+    <Property Name="LastInsert" Type="datetime" />
+    <Property Name="LastProcess" Type="datetime" />
+    <Property Name="LastEmployeeGpsLog" Type="int" />
+    <Property Name="LastEmployeeGpsPoint" Type="int" />
+    <Property Name="LastTransmitInserts" Type="int" />
+    <Property Name="ClientParamMode" Type="int" Nullable="false" />
+    <Property Name="UpdateNextTransmit" Type="bit" Nullable="false" />
+    <Property Name="CurrentGmt" Type="float" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BatteryLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastSendCounter" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeClientParams-old">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DataSendInterval" Type="int" Nullable="false" />
+    <Property Name="SampleRate" Type="int" Nullable="false" />
+    <Property Name="GpsLossSleepTime" Type="int" Nullable="false" />
+    <Property Name="StandSleepTime" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeDiarySms">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeDiaryTemplate">
+    <Key>
+      <PropertyRef Name="EmployeeDiaryTempId" />
+    </Key>
+    <Property Name="EmployeeDiaryTempId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="DayStatus" Type="int" Nullable="false" />
+    <Property Name="Start1" Type="time" Precision="7" />
+    <Property Name="Stop1" Type="time" Precision="7" />
+    <Property Name="Start2" Type="time" Precision="7" />
+    <Property Name="Stop2" Type="time" Precision="7" />
+    <Property Name="OrderDay" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeDiaryTime">
+    <Key>
+      <PropertyRef Name="DiaryId" />
+    </Key>
+    <Property Name="DiaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="CreatDate" Type="datetime" Nullable="false" />
+    <Property Name="Day" Type="date" Nullable="false" />
+    <Property Name="CalendarID" Type="int" Nullable="false" />
+    <Property Name="Start1" Type="time" Precision="7" />
+    <Property Name="Stop1" Type="time" Precision="7" />
+    <Property Name="Start2" Type="time" Precision="7" />
+    <Property Name="Stop2" Type="time" Precision="7" />
+    <Property Name="Start3" Type="time" Precision="7" />
+    <Property Name="Stop3" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="EmployeeExtra">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DefultClientParamMode" Type="int" Nullable="false" />
+    <Property Name="UpdateUrl" Type="nvarchar(max)" />
+    <Property Name="LastLogin" Type="datetime" />
+    <Property Name="LastLoginPlatform" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeGpsLog">
+    <Key>
+      <PropertyRef Name="GpsSysId" />
+    </Key>
+    <Property Name="GpsSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="GpsDate" Type="date" Nullable="false" />
+    <Property Name="GpsTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+    <Property Name="Accuracy" Type="float" />
+    <Property Name="AvgDistance" Type="int" />
+    <Property Name="IsStanding" Type="int" />
+    <Property Name="Satellite" Type="int" />
+    <Property Name="ProcessStatus" Type="int" />
+    <Property Name="CreateUtc" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeGpsPoints">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="GpsDate" Type="date" Nullable="false" />
+    <Property Name="GpsTime" Type="time" Precision="7" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+    <Property Name="Speed" Type="int" />
+    <Property Name="Accuracy" Type="float" />
+    <Property Name="Heading" Type="int" />
+    <Property Name="PointStatus" Type="int" />
+    <Property Name="AverageOfCount" Type="int" />
+    <Property Name="StopStartTime" Type="datetime" />
+    <Property Name="StopUpdateTime" Type="datetime" />
+    <Property Name="StopTime" Type="time" Precision="7" />
+    <Property Name="ProcessStatus" Type="int" />
+    <Property Name="CreateUtc" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeGpsStatus-old">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="LastInsertTime" Type="datetime" />
+    <Property Name="Period" Type="int" />
+    <Property Name="GpsStatus" Type="int" />
+    <Property Name="Battery" Type="int" />
+    <Property Name="SampleRate" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeGroup">
+    <Key>
+      <PropertyRef Name="EmployeeGroupId" />
+    </Key>
+    <Property Name="EmployeeGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="GroupCode" Type="int" Nullable="false" />
+    <Property Name="GroupDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeSmsSend">
+    <Key>
+      <PropertyRef Name="SmsId" />
+    </Key>
+    <Property Name="SmsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SmsCreatDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="SmsMsg" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="SmsStatus" Type="int" />
+    <Property Name="SmsGroup" Type="int" />
+    <Property Name="SmsCount" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeToGroup">
+    <Key>
+      <PropertyRef Name="EmployeeToGroupId" />
+    </Key>
+    <Property Name="EmployeeToGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatDate" Type="date" Nullable="false" />
+    <Property Name="EmployeeGroupId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Factory">
+    <Key>
+      <PropertyRef Name="FactoryId" />
+    </Key>
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="FactoryCreateDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="FactoryDesc" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FactoryKey" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FactoryDairyTemplet">
+    <Key>
+      <PropertyRef Name="FactoryDairyTempletId" />
+    </Key>
+    <Property Name="FactoryDairyTempletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="DayStatus" Type="int" Nullable="false" />
+    <Property Name="Start1" Type="time" Precision="7" />
+    <Property Name="Stop1" Type="time" Precision="7" />
+    <Property Name="Start2" Type="time" Precision="7" />
+    <Property Name="Stop2" Type="time" Precision="7" />
+    <Property Name="OrderDay" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FactoryDistance">
+    <Key>
+      <PropertyRef Name="FactoryId" />
+    </Key>
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="CustomerLinkDistanceThreshold" Type="int" Nullable="false" />
+    <Property Name="RadiusSearch" Type="int" Nullable="false" />
+    <Property Name="TopEmployeeSearch" Type="int" Nullable="false" />
+    <Property Name="ZoomSearchLevel" Type="int" Nullable="false" />
+    <Property Name="CalendarShowRadius" Type="int" Nullable="false" />
+    <Property Name="CalenderShowZoomLevel" Type="int" Nullable="false" />
+    <Property Name="MapSearchModule" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FactoryLogo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LogoImage" Type="image" />
+    <Property Name="ArrImage" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="FactoryParm">
+    <Key>
+      <PropertyRef Name="FactoryId" />
+    </Key>
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="StopEmployeeTime" Type="int" />
+    <Property Name="Country" Type="int" Nullable="false" />
+    <Property Name="SplitTime" Type="bit" Nullable="false" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+    <Property Name="Zoom" Type="int" />
+    <Property Name="MapProvider" Type="int" />
+    <Property Name="SmsProvider" Type="int" />
+    <Property Name="PhoneAreaCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="VisitCompanyTime" Type="int" />
+    <Property Name="VisitCompanyTimeTolerance" Type="int" />
+    <Property Name="VisitCompanyTimeTolerancePercent" Type="int" />
+    <Property Name="CompanyLogo" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentGmt" Type="float" Nullable="false" />
+    <Property Name="CustomerLinkDistanceThreshold" Type="int" Nullable="false" />
+    <Property Name="RadiusSearch" Type="int" />
+    <Property Name="TopEmployeeShearch" Type="int" />
+    <Property Name="ZoomSearchLevel" Type="int" />
+    <Property Name="CalendarShowRadius" Type="int" />
+    <Property Name="CalenderShowZoomLevel" Type="int" />
+    <Property Name="MapSearchModoul" Type="int" />
+  </EntityType>
+  <EntityType Name="FactoryUsePay">
+    <Key>
+      <PropertyRef Name="SystemUseId" />
+    </Key>
+    <Property Name="SystemUseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="MainFactory" Type="int" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="AgentFk" Type="int" Nullable="false" />
+    <Property Name="MonthUse" Type="date" Nullable="false" />
+    <Property Name="MobileUserPrice" Type="float" Nullable="false" />
+    <Property Name="MobileRegisteredUsers" Type="int" Nullable="false" />
+    <Property Name="MobileActiveUsers" Type="int" Nullable="false" />
+    <Property Name="MobileTotalUserPay" Type="float" Nullable="false" />
+    <Property Name="SystemSmsSend" Type="int" Nullable="false" />
+    <Property Name="UsreSmsSend" Type="int" Nullable="false" />
+    <Property Name="TotalSmsUse" Type="int" Nullable="false" />
+    <Property Name="SmsInBank" Type="int" Nullable="false" />
+    <Property Name="SmsPrice" Type="float" Nullable="false" />
+    <Property Name="TotalSmsPay" Type="float" Nullable="false" />
+    <Property Name="BrowsersAllow" Type="int" Nullable="false" />
+    <Property Name="BrowserPrice" Type="float" Nullable="false" />
+    <Property Name="TotalBrowserPay" Type="float" Nullable="false" />
+    <Property Name="FactoryPrice" Type="float" Nullable="false" />
+    <Property Name="TotalPay" Type="float" Nullable="false" />
+    <Property Name="IsPay" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FactoryUsePrice">
+    <Key>
+      <PropertyRef Name="Factory" />
+    </Key>
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="UpdateDate" Type="date" Nullable="false" />
+    <Property Name="MobilePriceUpdateDate" Type="float" Nullable="false" />
+    <Property Name="AgentFk" Type="int" Nullable="false" />
+    <Property Name="MobilePrice" Type="float" Nullable="false" />
+    <Property Name="BrowserPriceUpdateDate" Type="date" Nullable="false" />
+    <Property Name="BrowserPrice" Type="float" Nullable="false" />
+    <Property Name="SmsPriceUpdateDate" Type="date" Nullable="false" />
+    <Property Name="SmsPrice" Type="float" Nullable="false" />
+    <Property Name="FactoryPriceUpdate" Type="int" Nullable="false" />
+    <Property Name="FactoryPrice" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GeocodeStringResponse">
+    <Key>
+      <PropertyRef Name="GeocodeStringResponsePk" />
+    </Key>
+    <Property Name="GeocodeStringResponsePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GeocodeTagResponse" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GeocodeToTable">
+    <Key>
+      <PropertyRef Name="GeocodeToTablePk" />
+    </Key>
+    <Property Name="GeocodeToTablePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="AddressTypeTable" Type="int" Nullable="false" />
+    <Property Name="GeocodeTagResponse" Type="int" Nullable="false" />
+    <Property Name="OrderGeocodeTagResponse" Type="int" Nullable="false" />
+    <Property Name="Insert" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GisSource">
+    <Key>
+      <PropertyRef Name="GisSourcePk" />
+    </Key>
+    <Property Name="GisSourcePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GisSourceDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GpsEmployeeCustomer">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="VisiteDate" Type="date" Nullable="false" />
+    <Property Name="VisitTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="GpsPointId" Type="int" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="InsertStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GpsInputLog-old">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" />
+    <Property Name="SysCreateDate" Type="datetime" />
+    <Property Name="NextGpsStatus" Type="int" />
+    <Property Name="NextPeriod" Type="int" />
+    <Property Name="Battery" Type="int" />
+    <Property Name="NextSampelRate" Type="int" />
+    <Property Name="InputParametrs" Type="varchar(max)" />
+    <Property Name="Error" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="GpsParametrs-old">
+    <Key>
+      <PropertyRef Name="ParamId" />
+    </Key>
+    <Property Name="ParamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParamValue" Type="varchar" MaxLength="50" />
+    <Property Name="ParamDesc" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Holiday-old">
+    <Key>
+      <PropertyRef Name="HolidayIndx" />
+    </Key>
+    <Property Name="HolidayIndx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HoliadyDate" Type="date" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobManager">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" Nullable="false" />
+    <Property Name="Job" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="JobNumber" Type="int" />
+    <Property Name="StartTime" Type="datetime" />
+    <Property Name="StopTime" Type="datetime" />
+    <Property Name="NextTime" Type="datetime" />
+    <Property Name="InProgress" Type="int" />
+  </EntityType>
+  <EntityType Name="LanguageList">
+    <Key>
+      <PropertyRef Name="IdList" />
+    </Key>
+    <Property Name="IdList" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LanguageDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LanguageNickname" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="OneUpLanguage" Type="nvarchar" MaxLength="50" />
+    <Property Name="OneUpLanguageNicknae" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="MainStringTable">
+    <Key>
+      <PropertyRef Name="IdLanguage" />
+    </Key>
+    <Property Name="IdLanguage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DefaultLanguage" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HE" Type="nvarchar" MaxLength="50" />
+    <Property Name="RU" Type="nvarchar" MaxLength="50" />
+    <Property Name="ES" Type="nvarchar" MaxLength="50" />
+    <Property Name="DE" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MethodLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LogUtcTime" Type="datetime" Nullable="false" />
+    <Property Name="MethodName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InOut" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ThreadId" Type="int" />
+  </EntityType>
+  <EntityType Name="MoblieApplicationRequest">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="RandomValue" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneManufacturId" Type="int" />
+    <Property Name="PhoneTypeCode" Type="int" />
+    <Property Name="DownloadDate" Type="datetime" />
+    <Property Name="Version" Type="varchar" MaxLength="50" />
+    <Property Name="ApplicationId" Type="int" />
+    <Property Name="Ip" Type="varchar" MaxLength="50" />
+    <Property Name="Ip2" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PeriodicJobs">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" Nullable="false" />
+    <Property Name="JobName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastRunTime" Type="datetime" />
+    <Property Name="InProgress" Type="int" Nullable="false" />
+    <Property Name="IntervalSec" Type="int" Nullable="false" />
+    <Property Name="TimeoutIntervalSec" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PhoneManufacture">
+    <Key>
+      <PropertyRef Name="PhoneManufacturId" />
+    </Key>
+    <Property Name="PhoneManufacturId" Type="int" Nullable="false" />
+    <Property Name="PhoneManufacture" Type="nvarchar" MaxLength="50" />
+    <Property Name="SortingOrder" Type="int" />
+    <Property Name="RecordStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PhoneType">
+    <Key>
+      <PropertyRef Name="PhoneTypeCode" />
+      <PropertyRef Name="PhoneManufacturId" />
+    </Key>
+    <Property Name="PhoneTypeCode" Type="int" Nullable="false" />
+    <Property Name="PhoneManufacturId" Type="int" Nullable="false" />
+    <Property Name="PhoneTypeDesc" Type="nvarchar" MaxLength="50" />
+    <Property Name="SortingOrder" Type="int" />
+    <Property Name="RecordStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProesssParm">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" Nullable="false" />
+    <Property Name="TabalName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="FromTime" Type="datetime" />
+    <Property Name="Totime" Type="datetime" />
+    <Property Name="StartRecord" Type="int" />
+    <Property Name="StopRecord" Type="int" />
+  </EntityType>
+  <EntityType Name="RepoetStringLabel">
+    <Key>
+      <PropertyRef Name="RepoetStringLabelPk" />
+    </Key>
+    <Property Name="RepoetStringLabelPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainString" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HE" Type="nvarchar" MaxLength="50" />
+    <Property Name="RU" Type="nvarchar" MaxLength="50" />
+    <Property Name="ES" Type="nvarchar" MaxLength="50" />
+    <Property Name="DE" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReportCategory">
+    <Key>
+      <PropertyRef Name="ReportCategoryPk" />
+    </Key>
+    <Property Name="ReportCategoryPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HE" Type="nvarchar" MaxLength="50" />
+    <Property Name="RU" Type="nvarchar" MaxLength="50" />
+    <Property Name="ES" Type="nvarchar" MaxLength="50" />
+    <Property Name="DE" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReportLocalParmeter">
+    <Key>
+      <PropertyRef Name="ReportLocalParmeterPk" />
+    </Key>
+    <Property Name="ReportLocalParmeterPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportStringLabaleFk" Type="int" Nullable="false" />
+    <Property Name="ParameterValue1" Type="float" />
+    <Property Name="ParameterValue2" Type="float" />
+    <Property Name="ParameterValue3" Type="float" />
+    <Property Name="ParameterTime1" Type="time" Precision="7" />
+    <Property Name="ParameterTime2" Type="time" Precision="7" />
+    <Property Name="ParameterTime3" Type="time" Precision="7" />
+    <Property Name="ParameterData1" Type="datetime" />
+    <Property Name="ParameterData2" Type="datetime" />
+    <Property Name="ParameterData3" Type="datetime" />
+    <Property Name="ParameterString1" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParameterString2" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParameterString3" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParameterForeColor" Type="nvarchar" MaxLength="50" />
+    <Property Name="PartameterBackColor" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReportName">
+    <Key>
+      <PropertyRef Name="ReporNametPk" />
+    </Key>
+    <Property Name="ReporNametPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReportParmeterTypeFk" Type="int" Nullable="false" />
+    <Property Name="LeftRight" Type="int" Nullable="false" />
+    <Property Name="ReportCategoryFk" Type="int" Nullable="false" />
+    <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HE" Type="nvarchar" MaxLength="50" />
+    <Property Name="RU" Type="nvarchar" MaxLength="50" />
+    <Property Name="ES" Type="nvarchar" MaxLength="50" />
+    <Property Name="DE" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReportPanel">
+    <Key>
+      <PropertyRef Name="ReportPanelPk" />
+    </Key>
+    <Property Name="ReportPanelPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReporNametFk" Type="int" Nullable="false" />
+    <Property Name="ReportParamTypeFk" Type="int" Nullable="false" />
+    <Property Name="ColumnName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportPanelType">
+    <Key>
+      <PropertyRef Name="ReportPanelTypePk" />
+    </Key>
+    <Property Name="ReportPanelTypePk" Type="int" Nullable="false" />
+    <Property Name="ReportPanelFk" Type="int" Nullable="false" />
+    <Property Name="ReportPanelTypeDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequsetToFactoryLevel1">
+    <Key>
+      <PropertyRef Name="RequestSysIdLevel1" />
+    </Key>
+    <Property Name="RequestSysIdLevel1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="Factory" Type="int" Nullable="false" />
+    <Property Name="RequestIdLevel1" Type="int" Nullable="false" />
+    <Property Name="RequestDescCodeLevel1" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequsetOrder" Type="int" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequsetToFactoryLevel2">
+    <Key>
+      <PropertyRef Name="RequestSysIdLevel2" />
+    </Key>
+    <Property Name="RequestSysIdLevel2" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="RequestSysIdLevel1" Type="int" Nullable="false" />
+    <Property Name="RequestIdLevel2" Type="int" Nullable="false" />
+    <Property Name="RequestDescCodeLevel2" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequsetOrder" Type="int" />
+    <Property Name="StatusCode" Type="int" />
+  </EntityType>
+  <EntityType Name="StarLinkClients">
+    <Key>
+      <PropertyRef Name="StarLinkUnitID" />
+    </Key>
+    <Property Name="StarLinkUnitID" Type="bigint" Nullable="false" />
+    <Property Name="EmployeeID_FK" Type="int" Nullable="false" />
+    <Property Name="LastTransmission" Type="datetime" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateCode" />
+    </Key>
+    <Property Name="StateCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StateDesc" Type="nvarchar" MaxLength="100" />
+    <Property Name="StateDescEn" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Street">
+    <Key>
+      <PropertyRef Name="StreetCode" />
+    </Key>
+    <Property Name="StreetCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="StateCode" Type="int" Nullable="false" />
+    <Property Name="CityCode" Type="int" Nullable="false" />
+    <Property Name="CreatDate" Type="date" Nullable="false" />
+    <Property Name="StreetDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="StreetDescEn" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="StreetSyn-old">
+    <Key>
+      <PropertyRef Name="SysId" />
+    </Key>
+    <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="date" Nullable="false" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="CountryCode" Type="int" Nullable="false" />
+    <Property Name="StateCode" Type="int" />
+    <Property Name="CityCode" Type="int" Nullable="false" />
+    <Property Name="StreetCode" Type="int" Nullable="false" />
+    <Property Name="StreetDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="SystemSmsSend">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="int" Nullable="false" />
+    <Property Name="SmsType" Type="int" Nullable="false" />
+    <Property Name="SendTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TableTestItay-old">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lat" Type="float" />
+    <Property Name="Long" Type="float" />
+    <Property Name="Accuracy" Type="float" />
+    <Property Name="Heading" Type="int" />
+    <Property Name="GpsDate" Type="date" />
+    <Property Name="GpsTime" Type="time" Precision="0" />
+    <Property Name="Speed" Type="int" />
+  </EntityType>
+  <EntityType Name="TestCalendar-old">
+    <Key>
+      <PropertyRef Name="sysid" />
+    </Key>
+    <Property Name="sysid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Day" Type="date" Nullable="false" />
+    <Property Name="DayStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TreeLocation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name=" FactoryTreeLocation" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Factort" Type="int" Nullable="false" />
+    <Property Name="UpdateCounter" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'iSEE.dbo.TreeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TreeView">
+    <Key>
+      <PropertyRef Name="TreeID" />
+    </Key>
+    <Property Name="TreeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentID" Type="nvarchar" MaxLength="50" />
+    <Property Name="BranchID" Type="nvarchar" MaxLength="50" />
+    <Property Name="FactoryID" Type="int" />
+    <Property Name="Decription" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="CustomerID" Type="int" />
+  </EntityType>
+  <EntityType Name="UserLogEntry">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="FactoryId" Type="int" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserExiteTime" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Building_Street">
+    <End Role="Street" Type="Self.Street" Multiplicity="1" />
+    <End Role="Building" Type="Self.Building" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Street">
+        <PropertyRef Name="StreetCode" />
+      </Principal>
+      <Dependent Role="Building">
+        <PropertyRef Name="StreetCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calendar_CalendarStatusDay">
+    <End Role="CalendarStatusDay" Type="Self.CalendarStatusDay" Multiplicity="1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CalendarStatusDay">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="DiaryDayStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calendar_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="Country" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calendar_DiaryDayStatus">
+    <End Role="DiaryDayStatus" Type="Self.DiaryDayStatus" Multiplicity="1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiaryDayStatus">
+        <PropertyRef Name="DayStatus" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="DayDesc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_0">
+    <End Role="State" Type="Self.State" Multiplicity="1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateCode" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CitySyn_City">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="CitySyn" Type="Self.CitySyn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityCode" />
+      </Principal>
+      <Dependent Role="CitySyn">
+        <PropertyRef Name="CityCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Building">
+    <End Role="Building" Type="Self.Building" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Building">
+        <PropertyRef Name="BuildingCode" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="BuildingCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="Factory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerEmployeeContact_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerEmployeeContact" Type="Self.CustomerEmployeeContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="CustomerEmployeeContact">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerEmployeeContact_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="CustomerEmployeeContact" Type="Self.CustomerEmployeeContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="CustomerEmployeeContact">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerRequest_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerRequest" Type="Self.CustomerRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="CustomerRequest">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerRequest_RequsetToFactoryLevel2">
+    <End Role="RequsetToFactoryLevel2" Type="Self.RequsetToFactoryLevel2" Multiplicity="1" />
+    <End Role="CustomerRequest" Type="Self.CustomerRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequsetToFactoryLevel2">
+        <PropertyRef Name="RequestSysIdLevel2" />
+      </Principal>
+      <Dependent Role="CustomerRequest">
+        <PropertyRef Name="RequestSysIdLevel2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerToBuilding_Building">
+    <End Role="Building" Type="Self.Building" Multiplicity="1" />
+    <End Role="CustomerToBuilding" Type="Self.CustomerToBuilding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Building">
+        <PropertyRef Name="BuildingCode" />
+      </Principal>
+      <Dependent Role="CustomerToBuilding">
+        <PropertyRef Name="BuildingCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerToBuilding_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="CustomerToBuilding" Type="Self.CustomerToBuilding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="CustomerToBuilding">
+        <PropertyRef Name="Factory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Factory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_PhoneType">
+    <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhoneType">
+        <PropertyRef Name="PhoneTypeCode" />
+        <PropertyRef Name="PhoneManufacturId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="PhoneType" />
+        <PropertyRef Name="PhoneManufactory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeDiaryTemplate_DiaryDayStatus">
+    <End Role="DiaryDayStatus" Type="Self.DiaryDayStatus" Multiplicity="1" />
+    <End Role="EmployeeDiaryTemplate" Type="Self.EmployeeDiaryTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DiaryDayStatus">
+        <PropertyRef Name="DayStatus" />
+      </Principal>
+      <Dependent Role="EmployeeDiaryTemplate">
+        <PropertyRef Name="DayStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeDiaryTemplate_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeDiaryTemplate" Type="Self.EmployeeDiaryTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeDiaryTemplate">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeDiaryTime_Calendar">
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="1" />
+    <End Role="EmployeeDiaryTime" Type="Self.EmployeeDiaryTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Calendar">
+        <PropertyRef Name="CalendarID" />
+      </Principal>
+      <Dependent Role="EmployeeDiaryTime">
+        <PropertyRef Name="CalendarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeDiaryTime_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeDiaryTime" Type="Self.EmployeeDiaryTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeDiaryTime">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGpsLog_Employee1">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeGpsLog" Type="Self.EmployeeGpsLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeGpsLog">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGpsPoints_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="EmployeeGpsPoints" Type="Self.EmployeeGpsPoints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeGpsPoints">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroup_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="EmployeeGroup">
+        <PropertyRef Name="FactoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeSmsSend_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeSmsSend" Type="Self.EmployeeSmsSend" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeSmsSend">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeToGroup_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeToGroup" Type="Self.EmployeeToGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="EmployeeToGroup">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeToGroup_EmployeeGroup">
+    <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="1" />
+    <End Role="EmployeeToGroup" Type="Self.EmployeeToGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeGroup">
+        <PropertyRef Name="EmployeeGroupId" />
+      </Principal>
+      <Dependent Role="EmployeeToGroup">
+        <PropertyRef Name="EmployeeGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FactoryParm_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="FactoryParm" Type="Self.FactoryParm" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="FactoryParm">
+        <PropertyRef Name="FactoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeocodeToTable_0">
+    <End Role="AddressTypeTable" Type="Self.AddressTypeTable" Multiplicity="1" />
+    <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddressTypeTable">
+        <PropertyRef Name="AddressTypeTable" />
+      </Principal>
+      <Dependent Role="GeocodeToTable">
+        <PropertyRef Name="AddressTypeTable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeocodeToTable_1">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="GeocodeToTable">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeocodeToTable_2">
+    <End Role="GeocodeStringResponse" Type="Self.GeocodeStringResponse" Multiplicity="1" />
+    <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeocodeStringResponse">
+        <PropertyRef Name="GeocodeStringResponsePk" />
+      </Principal>
+      <Dependent Role="GeocodeToTable">
+        <PropertyRef Name="GeocodeTagResponse" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GpsEmployeeCustomer_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="GpsEmployeeCustomer">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GpsEmployeeCustomer_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="GpsEmployeeCustomer">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GpsEmployeeCustomer_EmployeeGpsPoints">
+    <End Role="EmployeeGpsPoints" Type="Self.EmployeeGpsPoints" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeGpsPoints">
+        <PropertyRef Name="SysId" />
+      </Principal>
+      <Dependent Role="GpsEmployeeCustomer">
+        <PropertyRef Name="GpsPointId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Holiday_CalendarStatusDay">
+    <End Role="CalendarStatusDay" Type="Self.CalendarStatusDay" Multiplicity="1" />
+    <End Role="Holiday-old" Type="Self.Holiday-old" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CalendarStatusDay">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="Holiday-old">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Holiday_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Holiday-old" Type="Self.Holiday-old" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="Holiday-old">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MoblieApplicationRequest_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="MoblieApplicationRequest" Type="Self.MoblieApplicationRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeId" />
+      </Principal>
+      <Dependent Role="MoblieApplicationRequest">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhoneType_PhoneManufacture">
+    <End Role="PhoneManufacture" Type="Self.PhoneManufacture" Multiplicity="1" />
+    <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhoneManufacture">
+        <PropertyRef Name="PhoneManufacturId" />
+      </Principal>
+      <Dependent Role="PhoneType">
+        <PropertyRef Name="PhoneManufacturId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportLocalParmeter_0">
+    <End Role="RepoetStringLabel" Type="Self.RepoetStringLabel" Multiplicity="1" />
+    <End Role="ReportLocalParmeter" Type="Self.ReportLocalParmeter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RepoetStringLabel">
+        <PropertyRef Name="RepoetStringLabelPk" />
+      </Principal>
+      <Dependent Role="ReportLocalParmeter">
+        <PropertyRef Name="ReportStringLabaleFk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportName_0">
+    <End Role="ReportCategory" Type="Self.ReportCategory" Multiplicity="1" />
+    <End Role="ReportName" Type="Self.ReportName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportCategory">
+        <PropertyRef Name="ReportCategoryPk" />
+      </Principal>
+      <Dependent Role="ReportName">
+        <PropertyRef Name="ReportCategoryFk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportPanel_0">
+    <End Role="ReportName" Type="Self.ReportName" Multiplicity="1" />
+    <End Role="ReportPanel" Type="Self.ReportPanel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportName">
+        <PropertyRef Name="ReporNametPk" />
+      </Principal>
+      <Dependent Role="ReportPanel">
+        <PropertyRef Name="ReporNametFk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReportPanel_1">
+    <End Role="ReportPanelType" Type="Self.ReportPanelType" Multiplicity="1" />
+    <End Role="ReportPanel" Type="Self.ReportPanel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportPanelType">
+        <PropertyRef Name="ReportPanelTypePk" />
+      </Principal>
+      <Dependent Role="ReportPanel">
+        <PropertyRef Name="ReportParamTypeFk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequsetToFactoryLevel1_Factory">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="RequsetToFactoryLevel1" Type="Self.RequsetToFactoryLevel1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryId" />
+      </Principal>
+      <Dependent Role="RequsetToFactoryLevel1">
+        <PropertyRef Name="Factory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1">
+    <End Role="RequsetToFactoryLevel1" Type="Self.RequsetToFactoryLevel1" Multiplicity="1" />
+    <End Role="RequsetToFactoryLevel2" Type="Self.RequsetToFactoryLevel2" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequsetToFactoryLevel1">
+        <PropertyRef Name="RequestSysIdLevel1" />
+      </Principal>
+      <Dependent Role="RequsetToFactoryLevel2">
+        <PropertyRef Name="RequestSysIdLevel1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_State_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="State" Type="Self.State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Street_City">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Street" Type="Self.Street" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityCode" />
+      </Principal>
+      <Dependent Role="Street">
+        <PropertyRef Name="CityCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StreetSyn_Street">
+    <End Role="Street" Type="Self.Street" Multiplicity="1" />
+    <End Role="StreetSyn-old" Type="Self.StreetSyn-old" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Street">
+        <PropertyRef Name="StreetCode" />
+      </Principal>
+      <Dependent Role="StreetSyn-old">
+        <PropertyRef Name="StreetCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ISEEModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AddressTypeTable" EntityType="Self.AddressTypeTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AgentToFactory" EntityType="Self.AgentToFactory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AgentUser" EntityType="Self.AgentUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CalendarStatusDay" EntityType="Self.CalendarStatusDay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CitySyn" EntityType="Self.CitySyn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientInsertLog" EntityType="Self.ClientInsertLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientLoginLog" EntityType="Self.ClientLoginLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientLogoutLog" EntityType="Self.ClientLogoutLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientParamModes" EntityType="Self.ClientParamModes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientWatchdogKillLog" EntityType="Self.ClientWatchdogKillLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerEmployeeContact" EntityType="Self.CustomerEmployeeContact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerRequest" EntityType="Self.CustomerRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerToBuilding" EntityType="Self.CustomerToBuilding" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiaryDayStatus" EntityType="Self.DiaryDayStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeActive" EntityType="Self.EmployeeActive" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeClientParams-old" EntityType="Self.EmployeeClientParams-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeDiarySms" EntityType="Self.EmployeeDiarySms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeDiaryTemplate" EntityType="Self.EmployeeDiaryTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeDiaryTime" EntityType="Self.EmployeeDiaryTime" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeExtra" EntityType="Self.EmployeeExtra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeGpsLog" EntityType="Self.EmployeeGpsLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeGpsPoints" EntityType="Self.EmployeeGpsPoints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeGpsStatus-old" EntityType="Self.EmployeeGpsStatus-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeGroup" EntityType="Self.EmployeeGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeSmsSend" EntityType="Self.EmployeeSmsSend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeToGroup" EntityType="Self.EmployeeToGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Factory" EntityType="Self.Factory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryDairyTemplet" EntityType="Self.FactoryDairyTemplet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryDistance" EntityType="Self.FactoryDistance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryLogo" EntityType="Self.FactoryLogo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryParm" EntityType="Self.FactoryParm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryUsePay" EntityType="Self.FactoryUsePay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactoryUsePrice" EntityType="Self.FactoryUsePrice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GeocodeStringResponse" EntityType="Self.GeocodeStringResponse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GeocodeToTable" EntityType="Self.GeocodeToTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GisSource" EntityType="Self.GisSource" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GpsEmployeeCustomer" EntityType="Self.GpsEmployeeCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GpsInputLog-old" EntityType="Self.GpsInputLog-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GpsParametrs-old" EntityType="Self.GpsParametrs-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Holiday-old" EntityType="Self.Holiday-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobManager" EntityType="Self.JobManager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LanguageList" EntityType="Self.LanguageList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainStringTable" EntityType="Self.MainStringTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MethodLog" EntityType="Self.MethodLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MoblieApplicationRequest" EntityType="Self.MoblieApplicationRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeriodicJobs" EntityType="Self.PeriodicJobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhoneManufacture" EntityType="Self.PhoneManufacture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhoneType" EntityType="Self.PhoneType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProesssParm" EntityType="Self.ProesssParm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepoetStringLabel" EntityType="Self.RepoetStringLabel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportCategory" EntityType="Self.ReportCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportLocalParmeter" EntityType="Self.ReportLocalParmeter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportName" EntityType="Self.ReportName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportPanel" EntityType="Self.ReportPanel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportPanelType" EntityType="Self.ReportPanelType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequsetToFactoryLevel1" EntityType="Self.RequsetToFactoryLevel1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequsetToFactoryLevel2" EntityType="Self.RequsetToFactoryLevel2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StarLinkClients" EntityType="Self.StarLinkClients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Street" EntityType="Self.Street" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StreetSyn-old" EntityType="Self.StreetSyn-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemSmsSend" EntityType="Self.SystemSmsSend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TableTestItay-old" EntityType="Self.TableTestItay-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TreeView" EntityType="Self.TreeView" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[TreeView].[TreeID] AS [TreeID], 
+[TreeView].[ParentID] AS [ParentID], 
+[TreeView].[BranchID] AS [BranchID], 
+[TreeView].[FactoryID] AS [FactoryID], 
+[TreeView].[Decription] AS [Decription], 
+[TreeView].[EmployeeID] AS [EmployeeID], 
+[TreeView].[CustomerID] AS [CustomerID]
+FROM [dbo].[TreeView] AS [TreeView]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Building_Street" Association="Self.FK_Building_Street">
+      <End Role="Street" EntitySet="Street" />
+      <End Role="Building" EntitySet="Building" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calendar_CalendarStatusDay" Association="Self.FK_Calendar_CalendarStatusDay">
+      <End Role="CalendarStatusDay" EntitySet="CalendarStatusDay" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calendar_Country" Association="Self.FK_Calendar_Country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calendar_DiaryDayStatus" Association="Self.FK_Calendar_DiaryDayStatus">
+      <End Role="DiaryDayStatus" EntitySet="DiaryDayStatus" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_0" Association="Self.FK_City_0">
+      <End Role="State" EntitySet="State" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CitySyn_City" Association="Self.FK_CitySyn_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="CitySyn" EntitySet="CitySyn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Building" Association="Self.FK_Customer_Building">
+      <End Role="Building" EntitySet="Building" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Factory" Association="Self.FK_Customer_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerEmployeeContact_Customer" Association="Self.FK_CustomerEmployeeContact_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerEmployeeContact" EntitySet="CustomerEmployeeContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerEmployeeContact_Employee" Association="Self.FK_CustomerEmployeeContact_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="CustomerEmployeeContact" EntitySet="CustomerEmployeeContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerRequest_Customer" Association="Self.FK_CustomerRequest_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerRequest" EntitySet="CustomerRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerRequest_RequsetToFactoryLevel2" Association="Self.FK_CustomerRequest_RequsetToFactoryLevel2">
+      <End Role="RequsetToFactoryLevel2" EntitySet="RequsetToFactoryLevel2" />
+      <End Role="CustomerRequest" EntitySet="CustomerRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerToBuilding_Building" Association="Self.FK_CustomerToBuilding_Building">
+      <End Role="Building" EntitySet="Building" />
+      <End Role="CustomerToBuilding" EntitySet="CustomerToBuilding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerToBuilding_Factory" Association="Self.FK_CustomerToBuilding_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="CustomerToBuilding" EntitySet="CustomerToBuilding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Factory" Association="Self.FK_Employee_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_PhoneType" Association="Self.FK_Employee_PhoneType">
+      <End Role="PhoneType" EntitySet="PhoneType" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeDiaryTemplate_DiaryDayStatus" Association="Self.FK_EmployeeDiaryTemplate_DiaryDayStatus">
+      <End Role="DiaryDayStatus" EntitySet="DiaryDayStatus" />
+      <End Role="EmployeeDiaryTemplate" EntitySet="EmployeeDiaryTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeDiaryTemplate_Employee" Association="Self.FK_EmployeeDiaryTemplate_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeDiaryTemplate" EntitySet="EmployeeDiaryTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeDiaryTime_Calendar" Association="Self.FK_EmployeeDiaryTime_Calendar">
+      <End Role="Calendar" EntitySet="Calendar" />
+      <End Role="EmployeeDiaryTime" EntitySet="EmployeeDiaryTime" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeDiaryTime_Employee" Association="Self.FK_EmployeeDiaryTime_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeDiaryTime" EntitySet="EmployeeDiaryTime" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGpsLog_Employee1" Association="Self.FK_EmployeeGpsLog_Employee1">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeGpsLog" EntitySet="EmployeeGpsLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGpsPoints_Employee" Association="Self.FK_EmployeeGpsPoints_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeGpsPoints" EntitySet="EmployeeGpsPoints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroup_Factory" Association="Self.FK_EmployeeGroup_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeSmsSend_Employee" Association="Self.FK_EmployeeSmsSend_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeSmsSend" EntitySet="EmployeeSmsSend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeToGroup_Employee" Association="Self.FK_EmployeeToGroup_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeToGroup" EntitySet="EmployeeToGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeToGroup_EmployeeGroup" Association="Self.FK_EmployeeToGroup_EmployeeGroup">
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+      <End Role="EmployeeToGroup" EntitySet="EmployeeToGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FactoryParm_Factory" Association="Self.FK_FactoryParm_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="FactoryParm" EntitySet="FactoryParm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeocodeToTable_0" Association="Self.FK_GeocodeToTable_0">
+      <End Role="AddressTypeTable" EntitySet="AddressTypeTable" />
+      <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeocodeToTable_1" Association="Self.FK_GeocodeToTable_1">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeocodeToTable_2" Association="Self.FK_GeocodeToTable_2">
+      <End Role="GeocodeStringResponse" EntitySet="GeocodeStringResponse" />
+      <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GpsEmployeeCustomer_Customer" Association="Self.FK_GpsEmployeeCustomer_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GpsEmployeeCustomer_Employee" Association="Self.FK_GpsEmployeeCustomer_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GpsEmployeeCustomer_EmployeeGpsPoints" Association="Self.FK_GpsEmployeeCustomer_EmployeeGpsPoints">
+      <End Role="EmployeeGpsPoints" EntitySet="EmployeeGpsPoints" />
+      <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Holiday_CalendarStatusDay" Association="Self.FK_Holiday_CalendarStatusDay">
+      <End Role="CalendarStatusDay" EntitySet="CalendarStatusDay" />
+      <End Role="Holiday-old" EntitySet="Holiday-old" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Holiday_Country" Association="Self.FK_Holiday_Country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Holiday-old" EntitySet="Holiday-old" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MoblieApplicationRequest_Employee" Association="Self.FK_MoblieApplicationRequest_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="MoblieApplicationRequest" EntitySet="MoblieApplicationRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhoneType_PhoneManufacture" Association="Self.FK_PhoneType_PhoneManufacture">
+      <End Role="PhoneManufacture" EntitySet="PhoneManufacture" />
+      <End Role="PhoneType" EntitySet="PhoneType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportLocalParmeter_0" Association="Self.FK_ReportLocalParmeter_0">
+      <End Role="RepoetStringLabel" EntitySet="RepoetStringLabel" />
+      <End Role="ReportLocalParmeter" EntitySet="ReportLocalParmeter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportName_0" Association="Self.FK_ReportName_0">
+      <End Role="ReportCategory" EntitySet="ReportCategory" />
+      <End Role="ReportName" EntitySet="ReportName" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportPanel_0" Association="Self.FK_ReportPanel_0">
+      <End Role="ReportName" EntitySet="ReportName" />
+      <End Role="ReportPanel" EntitySet="ReportPanel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportPanel_1" Association="Self.FK_ReportPanel_1">
+      <End Role="ReportPanelType" EntitySet="ReportPanelType" />
+      <End Role="ReportPanel" EntitySet="ReportPanel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequsetToFactoryLevel1_Factory" Association="Self.FK_RequsetToFactoryLevel1_Factory">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1" Association="Self.FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1">
+      <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
+      <End Role="RequsetToFactoryLevel2" EntitySet="RequsetToFactoryLevel2" />
+    </AssociationSet>
+    <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Street_City" Association="Self.FK_Street_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Street" EntitySet="Street" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StreetSyn_Street" Association="Self.FK_StreetSyn_Street">
+      <End Role="Street" EntitySet="Street" />
+      <End Role="StreetSyn-old" EntitySet="StreetSyn-old" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

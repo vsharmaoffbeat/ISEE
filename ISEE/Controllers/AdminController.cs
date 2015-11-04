@@ -1,4 +1,5 @@
-﻿using ISEEDataModel.Repository;
+﻿using ISEE.Common;
+using ISEEDataModel.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace ISEE.Controllers
 
         public ActionResult _AdminTree()
         {
+
             List<ISEE.Models.jstreenode> treeList = new List<ISEE.Models.jstreenode>();
             treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest1", text = "Sample Test Node" });
             treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest2", text = "Root Node" });
@@ -42,6 +44,7 @@ namespace ISEE.Controllers
             treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest4", parent = "ajsontest2", text = "Child Node 2" });
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(treeList);
+
             return PartialView();
         }
 
@@ -64,30 +67,26 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        public JsonResult GetCustomers(int state, int city, int street, string buldingNumber, string customerNumber, string contactName, string companyName, string phone1)
-        //           , int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone)
+        public JsonResult GetCustomers(string state, string city, string street, string buldingNumber, string customerNumber, string contactName, string companyName, string phone1)
         {
-            //firstname = string.IsNullOrEmpty(firstname) ? null : firstname;
-            //lastname = string.IsNullOrEmpty(lastname) ? null : lastname;
-            //phone = string.IsNullOrEmpty(phone) ? null : phone;
-
+            GetInteger(state);
             using (ISEEEntities context = new ISEEEntities())
             {
-
                 int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
                 bool _Active = true;
 
                 var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == factoryId &&
-                    //  (_state != 0 ? x.Building.StateCode == _state : x.Building.StateCode == null) &&
-                                                                                                            x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
-                                                                                                            x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
-                                                                                                            x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
+                     (GetInteger(state) != 0 ? x.Building.StateCode == GetInteger(state) : x.Building.StateCode == null) &&
+                                                                                                            x.Building.StateCode == (GetInteger(state) == 0 ? x.Building.StateCode : GetInteger(state)) &&
+                                                                                                            x.Building.CityCode == (GetInteger(city) == 0 ? x.Building.CityCode : GetInteger(city)) &&
+                                                                                                            x.Building.StreetCode == (GetInteger(street) == 0 ? x.Building.StreetCode : GetInteger(street)) &&
                                                                                                             x.Building.Number.Contains(buldingNumber == null ? x.Building.Number : buldingNumber) &&
                                                                                                             x.CustomerNumber.CompareTo(customerNumber == null ? x.CustomerNumber : customerNumber) == 0 &&
                                                                                                             x.FirstName.Contains(contactName == null ? x.FirstName : contactName) &&
                     // (x.LastName == null || x.LastName.Contains(_LN == null ? x.LastName : _LN)) &&
                     // (x.AreaPhone1 == null || x.AreaPhone1.Contains(_area == null ? x.AreaPhone1 : _area)) &&
                                                                                                             (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
+
                                                                                                             (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).Select(c => new { c.FirstName, c.CustomerId, c.LastName, c.AreaPhone1, c.Phone1 }).ToList();
                 return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
@@ -95,6 +94,15 @@ namespace ISEE.Controllers
 
 
 
+        public int GetInteger(string val)
+        {
+
+            int output;
+            int.TryParse(val, out output);
+            //if (isNaN(output))
+            //    return output;
+            return output;
+        }
 
         public ActionResult _Category()
         {
@@ -297,6 +305,19 @@ namespace ISEE.Controllers
 
         #endregion
         #region Tree Tab
+
+
+        public JsonResult SaveTreeViewData(string treeViewData)
+        {
+            var tree = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
+
+            //using (ISEEEntities context = new ISEEEntities())
+            //{
+            //    return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            //}
+            return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         //  public List<Employee> GetEmployees(Guid factoryGuid,string _LN, string _FN,  string _Num, int _Manuf, int _Phonetype,bool _Active)
         //{
 

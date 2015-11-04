@@ -212,3 +212,108 @@ function SaveCustomerForm() {
 }
 //End Customer section
 
+//Start Tree View Section
+
+var treeJsonData = [
+       { "id": "ajsonte", "parent": "#", "text": "Simple root node", "icon": "/images/Home.png" },
+      { "id": "ajsontest1", "parent": "ajsonte", "text": "Simple root node", "icon": "/images/Home.png" },
+  { "id": "ajsontest2", "parent": "ajsonte", "text": "Root node 2", "icon": "/images/Home.png" },
+  { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
+  { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
+];
+
+//this will hold reference to the tr we have dragged and its helper
+var c = {};
+
+$(document).ready(function () {
+    $("#jstree_demo_div").jstree({
+
+        'core': {
+            "check_callback": true,
+            'data': treeJsonData
+        },
+        "plugins": ["dnd"]
+    });
+
+    var notinprogress = true;
+    document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
+        //This will be the top-most DOM element under cursor
+        var target = e.target;
+        if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
+            notinprogress = false;
+            var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name") };
+            treeJsonData.push(newNode);
+            resfreshJSTree();
+            notinprogress = true;
+            c = {};
+        }
+    });
+
+});
+
+var draggedDivElement;
+
+
+
+$("#employeeGrid tr.tree-drop").draggable({
+    helper: "clone",
+    start: function (event, ui) {
+        c.tr = this;
+        c.helper = ui.helper;
+    }
+});
+
+var prevTarget = null;
+
+function resfreshJSTree() {
+    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
+    $('#jstree_demo_div').jstree(true).refresh();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function demo_create() {
+    debugger;
+    var ref = $('#jstree_demo_div').jstree(true),
+        sel = ref.get_selected();
+    if (!sel.length) { return false; }
+    sel = sel[0];
+    sel = ref.create_node(sel, { "type": "file" });
+    if (sel) {
+        ref.edit(sel);
+    }
+};
+function demo_rename() {
+    var ref = $('#jstree_demo_div').jstree(true),
+        sel = ref.get_selected();
+    if (!sel.length) { return false; }
+    sel = sel[0];
+    ref.edit(sel);
+};
+function demo_delete() {
+    var ref = $('#jstree_demo_div').jstree(true),
+        sel = ref.get_selected();
+    if (!sel.length) { return false; }
+    ref.delete_node(sel);
+};
+function saveTree() {
+    var treeViewData=JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
+    debugger;
+    $.ajax({
+        url: "/Admin/SaveTreeViewData", data: {treeViewData:treeViewData}, dataType: "json", success: function (result) {
+            debugger;
+            // Initialize(result);
+        }
+}
+//End Tree View Section

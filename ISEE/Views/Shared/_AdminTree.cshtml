@@ -28,7 +28,7 @@
         <div class="col-md-6 col-xs-12 tree_save_button">
             <button type="button" class="btn btn-default button_color"><i class="fa fa-search" ng-click="search()"></i></button>
             <button type="button" class="btn btn-default button_color"><i class="fa fa-pencil" ng-click="clear()"></i></button>
-            <button type="submit" class="btn btn-default button_color"><i class="fa fa-save"></i></button>
+            <button type="button" class="btn btn-default button_color"><i class="fa fa-save" onclick="saveTree()"></i></button>
         </div>
 
     </div>
@@ -226,6 +226,7 @@
 
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 
+
     //this will hold reference to the tr we have dragged and its helper
     var c = {};
 
@@ -274,19 +275,6 @@
         $('#jstree_demo_div').jstree(true).refresh();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     function demo_create() {
         debugger;
         var ref = $('#jstree_demo_div').jstree(true),
@@ -311,4 +299,7 @@
         if (!sel.length) { return false; }
         ref.delete_node(sel);
     };
+    function saveTree() {
+        debugger;
+    }
 </script>

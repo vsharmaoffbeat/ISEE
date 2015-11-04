@@ -200,12 +200,22 @@ namespace ISEE.Controllers
         #region Category Level
 
 
-        public JsonResult getAll()
+        public JsonResult getAll(string id)
         {
+
+            SessionManegment.SessionManagement.FactoryID = 1;
             using (ISEEEntities dataContext = new ISEEEntities())
             {
-                var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == 1).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
-                return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
+                if (string.IsNullOrEmpty(id))
+                {
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
+                    return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == GetInteger(id)).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
+                    return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 

@@ -7,11 +7,26 @@
 
             <div class="col-md-2 col-xs-12 pull-left">
                 <div class="form-group">
-                    <select class="form-control">
-                        <option>Active</option>
-                        <option>Non-Active</option>
-                        <option>Select All</option>
+
+                    <select name="language" class="form-control language_box" ng-model="DDLType.id"
+                            ng-options="s.id as s.name for s in DDLTypeList"
+                           ng-change="SetSelectedType()">
+                        @*<option value=" ">
+                                Language
+                            </option>
+                            <option value="arabic">Arabic</option>
+                            <option value="english">English</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="other">Other</option>*@
                     </select>
+
+
+                    @*<select class="form-control" id="categoryType">
+                            <option>Active</option>
+                            <option>Non-Active</option>
+                            <option>Select All</option>
+                        </select>*@
                 </div>
             </div>
 
@@ -78,7 +93,7 @@
                                 </td>
                                 <td class="tg-dx8v_category">
                                     <div class="form-group">
-                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-checked="contact.StatusCode" />
+                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0"  ng-checked="!contact.StatusCode" />
                                     </div>
                                 </td>
 

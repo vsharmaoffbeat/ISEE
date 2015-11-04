@@ -25,7 +25,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                 phone: ''
             };
 
-           
+
         }
         else {
 
@@ -43,7 +43,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             };
         }
         // Here i get always the same value
-        console.log("Selected goalType, text: " + value);//
+       // console.log("Selected goalType, text: " + value);//
     });
     $scope.selectType = function () {
         debugger;
@@ -58,22 +58,48 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     //}, function (error) {
     //    alert('Error !');
     //});
-    ContactService.getList().then(function (d) {
+
+    //Category Active DDl
+    //ContactService.DDLType().then(function (d) {
+     debugger;
+
+    data = [{ 'id': '0', 'name': 'Active' }, { 'id': '-1', 'name': 'InActive' }, { 'id': '', 'name': 'Select All' }]
+    $scope.DDLTypeList = data;
+    $scope.DDLType = $scope.DDLTypeList[0];
+    // });
+
+    $scope.SetSelectedType = function () {
+
+        debugger;
+        $scope.contacts = null;
+        ContactService.getList($scope.DDLType.id).then(function (d) {
+            debugger;
+            $scope.contacts = $.makeArray(d.data);
+            SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
+        }, function (error) {
+            alert('Error !');
+        });
+        //ContactService.SetSelectedDDLType($scope.DDLType).then(function (d) {
+        //    debugger;
+        //    window.location.reload();
+        //    //        $scope.CountryCodeList = d.data;
+        //});
+
+
+    }
+    //END
+
+
+
+
+    ContactService.getList($scope.DDLType.id).then(function (d) {
         debugger;
         $scope.contacts = $.makeArray(d.data);
         SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
     }, function (error) {
         alert('Error !');
     });
-    function guid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-              .toString(16)
-              .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-    }
+
     $scope.BindSecondary = function (contact) {
         $scope.SelectedSysIdLevel1 = contact.RequestSysIdLevel1;
         SysIdLevel1 = contact.RequestSysIdLevel1;
@@ -131,30 +157,34 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         //dong some background ajax calling for persistence...
     };
     $scope.saveContact = function () {
-        var newcontact = $scope.newcontact;
-        newcontact.RequestSysIdLevel1 = SysIdLevel1max;
-        SysIdLevel1max = SysIdLevel1max + 1;
-        $scope.SelectedSysIdLevel1 = newcontact.RequestSysIdLevel1;
-        // Save in context class
-        //ContactService.SaveMainINContext($scope.newcontact).then(function (d) {
-        //    $scope.msg = $.makeArray(d.data);
-        //})
-        $scope.contacts.push($scope.newcontact);
-        $scope.newcontact = {};
-        $scope.Secondarys = [];
+        if ($scope.newcontact != undefined) {
+            var newcontact = $scope.newcontact;
+            newcontact.RequestSysIdLevel1 = SysIdLevel1max;
+            SysIdLevel1max = SysIdLevel1max + 1;
+            $scope.SelectedSysIdLevel1 = newcontact.RequestSysIdLevel1;
+            // Save in context class
+            //ContactService.SaveMainINContext($scope.newcontact).then(function (d) {
+            //    $scope.msg = $.makeArray(d.data);
+            //})
+            $scope.contacts.push($scope.newcontact);
+            $scope.newcontact = {};
+            $scope.Secondarys = [];
+        }
     }
     $scope.saveSecondary = function () {
-        var newSecondary = $scope.newSecondary;
-        newSecondary.RequestSysIdLevel1 = $scope.SelectedSysIdLevel1;
-        newSecondary.RequestSysIdLevel2 = 0;
-        if ($scope.Secondarys.length == 0) {
+        if ($scope.newSecondary != undefined) {
+            var newSecondary = $scope.newSecondary;
+            newSecondary.RequestSysIdLevel1 = $scope.SelectedSysIdLevel1;
+            newSecondary.RequestSysIdLevel2 = 0;
+            if ($scope.Secondarys.length == 0) {
 
-            OverallSecondarys.push($.makeArray($scope.newSecondary));
+                OverallSecondarys.push($.makeArray($scope.newSecondary));
+            }
+            //  OverallSecondarys.push($scope.newSecondary);
+            $scope.Secondarys.push($scope.newSecondary);
+            //$scope.Secondarys.push($scope.newSecondary);
+            $scope.newSecondary = {};
         }
-        //  OverallSecondarys.push($scope.newSecondary);
-        $scope.Secondarys.push($scope.newSecondary);
-        //$scope.Secondarys.push($scope.newSecondary);
-        $scope.newSecondary = {};
     }
     // code  for Secondary cases
     $scope.OverallSave = function () {
@@ -170,7 +200,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         if ($scope.choice == "" || $scope.choice == undefined) {
             $scope.clearControlsEmployee();
             $scope.datareturneds = null;
-         
+
 
         }
         else if ($scope.choice == "2") {
@@ -237,17 +267,19 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 module.service('ContactService', function ($http) {
     //to create unique contact id
     var contacts = {};
-    contacts.getList = function () {
+    contacts.getList = function (d) {
         debugger;
         return $http({
             url: '/Admin/getAll',
-            method: 'GET',
+            data: {id:d},
+            method: 'POST',
+            headers: { 'content-type': 'application/json' }
         });
     }
     contacts.getMaxValue = function () {
         debugger;
         return $http({
-            url: '/Admin/getMaxValue',
+            url: '/Admin/getMaxValue' + d,
             method: 'GET',
         });
     }
@@ -258,6 +290,7 @@ module.service('ContactService', function ($http) {
             url: '/Admin/GetSecondary',
             data: { SysIdLevel1: SysIdLevel1 },
             method: 'POST',
+
         });
     }
     //contacts.SaveMainINContext = function (NewContact) {

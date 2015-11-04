@@ -155,7 +155,7 @@
                             <td>{{gridOption.MainPhone}}</td>*@
 
 
-                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
+                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
 
 
                             <td class="tg-dx8v_category">
@@ -173,7 +173,7 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" class="tree-drop">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="tree-drop">
 
 
                             <td class="tg-dx8v_category">
@@ -238,35 +238,27 @@
                 'data': treeJsonData
             },
             "plugins": ["dnd"]
+
         });
 
-        var notinprogress = true;
-        document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
-            //This will be the top-most DOM element under cursor
-            var target = e.target;
-            if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
-                notinprogress = false;
-                var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name") };
-                treeJsonData.push(newNode);
-                resfreshJSTree();
-                notinprogress = true;
-                c = {};
-            }
-        });
+        //var notinprogress = true;
+        //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
+        //    //This will be the top-most DOM element under cursor
+        //    var target = e.target;
+        //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
+        //        notinprogress = false;
+        //        var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("oid"), "objecttype": c.helper.data("type") };
+        //        treeJsonData.push(newNode);
+        //        resfreshJSTree();
+        //        notinprogress = true;
+        //        c = {};
+        //    }
+        //});
 
     });
 
     var draggedDivElement;
 
-
-
-    $("#employeeGrid tr.tree-drop").draggable({
-        helper: "clone",
-        start: function (event, ui) {
-            c.tr = this;
-            c.helper = ui.helper;
-        }
-    });
 
     var prevTarget = null;
 

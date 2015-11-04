@@ -241,7 +241,8 @@ $(document).ready(function () {
         var target = e.target;
         if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
             notinprogress = false;
-            var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name") };
+            var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
+            
             treeJsonData.push(newNode);
             resfreshJSTree();
             notinprogress = true;

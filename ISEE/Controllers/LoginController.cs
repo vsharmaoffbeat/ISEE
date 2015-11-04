@@ -95,8 +95,9 @@ namespace ISEEREGION.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                var ret = context.LanguageLists.Select(d => d.LanguageNickname).Distinct().Select(c => new { LanguageNickname = c }).ToList();
-                return Json(ret, JsonRequestBehavior.AllowGet);
+                var ret = context.LanguageLists.Select(d => d.LanguageNickname).Distinct().ToList();
+                var result = ret.Select(c => new { LanguageNickname = c.Trim(), ImageUrl = HttpUtility.HtmlEncode(string.Format("<img src='/images/img/{0}.png' />", c.Trim().ToLower())) }).ToList();
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 

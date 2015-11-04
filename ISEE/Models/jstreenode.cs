@@ -11,7 +11,8 @@ namespace ISEE.Models
         public string parent { get; set; }
         public string text { get; set; }
         public string icon { get; set; }
-        public int employeeId { get; set; }
+        public string objectid { get; set; }
+        public string objecttype { get; set; }
         public jstreenode()
         {
             parent = "#";

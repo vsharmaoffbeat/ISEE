@@ -308,12 +308,13 @@ function demo_delete() {
     ref.delete_node(sel);
 };
 function saveTree() {
-    var treeViewData=JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
+    var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
     debugger;
     $.ajax({
-        url: "/Admin/SaveTreeViewData", data: {treeViewData:treeViewData}, dataType: "json", success: function (result) {
+        url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
             debugger;
             // Initialize(result);
         }
+    });
 }
 //End Tree View Section

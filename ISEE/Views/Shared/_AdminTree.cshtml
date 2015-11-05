@@ -12,8 +12,8 @@
 
 <form role="form" method="post" action="#" autocomplete="on">
     <div class="row first_tree_rightbar">
-
-        <div class="col-md-3 col-xs-12">
+             
+        <div class="col-md-3 col-xs-12">     
             <div class="form-group">
                 <label for="usr">Type Find Tree</label>
                 <select class="form-control tree_select_option" ng-model="choice">
@@ -243,13 +243,7 @@
     var c = {};
 
     $(document).ready(function () {
-
-       
-
-
-
         $("#jstree_demo_div").jstree({
-
             'core': {
                 "check_callback": true,
                 'data': treeJsonData
@@ -269,9 +263,7 @@
                         'valid_children': 'default'
                     }
                 }
-
             }
-
         });
 
         //var notinprogress = true;

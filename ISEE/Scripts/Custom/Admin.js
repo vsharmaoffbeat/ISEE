@@ -261,7 +261,7 @@ $(document).ready(function () {
 
             var newNode = { "id": target.parentElement.getAttribute("id") + c.helper.data("id"), "icon": c.helper.data("type"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
 
-            if (IsValid(newNode)) {
+            if (IsValid(newNode, e.target)) {
                 treeJsonData.push(newNode);
                 resfreshJSTree();
             }
@@ -270,11 +270,27 @@ $(document).ready(function () {
         }
     });
 
+
+   
 });
 
-
-function IsValid(selectedNode) {
+ function GetTreeNodeData(nodeid) {
+        var node;
+        $.each(treeJsonData, function () {
+            if (this.id === nodeid) {
+                node = this;
+                return false;
+            }
+        });
+        return node;
+    }
+function IsValid(selectedNode, targetElement) {
     var hasValid = true;
+    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
+
+    if (hoveredNodeData !=undefined && hoveredNodeData.objectid == selectedNode.objectid) {
+        hasValid = false;
+    }
 
     $.each(treeJsonData, function () {
         if (!hasValid)
@@ -320,14 +336,12 @@ function resfreshJSTree() {
 
 
 function demo_create() {
-
     var ref = $('#jstree_demo_div').jstree(true),
         sel = ref.get_selected();
     if (!sel.length) { return false; }
     sel = sel[0];
     sel = ref.create_node(sel, { "type": "file" });
     if (sel) {
-        ;
         treeJsonData.push(ref.get_node(sel));
         ref.edit(sel);
     }

@@ -128,13 +128,13 @@
     <Compile Include="Common\TreeNodeData.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\employeeHours.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,6 +224,7 @@
     <Content Include="Scripts\Custom\AdminController.js" />
     <Content Include="Scripts\Custom\angular-route.min.js" />
     <Content Include="Scripts\Custom\app.js" />
+    <Content Include="Scripts\Custom\Employee.js" />
     <Content Include="Scripts\Custom\EmployeeController.js" />
     <Content Include="Scripts\Custom\jstree.css" />
     <Content Include="Scripts\Custom\jsTree.directive.js" />
@@ -272,6 +273,7 @@
     <Content Include="Views\Shared\_AdminTree.cshtml" />
     <Content Include="Views\Shared\_NewCustomer.cshtml" />
     <Content Include="Views\Shared\_Category.cshtml" />
+    <Content Include="Views\Employee\Employee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Resource.de.resx">

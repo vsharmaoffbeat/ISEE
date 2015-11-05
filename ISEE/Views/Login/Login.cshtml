@@ -25,41 +25,30 @@
             <div class="form-group">
                 <label for="name" class="col-md-4 control-label">@ISEE.Resources.Resource.UserName</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="@ISEE.Resources.Resource.UserName" ng-model="LoginData.UserName" value="" required>
-                    <span style="color:red" ng-show="showValidation">*</span>
+                    <input type="text" class="form-control isee_login_input" id="name" name="name" placeholder="@ISEE.Resources.Resource.UserName" ng-model="LoginData.UserName" value="" required>
+                    <span style="color:red" class="error_msg" ng-show="showValidation">*</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="col-md-4 control-label">@ISEE.Resources.Resource.Password</label>
                 <div class="col-md-8">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="@ISEE.Resources.Resource.Password" ng-model="LoginData.Password">
-                    <span style="color:red" ng-show="showValidation">*</span>
+                    <input type="password" class="form-control isee_login_input" id="password" name="password" placeholder="@ISEE.Resources.Resource.Password" ng-model="LoginData.Password">
+                    <span style="color:red" class="error_msg" ng-show="showValidation">*</span>
                 </div>
             </div>
 
             <div class="form-group login_save_data">
 
-                <div class="col-md-7 col-xs-7">
-
-                    <button type="submit" class="btn btn-default pull-left login_btn" ng-click="LoginFirst()">@ISEE.Resources.Resource.OK</button>
-
-                    <button type="reset" class="btn btn-default pull-left login_btn reset_cancel">@ISEE.Resources.Resource.Cancel</button>
+                <div class="col-md-4 col-xs-4">
+                    <button type="submit" class="btn btn-default pull-left login_btn isee_button" ng-click="LoginFirst()">@ISEE.Resources.Resource.OK</button>
                 </div>
-                <img src='/images/img/cl.png' />
-                <div class="col-md-5 col-xs-5">
-                    @*<select  name="language" class="form-control language_box" ng-model="CountryCode"
-                                data-ng-change="SetSelectedCountry()">
-                            <option ng-repeat="item in CountryCodeList"  data-image="{{item.ImageUrl}}" value="{{item.LanguageNickname}}"></option>
-                            @*<option value=" ">
-                                    Language
-                                </option>
-                                <option value="arabic">Arabic</option>
-                                <option value="english">English</option>
-                                <option value="french">French</option>
-                                <option value="german">German</option>
-                                <option value="other">Other</option>
-                        </select>*@
 
+                <div class="col-md-4 col-xs-4">
+                    <button type="reset" class="btn btn-default pull-left login_btn isee_button">@ISEE.Resources.Resource.Cancel</button>
+                </div>
+
+
+                <div class="col-md-4 col-xs-4">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <img ng-src="{{selectedImageUrl}}" />
@@ -74,121 +63,21 @@
                             </li>
                         </ul>
                     </div>
-
-                    <select ng-model="choice"></select>
-
-
-                    @*<select name="language" class="" ng-model="CountryCode" ng-change="SetSelectedCountry()">
-                            <option data-content="<img src='/images/img/cl.png'>" value="de"></option>
-                            <option data-content="<img src='/images/img/de.png'>" value="de"></option>
-                            <option data-content="<img src='/images/img/es.png'>" value="en"></option>
-                            <option data-content="<img src='/images/img/mx.png'>" value="mx"></option>
-                            <option data-content="<img src='/images/img/ru.png'>" value="ru"></option>
-                            <option data-content="<img src='/images/img/us.png'>" value="es"></option>
-                        </select>*@
+                       @*<select name="language" class="form-control isee_button language_flag pull-right">
+                        <option value="arabic">USA</option>
+                        <option value="english">ISR</option>
+                        <option value="french">RUS</option>
+                        <option value="german">CHI</option>
+                        <option value="other">MEX</option>
+                        <option value="other">GER</option>
+                    </select>*@
                 </div>
 
             </div>
         </form>
 
-
     </div>
     <div class="col-md-4"></div>
-
 </div>
 
 
-
-
-
-
-@*<div class="container" ng-app="LoginDetails">
-
-        <div class="col-md-3"></div>
-
-        <div class="page" ng-controller="LoginCtrl">
-
-            <div class="col-md-6 main_login">
-                <label class="login_form_title">@ISEE.Resources.Resource.LogIn</label><label class="pull-right resionSEE_form_title">resionSEE</label>
-                <form class="form-horizontal" role="form" method="post"novalidate  name="login" ng-submit="Login(IsFormValid)">
-
-                    <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">@ISEE.Resources.Resource.UserName</label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="@ISEE.Resources.Resource.UserName" ng-model="LoginData.UserName" required  >
-                            <p ng-show="login.UserName.$error.required" style="color:red">*</p>
-                            <div class="form-group" ng-class="{ 'has-error': login.login.$touched && login.v.$invalid }"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">@ISEE.Resources.Resource.Password</label>
-                        <div class="col-md-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="@ISEE.Resources.Resource.Password" ng-model="LoginData.Password">
-                            <p ng-show="login.Password.$error.required" style="color:red">*</p>
-                            <div class="form-group" ng-class="{ 'has-error': login.password.$touched && login.v.$invalid }"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-8 col-md-offset-3 bottom_save_area">
-                            <input id="submit" name="submit" type="submit" value="@ISEE.Resources.Resource.Save" class="btn btn-primary isee_submit">
-
-                            <input id="submit" name="submit" type="submit" value="@ISEE.Resources.Resource.Cancel" class="btn btn-primary isee_cancel">
-                        </div>
-
-                        <div class="col-md-4  selectContainer">
-                            <select name="language" class="form-control language_box" ng-model="CountryCode"
-                                    data-ng-options="s.LanguageNickname as s.LanguageNickname for s in CountryCodeList"
-                                    data-ng-change="SetSelectedCountry()">
-                                <option value=" ">
-                                    Language
-                                </option>
-                                <option value="arabic">Arabic</option>
-                                <option value="english">English</option>
-                                <option value="french">French</option>
-                                <option value="german">German</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-3"></div>
-        <div ng-messages="login.UserName.$error">
-
-            <p ng-message="required">User name is required.</p>
-        </div>
-        <div class="help-block" ng-messages="login.UserName.$error" ng-if="login.UserName.$touched">
-
-            <p ng-message="required">User name is required.</p>
-        </div>
-    </div>*@
-
-
-
-
-
-
-
-
-
-
-
-
-@section customcss{
-
-    <style>
-    </style>
-
-}
-
-
-@section scripts
-    {
-
-
-}

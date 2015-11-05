@@ -29,7 +29,7 @@
 
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
-    debugger
+   
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",

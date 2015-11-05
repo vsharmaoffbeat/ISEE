@@ -27,27 +27,56 @@ namespace ISEE.Controllers
         }
         public ActionResult _NewEmployee()
         {
-            return View();
+            return PartialView();
         }
         public ActionResult _NewCustomer()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult _AdminTree()
         {
+            SessionManegment.SessionManagement.FactoryID = 1;
+            SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
+            List<TreeView> data = dataCntext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
 
-            List<ISEE.Models.jstreenode> treeList = new List<ISEE.Models.jstreenode>();
-            treeList.Add(new ISEE.Models.jstreenode() { id = "1", text = "Demo Company", icon = "" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
+            //List<Jstreenode> treeList = new List<Jstreenode>();
+            //treeList.Add(new Jstreenode() { id = "1", text = "Demo Company", icon = "" });
+            //treeList.Add(new Jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
+            //treeList.Add(new Jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
+            //treeList.Add(new Jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
             var serializer = new JavaScriptSerializer();
-            ViewBag.JsonData = serializer.Serialize(treeList);
+            ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
 
             return PartialView();
         }
+        public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
+        {
 
+            List<TreeNodeData> treeList = new List<TreeNodeData>();
+            treeList.Add(new TreeNodeData() { id = SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
+            foreach (var item in data)
+            {
+                if (item.EmployeeID != null)
+                {
+                var emp=dataCntext.Employees.Where(x=>x.EmployeeId==item.EmployeeID).FirstOrDefault();
+                treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+                }
+                else if (item.CustomerID != null)
+                {
+                    var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
+
+                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+                
+                }
+                else
+                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
+            }
+            //treeList.Add(new Jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
+            //treeList.Add(new Jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
+            //treeList.Add(new Jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
+            return treeList;
+        }
 
         public JsonResult GetEmployee(string firstname, string lastname, string phone)
         {

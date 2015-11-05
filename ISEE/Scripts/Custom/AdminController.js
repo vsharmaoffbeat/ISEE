@@ -46,7 +46,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
        // console.log("Selected goalType, text: " + value);//
     });
     $scope.selectType = function () {
-        debugger;
+        
 
 
     }
@@ -61,7 +61,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     //Category Active DDl
     //ContactService.DDLType().then(function (d) {
-     debugger;
+     
 
     data = [{ 'id': '0', 'name': 'Active' }, { 'id': '-1', 'name': 'InActive' }, { 'id': '', 'name': 'Select All' }]
     $scope.DDLTypeList = data;
@@ -70,17 +70,17 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.SetSelectedType = function () {
 
-        debugger;
+        
         $scope.contacts = null;
         ContactService.getList($scope.DDLType.id).then(function (d) {
-            debugger;
+            
             $scope.contacts = $.makeArray(d.data);
             SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
         }, function (error) {
             alert('Error !');
         });
         //ContactService.SetSelectedDDLType($scope.DDLType).then(function (d) {
-        //    debugger;
+        //    
         //    window.location.reload();
         //    //        $scope.CountryCodeList = d.data;
         //});
@@ -93,7 +93,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     ContactService.getList($scope.DDLType.id).then(function (d) {
-        debugger;
+        
         $scope.contacts = $.makeArray(d.data);
         SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
     }, function (error) {
@@ -107,7 +107,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         var isVAlExisting = false;
 
         $.each(OverallSecondarys, function (index, value) {
-            debugger;
+            
             var obj = value[0];
             var SyIDvalue = obj.RequestSysIdLevel1;
             if (SyIDvalue == SysIdLevel1) {
@@ -189,7 +189,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     // code  for Secondary cases
     $scope.OverallSave = function () {
         ContactService.OverallSave($scope.contacts, OverallSecondarys).then(function (d) {
-            debugger;
+            
             $scope.msg = "Save SuccessFully";
             //  $window.alert("Save SuccessFully");
         })
@@ -233,7 +233,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.search = function () {
         if ($scope.choice == "" || $scope.choice == undefined) {
-            debugger;
+            
             ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
                 if (d.data.length > 0) {
                     $scope.gridOptions = d.data;
@@ -246,7 +246,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             });
         }
         else if ($scope.choice == "2") {
-            debugger;
+            
             ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
                 if (d.data.length > 0) {
                     $scope.gridCustOptions = d.data;
@@ -268,7 +268,7 @@ module.service('ContactService', function ($http) {
     //to create unique contact id
     var contacts = {};
     contacts.getList = function (d) {
-        debugger;
+        
         return $http({
             url: '/Admin/getAll',
             data: {id:d},
@@ -277,7 +277,7 @@ module.service('ContactService', function ($http) {
         });
     }
     contacts.getMaxValue = function () {
-        debugger;
+        
         return $http({
             url: '/Admin/getMaxValue' + d,
             method: 'GET',
@@ -285,7 +285,7 @@ module.service('ContactService', function ($http) {
     }
     contacts.getSecondarylist = function (SysIdLevel1) {
         // var SysIdLevel1Val = { SysIdLevel1: SysIdLevel1 };
-        debugger;
+        
         return $http({
             url: '/Admin/GetSecondary',
             data: { SysIdLevel1: SysIdLevel1 },
@@ -302,7 +302,7 @@ module.service('ContactService', function ($http) {
     //    });
     //}
     contacts.OverallSave = function (main, Secondarys) {
-        debugger;
+        
         return $http({
             url: '/Admin/SaveCategory',
             method: 'POST',
@@ -319,7 +319,7 @@ module.service('ContactService', function ($http) {
     };
     //Tree Tab control
     contacts.GetEmployeeData = function (d) {
-        debugger;
+        
         return $http({
             url: '/Admin/GetEmployee',
             method: 'POST',
@@ -335,7 +335,7 @@ module.service('ContactService', function ($http) {
         //});
     };
     contacts.GetCustomersData = function (d) {
-        debugger;
+        
         return $http({
             url: '/Admin/GetCustomers',
             method: 'POST',

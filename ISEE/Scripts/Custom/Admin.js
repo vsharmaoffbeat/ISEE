@@ -1,6 +1,6 @@
 ﻿//Employee Section
 function SaveEmployeeData() {
-    debugger;
+    
 
     data = {
         number: $('#txtNumber').val(), mail: $('#txtmail').val(),
@@ -28,7 +28,7 @@ function SaveEmployeeData() {
 }
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
-    debugger
+   
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -150,7 +150,7 @@ function LoadMapByFactoryID() {
 }
 
 function Initialize(obj) {
-    debugger;
+    
     google.maps.visualRefresh = true;
     var Liverpool = new google.maps.LatLng(obj[0].Lat, obj[0].Long);
     var mapOptions = {
@@ -214,26 +214,42 @@ function SaveCustomerForm() {
 
 //Start Tree View Section
 
-var treeJsonData = [
-       { "id": "ajsonte", "parent": "#", "text": "Simple root node", "icon": "/images/Home.png" },
-      { "id": "ajsontest1", "parent": "ajsonte", "text": "Simple root node", "icon": "/images/Home.png" },
-  { "id": "ajsontest2", "parent": "ajsonte", "text": "Root node 2", "icon": "/images/Home.png" },
-  { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
-  { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
-];
+//var treeJsonData = [
+//       { "id": "ajsonte", "parent": "#", "text": "Simple root node", "icon": "/images/Home.png" },
+//      { "id": "ajsontest1", "parent": "ajsonte", "text": "Simple root node", "icon": "/images/Home.png" },
+//  { "id": "ajsontest2", "parent": "ajsonte", "text": "Root node 2", "icon": "/images/Home.png" },
+//  { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
+//  { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
+//];
 
 //this will hold reference to the tr we have dragged and its helper
 var c = {};
 
 $(document).ready(function () {
-    $("#jstree_demo_div").jstree({
+    //$("#jstree_demo_div").jstree({
 
-        'core': {
-            "check_callback": true,
-            'data': treeJsonData
-        },
-        "plugins": ["dnd"]
-    });
+    //    'core': {
+    //        "check_callback": true,
+    //        'data': treeJsonData
+    //    },
+    //    "plugins": ["dnd"],
+    //    'types': {
+    //    'types' : {
+    //        'file' : {
+    //            'icon' : {
+    //                'image' : ''
+    //            }
+    //        },
+    //        'default' : {
+    //            'icon' : {
+    //                'image' : ''
+    //            },
+    //            'valid_children' : 'default'
+    //        }
+    //    }
+
+    //}
+    //});
 
     var notinprogress = true;
     document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
@@ -242,7 +258,7 @@ $(document).ready(function () {
         if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
             notinprogress = false;
             var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
-            
+
             treeJsonData.push(newNode);
             resfreshJSTree();
             notinprogress = true;
@@ -285,13 +301,15 @@ function resfreshJSTree() {
 
 
 function demo_create() {
-    debugger;
+    
     var ref = $('#jstree_demo_div').jstree(true),
         sel = ref.get_selected();
     if (!sel.length) { return false; }
     sel = sel[0];
     sel = ref.create_node(sel, { "type": "file" });
     if (sel) {
+        ;
+        treeJsonData.push(ref.get_node(sel));
         ref.edit(sel);
     }
 };
@@ -309,11 +327,13 @@ function demo_delete() {
     ref.delete_node(sel);
 };
 function saveTree() {
-    var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
-    debugger;
+    //var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
+    var treeViewData = JSON.stringify(treeJsonData);
+    
     $.ajax({
+        type: "POST",
         url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-            debugger;
+            
             // Initialize(result);
         }
     });

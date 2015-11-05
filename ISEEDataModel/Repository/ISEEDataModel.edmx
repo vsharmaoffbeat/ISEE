@@ -985,8 +985,6 @@
           <Property Name="Factort" Type="int" Nullable="false" />
           <Property Name="UpdateCounter" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'iSEE.dbo.TreeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TreeView">
           <Key>
             <PropertyRef Name="TreeID" />
@@ -1700,18 +1698,8 @@ warning 6002: The table/view 'iSEE.dbo.TreeView' does not have a primary key def
           <EntitySet Name="TableTestItay-old" EntityType="Self.TableTestItay-old" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeView" EntityType="Self.TreeView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TreeView" EntityType="Self.TreeView" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[TreeView].[TreeID] AS [TreeID], 
-[TreeView].[ParentID] AS [ParentID], 
-[TreeView].[BranchID] AS [BranchID], 
-[TreeView].[FactoryID] AS [FactoryID], 
-[TreeView].[Decription] AS [Decription], 
-[TreeView].[EmployeeID] AS [EmployeeID], 
-[TreeView].[CustomerID] AS [CustomerID]
-FROM [dbo].[TreeView] AS [TreeView]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Building_Street" Association="Self.FK_Building_Street">
             <End Role="Street" EntitySet="Street" />
             <End Role="Building" EntitySet="Building" />

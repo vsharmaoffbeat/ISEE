@@ -18,11 +18,11 @@
      };
 
      $scope.SaveEmployee = function (emp) {
-         debugger;
+         
          $scope.Submitted = true;
          //if ($scope.IsFormValid) {
          employeeService.SaveEmployee($scope).then(function (d) {
-             debugger;
+             
              if (d.data > 0) {
                  //$scope.IsLoggedIn = true;
                  $scope.Message = "  Success";
@@ -39,7 +39,7 @@
  }).factory("employeeService", function ($http) {
      var fac = {};
      fac.SaveEmployee = function (d) {
-         debugger;
+         
          alert(d.data);
          return fac;
          //return $http({

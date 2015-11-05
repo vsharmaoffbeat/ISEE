@@ -10,7 +10,7 @@
 
                     <select name="language" class="form-control language_box" ng-model="DDLType.id"
                             ng-options="s.id as s.name for s in DDLTypeList"
-                           ng-change="SetSelectedType()">
+                            ng-change="SetSelectedType()">
                         @*<option value=" ">
                                 Language
                             </option>
@@ -93,7 +93,7 @@
                                 </td>
                                 <td class="tg-dx8v_category">
                                     <div class="form-group">
-                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0"  ng-checked="!contact.StatusCode" />
+                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-checked="!contact.StatusCode" />
                                     </div>
                                 </td>
 
@@ -178,3 +178,34 @@
     </div>
 
 </form>
+
+
+<script>
+    $(document).bind('keydown', function (event) {
+        var target = event.srcElement || event.target;
+        var tag = target.tagName.toUpperCase();
+        var type = target.type.toUpperCase();
+        if (tag === 'INPUT' && type === 'NUMBER' &&
+           (event.keyCode === 38 || event.keyCode === 40)) {
+            event.preventDefault();
+        }
+    });
+
+    $('form').on('focus', 'input[type=number]', function (e) {
+        $(this).on('mousewheel.disableScroll', function (e) {
+            e.preventDefault()
+        })
+    })
+    $('form').on('blur', 'input[type=number]', function (e) {
+        $(this).off('mousewheel.disableScroll')
+    })
+</script>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+

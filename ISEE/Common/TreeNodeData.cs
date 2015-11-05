@@ -46,4 +46,5 @@ namespace ISEE.Common
         public string type { get; set; }
         public string text { get; set; }
     }
+    
 }

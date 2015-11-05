@@ -134,7 +134,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\jstreenode.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +191,7 @@
     <Content Include="images\Home.png" />
     <Content Include="images\hover.png" />
     <Content Include="images\img\cl.png" />
+    <Content Include="images\img\customer.png" />
     <Content Include="images\img\de.png" />
     <Content Include="images\img\es.png" />
     <Content Include="images\img\login_background.png" />
@@ -199,6 +199,7 @@
     <Content Include="images\img\mx.png" />
     <Content Include="images\img\ru.png" />
     <Content Include="images\img\us.png" />
+    <Content Include="images\img\User.png" />
     <Content Include="images\login_background.png" />
     <Content Include="images\login_page.png" />
     <Content Include="images\logout.png" />

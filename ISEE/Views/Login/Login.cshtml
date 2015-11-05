@@ -47,18 +47,33 @@
                 </div>
                 <img src='/images/img/cl.png' />
                 <div class="col-md-5 col-xs-5">
-                    <select  name="language" class="form-control language_box" ng-model="CountryCode"
-                            data-ng-change="SetSelectedCountry()">
-                        <option ng-repeat="item in CountryCodeList"  data-image="{{item.ImageUrl}}" value="{{item.LanguageNickname}}"></option>
-                        @*<option value=" ">
-                                Language
-                            </option>
-                            <option value="arabic">Arabic</option>
-                            <option value="english">English</option>
-                            <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="other">Other</option>*@
-                    </select>
+                    @*<select  name="language" class="form-control language_box" ng-model="CountryCode"
+                                data-ng-change="SetSelectedCountry()">
+                            <option ng-repeat="item in CountryCodeList"  data-image="{{item.ImageUrl}}" value="{{item.LanguageNickname}}"></option>
+                            @*<option value=" ">
+                                    Language
+                                </option>
+                                <option value="arabic">Arabic</option>
+                                <option value="english">English</option>
+                                <option value="french">French</option>
+                                <option value="german">German</option>
+                                <option value="other">Other</option>
+                        </select>*@
+
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <img ng-src="{{selectedImageUrl}}" />
+                            <span class="caret">
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownLanguage">
+                            <li ng-repeat="item in CountryCodeList">
+                                <a ng-click="dropboxitemselected(item.LanguageNickname)">
+                                    <img ng-src="{{item.ImageUrl}}" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <select ng-model="choice"></select>
 

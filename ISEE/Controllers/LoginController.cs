@@ -96,8 +96,9 @@ namespace ISEEREGION.Controllers
             using (ISEEEntities context = new ISEEEntities())
             {
                 var ret = context.LanguageLists.Select(d => d.LanguageNickname).Distinct().ToList();
-                var result = ret.Select(c => new { LanguageNickname = c.Trim(), ImageUrl = HttpUtility.HtmlEncode(string.Format("<img src='/images/img/{0}.png' />", c.Trim().ToLower())) }).ToList();
-                return Json(result, JsonRequestBehavior.AllowGet);
+                var selectedImageUrl = string.Format("/images/img/{0}.png", ISEE.Common.SessionManegment.SessionManagement.Language.Trim().ToLower());
+                var result = ret.Select(c => new { LanguageNickname = c.Trim(), ImageUrl = string.Format("/images/img/{0}.png", c.Trim().ToLower()) }).ToList();
+                return Json(new { CountryList = result, SelectedCountry = ISEE.Common.SessionManegment.SessionManagement.Language, SelectedCountryImageUrl = selectedImageUrl }, JsonRequestBehavior.AllowGet);
             }
         }
 

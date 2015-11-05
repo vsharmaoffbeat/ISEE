@@ -21,7 +21,7 @@
         debugger
         if ($scope.LoginData.UserName == "" || $scope.LoginData.UserName == undefined || $scope.LoginData.Password == undefined || $scope.LoginData.Password == "") {
             $scope.showValidation = true;
-            
+
             return false;
         }
         else {
@@ -61,20 +61,21 @@
     $scope.CountryCode = null;
     $scope.CountryCodeList = null;
     LoginService.GetCountries().then(function (d) {
-        
-        $scope.CountryCodeList = d.data;
+        $scope.selectedCountryCode = d.data.SelectedCountry
+        $scope.selectedImageUrl = d.data.SelectedCountryImageUrl;
+        $scope.CountryCodeList = d.data.CountryList;
     });
 
-    $scope.SetSelectedCountry = function () {
-        LoginService.SetSelectedCountry($scope.CountryCode).then(function (d) {
-            
+    $scope.selectedCountryCode;
+    $scope.selectedImageUrl;
+    $scope.dropboxitemselected = function (countrycode,imageUrl) {
+
+        $scope.selectedCountryCode = countrycode;
+        $scope.selectedImageUrl = imageUrl;
+        LoginService.SetSelectedCountry(countrycode).then(function (d) {
             window.location.reload();
-            //        $scope.CountryCodeList = d.data;
         });
-
-
     }
-
 
     $scope.Login = function () {
 
@@ -94,7 +95,7 @@
     };
 
     fac.GetCountries = function (d) {
-        
+
         return $http({
             method: 'Get',
             url: '/Login/GetCountries'

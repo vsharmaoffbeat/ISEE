@@ -38,10 +38,10 @@ namespace ISEE.Controllers
         {
 
             List<ISEE.Models.jstreenode> treeList = new List<ISEE.Models.jstreenode>();
-            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest1", text = "Sample Test Node" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest2", text = "Root Node" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest3", parent = "ajsontest2", text = "Child Node 1" });
-            treeList.Add(new ISEE.Models.jstreenode() { id = "ajsontest4", parent = "ajsontest2", text = "Child Node 2" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "1", text = "Demo Company", icon = "" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
+            treeList.Add(new ISEE.Models.jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(treeList);
 
@@ -320,11 +320,36 @@ namespace ISEE.Controllers
         public JsonResult SaveTreeViewData(string treeViewData)
         {
             var tree = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
+            List<TreeView> treeData = dataCntext.TreeViews.Where(x => x.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
+            TreeView view = new TreeView();
+            foreach (var item in tree)
+            {
+                if (item.parent != "#")
+                {
+                    view = treeData.Where(t => t.ParentID == item.parent && t.BranchID == item.id).FirstOrDefault();
+                    if (view != null)
+                    {
+                        dataCntext.TreeViews.Attach(new TreeView());
+                    }
+                    else
+                    {
+                        view = new TreeView();
+                        view.ParentID = item.parent;
+                        view.BranchID = item.id;
+                        if (!string.IsNullOrEmpty(item.objecttype) && item.objecttype == "employee" && item.objectid != null)
+                            view.EmployeeID = item.objectid;
+                        else if (!string.IsNullOrEmpty(item.objecttype) && item.objecttype == "customer" && item.objectid != null)
+                            view.CustomerID = item.objectid;
+                        else
+                            view.Decription = item.text;
+                        dataCntext.TreeViews.Add(view);
+                    }
 
-            //using (ISEEEntities context = new ISEEEntities())
-            //{
-            //    return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            //}
+                }
+
+            }
+           
+            dataCntext.SaveChanges();
             return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 

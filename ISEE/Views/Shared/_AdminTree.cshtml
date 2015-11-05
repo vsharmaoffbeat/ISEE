@@ -26,9 +26,9 @@
         </div>
 
         <div class="col-md-6 col-xs-12 tree_save_button">
-            <button type="button" class="btn btn-default button_color"><i class="fa fa-search" ng-click="search()"></i></button>
-            <button type="button" class="btn btn-default button_color"><i class="fa fa-pencil" ng-click="clear()"></i></button>
-            <button type="button" class="btn btn-default button_color"><i class="fa fa-save" onclick="saveTree()"></i></button>
+            <button type="button" class="btn btn-default button_color" ng-click="search()"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-default button_color" ng-click="clear()"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-default button_color" onclick="saveTree()"><i class="fa fa-save"></i></button>
         </div>
 
     </div>
@@ -122,7 +122,7 @@
 
             <div class="col-lg-12 col-xs-12 tree_demo_company">
                 <div class="form-group">
-                    <input type="text" class="form-control tree_panel_search">
+                    <input type="text" class="form-control tree_panel_search" id="addNewNode">
                 </div>
                 <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Leaf</button>
                 <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Node</button>
@@ -237,7 +237,23 @@
                 "check_callback": true,
                 'data': treeJsonData
             },
-            "plugins": ["dnd"]
+            "plugins": ["dnd"],
+            'types': {
+                'types': {
+                    'file': {
+                        'icon': {
+                            'image': '/images/img/cl.png'
+                        }
+                    },
+                    'default': {
+                        'icon': {
+                            'image': '/images/img/cl.png'
+                        },
+                        'valid_children': 'default'
+                    }
+                }
+
+            }
 
         });
 
@@ -275,7 +291,13 @@
         sel = sel[0];
         sel = ref.create_node(sel, { "type": "file" });
         if (sel) {
-            ref.edit(sel);
+            if ($('#addNewNode').text().trim().length > 0) {
+                ref.get_node(sel) = $('#addNewNode').text();
+                $('#addNewNode').text('');
+                treeJsonData.push(ref.get_node(sel));
+            }
+            else
+                ref.edit(sel);
         }
     };
     function demo_rename() {
@@ -291,7 +313,5 @@
         if (!sel.length) { return false; }
         ref.delete_node(sel);
     };
-    function saveTree() {
-        debugger;
-    }
+
 </script>

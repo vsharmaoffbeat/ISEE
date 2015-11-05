@@ -16,7 +16,7 @@ namespace ISEE.Models
         public jstreenode()
         {
             parent = "#";
-            icon = "jstree-icon jstree-themeicon";
+         //   icon = "jstree-icon jstree-themeicon";
         }
 
     }

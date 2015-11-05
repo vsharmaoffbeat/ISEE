@@ -1,4 +1,16 @@
-﻿<form role="form" method="post" action="#" autocomplete="on">
+﻿<style>
+    .employee {
+        background-image: url("/images/img/User.png") !important;
+        background-position:0px !important;
+    }
+    .customer {
+        background-image: url("/images/img/customer.png") !important;
+        background-position: 0px !important;
+    }
+</style>
+
+
+<form role="form" method="post" action="#" autocomplete="on">
     <div class="row first_tree_rightbar">
 
         <div class="col-md-3 col-xs-12">
@@ -155,7 +167,7 @@
                             <td>{{gridOption.MainPhone}}</td>*@
 
 
-                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
+                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="jstree-draggable">
 
 
                             <td class="tg-dx8v_category">
@@ -173,7 +185,7 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="tree-drop">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="jstree-draggable">
 
 
                             <td class="tg-dx8v_category">
@@ -231,6 +243,11 @@
     var c = {};
 
     $(document).ready(function () {
+
+       
+
+
+
         $("#jstree_demo_div").jstree({
 
             'core': {

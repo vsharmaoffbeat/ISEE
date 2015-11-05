@@ -1,31 +1,32 @@
 ﻿//Employee Section
-function SaveEmployeeData() {
-    
+//function SaveEmployeeData() {
 
-    data = {
-        number: $('#txtNumber').val(), mail: $('#txtmail').val(),
-        firstName: $('#txtfirstName ').val(),
-        lastName: $('#txtlastName').val(),
-        startDay: $('#datepicker1 input').val(),
-        endDay: $('#datepicker2 input').val(),
-        phone1: $('#inputPhone').val(),
-        phone11: $('#inputPhone1').val(),
-        phone2: $('#inputPhone2').val(),
-        phone22: $('#inputPhone21').val(),
-        manufacture: $('#ddlmanufacture').val(),
-        phoneType: $('#ddlphoneType').val()
-    };
-    $.ajax({
-        type: "POST",
-        url: "/Admin/SaveEmployeeData",
-        data: data,
-        dataType: "json",
-        success: function (response) { alert(response); },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
 
-    return false;
-}
+//    data = {
+//        number: $('#txtNumber').val(), mail: $('#txtmail').val(),
+//        firstName: $('#txtfirstName ').val(),
+//        lastName: $('#txtlastName').val(),
+//        startDay: $('#datepicker1 input').val(),
+//        endDay: $('#datepicker2 input').val(),
+//        phone1: $('#inputPhone').val(),
+//        phone11: $('#inputPhone1').val(),
+//        phone2: $('#inputPhone2').val(),
+//        phone22: $('#inputPhone21').val(),
+//        manufacture: $('#ddlmanufacture').val(),
+//        phoneType: $('#ddlphoneType').val()
+//    };
+//    $.ajax({
+//        type: "POST",
+//        url: "/Admin/SaveEmployeeData",
+//        data: data,
+//        dataType: "json",
+//        success: function (response) { alert(response); },
+//        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+//    });
+
+//    return false;
+//}
+
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
     debugger
@@ -150,7 +151,7 @@ function LoadMapByFactoryID() {
 }
 
 function Initialize(obj) {
-    
+
     google.maps.visualRefresh = true;
     var Liverpool = new google.maps.LatLng(obj[0].Lat, obj[0].Long);
     var mapOptions = {
@@ -301,7 +302,7 @@ function resfreshJSTree() {
 
 
 function demo_create() {
-    
+
     var ref = $('#jstree_demo_div').jstree(true),
         sel = ref.get_selected();
     if (!sel.length) { return false; }
@@ -329,11 +330,11 @@ function demo_delete() {
 function saveTree() {
     //var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
     var treeViewData = JSON.stringify(treeJsonData);
-    
+
     $.ajax({
         type: "POST",
         url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-            
+
             // Initialize(result);
         }
     });

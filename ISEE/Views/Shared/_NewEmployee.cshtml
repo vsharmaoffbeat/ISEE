@@ -4,7 +4,7 @@
     <div class="row employee_top_rightbar">
         <div class="col-md-12 col-xs-12 employee_save_header">
             <button type="reset" class="btn btn-default pull-right button_color"><i class="fa fa-pencil"></i></button>
-            <button type="submit" onclick="SaveEmployeeData()" class="btn btn-default pull-right floppy-icon button_color"><i class="fa fa-save"></i></button>
+            <button type="submit" class="btn btn-default pull-right floppy-icon button_color" ng-click="SaveAllEmployeeData()"><i class="fa fa-save"></i></button>
         </div>
 
         <div class="col-md-12 col-xs-12 employee_info_panel">
@@ -17,18 +17,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usr">Number</label>
-                                <input type="number" class="form-control" id="txtNumber">
+                                <input type="number" class="form-control" id="txtNumber" ng-model="employeeInfo.Number">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">First Name *</label>
-                                <input type="text" class="form-control" id="txtfirstName" required>
+                                <input type="text" class="form-control" id="txtfirstName" required ng-model="employeeInfo.firstname">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Start Day</label>
                                 <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                    <input  class="form-control" type="text" value=""/>
+                                    <input class="form-control" type="text" value="" ng-model="employeeInfo.startDay" />
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                 </div>
                             </div>
@@ -38,19 +38,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usr">Mail</label>
-                                <input type="email" id="txtmail" class="form-control">
+                                <input type="email" id="txtmail" class="form-control" ng-model="employeeInfo.mail">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Last Name *</label>
-                                <input type="text" class="form-control" id="txtlastName" required>
+                                <input type="text" class="form-control" id="txtlastName" required ng-model="employeeInfo.lastname">
                             </div>
 
 
                             <div class="form-group">
                                 <label for="usr">End Date</label>
                                 <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
-                                    <input class="form-control" type="text" />
+                                    <input class="form-control" type="text" ng-model="employeeInfo.enddate" />
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                 </div>
                             </div>
@@ -70,21 +70,21 @@
 
                                     <div class="form-group">
                                         <label>Phone1 *</label>
-                                        <input class="form-control" id="inputPhone" maxlength="5" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control" id="inputPhone" ng-model="employeeInfo.phone1" maxlength="5" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control" id="inputPhone1" maxlength="50" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control" id="inputPhone1" ng-model="employeeInfo.phone11" maxlength=" 50" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Manufacture *</label>
-                                <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option" required>
+                                <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option" ng-model="employeeInfo.ManufactureChoice" required>
                                     <option value=""></option>
                                     <option value="2">Samsung</option>
                                     <option value="5">LG</option>
@@ -102,21 +102,21 @@
 
                                     <div class="form-group">
                                         <label>Phone2 *</label>
-                                        <input class="form-control" id="inputPhone2" maxlength="5" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control" id="inputPhone2" maxlength="5" ng-model="employeeInfo.phone2" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control" id="inputPhone21" maxlength="50" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control" id="inputPhone21" ng-model="employeeInfo.phone22" maxlength="50" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Phone Type *</label>
-                                <select id="ddlphoneType" class="form-control tree_select_option" required></select>
+                                <select id="ddlphoneType" class="form-control tree_select_option" ng-model="employeeInfo.phoneTypeChoice" required></select>
                             </div>
 
                         </div>
@@ -134,83 +134,40 @@
                         <h4 class="customer_title">Fill Employee Hours</h4>
                         <div class="tg-wrap">
 
-                            <table class="tg">
+                            <table id="my-table" class="tg">
                                 <tr>
-                                    <th class="tg-zqgi"></th>
+
                                     <th class="tg-z1n2">Day Status</th>
                                     <th class="tg-z1n2">Start Time</th>
                                     <th class="tg-z1n2">End Time</th>
                                     <th class="tg-z1n2">Start Time</th>
                                     <th class="tg-z1n2">End Time</th>
-                                    <th class="tg-zqgil"></th>
                                 </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Sun</td>
+                                <tr ng-repeat="employee in employeeData">
 
-
-
-
-
-                                    <td class="tg-dx8v">9:00 AM</td>
-                                    <td class="tg-dx8v">6:00 PM</td>
-                                    <td class="tg-lrt9"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Mon</td>
-                                    <td class="tg-dx8v">9:00 AM</td>
-                                    <td class="tg-dx8v">6:00 PM</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Tue</td>
-                                    <td class="tg-dx8v">9:00 AM</td>
-                                    <td class="tg-dx8v">6:00 PM</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Wed</td>
-                                    <td class="tg-dx8v">9:00 AM</td>
-                                    <td class="tg-dx8v">6:00 PM</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Thu</td>
-                                    <td class="tg-dx8v">9:00 AM</td>
-                                    <td class="tg-dx8v">6:00 PM</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Fri</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                </tr>
-                                <tr>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v">Sat</td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-xneb"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
-                                    <td class="tg-dx8v"></td>
+                                    <td class="tg-dx8v">
+                                        {{employee.Day}}
+                                    </td>
+                                    <td class="tg-dx8v">
+                                        <span ng-hide="employee.editing" typeof="time" ng-click="editEmployee(employee)">{{employee.Start1}}</span>
+                                        <input type="hidden" ng-model="employee.Start1" />
+                                        <input id='{{employee.Day}}_1' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.Start1" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    </td>
+                                    <td class="tg-dx8v">
+                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.End1}}</span>
+                                        <input type="hidden" ng-model="employee.End1" />
+                                        <input id='{{employee.Day}}_2' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.End1" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    </td>
+                                    <td class="tg-dx8v">
+                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.Start2}}</span>
+                                        <input type="hidden" ng-model="employee.Start2" />
+                                        <input id='{{employee.Day}}_3' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.Start2" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    </td>
+                                    <td class="tg-dx8v">
+                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.End2}}</span>
+                                        <input type="hidden" ng-model="employee.End2" />
+                                        <input id='{{employee.Day}}_4' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.End2" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    </td>
                                 </tr>
                             </table>
 

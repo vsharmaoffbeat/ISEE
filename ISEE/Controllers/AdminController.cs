@@ -108,45 +108,80 @@ namespace ISEE.Controllers
         {
             return View();
         }
-        public bool SaveEmployeeData(string number, string firstName, string lastName, string startDay, string endDay, string phone1, string phone11, string phone2, string phone22, string manufacture, string phoneType)
+        public JsonResult GetEmployeeHours()
         {
+            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
             using (ISEEEntities context = new ISEEEntities())
             {
-                Employee emp = new Employee();
-                emp.FirstName = firstName;
-                emp.LastName = lastName;
-                emp.EmployeeNum = number;
+                var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = e.DayStatus, Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
 
-                emp.SysCreatDate = DateTime.Now;
-                emp.Factory = 1;
-                emp.StartDay = Convert.ToDateTime(startDay).Date;
-                emp.EndDay = Convert.ToDateTime(endDay).Date;
-                emp.PhoneManufactory = Convert.ToInt32(manufacture);
-                emp.PhoneType = Convert.ToInt32(phoneType);
-                emp.SecondPhone = phone2;
-                emp.SecondAreaPhone = phone22;
-                emp.MainAreaPhone = phone11;
-                emp.MainPhone = phone1;
-                emp.EmployeeKey = new Guid();
-                context.Employees.Add(emp);
-                context.SaveChanges();
-                // var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom }).Where(x => x.FactoryId == FactoryId).ToList();
-                //ISEEDataModel.Repository.RequsetToFactoryLevel1 objRequsetToFactoryLevel1 = db.RequsetToFactoryLevel1.Where(x => x.RequestSysIdLevel1 == item.RequestSysIdLevel1).FirstOrDefault();
-                ////var empQuery = from RequsetToFactoryLevel1 in db.RequsetToFactoryLevel1
-                ////              where RequsetToFactoryLevel1.RequestSysIdLevel1 == item.RequestSysIdLevel1
-                ////              select RequsetToFactoryLevel1;
-                ////ISEEDataModel.Repository.RequsetToFactoryLevel1 objRequsetToFactoryLevel1 = empQuery.Single();
-                ////set the new values of the columns (properties), based upon the values entered using the text boxes
-                //objRequsetToFactoryLevel1.Factory = item.Factory;
-                //objRequsetToFactoryLevel1.RequestDescCodeLevel1 = item.RequestDescCodeLevel1;
-                //objRequsetToFactoryLevel1.RequsetOrder = item.RequsetOrder;
-                //objRequsetToFactoryLevel1.StatusCode = item.StatusCode;
-                //db.SaveChanges();
-                //return new JsonResult { Data = CountryDetail, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
 
-            return true;
+        }
+        public bool SaveEmployeeHours(string objhours, int employeeID)
+        {
+            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            var mainData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ISEEDataModel.Repository.employeeHours>>(objhours);
+            if (employeeID > 0)
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
 
+                    foreach (var item in mainData)
+                    {
+                        EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
+                        factoryDairyTemplet.DayStatus = item.Day;
+                        factoryDairyTemplet.EmployeeId = employeeID;
+                        factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                        factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                        factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
+                        factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                        factoryDairyTemplet.OrderDay = item.Day;
+                        context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
+                        context.SaveChanges();
+                    }
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        public int SaveEmployeeData(string number, string firstName, string lastName, string startDay, string enddate, string phone1, string phone11, string phone2, string phone22, string ManufactureChoice, string phoneTypeChoice)
+        {
+            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            int EmployeeID = 0;
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                try
+                {
+                    Employee emp = new Employee();
+                    emp.FirstName = firstName;
+                    emp.LastName = lastName;
+                    emp.EmployeeNum = number;
+                    emp.SysCreatDate = DateTime.Now;
+                    emp.Factory = factoryId;
+                    emp.StartDay = Convert.ToDateTime(startDay).Date;
+                    emp.EndDay = Convert.ToDateTime(enddate).Date;
+                    emp.PhoneManufactory = Convert.ToInt32(ManufactureChoice);
+                    emp.PhoneType = Convert.ToInt32(phoneTypeChoice != "" ? phoneTypeChoice : "1");
+                    emp.SecondPhone = phone2;
+                    emp.SecondAreaPhone = phone22;
+                    emp.MainAreaPhone = phone11;
+                    emp.MainPhone = phone1;
+                    emp.EmployeeKey = new Guid();
+                    context.Employees.Add(emp);
+                    context.SaveChanges();
+                    EmployeeID = emp.EmployeeId;
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
+
+            }
+            return EmployeeID;
         }
         public JsonResult GetPhoneTypes(int id)
         {
@@ -348,7 +383,7 @@ namespace ISEE.Controllers
                 }
 
             }
-           
+
             dataCntext.SaveChanges();
             return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

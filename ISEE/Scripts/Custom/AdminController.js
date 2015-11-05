@@ -1,13 +1,4 @@
 ﻿var module = angular.module('TreeDetails', [])
-
-//appAdmin.controller("ss", function ($scope, EmployeeService) {
-
-
-
-
-//});
-
-
 module.controller('SearchCtrl', function ($scope, ContactService) {
     //  $scope.contacts = ContactService.list();
     var SysIdLevel1 = {};
@@ -43,10 +34,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             };
         }
         // Here i get always the same value
-       // console.log("Selected goalType, text: " + value);//
+        // console.log("Selected goalType, text: " + value);//
     });
     $scope.selectType = function () {
-        
+
 
 
     }
@@ -61,7 +52,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     //Category Active DDl
     //ContactService.DDLType().then(function (d) {
-     
+
 
     data = [{ 'id': '0', 'name': 'Active' }, { 'id': '-1', 'name': 'InActive' }, { 'id': '', 'name': 'Select All' }]
     $scope.DDLTypeList = data;
@@ -70,10 +61,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.SetSelectedType = function () {
 
-        
+
         $scope.contacts = null;
         ContactService.getList($scope.DDLType.id).then(function (d) {
-            
+
             $scope.contacts = $.makeArray(d.data);
             SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
         }, function (error) {
@@ -93,7 +84,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     ContactService.getList($scope.DDLType.id).then(function (d) {
-        
+
         $scope.contacts = $.makeArray(d.data);
         SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
     }, function (error) {
@@ -107,7 +98,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         var isVAlExisting = false;
 
         $.each(OverallSecondarys, function (index, value) {
-            
+
             var obj = value[0];
             var SyIDvalue = obj.RequestSysIdLevel1;
             if (SyIDvalue == SysIdLevel1) {
@@ -189,7 +180,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     // code  for Secondary cases
     $scope.OverallSave = function () {
         ContactService.OverallSave($scope.contacts, OverallSecondarys).then(function (d) {
-            
+
             $scope.msg = "Save SuccessFully";
             //  $window.alert("Save SuccessFully");
         })
@@ -233,7 +224,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.search = function () {
         if ($scope.choice == "" || $scope.choice == undefined) {
-            
+
             ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
                 if (d.data.length > 0) {
                     $scope.gridOptions = d.data;
@@ -246,7 +237,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             });
         }
         else if ($scope.choice == "2") {
-            
+
             ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
                 if (d.data.length > 0) {
                     $scope.gridCustOptions = d.data;
@@ -260,6 +251,61 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         }
     }
     //ContactService.
+
+
+
+    $scope.editEmployee = function (employee) {
+        employee.editing = true;
+    }
+    $scope.doneEditingEmployee = function (employee) {
+        employee.editing = false;
+        //employee.value
+        //dong some background ajax calling for persistence...
+    };
+    $scope.employeeInfo = {
+        Number: '',
+        firstname: '',
+        startDay: '',
+        mail: '',
+        lastname: '',
+        enddate: '',
+        phone1: '',
+        phone11: '',
+        phone2: '',
+        phone22: '',
+        ManufactureChoice: '',
+        phoneTypeChoice: '',
+    };
+
+    ContactService.GetEmployeeHours().then(function (d) {
+        $scope.employeeData = d.data;
+    })
+
+    $scope.saveEmphour = function () {
+        ContactService.SaveEmployeeHours($scope.employeeData).then(function (d) {
+            $scope.employeeInfo = null;
+        })
+    }
+    $scope.SaveAllEmployeeData = function (d) {
+        ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
+            if (d.data != "0") {
+                ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
+                    if (d == true) {
+                        ContactService.GetEmployeeHours().then(function (d) {
+                            $scope.employeeData = d.data;
+                        })
+                    }
+                })
+                $scope.employeeInfo = null;
+                alert('Employee Saved');
+            }
+            else {
+                alert('Please checked fields');
+            }
+
+
+        });
+    }
 })
 
 
@@ -268,16 +314,16 @@ module.service('ContactService', function ($http) {
     //to create unique contact id
     var contacts = {};
     contacts.getList = function (d) {
-        
+
         return $http({
             url: '/Admin/getAll',
-            data: {id:d},
+            data: { id: d },
             method: 'POST',
             headers: { 'content-type': 'application/json' }
         });
     }
     contacts.getMaxValue = function () {
-        
+
         return $http({
             url: '/Admin/getMaxValue' + d,
             method: 'GET',
@@ -285,7 +331,7 @@ module.service('ContactService', function ($http) {
     }
     contacts.getSecondarylist = function (SysIdLevel1) {
         // var SysIdLevel1Val = { SysIdLevel1: SysIdLevel1 };
-        
+
         return $http({
             url: '/Admin/GetSecondary',
             data: { SysIdLevel1: SysIdLevel1 },
@@ -302,7 +348,7 @@ module.service('ContactService', function ($http) {
     //    });
     //}
     contacts.OverallSave = function (main, Secondarys) {
-        
+
         return $http({
             url: '/Admin/SaveCategory',
             method: 'POST',
@@ -319,7 +365,7 @@ module.service('ContactService', function ($http) {
     };
     //Tree Tab control
     contacts.GetEmployeeData = function (d) {
-        
+
         return $http({
             url: '/Admin/GetEmployee',
             method: 'POST',
@@ -335,7 +381,7 @@ module.service('ContactService', function ($http) {
         //});
     };
     contacts.GetCustomersData = function (d) {
-        
+
         return $http({
             url: '/Admin/GetCustomers',
             method: 'POST',
@@ -359,6 +405,36 @@ module.service('ContactService', function ($http) {
     //        headers: { 'content-type': 'application/json' }
     //    });
     //};
+
+    contacts.GetEmployeeHours = function () {
+
+        return $http({
+            url: '/Admin/GetEmployeeHours',
+            method: 'POST',
+        });
+
+    }
+    contacts.SaveEmployeeHours = function (d, id) {
+        debugger;
+        return $http({
+            url: '/Admin/SaveEmployeeHours',
+            method: 'POST',
+            data: { objhours: JSON.stringify(d), EmployeeID: id },
+            headers: { 'content-type': 'application/json' }
+        });
+    }
+    contacts.saveEmployee = function (d) {
+
+        return $http({
+            url: '/Admin/SaveEmployeeData',
+            method: 'POST',
+            //data: JSON.stringify(main),
+            data: d,
+            headers: { 'content-type': 'application/json' }
+        });
+
+    }
+
     return contacts;
 });
 

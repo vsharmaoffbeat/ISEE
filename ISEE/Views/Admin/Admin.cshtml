@@ -5,6 +5,9 @@
 }
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
+<script src="~/Scripts/Custom/jquery.timepicker.js"></script>
+<link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
+
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/jstree.js"></script>
@@ -121,5 +124,13 @@
             }
         });
     });
+
+    function showTime(obj) {
+        $('#' + obj.id + '').timepicker();
+
+        if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
+            debugger;
+        }
+    }
 
 </script>

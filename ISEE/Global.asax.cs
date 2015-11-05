@@ -21,13 +21,20 @@ namespace ISEE
         }
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
-            HttpContext context = HttpContext.Current;
-            var languageSession = "en";
-            if (context != null && context.Session != null)
-                languageSession = ISEE.Common.SessionManegment.SessionManagement.Language;
 
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(languageSession);
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(languageSession);
+            var languageSession = "en";
+            if (Request.UserLanguages != null)
+            {
+                languageSession = Request.UserLanguages[0];
+                HttpContext context = HttpContext.Current;
+                if (context != null && context.Session != null)
+                    languageSession = ISEE.Common.SessionManegment.SessionManagement.Language;
+
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(languageSession);
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(languageSession);
+
+            }
+
 
 
         }

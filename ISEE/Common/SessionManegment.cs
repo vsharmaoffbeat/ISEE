@@ -28,7 +28,10 @@ namespace ISEE.Common
                     if (HttpContext.Current.Session["Language"] != null)
                         return Convert.ToString(HttpContext.Current.Session["Language"]);
                     else
-                        return "en";
+                    {
+                        HttpContext.Current.Session["Language"] = HttpContext.Current.Request.UserLanguages[0].ToUpper().ToString();
+                        return Convert.ToString(HttpContext.Current.Session["Language"]);
+                    }
                 }
                 set { HttpContext.Current.Session["Language"] = value; }
             }

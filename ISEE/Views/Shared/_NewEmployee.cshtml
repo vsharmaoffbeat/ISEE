@@ -17,18 +17,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usr">Number</label>
-                                <input type="number" class="form-control" id="txtNumber" ng-model="employeeInfo.Number">
+                                <input type="tel" class="form-control isee_input" id="txtNumber" ng-model="employeeInfo.Number">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">First Name *</label>
-                                <input type="text" class="form-control" id="txtfirstName" required ng-model="employeeInfo.firstname">
+                                <input type="text" class="form-control isee_input" id="txtfirstName" required ng-model="employeeInfo.firstname">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Start Day</label>
                                 <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                    <input class="form-control" type="text" value="" ng-model="employeeInfo.startDay" />
+                                    <input class="form-control isee_input" type="text" value="" ng-model="employeeInfo.startDay" />
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                 </div>
                             </div>
@@ -38,19 +38,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usr">Mail</label>
-                                <input type="email" id="txtmail" class="form-control" ng-model="employeeInfo.mail">
+                                <input type="email" id="txtmail" class="form-control isee_input" ng-model="employeeInfo.mail">
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Last Name *</label>
-                                <input type="text" class="form-control" id="txtlastName" required ng-model="employeeInfo.lastname">
+                                <input type="text" class="form-control isee_input" id="txtlastName" required ng-model="employeeInfo.lastname">
                             </div>
 
 
                             <div class="form-group">
                                 <label for="usr">End Date</label>
                                 <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
-                                    <input class="form-control" type="text" ng-model="employeeInfo.enddate" />
+                                    <input class="form-control isee_input" type="text" ng-model="employeeInfo.enddate" />
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                 </div>
                             </div>
@@ -70,21 +70,21 @@
 
                                     <div class="form-group">
                                         <label>Phone1 *</label>
-                                        <input class="form-control" id="inputPhone" ng-model="employeeInfo.phone1" maxlength="5" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control isee_input" id="inputPhone" ng-model="employeeInfo.phone1" maxlength="5" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control" id="inputPhone1" ng-model="employeeInfo.phone11" maxlength=" 50" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control isee_input" id="inputPhone1" ng-model="employeeInfo.phone11" maxlength=" 50" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Manufacture *</label>
-                                <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option" ng-model="employeeInfo.ManufactureChoice" required>
+                                <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option isee_button_color" ng-model="employeeInfo.ManufactureChoice" required>
                                     <option value=""></option>
                                     <option value="2">Samsung</option>
                                     <option value="5">LG</option>
@@ -102,21 +102,21 @@
 
                                     <div class="form-group">
                                         <label>Phone2 *</label>
-                                        <input class="form-control" id="inputPhone2" maxlength="5" ng-model="employeeInfo.phone2" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control isee_input" id="inputPhone2" maxlength="5" ng-model="employeeInfo.phone2" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control" id="inputPhone21" ng-model="employeeInfo.phone22" maxlength="50" name="phone" required="required" size="3" title="" type="tel" value="" />
+                                        <input class="form-control isee_input" id="inputPhone21" ng-model="employeeInfo.phone22" maxlength="50" name="phone" required="required" size="3" title="" type="tel" value="" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="usr">Phone Type *</label>
-                                <select id="ddlphoneType" class="form-control tree_select_option" ng-model="employeeInfo.phoneTypeChoice" required></select>
+                                <select id="ddlphoneType" class="form-control tree_select_option isee_button_color" ng-model="employeeInfo.phoneTypeChoice" required></select>
                             </div>
 
                         </div>
@@ -130,7 +130,7 @@
 
             <div class="row">
                 <div class="col-md-6 col-xs-12 employee_hours">
-                    <div class="col-md-6 col-xs-12 employee_fill_left">
+                    <div class="col-md-12 col-xs-12 employee_fill_left">
                         <h4 class="customer_title">Fill Employee Hours</h4>
                         <div class="tg-wrap">
 
@@ -172,6 +172,10 @@
                             </table>
 
                         </div>
+                        <h4 class="customer_title">Drag Item To Tree</h4>
+                        <div class="col-md-12 col-xs-12">
+                            <input class="form-control isee_input" id="" name="item" value="">
+                        </div><!--- add new  col-md-12 for drag item -->
 
                     </div>
                 </div>

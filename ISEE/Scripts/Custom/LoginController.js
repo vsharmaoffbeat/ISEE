@@ -21,7 +21,7 @@
         debugger
         if ($scope.LoginData.UserName == "" || $scope.LoginData.UserName == undefined || $scope.LoginData.Password == undefined || $scope.LoginData.Password == "") {
             $scope.showValidation = true;
-            debugger;
+            
             return false;
         }
         else {
@@ -61,13 +61,13 @@
     $scope.CountryCode = null;
     $scope.CountryCodeList = null;
     LoginService.GetCountries().then(function (d) {
-        debugger;
+        
         $scope.CountryCodeList = d.data;
     });
 
     $scope.SetSelectedCountry = function () {
         LoginService.SetSelectedCountry($scope.CountryCode).then(function (d) {
-            debugger;
+            
             window.location.reload();
             //        $scope.CountryCodeList = d.data;
         });
@@ -94,7 +94,7 @@
     };
 
     fac.GetCountries = function (d) {
-        debugger;
+        
         return $http({
             method: 'Get',
             url: '/Login/GetCountries'

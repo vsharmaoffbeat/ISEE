@@ -1,6 +1,6 @@
 ﻿//Employee Section
 function SaveEmployeeData() {
-    debugger;
+    
 
     data = {
         number: $('#txtNumber').val(), mail: $('#txtmail').val(),
@@ -150,7 +150,7 @@ function LoadMapByFactoryID() {
 }
 
 function Initialize(obj) {
-    debugger;
+    
     google.maps.visualRefresh = true;
     var Liverpool = new google.maps.LatLng(obj[0].Lat, obj[0].Long);
     var mapOptions = {
@@ -301,7 +301,7 @@ function resfreshJSTree() {
 
 
 function demo_create() {
-    debugger;
+    
     var ref = $('#jstree_demo_div').jstree(true),
         sel = ref.get_selected();
     if (!sel.length) { return false; }
@@ -329,11 +329,11 @@ function demo_delete() {
 function saveTree() {
     //var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
     var treeViewData = JSON.stringify(treeJsonData);
-    debugger;
+    
     $.ajax({
         type: "POST",
         url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-            debugger;
+            
             // Initialize(result);
         }
     });

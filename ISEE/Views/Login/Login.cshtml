@@ -3,6 +3,8 @@
     ViewBag.Title = "login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="//code.angularjs.org/1.4.0/angular.js"></script>
 <script src="~/Scripts/angular.min.js"></script>
 <script src="~/Scripts/Custom/LoginController.js"></script>
@@ -45,9 +47,9 @@
                 </div>
                 <img src='/images/img/cl.png' />
                 <div class="col-md-5 col-xs-5">
-                    <select name="language" class="form-control language_box" ng-model="CountryCode"
+                    <select  name="language" class="form-control language_box" ng-model="CountryCode"
                             data-ng-change="SetSelectedCountry()">
-                        <option ng-repeat="item in CountryCodeList" data-image="{{item.ImageUrl}}" value="{{item.LanguageNickname}}"></option>
+                        <option ng-repeat="item in CountryCodeList"  data-image="{{item.ImageUrl}}" value="{{item.LanguageNickname}}"></option>
                         @*<option value=" ">
                                 Language
                             </option>

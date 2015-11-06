@@ -382,19 +382,53 @@ $(document).ready(function () {
         var target = e.target;
         if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
             notinprogress = false;
-            var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
 
-            treeJsonData.push(newNode);
-            resfreshJSTree();
+            var newNode = { "id": target.parentElement.getAttribute("id") + c.helper.data("id"), "icon": c.helper.data("type"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
+
+            if (IsValid(newNode, e.target)) {
+                treeJsonData.push(newNode);
+                resfreshJSTree();
+            }
             notinprogress = true;
             c = {};
         }
     });
 
+
+   
 });
 
-var draggedDivElement;
+ function GetTreeNodeData(nodeid) {
+        var node;
+        $.each(treeJsonData, function () {
+            if (this.id === nodeid) {
+                node = this;
+                return false;
+            }
+        });
+        return node;
+    }
+function IsValid(selectedNode, targetElement) {
+    var hasValid = true;
+    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
 
+    if (hoveredNodeData !=undefined && hoveredNodeData.objectid == selectedNode.objectid) {
+        hasValid = false;
+    }
+
+    $.each(treeJsonData, function () {
+        if (!hasValid)
+            return false;
+        var currentNode = this;
+        if (currentNode.parent == selectedNode.parent && currentNode.text == selectedNode.text && currentNode.objectid == selectedNode.objectid && currentNode.objecttype == selectedNode.objecttype) {
+            hasValid = false;
+        }
+
+    });
+    return hasValid;
+}
+
+var draggedDivElement;
 
 
 $("#employeeGrid tr.tree-drop").draggable({
@@ -426,14 +460,12 @@ function resfreshJSTree() {
 
 
 function demo_create() {
-
     var ref = $('#jstree_demo_div').jstree(true),
         sel = ref.get_selected();
     if (!sel.length) { return false; }
     sel = sel[0];
     sel = ref.create_node(sel, { "type": "file" });
     if (sel) {
-        ;
         treeJsonData.push(ref.get_node(sel));
         ref.edit(sel);
     }

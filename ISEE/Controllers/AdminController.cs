@@ -66,28 +66,35 @@ namespace ISEE.Controllers
         {
 
             List<TreeNodeData> treeList = new List<TreeNodeData>();
-            treeList.Add(new TreeNodeData() { id = SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
+            treeList.Add(new TreeNodeData() { id = "treenode_" + SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
             foreach (var item in data)
             {
                 if (item.EmployeeID != null)
                 {
+<<<<<<< HEAD
                     var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
                     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+=======
+                var emp=dataCntext.Employees.Where(x=>x.EmployeeId==item.EmployeeID).FirstOrDefault();
+                treeList.Add(new TreeNodeData() { id ="treenode_"+ item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+>>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
                 }
                 else if (item.CustomerID != null)
                 {
                     var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
 
+<<<<<<< HEAD
                     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
 
+=======
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+                
+>>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
                 }
                 else
-                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
             }
-            //treeList.Add(new Jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
-            //treeList.Add(new Jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
-            //treeList.Add(new Jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
-            return treeList;
+                 return treeList;
         }
 
         public JsonResult GetEmployee(string firstname, string lastname, string phone)

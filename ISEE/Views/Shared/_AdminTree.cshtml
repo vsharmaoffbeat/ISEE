@@ -1,10 +1,22 @@
-﻿<form role="form" method="post" action="#" autocomplete="on">
-    <div class="row first_tree_rightbar">
+﻿<style>
+    .employee {
+        background-image: url("/images/img/User.png") !important;
+        background-position: -4px -2px !important;
+    }
+    .customer {
+        background-image: url("/images/img/customer.png") !important;
+        background-position: -4px -2px  !important;
+    }
+</style>
 
-        <div class="col-md-3 col-xs-12">
+
+<form role="form" method="post" action="#" autocomplete="on">
+    <div class="row first_tree_rightbar">
+             
+        <div class="col-md-3 col-xs-12">     
             <div class="form-group">
                 <label for="usr">Type Find Tree</label>
-                <select class="form-control tree_select_option" ng-model="choice">
+                <select class="form-control tree_select_option isee_button" ng-model="choice">
                     <option value='' selected="selected">Employee</option>
                     <option value="2">Customer</option>
                 </select>
@@ -18,7 +30,7 @@
 
             <div class="form-group">
                 <label for="usr">Type Drag drop</label>
-                <select class="form-control tree_select_option" ng-model="choiceType">
+                <select class="form-control tree_select_option isee_button" ng-model="choiceType">
                     <option value='' selected="selected">Multi</option>
                     <option value="2">Single</option>
                 </select>
@@ -26,9 +38,9 @@
         </div>
 
         <div class="col-md-6 col-xs-12 tree_save_button">
-            <button type="button" class="btn btn-default button_color" ng-click="search()"><i class="fa fa-search"></i></button>
-            <button type="button" class="btn btn-default button_color" ng-click="clear()"><i class="fa fa-pencil"></i></button>
-            <button type="button" class="btn btn-default button_color" onclick="saveTree()"><i class="fa fa-save"></i></button>
+            <button type="button" class="btn btn-default isee_button_color" " ng-click=" search()"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-default isee_button_color" " ng-click=" clear()"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-default isee_button_color" " onclick=" savetree()"><i class="fa fa-save"></i></button>
         </div>
 
     </div>
@@ -37,7 +49,7 @@
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="usr">Last Name</label>
-                <input type="text" class="form-control" ng-model="EmployeeSearchData.LastName">
+                <input type="text" class="form-control isee_input" ng-model="EmployeeSearchData.LastName">
             </div>
         </div>
 
@@ -45,7 +57,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="usr">First Name</label>
-                    <input type="text" class="form-control" ng-model="EmployeeSearchData.FirstName">
+                    <input type="text" class="form-control isee_input" ng-model="EmployeeSearchData.FirstName">
                 </div>
             </div>
         </div>
@@ -53,7 +65,7 @@
         <div class="col-md-4 col-xs-12">
             <div class="form-group">
                 <label for="usr">Number</label>
-                <input type="number" class="form-control" ng-model="EmployeeSearchData.phone">
+                <input class="form-control isee_input" id="" maxlength="50" name="phone" title="" type="tel" value="" ng-model="EmployeeSearchData.phone">
             </div>
         </div>
 
@@ -63,12 +75,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">State</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.state">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.state">
             </div>
 
             <div class="form-group">
                 <label for="usr">Contact Name</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.contactName">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.contactName">
             </div>
 
         </div>
@@ -76,37 +88,52 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">City</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.city">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.city">
             </div>
 
             <div class="form-group">
                 <label for="usr">Company Name</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.companyName">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.companyName">
             </div>
         </div>
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Street</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.street">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.street">
             </div>
 
-            <div class="form-group">
-                <label for="usr">Phone1</label>
-                <input type="number" class="form-control fields" ng-model="CustomerSearchData.phone1" />
 
+
+            <div class="row">
+                <div class="col-xs-5">
+
+                    <div class="form-group">
+                        <label>Phone1 </label>
+                        <input class="form-control isee_input" id="" maxlength="5" name="phone" title="" type="tel" value="" ng-model="CustomerSearchData.phone1" />
+                    </div>
+                </div>
+
+                <div class="col-xs-7">
+                    <label></label>
+                    <div class="form-group phone_no">
+                        <input class="form-control isee_input" id="" maxlength="50" name="phone" title="" type="tel" value="" />
+                    </div>
+                </div>
             </div>
+
+
         </div>
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Bulding Number</label>
-                <input type="number" class="form-control fields" ng-model="CustomerSearchData.buldingNumber" />
+                <input class="form-control isee_input" id="" name="phone" title="" type="tel" value="" ng-model="CustomerSearchData.buldingNumber" />
             </div>
 
             <div class="form-group">
                 <label for="usr">Customer Number</label>
-                <input type="number" class="form-control fields" ng-model="CustomerSearchData.customerNumber" />
+                <input class="form-control isee_input" id="" maxlength="50" name="phone" title="" type="tel" value="" ng-model="CustomerSearchData.customerNumber" />
             </div>
         </div>
 
@@ -122,11 +149,11 @@
 
             <div class="col-lg-12 col-xs-12 tree_demo_company">
                 <div class="form-group">
-                    <input type="text" class="form-control tree_panel_search" id="addNewNode">
+                    <input type="text" class="form-control isee_input tree_panel_search" id="addNewNode">
                 </div>
-                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Leaf</button>
-                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Node</button>
-                <button type="button" class="btn btn-default button_color" onclick="demo_create()">Add Node</button>
+                <button type="button" class="btn btn-default isee_button_color" onclick="demo_delete()">Delete Leaf</button>
+                <button type="button" class="btn btn-default isee_button_color" onclick="demo_delete()">Delete Node</button>
+                <button type="button" class="btn btn-default isee_button_color" onclick="demo_create()">Add Node</button>
 
                 <div class="col-lg-12 col-sm-12 tree_second_company">
 
@@ -155,7 +182,7 @@
                             <td>{{gridOption.MainPhone}}</td>*@
 
 
-                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="tree-drop">
+                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="jstree-draggable">
 
 
                             <td class="tg-dx8v_category">
@@ -173,7 +200,7 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="tree-drop">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="jstree-draggable">
 
 
                             <td class="tg-dx8v_category">
@@ -232,7 +259,6 @@
 
     $(document).ready(function () {
         $("#jstree_demo_div").jstree({
-
             'core': {
                 "check_callback": true,
                 'data': treeJsonData
@@ -252,9 +278,7 @@
                         'valid_children': 'default'
                     }
                 }
-
             }
-
         });
 
         //var notinprogress = true;
@@ -284,7 +308,7 @@
     }
 
     function demo_create() {
-        
+
         var ref = $('#jstree_demo_div').jstree(true),
             sel = ref.get_selected();
         if (!sel.length) { return false; }

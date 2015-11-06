@@ -224,8 +224,11 @@
     <Content Include="Scripts\Custom\AdminController.js" />
     <Content Include="Scripts\Custom\angular-route.min.js" />
     <Content Include="Scripts\Custom\app.js" />
+    <Content Include="Scripts\Custom\date.js" />
     <Content Include="Scripts\Custom\Employee.js" />
     <Content Include="Scripts\Custom\EmployeeController.js" />
+    <Content Include="Scripts\Custom\jquery.timepicker.css" />
+    <Content Include="Scripts\Custom\jquery.timepicker.js" />
     <Content Include="Scripts\Custom\jstree.css" />
     <Content Include="Scripts\Custom\jsTree.directive.js" />
     <Content Include="Scripts\Custom\jstree.min.js" />

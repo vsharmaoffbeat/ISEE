@@ -412,6 +412,13 @@ function IsValid(selectedNode, targetElement) {
     var hasValid = true;
     var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
 
+    if (hoveredNodeData != undefined && selectedNode.objecttype=='employee' && hoveredNodeData.objecttype == selectedNode.objecttype) {
+        hasValid = false;
+    }
+
+    if (hoveredNodeData != undefined && selectedNode.objecttype == 'customer' && hoveredNodeData.objecttype == "employee") {
+        hasValid = false;
+    }
     if (hoveredNodeData !=undefined && hoveredNodeData.objectid == selectedNode.objectid) {
         hasValid = false;
     }

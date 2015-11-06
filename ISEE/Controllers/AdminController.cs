@@ -123,7 +123,7 @@ namespace ISEE.Controllers
                 int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
                 bool _Active = true;
 
-                var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == factoryId &&
+                var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").ToList().Where(x => x.Factory == factoryId &&
                      (GetInteger(state) != 0 ? x.Building.StateCode == GetInteger(state) : x.Building.StateCode == null) &&
                                                                                                             x.Building.StateCode == (GetInteger(state) == 0 ? x.Building.StateCode : GetInteger(state)) &&
                                                                                                             x.Building.CityCode == (GetInteger(city) == 0 ? x.Building.CityCode : GetInteger(city)) &&

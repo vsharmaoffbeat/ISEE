@@ -71,25 +71,25 @@ namespace ISEE.Controllers
             {
                 if (item.EmployeeID != null)
                 {
-<<<<<<< HEAD
-                    var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
-                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
-=======
+
+                    //var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
+                    //treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+
                 var emp=dataCntext.Employees.Where(x=>x.EmployeeId==item.EmployeeID).FirstOrDefault();
                 treeList.Add(new TreeNodeData() { id ="treenode_"+ item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
->>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
+
                 }
                 else if (item.CustomerID != null)
                 {
                     var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
 
-<<<<<<< HEAD
-                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
 
-=======
+               //     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+
+
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
                 
->>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
+
                 }
                 else
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });

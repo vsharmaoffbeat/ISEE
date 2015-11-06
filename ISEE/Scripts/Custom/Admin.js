@@ -29,7 +29,7 @@
 
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
-   
+
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -42,13 +42,135 @@ function ManufactureTypes(obj) {
                     text: this.PhoneTypeDesc
                 }).appendTo($('#ddlphoneType'));
             });
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
 
 
+var stateNames = [];
+var stateIds = [];
+function GetStaresByFactoryID() {
+    stateNames = [];
+    $.ajax({
+        type: "POST",
+        url: "/Admin/GetStaresByFactoryID",
+        success: function (response) {
+            $(response).each(function () {
+                $("<option />", {
+                    val: this.CountryCode,
+                    text: this.CountryDescEng
+                }).appendTo($('#inputState'));
+                if (this.CountryDescEng == null) {
+                    $('#inputState').attr('disabled', 'disabled');
+                }
+                stateNames.push(this.CountryDescEng);
+                stateIds.push(this.CountryCode);
+            });
+            $("#inputState").autocomplete({
+                source: stateNames,
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+var abliableDataForCityesName = [];
+var abliableDataForCityesIds = [];
+function GetCitysByState() {
+    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined)
+        return false;
+    $.ajax({
+        type: "POST",
+        url: "/Admin/GetCitysByState",
+        data: { stateID: stateIds[stateNames.indexOf($('#inputState').val())] },
+        dataType: "json",
+        success: function (response) {
+            if (response != null) {
+                $(response).each(function () {
+                    $("<option />", {
+                        val: this.CityCode,
+                        text: this.CityDesc
+                    }).appendTo($('#inputCity'));
+                    abliableDataForCityesName.push(this.CityDesc);
+                    abliableDataForCityesIds.push(this.CityCode);
+                });
+            }
+            $("#inputCity").autocomplete({
+                source: abliableDataForCityesName,
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+var abliableDataForStreetName = [];
+var abliableDataForStreetId = [];
+function GetStreetByCity() {
+    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined)
+        return false;
+    $.ajax({
+        type: "POST",
+        url: "/Admin/GetStreetByCity",
+        data: { stateID: stateIds[stateNames.indexOf($('#inputState').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] },
+        dataType: "json",
+        success: function (response) {
+            if (response != null) {
+                $(response).each(function () {
+                    $("<option />", {
+                        val: this.StreetCode,
+                        text: this.Streetdesc
+                    }).appendTo($('#inputStreet'));
+                    abliableDataForStreetName.push(this.Streetdesc);
+                    abliableDataForStreetId.push(this.StreetCode);
+                });
+            }
+            $("#inputStreet").autocomplete({
+                source: abliableDataForStreetName,
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+var abliableDataForBuildingNumber = [];
+var abliableDataForBuildingId = [];
+var buildingLatLong = [];
+function GetBuildingsByCity() {
+    abliableDataForBuilding = [];
+    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())] == undefined || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined)
+        return false;
+        $.ajax({
+        type: "POST",
+        url: "/Admin/GetBuildingsByCity",
+        data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())], stateID: stateIds[stateNames.indexOf($('#inputState').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] },
+        dataType: "json",
+        success: function (response) {
+            if (response != null) {
+                $(response).each(function () {
+                    $("<option />", {
+                        val: this.BuildingCode,
+                        text: this.BuildingNumber
+                    }).appendTo($('#inputBuldingNumber'));
+                    abliableDataForBuildingNumber.push(this.BuildingNumber);
+                    abliableDataForBuildingId.push(this.BuildingCode);
+
+                    buildingLatLong.push(this.BuildingCode, this.BuildingNumber, this.BuildingLat, this.BuldingLong);
+                });
+            }
+            debugger;
+            $("#inputBuldingNumber").autocomplete({
+                source: abliableDataForBuildingNumber,
+            });
+            $('#inputBuldingNumber').val(abliableDataForBuildingNumber);
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+
+
+
 //End Employee Section
 
 //Start Customer section
@@ -120,6 +242,7 @@ function initializeStreatview(obj) {
 }
 
 function InsertAddress() {
+    debugger;
     var state, city, street, buildingNumber, zipCode, visitTime, entry, visitInterval, nextVisit;
     state = $('#inputState').val();
     city = $('#inputCity').val();
@@ -131,11 +254,12 @@ function InsertAddress() {
     visitInterval = $('#inputVisitTime').val();
     nextVisit = $('#inputNextVisit').val();
     $("#popup_div").dialog("open");
-    LoadMapByFactoryID();
+    Initialize(buildingLatLong);
+    //debugger;
     //$.ajax({
     //    type: "POST",
-    //    url: "/Admin/Test",
-    //    data: { state: state, city: city, street: street, buildingNumber: buildingNumber, zipCode: zipCode, visitTime: visitTime, entry: entry, visitInterval: visitInterval, nextVisit: nextVisit },
+    //    url: "/Admin/InsertAddress",
+    //    data: { buildingNumber: buildingNumber, zipCode: zipCode, visitTime: visitTime, entry: entry, visitInterval: visitInterval, nextVisit: nextVisit },
     //    dataType: "json",
     //    success: function (response) { alert(response); },
     //    error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -151,7 +275,7 @@ function LoadMapByFactoryID() {
 }
 
 function Initialize(obj) {
-
+    debugger;
     google.maps.visualRefresh = true;
     var Liverpool = new google.maps.LatLng(obj[0].Lat, obj[0].Long);
     var mapOptions = {
@@ -251,7 +375,7 @@ $(document).ready(function () {
 
     //}
     //});
-
+    GetStaresByFactoryID();
     var notinprogress = true;
     document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
         //This will be the top-most DOM element under cursor

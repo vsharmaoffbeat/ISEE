@@ -93,7 +93,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">State *</label>
-                            <input id="inputState" type="text" class="form-control" required>
+                            <input id="inputState" onblur="GetCitysByState()" type="text" class="form-control" required>
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">City *</label>
-                            <input id="inputCity" type="text" class="form-control" required>
+                            <input id="inputCity" onblur="GetStreetByCity()" type="text" class="form-control" required>
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">Street *</label>
-                            <input id="inputStreet" type="text" class="form-control" required>
+                            <input id="inputStreet" onblur="GetBuildingsByCity()" type="text" class="form-control" required>
                         </div>
                     </div>
 
@@ -202,27 +202,8 @@
 
 <script>
 
-    var availableTags = [
 
- "Estado",
- "Estado",
- "Iquique",
- "Aguascalientes",
- "BajaCalifornia",
-"Campeche",
-"Coahuila de Zaragoza",
-"Colima",
-"Chiapas",
-"Chihuahua",
-"Distrito Federal",
-"Durango",
-"Guanajuato",
-"Guerrero",
-"Hidalgo",
-    ];
-    $("#inputState").autocomplete({
-        source: availableTags
-    });
+
 
     var availableTags = [
     "Estado",

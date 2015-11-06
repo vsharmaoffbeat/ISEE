@@ -252,15 +252,18 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     }
     //ContactService.
 
-
-
     $scope.editEmployee = function (employee) {
         employee.editing = true;
     }
     $scope.doneEditingEmployee = function (employee) {
-        employee.editing = false;
-        //employee.value
-        //dong some background ajax calling for persistence...
+        debugger;
+        if (timeParseExact(employee.Start1) > timeParseExact(employee.End1)) {
+            alert('End date is more then start');
+        }
+        else {
+            employee.editing = false;
+        }
+
     };
     $scope.employeeInfo = {
         Number: '',
@@ -415,7 +418,6 @@ module.service('ContactService', function ($http) {
 
     }
     contacts.SaveEmployeeHours = function (d, id) {
-        debugger;
         return $http({
             url: '/Admin/SaveEmployeeHours',
             method: 'POST',
@@ -456,3 +458,24 @@ module.directive('draggable', function () {
         }
     };
 });
+
+function timeParseExact(time) {
+    var hhmm = time.split(' ')[0];
+    var tt = time.split(' ')[1].toLowerCase();
+    var hh = hhmm.split(':')[0];
+    var mm = hhmm.split(':')[1];
+    if (tt == "pm") {
+        if (hh == "12") {
+            hh = "0";
+        }
+        return parseFloat(hh + "." + mm) + 12;
+    }
+    else {
+        if (hh == "12") {
+            hh = "0";
+        }
+        return parseFloat(hh + "." + mm);
+    }
+
+
+}

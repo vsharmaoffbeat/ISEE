@@ -7,6 +7,7 @@
 
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/Scripts/Custom/date.js"></script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -29,7 +30,7 @@
     <div class="col-md-3 col-xs-12 tree_left_asidebar">
         <div class="list-group text-left">
             <a class="LoadTreeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Tree</a>
-            <a class="LoadCategoryParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Category</a>
+            <a class="LoadCategoryParital list-group-item tree_panel_tab">category</a>
             <a class="LoadEmployeeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewEmployee</a>
             <a class="LoadCustomerParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewCustomer</a>
         </div>
@@ -126,11 +127,13 @@
     });
 
     function showTime(obj) {
-        $('#' + obj.id + '').timepicker();
+        $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
 
         if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
             debugger;
         }
     }
+
+
 
 </script>

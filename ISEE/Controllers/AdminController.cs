@@ -18,6 +18,18 @@ namespace ISEE.Controllers
         {
             return View();
         }
+        public enum Days
+        {
+            Sun = 1,
+            Mon = 2,
+            Tue = 3,
+            Wed = 4,
+            Thu = 5,
+            Fri = 6,
+            Sat = 7
+
+        }
+
         ISEEEntities dataCntext = new ISEEEntities();
         public ActionResult Admin()
         {
@@ -59,15 +71,25 @@ namespace ISEE.Controllers
             {
                 if (item.EmployeeID != null)
                 {
+<<<<<<< HEAD
+                    var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+=======
                 var emp=dataCntext.Employees.Where(x=>x.EmployeeId==item.EmployeeID).FirstOrDefault();
                 treeList.Add(new TreeNodeData() { id ="treenode_"+ item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+>>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
                 }
                 else if (item.CustomerID != null)
                 {
                     var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
 
+<<<<<<< HEAD
+                    treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+
+=======
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
                 
+>>>>>>> e6ea54477dfc377d19c40243de058a3bce0092b6
                 }
                 else
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
@@ -132,18 +154,16 @@ namespace ISEE.Controllers
 
         public ActionResult _Category()
         {
-            return View();
+            return PartialView();
         }
         public JsonResult GetEmployeeHours()
         {
             int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = e.DayStatus, Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
-
+                var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-
         }
         public bool SaveEmployeeHours(string objhours, int employeeID)
         {
@@ -222,7 +242,7 @@ namespace ISEE.Controllers
 
         public JsonResult GetCurrentLogedUserCountery()
         {
-            int FactoryId = 2;
+            int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
             if (FactoryId > 0)
             {
                 using (ISEEEntities context = new ISEEEntities())
@@ -431,6 +451,58 @@ namespace ISEE.Controllers
 
         //}
         #endregion
+        //Customer Tab
+        public JsonResult GetStaresByFactoryID()
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+                if (CountryID != null)
+                {
 
+                    var StateDec = context.States.Where(c => c.CountryCode == 2).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                    return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetCitysByState(int stateID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (stateID != null)
+                {
+                    var Cityes = context.Cities.Where(p => p.StateCode == stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
+                    return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetStreetByCity(int stateID, int cityID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (cityID != null)
+                {
+                    var Streets = context.Streets.Where(p => p.CityCode == cityID && p.StateCode == stateID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
+                    return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+        public JsonResult GetBuildingsByCity(int streetID,  int stateID,int cityID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (streetID != null)
+                {
+                    var Buildings = context.Buildings.Where(p => p.StreetCode == streetID && p.StateCode == stateID && p.CityCode == cityID).Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number }).ToList();
+                    return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
     }
 }

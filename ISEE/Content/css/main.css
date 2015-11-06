@@ -2,6 +2,32 @@ html {
     height: 100%;
 }
 
+.qwert {
+line-height:10px;
+}
+
+
+
+.btn btn-default {
+font-size:10px;
+}
+
+.btn-change {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    font-size: 11px;
+    margin-right: 3px;
+    padding: 7px;
+    margin-top: 17px;
+}
+
+.new_search_node {
+    margin-top: 18px!important;
+    margin-left: 10px!important;
+    width: 57px!important;
+}
+
 body {
     padding: 0px;
     margin: 0px;
@@ -133,7 +159,7 @@ font-weight:bold;
     width: 100%;
     margin-top: 20ppx;
     border-bottom: none;
-}*/
+}
 
 .isee_main_nav {
     width: 100%;
@@ -377,6 +403,50 @@ select {
     -ms-appearance: none;
 }
 
+.login_flag {
+    color: #333;
+    border-color: #ccc;
+    height: 27px;
+    width: 60%;
+     background-image: -webkit-linear-gradient(top, #f6f6f6, #cecdcc, #f6f6f6);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #cecdcc, #f6f6f6);
+    background-image: -ms-linear-gradient(top, #f6f6f6, #cecdcc, #f6f6f6);
+    background-image: -o-linear-gradient(top, #f6f6f6, #cecdcc, #f6f6f6);
+    background-image: linear-gradient(to bottom, #f6f6f6, #cecdcc, #f6f6f6);
+}
+
+
+
+.drop_menu_window {
+    position: absolute;
+    top: 100%;
+    left: 32px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 55px;
+    padding: 0px 0;
+    margin: 26px 0 0;
+    font-size: 15px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+
+
+
+
+
+
+
 /* Login section end */
 /*============================= END================================*/
 
@@ -408,6 +478,10 @@ select {
         padding: 0px;
         margin: 0px;
     }
+
+.search_reslt {
+color:#6b9315;
+}
 
 /* tree_left_asidebar */
 .container {
@@ -543,6 +617,7 @@ background:#fefefe;
 margin-top:5px;
 border-radius:5px;
   border:1px solid rgb(181,189,200);
+  height:380px;
 }
 
 .tree_second_company {
@@ -559,6 +634,7 @@ padding:0px;
 margin:0px;
 margin-top:5px;
   border:1px solid rgb(181,189,200);
+  background:#fff;
 }
 
  .tree_tg-wrap {
@@ -587,6 +663,7 @@ margin-top:5px;
         background-color: #000000;
         color: #ffffff;
         vertical-align: top;
+        line-height:5px;
         border: 1px solid #848484;
         background: rgb(19,19,19);
         background: -moz-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(28,28,28,1) 9%, rgba(43,43,43,1) 24%, rgba(17,17,17,1) 40%, rgba(0,0,0,1) 42%, rgba(44,44,44,1) 57%, rgba(71,71,71,1) 70%, rgba(102,102,102,1) 86%, rgba(89,89,89,1) 92%, rgba(76,76,76,1) 100%);
@@ -618,7 +695,12 @@ margin-top:5px;
         background: -ms-linear-gradient(top, rgba(19,19,19,1) 0%,rgba(28,28,28,1) 9%,rgba(43,43,43,1) 24%,rgba(17,17,17,1) 40%,rgba(0,0,0,1) 42%,rgba(44,44,44,1) 57%,rgba(71,71,71,1) 70%,rgba(102,102,102,1) 86%,rgba(89,89,89,1) 92%,rgba(76,76,76,1) 100%);
         background: linear-gradient(to bottom, rgba(19,19,19,1) 0%,rgba(28,28,28,1) 9%,rgba(43,43,43,1) 24%,rgba(17,17,17,1) 40%,rgba(0,0,0,1) 42%,rgba(44,44,44,1) 57%,rgba(71,71,71,1) 70%,rgba(102,102,102,1) 86%,rgba(89,89,89,1) 92%,rgba(76,76,76,1) 100%);
     }
-    
+
+
+.tree_tg-zqgi {
+line-height:10px;
+}
+
 /* Tree right panel */
 /*============================= END ================================*/
 
@@ -733,7 +815,7 @@ margin-top:5px;
 }
 
 .bulding_inner_right {
-    height: 480px;
+    height: 553px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid rgb(181,189,200);
@@ -741,7 +823,7 @@ margin-top:5px;
 }
 
 .demo_inner_body {
-    height: 456px;
+    height: 530px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid rgb(181,189,200);
@@ -983,6 +1065,7 @@ margin-top:10px;
         font-size: 12px;
         background-color: #000000;
         color: #ffffff;
+        line-height:5px;
         vertical-align: top;
         border: 1px solid #848484;
         background: rgb(19,19,19);
@@ -1130,6 +1213,7 @@ border:1px solid rgb(181,189,200);
         font-size: 12px;
         background-color: #000000;
         color: #ffffff;
+        line-height:5px;
         vertical-align: top;
         border: 1px solid #ccc;
         background: rgb(19,19,19);
@@ -1143,6 +1227,7 @@ border:1px solid rgb(181,189,200);
 
     .category_tg .category_tg-z1n21 {
         font-size: 12px;
+        line-height:5px;
         width: 40%;
         background-color: #000000;
         color: #ffffff;
@@ -1190,10 +1275,10 @@ border:1px solid rgb(181,189,200);
     }
 
 .category_form_table {
-    max-width: 50% !important;
+        max-width: 50% !important;
     margin: auto !important;
-    height: 30px !important;
-    margin-top: 10px !important;
+    height: 20px !important;
+    margin-top: 15px !important;
 }
 
 /* today current changes*/
@@ -1240,9 +1325,6 @@ margin-top:-50px;
 .e_chkbox {
 margin-top:25px;
 }
-
-
-
 
 .second_employee_window 
 {
@@ -1331,7 +1413,7 @@ border-radius:8px;
 
 
 
-.tab-pane {
+.tab-panes {
 border-bottom:1px solid #ddd;
 border-left:1px solid #ddd;
 border-right:1px solid #ddd;

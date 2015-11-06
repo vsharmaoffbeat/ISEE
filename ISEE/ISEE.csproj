@@ -192,14 +192,14 @@
     <Content Include="images\Home.png" />
     <Content Include="images\hover.png" />
     <Content Include="images\img\cl.png" />
-    <Content Include="images\img\customer.png" />
     <Content Include="images\img\de.png" />
     <Content Include="images\img\es.png" />
+    <Content Include="images\img\customer.png" />
     <Content Include="images\img\login_background.png" />
     <Content Include="images\img\login_backgroundnew.png" />
-    <Content Include="images\img\mx.png" />
+    <Content Include="images\img\he.png" />
     <Content Include="images\img\ru.png" />
-    <Content Include="images\img\us.png" />
+    <Content Include="images\img\en.png" />
     <Content Include="images\img\User.png" />
     <Content Include="images\login_background.png" />
     <Content Include="images\login_page.png" />

@@ -50,12 +50,14 @@
 
                 <div class="col-md-4 col-xs-4">
                     <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <!---- new changes today-->
+                        <!---- new changes today-->     <button class="btn btn-default login_flag pull-right  dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <img ng-src="{{selectedImageUrl}}" />
                             <span class="caret">
                             </span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownLanguage">
+                        <ul class="dropdown-menu  drop_menu_window" aria-labelledby="dropdownLanguage">
+                            <!---- new changes today-->
                             <li ng-repeat="item in CountryCodeList">
                                 <a ng-click="dropboxitemselected(item.LanguageNickname)">
                                     <img ng-src="{{item.ImageUrl}}" />
@@ -63,14 +65,14 @@
                             </li>
                         </ul>
                     </div>
-                       @*<select name="language" class="form-control isee_button language_flag pull-right">
-                        <option value="arabic">USA</option>
-                        <option value="english">ISR</option>
-                        <option value="french">RUS</option>
-                        <option value="german">CHI</option>
-                        <option value="other">MEX</option>
-                        <option value="other">GER</option>
-                    </select>*@
+                    @*<select name="language" class="form-control isee_button language_flag pull-right">
+                            <option value="arabic">USA</option>
+                            <option value="english">ISR</option>
+                            <option value="french">RUS</option>
+                            <option value="german">CHI</option>
+                            <option value="other">MEX</option>
+                            <option value="other">GER</option>
+                        </select>*@
                 </div>
 
             </div>

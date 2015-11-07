@@ -117,17 +117,17 @@ namespace ISEE.Controllers
         }
         public JsonResult GetCustomers(string state, string city, string street, string buldingNumber, string customerNumber, string contactName, string companyName, string phone1)
         {
-            GetInteger(state);
+            Common.Common.GetInteger(state);
             using (ISEEEntities context = new ISEEEntities())
             {
                 int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
                 bool _Active = true;
 
                 var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").ToList().Where(x => x.Factory == factoryId &&
-                     (GetInteger(state) != 0 ? x.Building.StateCode == GetInteger(state) : x.Building.StateCode == null) &&
-                                                                                                            x.Building.StateCode == (GetInteger(state) == 0 ? x.Building.StateCode : GetInteger(state)) &&
-                                                                                                            x.Building.CityCode == (GetInteger(city) == 0 ? x.Building.CityCode : GetInteger(city)) &&
-                                                                                                            x.Building.StreetCode == (GetInteger(street) == 0 ? x.Building.StreetCode : GetInteger(street)) &&
+                     (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode ==Common.Common.GetInteger(state) : x.Building.StateCode == null) &&
+                                                                                                            x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state)) &&
+                                                                                                            x.Building.CityCode == (Common.Common.GetInteger(city) == 0 ? x.Building.CityCode : Common.Common.GetInteger(city)) &&
+                                                                                                            x.Building.StreetCode == (Common.Common.GetInteger(street) == 0 ? x.Building.StreetCode : Common.Common.GetInteger(street)) &&
                                                                                                             x.Building.Number.Contains(buldingNumber == null ? x.Building.Number : buldingNumber) &&
                                                                                                             x.CustomerNumber.CompareTo(customerNumber == null ? x.CustomerNumber : customerNumber) == 0 &&
                                                                                                             x.FirstName.Contains(contactName == null ? x.FirstName : contactName) &&
@@ -142,15 +142,7 @@ namespace ISEE.Controllers
 
 
 
-        public int GetInteger(string val)
-        {
-
-            int output;
-            int.TryParse(val, out output);
-            //if (isNaN(output))
-            //    return output;
-            return output;
-        }
+       
 
         public ActionResult _Category()
         {
@@ -294,7 +286,7 @@ namespace ISEE.Controllers
                 }
                 else
                 {
-                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == GetInteger(id)).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == Common.Common.GetInteger(id)).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
                     return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
                 }
             }

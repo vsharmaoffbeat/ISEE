@@ -3,7 +3,7 @@
     <div class="row customer_top_rightbar">
         <div class="col-md-12 col-xs-12 customer_save_header">
             <button type="reset" class="btn btn-default pull-right isee_button_color"><i class="fa fa-pencil"></i></button>
-            <button onclick="SaveCustomerForm();" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-save"></i></button>
+            <button onclick="SaveCustomerForm()" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-save"></i></button>
         </div>
 
         <div class="col-md-12 col-xs-12 customer_info_panel">
@@ -23,22 +23,22 @@
                         <input id="inputFloor" type="tel" class="form-control isee_input">
                     </div>
 
-            
+
 
 
                     <div class="row">
                         <div class="col-xs-5">
 
-                            <div class="form-group">
-                                <label>Phone1</label>
-                                <input class="form-control isee_input" id="inputPhone1" maxlength="3" name=""  size="3" title="" type="tel" value="">
+                            <label>Phone1</label>
+                            <div class="form-group phone_no">
+                                <input class="form-control isee_input" id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
                             </div>
                         </div>
 
                         <div class="col-xs-7">
                             <label></label>
                             <div class="form-group phone_no">
-                                <input class="form-control isee_input" id="inputPhone11" maxlength="10" name="" size="3" title="" type="tel" value="">
+                                <input class="form-control isee_input" id="inputPhone11" maxlength="10" name="" value="" size="3" title="" type="text">
                             </div>
                         </div>
                     </div>
@@ -60,231 +60,277 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label for="usr">Phone2</label>
-                                <input id="inputPhone2" type="tel" class="form-control isee_input">
+                                <input id="inputPhoneTwo" type="tel" class="form-control isee_input">
                             </div>
-                            </div>
+                        </div>
 
                         <div class="col-xs-7">
                             <label></label>
                             <div class="form-group phone_no">
-                                <input class="form-control isee_input" id="" maxlength="10" name="phone" size="3" title="" type="tel" value="">
-                            </div>
-                        </div>
-
-                        </div>
-
-                   </div>
-
-                        <div class="col-md-4 col-xs-12">
-                            <div class="form-group">
-                                <label for="usr">Contact Name *</label>
-                                <input id="inputContactName" type="text" class="form-control isee_input" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">mail</label>
-                                <input id="inputMail" type="email" class="form-control isee_input">
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-lg-6">
-
-                                    <div class="row">
-                                        <div class="col-xs-5">
-
-                                            <div class="form-group">
-                                                <label>Mobile</label>
-                                                <input class="form-control isee_input" id="inputMobile" maxlength="3" name="" size="3" title="" type="tel" value="">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-7">
-                                            <label></label>
-                                            <div class="form-group phone_no">
-                                                <input class="form-control isee_input" id="inputMobile1" maxlength="20" name="" size="3" title="" type="tel" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-6">
-
-                                    <div class="row">
-                                        <div class="col-xs-5">
-
-                                            <div class="form-group">
-                                                <label>Fax</label>
-                                                <input class="form-control isee_input" id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-7">
-                                            <label></label>
-                                            <div class="form-group phone_no">
-                                                <input class="form-control isee_input" id="inputFax1" maxlength="20" name="" size="3" title="" type="tel" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                           
-                        </div>
-                    </div>
-
-
-                    <!---- Customer info panel-->
-                    <!----- ================End======================-->
-                    <!---- Customer Building Data-->
-                    <!----- ================START======================-->
-                    <div class="col-md-6 col-xs-12  customer_bulding_data">
-
-                        <div class="col-md-12 col-xs-12 bulding_inner_left">
-                            <h4 class="customer_title">Builiding Data</h4>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="usr">State *</label>
-                                    <input id="inputState" type="text" class="form-control isee_input" readonly>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="usr">City *</label>
-                                    <input id="inputCity" type="text" class="form-control isee_input" required>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="usr">Street *</label>
-                                    <input id="inputStreet" type="text" class="form-control isee_input" required>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Bulding Number *</label>
-                                    <input id="inputBuldingNumber" type="text" class="form-control isee_input" required>
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Entry</label>
-                                    <input id="inputEntry" type="text" class="form-control isee_input">
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Zip Code</label>
-                                    <input id="inputZipCode" type="tel" class="form-control isee_input">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Visit Interval</label>
-                                    <input id="inputVisitInterval" type="tel" class="form-control isee_input">
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Visit time</label>
-                                    <input id="inputVisitTime" type="tel" class="form-control isee_input">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="usr">Next Visit</label>
-                                    <div class="input-group datetime datepicker">
-                                        <input id="inputNextVisit" class="form-control make-datepicker isee_input" type="text" name="leaving_time" id="leaving_time">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-th"></i>
-                                        </span>
-                                    </div>
-
-                                </div>
-                                <button type="button" id="buttonInsert" onclick="InsertAddress()" class="btn btn-default pull-right isee_button_colo">Insert address</button>
-                            </div>
-                            <h4 class="customer_title">Drag Item To Tree</h4>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control isee_input">
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    <!---- Customer Building Data-->
-                    <!----- ================END======================-->
-                    <!---- Customer Demo Company-->
-                    <!----- ================START======================-->
-                    <div class="col-md-6 col-xs-12 customer_demo_company">
-                        <div class="col-md-12 col-xs-12 bulding_inner_right">
-                            <div class="col-md-12 col-xs-12 demo_inner_body">
-
+                                <input class="form-control isee_input" id="inputPhone22" maxlength="10" name="phone" size="3" title="" type="tel">
                             </div>
                         </div>
 
                     </div>
-
-                    <!---- Customer Demo Company-->
-                    <!----- ================END======================-->
 
                 </div>
-        <div id="popup_div" style="background-color: White; z-index: 999; position: relative;">
-            <div id="map_canvas" style="min-height: 250px;min-width:350px"></div>
+
+                <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                        <label for="usr">Contact Name *</label>
+                        <input id="inputContactName" type="text" class="form-control isee_input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">mail</label>
+                        <input id="inputMail" type="email" class="form-control isee_input">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6">
+
+                            <div class="row">
+                                <div class="col-xs-5">
+
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        <input class="form-control isee_input" id="inputMobile" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-7">
+                                    <label></label>
+                                    <div class="form-group phone_no">
+                                        <input class="form-control isee_input" id="inputMobile1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <div class="row">
+                                <div class="col-xs-5">
+
+                                    <div class="form-group">
+                                        <label>Fax</label>
+                                        <input class="form-control isee_input" id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-7">
+                                    <label></label>
+                                    <div class="form-group phone_no">
+                                        <input class="form-control isee_input" id="inputFax1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!---- Customer info panel-->
+            <!----- ================End======================-->
+            <!---- Customer Building Data-->
+            <!----- ================START======================-->
+            <div class="col-md-6 col-xs-12  customer_bulding_data">
+
+                <div class="col-md-12 col-xs-12 bulding_inner_left">
+                    <h4 class="customer_title">Builiding Data</h4>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="usr">State *</label>
+                            <input id="inputState" onblur="GetCitysByState()" type="text" class="form-control isee_input" required>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="usr">City *</label>
+                            <input id="inputCity" onblur="GetStreetByCity()" type="text" class="form-control isee_input" required>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="usr">Street *</label>
+                            <input id="inputStreet" type="text" onblur="GetBuildingsByCity()" class="form-control isee_input" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Bulding Number *</label>
+                            <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input" required>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Entry</label>
+                            <input id="inputEntry" type="text" class="form-control isee_input">
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Zip Code</label>
+                            <input id="inputZipCode" type="tel" class="form-control isee_input">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Visit Interval</label>
+                            <input id="inputVisitInterval" type="tel" class="form-control isee_input">
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Visit time</label>
+                            <input id="inputVisitTime" type="tel" class="form-control isee_input">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="usr">Next Visit</label>
+                            <div class="input-group datetime datepicker">
+                                <input id="inputNextVisit" class="form-control make-datepicker isee_input" type="text" name="leaving_time" id="leaving_time">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-th"></i>
+                                </span>
+                            </div>
+
+                        </div>
+                        <button type="button" id="buttonInsert" onclick="InsertAddress()" class="btn btn-default pull-right isee_button_colo">Insert address</button>
+                    </div>
+                    <h4 class="customer_title">Drag Item To Tree</h4>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control isee_input">
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!---- Customer Building Data-->
+            <!----- ================END======================-->
+            <!---- Customer Demo Company-->
+            <!----- ================START======================-->
+            <div class="col-md-6 col-xs-12 customer_demo_company">
+                <div class="col-md-12 col-xs-12 bulding_inner_right">
+                    <div class="col-md-12 col-xs-12 demo_inner_body">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!---- Customer Demo Company-->
+            <!----- ================END======================-->
+
+        </div>
+        <div id="popup_div" style="background-color: White; z-index: 999; position: relative;width:500px !important">
+            <div style="overflow:auto;height:100px">
+                <table id="MapHeaderGrid" class="tg">
+                    <tr>
+                        <th class="tg-z1n2">Country</th>
+                        <th class="tg-z1n2">State</th>
+                        <th class="tg-z1n2">City</th>
+                        <th class="tg-z1n2">Street</th>
+                        <th class="tg-z1n2">Building Number</th>
+                        <th class="tg-z1n2">Full Address</th>
+                    </tr>
+                    @*<tr>
+                            <td class="tg-dx8v">country name</td>
+                            <td class="tg-dx8v">state name</td>
+                            <td class="tg-dx8v">city name</td>
+                            <td class="tg-dx8v">street name</td>
+                            <td class="tg-dx8v">building name</td>
+                            <td class="tg-dx8v">full address</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-dx8v">country name</td>
+                            <td class="tg-dx8v">state name</td>
+                            <td class="tg-dx8v">city name</td>
+                            <td class="tg-dx8v">street name</td>
+                            <td class="tg-dx8v">building name</td>
+                            <td class="tg-dx8v">full address</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-dx8v">country name</td>
+                            <td class="tg-dx8v">state name</td>
+                            <td class="tg-dx8v">city name</td>
+                            <td class="tg-dx8v">street name</td>
+                            <td class="tg-dx8v">building name</td>
+                            <td class="tg-dx8v">full address</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-dx8v">country name</td>
+                            <td class="tg-dx8v">state name</td>
+                            <td class="tg-dx8v">city name</td>
+                            <td class="tg-dx8v">street name</td>
+                            <td class="tg-dx8v">building name</td>
+                            <td class="tg-dx8v">full address</td>
+                        </tr>*@
+
+                </table>
+            </div>
+            <div id="map_canvas" style="min-height: 350px;min-width:450px !important"></div>
+            @*<div class="container">
+                            <div class="col-md-3 col-xs-12"></div>
+                            <div class="col-md-3 col-xs-12"></div>
+                            <div class="col-md-6 col-xs-12 main_map_window">
+                                <div class="col-md-12 col-xs-12 top_header_close isee_button_color">
+                                    <a href="/Home/login"><i class="fa fa-close pull-right"></i></a>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="map_tg-wrap">
+                                        <table class="map_tg">
+                                            <tr>
+                                                <th class="map_tg-z1n2"></th>
+                                                <th class="map_tg-z1n2">Country</th>
+                                                <th class="map_tg-z1n2">State</th>
+                                                <th class="map_tg-z1n2">City</th>
+                                                <th class="map_tg-z1n2">Street</th>
+                                                <th class="map_tg-z1n2">Building Number</th>
+                                                <th class="map_tg-z1n2">Full Address</th>
+                                                <th class="map_tg-z1n2"></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13727.852614738673!2d76.7375863!3d30.66316605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1446544817898" width="100%" height="400" frameborder="0" style="border:1px solid #808080" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-4 col-xs-12"></div>
+                    <div class="col-md-4 col-xs-12"></div>
+                    <div class="col-md-4 col-xs-12" style="padding-bottom:5px;">
+                        <button type="submit" class="btn btn-default pull-left map_ok isee_button">OK</button>
+                        <button type="submit" class="btn btn-default pull-right map_cancel isee_button">Cancel</button>
+                    </div>
+                </div>
+                </div>*@
         </div>
     </div>
     <!-- Customer right panel end---->
 </form>
-
-<script>
-
-
-
-
-    var availableTags = [
-    "Estado",
-    "Estado",
-    "Iquique",
-    "Aguascalientes",
-    "BajaCalifornia",
-   "Campeche",
-   "Coahuila de Zaragoza",
-   "Colima",
-   "Chiapas",
-   "Chihuahua",
-   "Distrito Federal",
-   "Durango",
-   "Guanajuato",
-   "Guerrero",
-   "Hidalgo",
-    ];
-
-    $("#inputCity").autocomplete({
-        source: availableTags
-    });
-
-
-
-
-</script>
-
 
 

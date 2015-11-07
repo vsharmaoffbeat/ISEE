@@ -1,4 +1,5 @@
 ﻿using ISEE.Common;
+using ISEE.Models;
 using ISEEDataModel.Repository;
 using System;
 using System.Collections.Generic;
@@ -75,8 +76,8 @@ namespace ISEE.Controllers
                     //var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
                     //treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
 
-                var emp=dataCntext.Employees.Where(x=>x.EmployeeId==item.EmployeeID).FirstOrDefault();
-                treeList.Add(new TreeNodeData() { id ="treenode_"+ item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+                    var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
 
                 }
                 else if (item.CustomerID != null)
@@ -84,17 +85,17 @@ namespace ISEE.Controllers
                     var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
 
 
-               //     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+                    //     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
 
 
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
-                
+
 
                 }
                 else
                     treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
             }
-                 return treeList;
+            return treeList;
         }
 
         public JsonResult GetEmployee(string firstname, string lastname, string phone)
@@ -246,27 +247,56 @@ namespace ISEE.Controllers
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public JsonResult insertAddress(string state, string city, string street, string buildingNumber, string zipCode, string visitTime, string entry, string visitInterval, string nextVisit)
-        {
-            if (state != "")
-            {
-                using (ISEEEntities context = new ISEEEntities())
-                {
-                    var result = context.States.Select(c => new { c.StateCode, c.StateDesc }).Where(s => s.StateDesc.StartsWith(state));
-
-
-                }
-            }
-            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-
-        public JsonResult SaveCustomerForm(string inputCustomerNumber, string inputFloor, string inputPhone1, string inputCompanyName, string inputApartment, string inputPhone2, string inputContactName, string inputMail, string inputMobile, string inputFax, string inputState, string state, string city, string street, string buildingNumber, string zipCode, string visitTime, string entry, string visitInterval, string nextVisit)
+        public JsonResult insertAddress(int? stateID, int? cityID, int? streetID)
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                int countryID = 2;
+                var result = context.Buildings.Where(x => x.CountryCode == countryID
+                    && x.StateCode == (stateID == null ? x.StateCode : stateID)
+                    && x.StreetCode == (streetID == null ? x.StreetCode : streetID)
+                    && x.CityCode == (cityID == null ? x.CityCode : cityID)).Select(s => new { CountryName = s.Street.City.State.Country.CountryDesc, StateName = s.Street.City.State.StateDesc, CityName = s.Street.City.CityDesc, StreetName = s.Street.StreetDesc, BuldingNumber = s.Number, Lat = s.Lat, Long = s.Long, Number = s.Number }).ToList();
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
+        }
 
+        public ActionResult SaveCustomerForm(CustomerDataModel objCustomerData)
+        {
+            int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            var CustomerData = objCustomerData;
+
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                try
+                {
+                    Customer customer = new Customer();
+                    customer.CreateDate = DateTime.Now;
+                    customer.BuildingCode = objCustomerData.buldingCode;
+                    customer.CustomerNumber = objCustomerData.CustomerNumber;
+                    customer.Factory = FactoryId;
+                    customer.FirstName = objCustomerData.ContactName;
+                    customer.Floor = objCustomerData.Floor;
+                    customer.Apartment = objCustomerData.inputApartment;
+                    customer.AreaPhone1 = objCustomerData.inputPhoneArea1;
+                    customer.Phone1 = objCustomerData.Phone1;
+                    customer.AreaPhone2 = objCustomerData.inputPhoneArea2;
+                    customer.Phone2 = objCustomerData.Phone2;
+                    customer.Fax = objCustomerData.Fax;
+                    customer.Mail = objCustomerData.Mail;
+                    customer.VisitInterval = objCustomerData.visitInterval;
+                    customer.NextVisit = objCustomerData.NextVisit;
+                    customer.VisitTime = objCustomerData.VisitTime;
+                    context.Customers.Add(customer);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
+            return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         #region Category Tab
@@ -484,7 +514,7 @@ namespace ISEE.Controllers
             }
         }
 
-        public JsonResult GetBuildingsByCity(int streetID,  int stateID,int cityID)
+        public JsonResult GetBuildingsByCity(int streetID, int stateID, int cityID)
         {
             using (ISEEEntities context = new ISEEEntities())
             {

@@ -258,7 +258,14 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     $scope.doneEditingEmployee = function (employee) {
         debugger;
         if (timeParseExact(employee.Start1) > timeParseExact(employee.End1)) {
-            alert('End date is more then start');
+            alert('Stop1 date is more then start1');
+        }
+        else {
+            employee.editing = false;
+        }
+
+        if (timeParseExact(employee.Start2) > timeParseExact(employee.End2)) {
+            alert('Stop2 date is more then start2');
         }
         else {
             employee.editing = false;
@@ -440,6 +447,7 @@ module.service('ContactService', function ($http) {
     return contacts;
 });
 
+
 //var count = 0;
 //module.directive('draggable', function () {
 //    return {
@@ -466,6 +474,7 @@ module.service('ContactService', function ($http) {
 //        }
 //    };
 //});
+
 
 function timeParseExact(time) {
     var hhmm = time.split(' ')[0];

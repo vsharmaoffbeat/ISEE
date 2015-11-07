@@ -2,7 +2,7 @@
     ViewBag.Title = "employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
 @*<form role="form" method="post" action=""> *@
 <div class="container top_employee_tab" style="background:#edecec;">
@@ -12,47 +12,37 @@
     <div class="col-md-2 col-xs-12 ">
         <div class="form-group">
             <label for="usr">Last Name</label>
-            <input class="form-control isee_input" id="" name="lastname" type="text" value="">
+            <input class="form-control isee_input" id="empLastname" name="lastname" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">First Name</label>
-            <input class="form-control isee_input" id="" name="firstname" type="text" value="">
+            <input class="form-control isee_input" id="empFirstname" name="firstname" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">Number</label>
-            <input class="form-control isee_input" id="" maxlength="50" name="number" type="tel" value="">
+            <input class="form-control isee_input" id="empNumber" maxlength="50" name="number" type="tel" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">Manufacture</label>
-            <select class="form-control tree_select_option isee_button_color" id="" maxlength="50" name="manufacture" value="">
-                <option></option>
-                <option>Clear</option>
-                <option>Samsung</option>
-                <option>LG</option>
-                <option>BlackBerry</option>
-                <option>Apple</option>
-                <option>Motorola</option>
-                <option>Nokia</option>
-            </select>
+            <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option isee_button_color"></select>
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">Phone Type</label>
-            <select class="form-control tree_select_option isee_button_color" id="" name="phonetype" value="">
-                <option></option>
-                <option></option>
-            </select>
+
+            <select id="ddlphoneType" class="form-control tree_select_option isee_button_color"></select>
+
         </div>
     </div>
 
@@ -61,8 +51,8 @@
             <input type="checkbox" class="myClass" value="yes" id="" name="answer" data-color="green">
             <label for="usr">Active</label>
         </div>
-        <button type="reset" class="btn btn-default pull-right e_pencil isee_button_color"><i class="fa fa-pencil"></i></button>
-        <button type="submit" class="btn btn-default pull-right e_search isee_button_color"><i class="fa fa-search"></i></button>
+        <button type="button" class="btn btn-default pull-right e_pencil isee_button_color" onabort="clearInputFields()"><i class="fa fa-pencil"></i></button>
+        <button type="button" class="btn btn-default pull-right e_search isee_button_color" onclick="searchEmployeeData()"><i class="fa fa-search"></i></button>
 
     </div>
 
@@ -78,55 +68,53 @@
     <div class="col-md-3 col-xs-12 tree_left_asidebar emptabs_left_window">
 
         <div class="col-md-12 scroll_window">
-            <div class="left_employee_window">
+            <div class="left_employee_window" id="left_employee_window">
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                @*<div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_xox"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_xox"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 tab_box"></div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 tab_box"></div>
+                    </div>*@
 
             </div>
 
@@ -150,7 +138,7 @@
 
                 </div>
 
-                <div class="col-md-12 col-xs-12 employee_info_panel">
+                <div class="col-md-12 col-xs-12 employee_info_panel" id="employeeData">
                     <div class="row">
                         <div class="col-md-6 col-xs-12 employee_left_form">
                             <div class="col-md-12 col-xs-12 left_inner_emptab">
@@ -158,18 +146,18 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="usr">Number</label>
-                                        <input class="form-control isee_input" id="" maxlength="50" name="Number" placeholder="0" name="number" type="tel" value="">
+                                        <input class="form-control isee_input" id="txtnumber" maxlength="50" name="Number" placeholder="0" name="number" type="tel" value="">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="usr">First Name *</label>
-                                        <input class="form-control isee_input" id="" name="firstname" type="text" value="" required>
+                                        <input class="form-control isee_input" id="txtfirstname" name="firstname" type="text" value="" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="usr">Start Day</label>
-                                        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                            <input class="form-control isee_input" type="text" id="" name="startday" value="" />
+                                        <div id="datepickerStartDay" class="input-group date" data-date-format="mm-dd-yyyy">
+                                            <input class="form-control isee_input" type="text" id="txtStart" name="startday" value="" />
                                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                         </div>
                                     </div>
@@ -179,19 +167,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="usr">Mail</label>
-                                        <input class="form-control isee_input" id="" name="mail" type="email" value="">
+                                        <input class="form-control isee_input" id="txtmail" name="mail" type="email" value="">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="usr">Last Name *</label>
-                                        <input class="form-control isee_input" id="" name="lastname" type="text" value="" required>
+                                        <label for="usr">Last Name</label>
+                                        <input class="form-control isee_input" id="txtlastname" name="lastname" type="text" value="" required>
                                     </div>
 
 
                                     <div class="form-group">
                                         <label for="usr">End Date</label>
-                                        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                            <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
+                                        <div id="datepickerEndDay" class="input-group date" data-date-format="mm-dd-yyyy">
+                                            <input class="form-control isee_input" type="text" id="txtend" title="enddate" value="" />
                                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                         </div>
                                     </div>
@@ -210,30 +198,22 @@
                                         <div class="col-xs-5">
 
                                             <div class="form-group">
-                                                <label>Phone1 *</label>
-                                                <input class="form-control isee_input" id="" maxlength="10" name="phone1" required="required" type="tel" value="" />
+                                                <label>Phone1</label>
+                                                <input class="form-control isee_input" id="txtphone1" maxlength="10" name="phone1" type="tel" value="" />
                                             </div>
                                         </div>
 
                                         <div class="col-xs-7">
                                             <label></label>
                                             <div class="form-group phone_no">
-                                                <input class="form-control isee_input" id="" maxlength="50" name="phone" required="required" type="tel" value="" />
+                                                <input class="form-control isee_input" id="" maxlength="50" name="phone" type="tel" value="" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="usr">Manufacture *</label>
-                                        <select class="form-control tree_select_option isee_button_color" id="" maxlength="50" name="manufacture" value="" required>
-                                            <option></option>
-                                            <option>Samsung</option>
-                                            <option>LG</option>
-                                            <option>BlackBerry</option>
-                                            <option>Apple</option>
-                                            <option>Motorola</option>
-                                            <option>Nokia</option>
-                                        </select>
+                                        <select class="form-control tree_select_option isee_button_color" id="txtphone11" maxlength="50" name="manufacture"></select>
                                     </div>
 
 
@@ -245,13 +225,13 @@
                                         <div class="col-xs-5">
                                             <div class="form-group">
                                                 <label>Phone1 *</label>
-                                                <input class="form-control isee_input" id="" maxlength="10" name="phone1" required="required" type="tel" value="" />
+                                                <input class="form-control isee_input" id="txtphone2" maxlength="10" name="phone1" required="required" type="tel" value="" />
                                             </div>
                                         </div>
                                         <div class="col-xs-7">
                                             <label></label>
                                             <div class="form-group phone_no">
-                                                <input class="form-control isee_input" id="" maxlength="50" name="phone" required="required" type="tel" value="" />
+                                                <input class="form-control isee_input" id="txtphone22" maxlength="50" name="phone" type="tel" value="" />
                                             </div>
                                         </div>
                                     </div>
@@ -269,8 +249,8 @@
 
                                     <div class="form-group">
                                         <label for="usr">Last application</label>
-                                        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                            <input class="form-control isee_input" type="text" id="" name="startday" value="" />
+                                        <div id="datepickerLastApp" class="input-group date" data-date-format="mm-dd-yyyy">
+                                            <input class="form-control isee_input" type="text" id="txtapplication" name="startday" value="" />
                                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                         </div>
                                     </div>
@@ -292,19 +272,19 @@
 
                         <div class="span12">
                             <ul class="nav nav-tabs">
-                                <li class="active menu_tabs"><a href="#hello" data-toggle="tab"><i class="fa fa-mobile"> SMS</i></a></li>
-                                <li class="menu_tabs"><a href="#empty" data-toggle="tab"><i class="fa fa-clock-o"> Time</i></a></li>
-                                <li class="menu_tabs"><a href="#templates" data-toggle="tab"><i class="fa fa-group"> Tree</i></a></li>
+                                <li class="active menu_tabs" id="divSms"><a href="#employeeSms" data-toggle="tab"><i class="fa fa-mobile"> SMS</i></a></li>
+                                <li class="menu_tabs" id="divTime"><a href="#employeeHours" data-toggle="tab"><i class="fa fa-clock-o"> Time</i></a></li>
+                                <li class="menu_tabs" id="divTree"><a href="#employeeTree" data-toggle="tab"><i class="fa fa-group"> Tree</i></a></li>
 
                             </ul>
 
                             <div class="tab-content">
-                                <div class="tab-pane" id="empty">
+                                <div class="tab-pane" id="employeeHours">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
                                             <h4 class="customer_title">Fill Employee Hours</h4>
                                             <div class="tg-wrap_content_tabs">
-                                                <table class="tg">
+                                                <table class="tg" id="tblemployeeHours">
                                                     <tr>
                                                         <th class="tg-z1n2"></th>
                                                         <th class="tg-z1n2">Day Status</th>
@@ -313,7 +293,6 @@
                                                         <th class="tg-z1n2">Start Time</th>
                                                         <th class="tg-z1n2">End Time</th>
                                                         <th class="tg-z1n2"></th>
-
                                                     </tr>
 
 
@@ -332,19 +311,19 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="usr">Month</label>
-                                                            <select class="form-control tree_select_option isee_button_color" id="" maxlength="50" name="manufacture" value="" required>
-                                                                <option>January</option>
-                                                                <option>Feburary</option>
-                                                                <option>March</option>
-                                                                <option>April</option>
-                                                                <option>May</option>
-                                                                <option>June</option>
-                                                                <option>July</option>
-                                                                <option>August</option>
-                                                                <option>September</option>
-                                                                <option>October</option>
-                                                                <option>November</option>
-                                                                <option>December</option>
+                                                            <select class="form-control tree_select_option isee_button_color" id="ddlMonthname" maxlength="50" name="manufacture" value="" required>
+                                                                <option value="1">January</option>
+                                                                <option value="2">Feburary</option>
+                                                                <option value="3">March</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">May</option>
+                                                                <option value="6">June</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">August</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
 
                                                             </select>
                                                         </div>
@@ -355,14 +334,8 @@
 
                                                         <div class="form-group">
                                                             <label for="usr">Year</label>
-                                                            <select class="form-control tree_select_option isee_button_color" id="" maxlength="50" name="manufacture" value="" required>
-                                                                <option>2012</option>
-                                                                <option>2013</option>
-                                                                <option>2014</option>
-                                                                <option>2015</option>
-                                                                <option>2016</option>
-                                                                <option>2017</option>
-                                                                <option>2018</option>
+                                                            <select class="form-control tree_select_option isee_button_color" id="ddlYearValue" maxlength="50" name="manufacture"  >
+                                                               
                                                             </select>
                                                         </div>
 
@@ -390,9 +363,9 @@
                                                                 <tr>
                                                                     <th class="tg-z1n2"></th>
                                                                     <th class="tg-z1n2">Date</th>
-                                                                    <th class="tg-z1n2">Status</th>
-                                                                    <th class="tg-z1n2">SMS Description</th>
-                                                                    <th class="tg-z1n2">Sent</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
                                                                     <th class="tg-z1n2"></th>
 
                                                                 </tr>
@@ -414,7 +387,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane active" id="hello">
+                                <div class="tab-pane active" id="employeeSms">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
                                             <h4 class="customer_title">Message</h4>
@@ -448,7 +421,7 @@
 
                                                         <div class="form-group">
                                                             <label for="usr">To</label>
-                                                            <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
                                                                 <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
                                                                 <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                                             </div>
@@ -465,7 +438,7 @@
 
                                                 <div class="col-md-12">
                                                     <div class="tg-wrap_content_tabs">
-                                                        <table class="tg">
+                                                        <table class="tg" id="msgHistory">
                                                             <tr>
                                                                 <th class="tg-z1n2"></th>
                                                                 <th class="tg-z1n2">Date</th>
@@ -475,7 +448,6 @@
                                                                 <th class="tg-z1n2"></th>
 
                                                             </tr>
-
 
 
                                                         </table>
@@ -489,7 +461,7 @@
                                 </div>
 
 
-                                <div class="tab-pane" id="templates">
+                                <div class="tab-pane" id="employeeTree">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
                                             <p class="text-left">Demo</p>
@@ -630,22 +602,11 @@
 
 
 
+<script type="text/javascript">
+    var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+</script>
 
 
+<script src="~/Scripts/Custom/Employee.js"></script>
 
 
-
-
-@section scripts
-    {
-
-    <script type="text/javascript">
-        $(function(){
-     $('#myTab a').click(function(e) {
-         e.preventDefault();
-         $(this).tab('show');
-     });
-        });
-    </script>
-
-}

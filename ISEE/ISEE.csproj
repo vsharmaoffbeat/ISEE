@@ -124,6 +124,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SessionManegment.cs" />
     <Compile Include="Common\TreeNodeData.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerDataModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

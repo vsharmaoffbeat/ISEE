@@ -1,19 +1,28 @@
 ﻿<style>
-    .employee {
-        background-image: url("/images/img/User.png") !important;
-        background-position: -4px -2px !important;
+    .easytree-draggable i.employee {
+        background-image: url("/images/img/employee_16.png") !important;
+        height: 16px;
+        width: 16px;
+        display: inline-block;
+        top: 2px;
+        position: relative;
     }
-    .customer {
-        background-image: url("/images/img/customer.png") !important;
-        background-position: -4px -2px  !important;
+
+    .easytree-draggable i.customer {
+        background-image: url("/images/img/customer_16.png") !important;
+        height: 16px;
+        width: 16px;
+        display: inline-block;
+        top: 2px;
+        position: relative;
     }
 </style>
 
 
 <form role="form" method="post" action="#" autocomplete="on">
     <div class="row first_tree_rightbar">
-             
-        <div class="col-md-3 col-xs-12">     
+
+        <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Type Find Tree</label>
                 <select class="form-control tree_select_option" ng-model="choice">
@@ -21,13 +30,9 @@
                     <option value="2">Customer</option>
                 </select>
             </div>
-
-
         </div>
 
         <div class="col-md-3 col-xs-12">
-
-
             <div class="form-group">
                 <label for="usr">Type Drag drop</label>
                 <select class="form-control tree_select_option" ng-model="choiceType">
@@ -136,9 +141,9 @@
                 <div class="form-group">
                     <input type="text" class="form-control tree_panel_search" id="addNewNode">
                 </div>
-                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Leaf</button>
-                <button type="button" class="btn btn-default button_color" onclick="demo_delete()">Delete Node</button>
-                <button type="button" class="btn btn-default button_color" onclick="demo_create()">Add Node</button>
+                <button type="button" class="btn btn-default button_color" onclick="removeNodeX()">Delete Leaf</button>
+                <button type="button" class="btn btn-default button_color" onclick="removeNodeX()">Delete Node</button>
+                <button type="button" class="btn btn-default button_color" onclick="addNode()">Add Node</button>
 
                 <div class="col-lg-12 col-sm-12 tree_second_company">
 
@@ -167,10 +172,11 @@
                             <td>{{gridOption.MainPhone}}</td>*@
 
 
-                        <tr draggable ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="jstree-draggable">
+                        <tr ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="easytree-draggable">
 
 
                             <td class="tg-dx8v_category">
+                                <i></i>
                                 <span style="display:none;" id='{gridOption.id}'>{{gridOption.id}}</span>
                             </td>
 
@@ -185,10 +191,11 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" datatype="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="jstree-draggable">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" data-type="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="easytree-draggable">
 
 
                             <td class="tg-dx8v_category">
+                                <i></i>
                                 <span style="display:none;" id='gridOption.id'>{{gridCustOptions.id}}</span>
                             </td>
 
@@ -238,88 +245,318 @@
 
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 
+    // var treeJsonData = [
+    //{
+    //    "uiIcon": "ui-icon-lightbulb",
+    //    "id": "_st_node_5526_0",
+    //    "text": "First Node"
+    //},
+    //{
+    //    "liClass": "grey_background",
+    //    "id": "_st_node_5526_1",
+    //    "textCss": "red green_background ",
+    //    "text": "Custom classes"
+    //},
+    //{
+    //    "isFolder": true,
+    //    "isExpanded": true,
+    //    "uiIcon": "ui-icon-folder-open",
+    //    "id": "_st_node_5526_2",
+    //    "text": "Folder 1",
+    //    "tooltip": "Bookmarks",
+    //    "children": [
+    //       {
+    //           "id": "_st_node_5526_2_0",
+    //           "iconUrl": "/content/images/google.ico",
+    //           "text": "Go to Google.com"
+    //       },
+    //       {
+    //           "id": "_st_node_5526_2_1",
+    //           "iconUrl": "/content/images/yahoo.jpg",
+    //           "text": "Go to Yahoo.com"
+    //       }
+    //    ]
+    //},
+    //{
+    //    "isExpanded": true,
+    //    "uiIcon": "ui-icon-folder-collapsed",
+    //    "id": "_st_node_5526_3",
+    //    "text": "Jquery icon 'ui-icon-lightbulb'",
+    //    "children": [
+    //       {
+    //           "id": "_st_node_5526_3_0",
+    //           "iconUrl": "/content/images/news.png",
+    //           "text": "Custom image"
+    //       },
+    //       {
+    //           "uiIcon": "ui-icon-scissors",
+    //           "id": "_st_node_5526_3_1",
+    //           "text": "Jquery icon 'ui-icon-scissors'",
+    //           "children": [
+    //              {
+    //                  "id": "_st_node_5526_3_1_0",
+    //                  "text": "Sub Sub Node 1"
+    //              },
+    //              {
+    //                  "id": "_st_node_5526_3_1_1",
+    //                  "text": "Sub Sub Node 2"
+    //              },
+    //              {
+    //                  "id": "_st_node_5526_3_1_2",
+    //                  "text": "Sub Sub Node 3"
+    //              },
+    //              {
+    //                  "id": "_st_node_5526_3_1_3",
+    //                  "text": "Sub Sub Node 4"
+    //              }
+    //           ]
+    //       },
+    //       {
+    //           "id": "_st_node_5526_3_2",
+    //           "text": "Sub Node 3"
+    //       }
+    //    ]
+    //},
+    //{
+    //    "id": "_st_node_5526_4",
+    //    "textCss": "blue ",
+    //    "text": "Blue css style"
+    //}
+    // ];
+    ////this will hold reference to the tr we have dragged and its helper
+    //var c = {};
 
-    //this will hold reference to the tr we have dragged and its helper
-    var c = {};
+    //$(document).ready(function () {
+    //    $("#jstree_demo_div").jstree({
+    //        'core': {
+    //            "check_callback": true,
+    //            'data': treeJsonData,
+    //        },
+    //        'themes': {
+    //            'url': '/Content/themes/default/style.css'
+    //        },
+    //        "dnd": {
+    //            "drop_finish": function () {
+    //                alert("DROP");
+    //            },
+    //            "drag_check": function (data) {
+    //                if (data.r.attr("id") == "phtml_1") {
+    //                    return false;
+    //                }
+    //                return {
+    //                    after: false,
+    //                    before: false,
+    //                    inside: true
+    //                };
 
-    $(document).ready(function () {
-        $("#jstree_demo_div").jstree({
-            'core': {
-                "check_callback": true,
-                'data': treeJsonData
-            },
-            "plugins": ["dnd"],
-            'types': {
-                'types': {
-                    'file': {
-                        'icon': {
-                            'image': '/images/img/cl.png'
-                        }
-                    },
-                    'default': {
-                        'icon': {
-                            'image': '/images/img/cl.png'
-                        },
-                        'valid_children': 'default'
-                    }
-                }
-            }
+    //                alert("hhh jjj kk ");
+    //            },
+    //            "drag_finish": function () {
+    //                alert("DRAG OK");
+    //            }
+    //        },
+    //        "crrm": {
+
+    //            "move": {
+
+    //                "default_position": "first",
+
+    //                "check_move": function (m) {
+    //                    alert("in")
+    //                    return (m.o[0].id === "thtml_1") ? false : true;
+    //                }
+
+    //            }
+
+    //        },
+    //        "plugins": ["dnd", "themes", "html_data", "ui", "crrm"],
+    //        'types': {
+    //            'types': {
+    //                'file': {
+    //                    'icon': {
+    //                        'image': '/images/img/cl.png'
+    //                    }
+    //                },
+    //                'default': {
+    //                    'icon': {
+    //                        'image': '/images/img/cl.png'
+    //                    },
+    //                    'valid_children': 'default'
+    //                }
+    //            }
+    //        }
+    //    });
+
+    //    var notinprogress = true;
+    //    //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
+    //    //    //This will be the top-most DOM element under cursor
+    //    //    var target = e.target;
+    //    //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
+    //    //        notinprogress = false;
+    //    //        var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("oid"), "objecttype": c.helper.data("type") };
+    //    //        treeJsonData.push(newNode);
+    //    //        resfreshJSTree();
+    //    //        notinprogress = true;
+    //    //        c = {};
+    //    //    }
+    //    //});
+
+    //});
+
+    //var draggedDivElement;
+
+
+    //var prevTarget = null;
+
+    //function resfreshJSTree() {
+    //    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
+    //    $('#jstree_demo_div').jstree(true).refresh();
+    //}
+
+    //function demo_create() {
+    //    var ref = $('#jstree_demo_div').jstree(true),
+    //        sel = ref.get_selected();
+    //    if (!sel.length) { return false; }
+    //    sel = sel[0];
+    //    sel = ref.create_node(sel, { "type": "file" });
+    //    if (sel) {
+    //        if ($('#addNewNode').text().trim().length > 0) {
+    //            ref.get_node(sel) = $('#addNewNode').text();
+    //            $('#addNewNode').text('');
+    //            treeJsonData.push(ref.get_node(sel));
+    //        }
+    //        else
+    //            ref.edit(sel);
+    //    }
+    //};
+    //function demo_rename() {
+    //    var ref = $('#jstree_demo_div').jstree(true),
+    //        sel = ref.get_selected();
+    //    if (!sel.length) { return false; }
+    //    sel = sel[0];
+    //    ref.edit(sel);
+    //};
+    //function demo_delete() {
+    //    var ref = $('#jstree_demo_div').jstree(true),
+    //        sel = ref.get_selected();
+    //    if (!sel.length) { return false; }
+    //    ref.delete_node(sel);
+    //};
+
+</script>
+
+<script>
+    var objTree = $('#jstree_demo_div').easytree(
+        {
+            data: treeJsonData,
+            enableDnd: true,
+            canDrop: canDrop,
+            dropped: dropped,
+            dropping: dropping
         });
 
-        //var notinprogress = true;
-        //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
-        //    //This will be the top-most DOM element under cursor
-        //    var target = e.target;
-        //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
-        //        notinprogress = false;
-        //        var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("oid"), "objecttype": c.helper.data("type") };
-        //        treeJsonData.push(newNode);
-        //        resfreshJSTree();
-        //        notinprogress = true;
-        //        c = {};
-        //    }
-        //});
 
-    });
+    function addNode() {
+        if ($('#addNewNode').val().trim().length > 0) {
+            var sourceNode = {};
+            sourceNode.text = $('#addNewNode').val();
+            sourceNode.isFolder = true;
+            var target = $('#jstree_demo_div .easytree-active');
+            var targetId
+            if (target.length > 0) {
+                targetId = target.attr("id")
+            }
+            objTree.addNode(sourceNode, targetId);
+            objTree.rebuildTree();
+        }
+        loadSelectBox();
+    }
+    function removeNodeX() {
+        var currentlySelected
 
-    var draggedDivElement;
+        var target = $('#jstree_demo_div .easytree-active');
+        if (target.length > 0) {
+            currentlySelected = target.attr("id")
+        }
+        var node = objTree.getNode(currentlySelected);
+        if (!node) { return; }
 
-
-    var prevTarget = null;
-
-    function resfreshJSTree() {
-        $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
-        $('#jstree_demo_div').jstree(true).refresh();
+        objTree.removeNode(node.id);
+        objTree.rebuildTree();
+        loadSelectBox();
     }
 
-    function demo_create() {
-        var ref = $('#jstree_demo_div').jstree(true),
-            sel = ref.get_selected();
-        if (!sel.length) { return false; }
-        sel = sel[0];
-        sel = ref.create_node(sel, { "type": "file" });
-        if (sel) {
-            if ($('#addNewNode').text().trim().length > 0) {
-                ref.get_node(sel) = $('#addNewNode').text();
-                $('#addNewNode').text('');
-                treeJsonData.push(ref.get_node(sel));
-            }
-            else
-                ref.edit(sel);
-        }
-    };
-    function demo_rename() {
-        var ref = $('#jstree_demo_div').jstree(true),
-            sel = ref.get_selected();
-        if (!sel.length) { return false; }
-        sel = sel[0];
-        ref.edit(sel);
-    };
-    function demo_delete() {
-        var ref = $('#jstree_demo_div').jstree(true),
-            sel = ref.get_selected();
-        if (!sel.length) { return false; }
-        ref.delete_node(sel);
-    };
 
+    // we have to reload selected box at the end of each function to ensure it is always up to date
+    function loadSelectBox() {
+        var select = $('#jstree_demo_div')[0];
+        var currentlySelected
+        var target = $('#jstree_demo_div .easytree-active');
+        if (target.length > 0) {
+            currentlySelected = target.attr("id")
+        }
+        select.length = 0; // clear select box
+
+        var root = new Option();
+        root.text = 'Root';
+        root.value = '';
+        select.add(root);
+
+        var allNodes = objTree.getAllNodes();
+        addOptions(allNodes, select, '-', currentlySelected);
+    }
+    function addOptions(nodes, select, prefix, currentlySelected) {
+        var i = 0;
+        for (i = 0; i < nodes.length; i++) {
+
+            var option = new Option();
+            option.text = prefix + ' ' + nodes[i].text;
+            option.value = nodes[i].id;
+            option.selected = currentlySelected == nodes[i].id;
+            select.add(option);
+
+            if (nodes[i].children && nodes[i].children.length > 0) {
+                addOptions(nodes[i].children, select, prefix + '-', currentlySelected);
+            }
+        }
+    }
+
+
+
+    function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
+        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+            return source.href ? true : false;
+        }
+        if (isTargetNode) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.type) {
+                return false;
+            }
+            return true;
+        }
+    }
+    function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+            alertMessage("Dropping node rejected '" + source.text + "'");
+        }
+    }
+    function dropped(event, nodes, isSourceNode, source, isTargetNode, target) {
+        // internal to external drop
+        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+            alertMessage("Dropped node accepted '" + source.text + "'");
+        }
+        if (isSourceNode && isTargetNode) { // internal to internal drop
+            alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+        }
+        if (isTargetNode && !isSourceNode) { // external to internal drop
+            var node = {};
+            node.text = source.innerText;
+            objTree.addNode(node, target.id);
+            alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+        }
+    }
+    function alertMessage(message) {
+        if (!$('#cbAlerts').is(':checked')) {
+            alert(message);
+        }
+    }
 </script>

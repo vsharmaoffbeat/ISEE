@@ -528,7 +528,10 @@
             return source.href ? true : false;
         }
         if (isTargetNode) {
-            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.type) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                return false;
+            }
+            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
                 return false;
             }
             return true;
@@ -549,7 +552,8 @@
         }
         if (isTargetNode && !isSourceNode) { // external to internal drop
             var node = {};
-            node.text = source.innerText;
+            node.text = $(source).data("name");
+            node.objecttype = $(source).data("type");
             objTree.addNode(node, target.id);
             alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
         }

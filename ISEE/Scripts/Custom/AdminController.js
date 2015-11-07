@@ -447,6 +447,7 @@ module.service('ContactService', function ($http) {
     return contacts;
 });
 
+<<<<<<< HEAD
 var count = 0;
 module.directive('draggable', function () {
     return {
@@ -473,6 +474,34 @@ module.directive('draggable', function () {
         }
     };
 });
+=======
+//var count = 0;
+//module.directive('draggable', function () {
+//    return {
+//        // A = attribute, E = Element, C = Class and M = HTML Comment
+//        restrict: 'A',
+//        //The link function is responsible for registering DOM listeners as well as updating the DOM.
+//        link: function (scope, element, attrs) {
+//            element.draggable({
+
+//                helper: "clone",
+//                start: function (event, ui) {
+//                    c.tr = this;
+//                    c.helper = ui.helper//.find("td:first").append("<img src='/images/img/customer.png' />");
+//                }, drag: function (event, ui) {
+//                    if (count % 2 == 0) {
+//                        ui.helper.find("td:first").text("odd")
+//                        count++;
+//                    } else {
+//                        ui.helper.find("td:first").text("even")
+//                        count++;
+//                    }
+//                }
+//            });
+//        }
+//    };
+//});
+>>>>>>> e25a5972eea57fd0c2b675eac6f6af04bb3d8a52
 
 function timeParseExact(time) {
     var hhmm = time.split(' ')[0];

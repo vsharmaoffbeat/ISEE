@@ -258,7 +258,14 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     $scope.doneEditingEmployee = function (employee) {
         debugger;
         if (timeParseExact(employee.Start1) > timeParseExact(employee.End1)) {
-            alert('End date is more then start');
+            alert('Stop1 date is more then start1');
+        }
+        else {
+            employee.editing = false;
+        }
+
+        if (timeParseExact(employee.Start2) > timeParseExact(employee.End2)) {
+            alert('Stop2 date is more then start2');
         }
         else {
             employee.editing = false;
@@ -454,8 +461,7 @@ module.directive('draggable', function () {
                     c.tr = this;
                     c.helper = ui.helper//.find("td:first").append("<img src='/images/img/customer.png' />");
                 }, drag: function (event, ui) {
-                    if(count%2==0)
-                    {
+                    if (count % 2 == 0) {
                         ui.helper.find("td:first").text("odd")
                         count++;
                     } else {

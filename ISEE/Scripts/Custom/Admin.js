@@ -438,30 +438,6 @@ $(document).ready(function () {
     //    }
     //});
 
-
-
-<<<<<<< HEAD
-
-});
-
-function GetTreeNodeData(nodeid) {
-    var node;
-    $.each(treeJsonData, function () {
-        if (this.id === nodeid) {
-            node = this;
-            return false;
-        }
-    });
-    return node;
-}
-function IsValid(selectedNode, targetElement) {
-    var hasValid = true;
-    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
-
-    if (hoveredNodeData != undefined && hoveredNodeData.objectid == selectedNode.objectid) {
-        hasValid = false;
-    }
-=======
 });
 
 //function GetTreeNodeData(nodeid) {
@@ -481,7 +457,7 @@ function IsValid(selectedNode, targetElement) {
 //    if (hoveredNodeData != undefined && selectedNode.objecttype == 'employee' && hoveredNodeData.objecttype == selectedNode.objecttype) {
 //        hasValid = false;
 //    }
->>>>>>> e25a5972eea57fd0c2b675eac6f6af04bb3d8a52
+
 
 //    if (hoveredNodeData != undefined && selectedNode.objecttype == 'customer' && hoveredNodeData.objecttype == "employee") {
 //        hasValid = false;

@@ -140,7 +140,7 @@ function GetBuildingsByCity() {
     abliableDataForBuilding = [];
     if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())] == undefined || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined)
         return false;
-        $.ajax({
+    $.ajax({
         type: "POST",
         url: "/Admin/GetBuildingsByCity",
         data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())], stateID: stateIds[stateNames.indexOf($('#inputState').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] },
@@ -376,82 +376,82 @@ $(document).ready(function () {
     //}
     //});
     GetStaresByFactoryID();
-    var notinprogress = true;
-    document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
-        //This will be the top-most DOM element under cursor
-        var target = e.target;
-        if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
-            notinprogress = false;
+    //var notinprogress = true;
+    //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
+    //    //This will be the top-most DOM element under cursor
+    //    var target = e.target;
 
-            var newNode = { "id": target.parentElement.getAttribute("id") + c.helper.data("id"), "icon": c.helper.data("type"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
+    //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
+    //        notinprogress = false;
+    //        var newNode = { "id": target.parentElement.getAttribute("id") + c.helper.data("id"), "icon": c.helper.data("type"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
 
-            if (IsValid(newNode, e.target)) {
-                treeJsonData.push(newNode);
-                resfreshJSTree();
-            }
-            notinprogress = true;
-            c = {};
-        }
-    });
+    //        if (IsValid(newNode, e.target)) {
+    //            treeJsonData.push(newNode);
+    //            resfreshJSTree();
+    //        }
+    //        notinprogress = true;
+    //        c = {};
+    //    }
+    //});
 
 
-   
+
 });
 
- function GetTreeNodeData(nodeid) {
-        var node;
-        $.each(treeJsonData, function () {
-            if (this.id === nodeid) {
-                node = this;
-                return false;
-            }
-        });
-        return node;
-    }
-function IsValid(selectedNode, targetElement) {
-    var hasValid = true;
-    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
+//function GetTreeNodeData(nodeid) {
+//    var node;
+//    $.each(treeJsonData, function () {
+//        if (this.id === nodeid) {
+//            node = this;
+//            return false;
+//        }
+//    });
+//    return node;
+//}
+//function IsValid(selectedNode, targetElement) {
+//    var hasValid = true;
+//    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
 
-    if (hoveredNodeData != undefined && selectedNode.objecttype=='employee' && hoveredNodeData.objecttype == selectedNode.objecttype) {
-        hasValid = false;
-    }
+//    if (hoveredNodeData != undefined && selectedNode.objecttype == 'employee' && hoveredNodeData.objecttype == selectedNode.objecttype) {
+//        hasValid = false;
+//    }
 
-    if (hoveredNodeData != undefined && selectedNode.objecttype == 'customer' && hoveredNodeData.objecttype == "employee") {
-        hasValid = false;
-    }
-    if (hoveredNodeData !=undefined && hoveredNodeData.objectid == selectedNode.objectid) {
-        hasValid = false;
-    }
+//    if (hoveredNodeData != undefined && selectedNode.objecttype == 'customer' && hoveredNodeData.objecttype == "employee") {
+//        hasValid = false;
+//    }
+//    if (hoveredNodeData != undefined && hoveredNodeData.objectid == selectedNode.objectid) {
+//        hasValid = false;
+//    }
 
-    $.each(treeJsonData, function () {
-        if (!hasValid)
-            return false;
-        var currentNode = this;
-        if (currentNode.parent == selectedNode.parent && currentNode.text == selectedNode.text && currentNode.objectid == selectedNode.objectid && currentNode.objecttype == selectedNode.objecttype) {
-            hasValid = false;
-        }
+//    $.each(treeJsonData, function () {
+//        if (!hasValid)
+//            return false;
+//        var currentNode = this;
+//        if (currentNode.parent == selectedNode.parent && currentNode.text == selectedNode.text && currentNode.objectid == selectedNode.objectid && currentNode.objecttype == selectedNode.objecttype) {
+//            hasValid = false;
+//        }
 
-    });
-    return hasValid;
-}
+//    });
+//    return hasValid;
+//}
 
-var draggedDivElement;
+//var draggedDivElement;
 
 
-$("#employeeGrid tr.tree-drop").draggable({
-    helper: "clone",
-    start: function (event, ui) {
-        c.tr = this;
-        c.helper = ui.helper;
-    }
-});
+//$("#employeeGrid tr.tree-drop").draggable({
+//    helper: "clone",
+//    start: function (event, ui) {
+//        c.tr = this;
+//        c.helper = ui.helper;
+//    }
+//});
 
-var prevTarget = null;
+//var prevTarget = null;
 
-function resfreshJSTree() {
-    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
-    $('#jstree_demo_div').jstree(true).refresh();
-}
+//function resfreshJSTree() {
+//    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
+//    $('#jstree_demo_div').jstree(true).refresh();
+//}
 
 
 

@@ -7,20 +7,30 @@ namespace ISEE.Common
 {
     public class TreeNodeData
     {
-        public string id { get; set; }
-        public string parent { get; set; }
+        public long id { get; set; }
+        public string iconUrl { get; set; }
+        public string liClass { get; set; }
         public string text { get; set; }
-        public object icon { get; set; }
+        public string textCss { get; set; }
+        public string tooltip { get; set; }
+        public List<TreeNodeData> children { get; set; }
         public int? objectid { get; set; }
         public string objecttype { get; set; }
-        public List<string> parents { get; set; }
-        public List<object> children { get; set; }
-        public List<object> children_d { get; set; }
-        public object data { get; set; }
-        public State state { get; set; }
-        public LiAttr li_attr { get; set; }
-        public AAttr a_attr { get; set; }
-        public Original original { get; set; }
+        
+        //public long? parent { get; set; }
+
+        //public object icon { get; set; }
+        //public int? objectid { get; set; }
+        //public string objecttype { get; set; }
+        //public List<string> parents { get; set; }
+
+        //public object data { get; set; }
+        //public State state { get; set; }
+        //public LiAttr li_attr { get; set; }
+        //public AAttr a_attr { get; set; }
+        //public Original original { get; set; }
+
+        //public List<TreeNodeData> children { get; set; }
     }
     public class State
     {
@@ -46,5 +56,5 @@ namespace ISEE.Common
         public string type { get; set; }
         public string text { get; set; }
     }
-    
+
 }

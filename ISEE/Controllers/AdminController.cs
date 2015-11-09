@@ -372,7 +372,7 @@ namespace ISEE.Controllers
         {
             SessionManegment.SessionManagement.FactoryID = 1;
             SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
-            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
+            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
@@ -383,8 +383,11 @@ namespace ISEE.Controllers
         public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
         {
             List<TreeNodeData> treeList = new List<TreeNodeData>();
-            treeList.Add(new TreeNodeData() { id = "treenode_" + SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
-
+            if (data.Count == 0)
+            {
+                treeList.Add(new TreeNodeData() { id = SessionManegment.SessionManagement.FactoryID, text = SessionManegment.SessionManagement.FactoryDesc });
+            }
+            CreateTreeNodes(data, ref treeList);
 
             //foreach (var item in data)
             //{
@@ -402,6 +405,29 @@ namespace ISEE.Controllers
             //        treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
             //}
             return treeList;
+        }
+
+        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList)
+        {
+            foreach (var objTreeView in data)
+            {
+                if (objTreeView.EmployeeID != null)
+                {
+                    var emp = dataContext.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee" });
+                }
+                else if (objTreeView.CustomerID != null)
+                {
+                    var cust = dataContext.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer" });
+                }
+                else
+                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description });
+                if (objTreeView.TreeView1.Any())
+                {
+                    CreateTreeNodes(objTreeView.TreeView1.ToList(), ref  treeList);
+                }
+            }
         }
 
         public JsonResult SaveTreeViewData(string treeViewData)

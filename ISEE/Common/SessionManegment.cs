@@ -179,12 +179,12 @@ namespace ISEE.Common
                 set { HttpContext.Current.Session["CompanyLogo"] = value; }
             }
 
-            public static DateTime CurrentGmt
+            public static Double CurrentGmt
             {
                 get
                 {
-                    if (HttpContext.Current.Session["CurrentGmt"] == null) { return DateTime.Now; }
-                    else { return Convert.ToDateTime(HttpContext.Current.Session["CurrentGmt"]); }
+                    if (HttpContext.Current.Session["CurrentGmt"] == null) { return 0; }
+                    else { return Convert.ToDouble(HttpContext.Current.Session["CurrentGmt"]); }
                 }
                 set { HttpContext.Current.Session["CurrentGmt"] = value; }
             }

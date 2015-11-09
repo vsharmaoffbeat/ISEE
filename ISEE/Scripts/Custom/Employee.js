@@ -21,7 +21,7 @@ $(document).ready(function () {
     var date = new Date,
     years = [],
     year = date.getFullYear();
-  $('#ddlYearValue').empty();
+    $('#ddlYearValue').empty();
     for (var i = year; i > year - 5; i--) {
         $("<option />", {
             val: i,
@@ -29,7 +29,7 @@ $(document).ready(function () {
         }).appendTo($('#ddlYearValue'));
     }
   
- //   $("<option />").appendTo($('#ddlYearValue'));
+    //   $("<option />").appendTo($('#ddlYearValue'));
     
 
     $(manufacture).each(function () {
@@ -151,75 +151,14 @@ function selectedEmployee(obj) {
     d = new Date();
     $("#datepicker2").datepicker('setDate', d);
     var data = $(obj).attr('employeedata').split('|');
-    getMessageHistory(data[0], $("#datepicker1 input").val(), $("#datepicker2 input").val())
+    getMessageHistory(data[0], $("#datepicker1 input").val(), $("#datepicker2 input").val());
     _employeeId = data[0];
     setInputValues(data);
     // alert('employee slected;')
 }
-function getMessageHistory(id, start, end) {
-    data = { employeeId: id, start: start, end: end }
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetMessageHistory",
-        data: data,
-        dataType: "json",
-        success: function (response) {
-            if (response == null) {
-                return true;
-            }
-            $(response).each(function () {
-                $('<tr><td class="tg-dx8v">' + this.SmsCreatDate.replace(/\/Date\((-?\d+)\)\//, '$1') + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory tr'));;
-            });
-            debugger;
 
-        },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
-//Time tab
-function getEmployeeTimeTemplate(id) {
-    data = { employeeId: id }
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetEmployeeDiaryTemplate",
-        data: data,
-        dataType: "json",
-        success: function (response) {
-            if (response == null) {
-                return true;
-            }
-            $(response).each(function () {
-                $('<tr><td class="tg-dx8v">' + this.SmsCreatDate.replace(/\/Date\((-?\d+)\)\//, '$1') + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory tr'));;
-            });
-            debugger;
 
-        },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
 
-function getEmployeeTimeHistoryDiary(id, month, year) {
-    ddlMonthname
-   
-    data = { employeeId: id, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetEmployeeTimeHistoryDiary",
-        data: data,
-        dataType: "json",
-        success: function (response) {
-            if (response == null) {
-                return true;
-            }
-            $(response).each(function () {
-                $('<tr><td class="tg-dx8v">' + this.SmsCreatDate.replace(/\/Date\((-?\d+)\)\//, '$1') + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory tr'));;
-            });
-            debugger;
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
 
 function setInputValues(data) {
 
@@ -243,29 +182,108 @@ function setInputValues(data) {
 function getDateFormat(d) {
     return ('' + (1 + d.getMonth()) + '-' + d.getDate() + '-' + d.getFullYear().toString())
 }
-//$('.menu_tabs').click(function (data) {
 
-//    debugger;
-//    $(this).find('a').tab('show');
-//    //$('.menu_tabs').removeClass('active');
-//    //if ($(this).attr('id').indexOf('Time') != -1){
-//    //    $('#employeeHours').addClass('active');
-//    //    $(this).addClass('active');
-//    //    $('#employeeTree').removeClass('active');
-//    //    $('#employeeSms').removeClass('active');
-//    //}
-//    //else if ($(this).attr('id').indexOf('tree') != -1) {
-//    //    $('#employeeSms').addClass('active');
-//    //    $(this).addClass('active');
-//    //    $('#employeeTree').removeClass('active');
-//    //    $('#employeeHours').removeClass('active');
-//    //}
-//    //else if ($(this).attr('id').indexOf('Sms') != -1) {
-//    //    $('#employeeTree').addClass('active');
-//    //    $(this).addClass('active');
-//    //    $('#employeeHours').removeClass('active');
-//    //    $('#employeeSms').removeClass('active');
-//    //}
-//    //$('#employeeHours')
 
-//});
+//Sms Tab all methods
+function searchMessageHistory() {
+    getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val())
+}
+
+//Get sms history and bind grid
+function getMessageHistory(id, start, end) {
+    data = { employeeId: id, start: start, end: end }
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetMessageHistory",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            $('#msgHistory tr:gt(0)').remove();
+            if (response == null) {
+                return true;
+            }
+            $(response).each(function () {
+                $('<tr><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
+            });
+            debugger;
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+//Send Sms
+function sendSms() {
+    if ($('#txtArea').val().trim() == "" || $('#txtphone1').val().trim() == "" || $('#txtphone11').val().trim() == "")
+        return false;
+    data = { employeeId: _employeeId, msg: $('#txtArea').val().trim(), phoneNumber: $('#txtphone1').val().trim() + $('#txtphone11').val().trim() }
+    $.ajax({
+        type: "POST",
+        url: "/Data/SendMessage",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response == null) {
+                return true;
+            }
+            getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
+            debugger;
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+//End Sms Tab
+
+//Start Time tab
+function getEmployeeTimeTemplate(id) {
+    data = { employeeId: id }
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetEmployeeDiaryTemplate",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response == null) {
+                return true;
+            }
+            
+            $('#tblemployeeHours tr:gt(0)').remove();
+            $(response).each(function () {
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v">' + this.Start1 + '</td><td class="tg-dx8v">' + this.End1 + '</td><td class="tg-dx8v">' + this.Start2 + '</td><td class="tg-dx8v">' + this.End2 + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblemployeeHours'));;
+            });
+            debugger;
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+function getEmployeeTimeHistoryDiary(id) {
+   // ddlMonthname
+
+    data = { employeeId: id, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetEmployeeTimeHistoryDiary",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response == null) {
+                return true;
+            }
+            $('#tblEmpDiaryHistory tr:gt(0)').remove();
+            $(response).each(function () {
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">'+this.Day+'</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start1) + ' ' + replaceNullWithEmpty(this.End1) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start2) + ' ' + replaceNullWithEmpty(this.End2) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start3) + ' ' + replaceNullWithEmpty(this.End3) + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblEmpDiaryHistory'));;
+            });
+            debugger;
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+function replaceNullWithEmpty(obj) {
+    if (obj == null)
+        return "";
+    return obj
+}
+//End Time tab

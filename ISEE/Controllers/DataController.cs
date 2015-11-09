@@ -72,6 +72,7 @@ namespace ISEEREGION.Controllers
                 SessionManegment.SessionManagement.CountryDesc = loginData.CountryDesc;
                 SessionManegment.SessionManagement.FactoryID = loginData.FactoryID;
                 SessionManegment.SessionManagement.Country = loginData.Country;
+                SessionManegment.SessionManagement.CurrentGmt = loginData.CurrentGmt;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
@@ -125,7 +126,7 @@ namespace ISEEREGION.Controllers
                                                                   }).ToList();
 
 
-                 return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
@@ -133,38 +134,46 @@ namespace ISEEREGION.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-            var msgHistory=    context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= Convert.ToDateTime(start) 
-                    && x.SmsCreatDate <= Convert.ToDateTime(end))
-                    .Select(x => new {x.SmsCreatDate, x.SmsMsg,x.SmsStatus,x.SmsCount }).ToList();
+                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= Convert.ToDateTime(start)
+                        && x.SmsCreatDate <= Convert.ToDateTime(end))
+                        .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
 
-            return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
         public JsonResult GetEmployeeDiaryTemplate(int employeeId)
         {
-            
+
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId== employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
+                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId == employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
+
+                //     var EmpHour = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        public JsonResult getEmployeeTimeHistoryDiary(int employeeId, int month, int year)
+        public JsonResult GetEmployeeTimeHistoryDiary(int employeeId, int month, int year)
         {
-            DateTime start = new DateTime();
+            var start=new DateTime(year, month, 1);
+            var end = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId== employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
+                var EmpHours = context.EmployeeDiaryTimes.Where(s => s.EmployeeId == employeeId && s.Day >= start  && s.Day <= end).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
-
-        public void SendSms()
+        public bool SendMessage(int employeeId, string msg, string phoneNumber)
         {
-            string _strMsg = "";
-            string _phone = "";
+            string result = SendSms(msg, phoneNumber, employeeId);
+            return true;
+
+        }
+
+        public string SendSms(string _strMsg, string phoneNumber, int employeeId)
+        {
+            //  string _strMsg = "";
             string UserName = "sparta";
             string Password = "5632455";
             string msg = System.Security.SecurityElement.Escape(_strMsg);
@@ -172,9 +181,8 @@ namespace ISEEREGION.Controllers
             string senderNumber = "5632455";
 
             //set phone numbers "0545500378;0545500379;"
-            string phonesList = _phone;
+            string phonesList = "0505774499";
 
-            var empID = 3;
 
             //create XML
             StringBuilder cbXml = new StringBuilder();
@@ -211,18 +219,21 @@ namespace ISEEREGION.Controllers
 
 
             //add and save row to DB
-            double CurrentGmt = 0.0;
             EmployeeSmsSend emp_sms = new EmployeeSmsSend();
-            emp_sms.EmployeeId = empID;
-            emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
+            emp_sms.EmployeeId = employeeId;
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManegment.SessionManagement.CurrentGmt);
             emp_sms.SmsMsg = _strMsg;
             emp_sms.SmsCount = 1;
             emp_sms.SmsStatus = Convert.ToInt32(Status);
-
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                context.EmployeeSmsSends.Add(emp_sms);
+                context.SaveChanges();
+            }
             //this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
             //this.ObjectContext.SaveChanges();
 
-           // return result;
+            return result;
 
         }
         static string PostDataToURL(string szUrl, string szData)

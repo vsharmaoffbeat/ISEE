@@ -385,85 +385,119 @@ namespace ISEE.Controllers
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = SessionManegment.SessionManagement.FactoryID, text = SessionManegment.SessionManagement.FactoryDesc });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc });
             }
-            CreateTreeNodes(data, ref treeList);
+            TreeNodeData parentTreeNode = new TreeNodeData();
+            CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
 
-            //foreach (var item in data)
-            //{
-            //    if (item.EmployeeID != null)
-            //    {
-            //        var emp = dataContext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
-            //        treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
-            //    }
-            //    else if (item.CustomerID != null)
-            //    {
-            //        var cust = dataContext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
-            //        treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
-            //    }
-            //    else
-            //        treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
-            //}
             return treeList;
         }
 
-        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList)
+        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
         {
+            TreeNodeData objTreeNodeData;
             foreach (var objTreeView in data)
             {
                 if (objTreeView.EmployeeID != null)
                 {
                     var emp = dataContext.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
-                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee" });
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee" };
                 }
                 else if (objTreeView.CustomerID != null)
                 {
                     var cust = dataContext.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
-                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer" });
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer" };
                 }
                 else
-                    treeList.Add(new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description });
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description };
+                if (hasChildren)
+                {
+                    if (parentTreeNode.children == null)
+                    {
+                        parentTreeNode.children = new List<TreeNodeData>();
+                    }
+                    parentTreeNode.children.Add(objTreeNodeData);
+                }
+                else
+                {
+                    treeList.Add(objTreeNodeData);
+                }
+
                 if (objTreeView.TreeView1.Any())
                 {
-                    CreateTreeNodes(objTreeView.TreeView1.ToList(), ref  treeList);
+                    CreateTreeNodes(objTreeView.TreeView1.ToList(), ref  treeList, ref objTreeNodeData, true);
+                }
+            }
+        }
+
+        private void DeleteNodes(List<TreeNodeData> treeNodeList)
+        {
+            List<long> _idsList = new List<long>();
+            GetTreeIds(treeNodeList, ref _idsList);
+            var deleteNodes = dataContext.TreeViews.Where(c => !_idsList.Contains(c.ID) && c.ID > 0).ToList();
+            for (int i = deleteNodes.Count; i > 0; i--)
+            {
+                dataContext.TreeViews.Remove(deleteNodes[i - 1]);
+            }
+            dataContext.SaveChanges();
+        }
+
+        private void GetTreeIds(List<TreeNodeData> treeNodeList, ref  List<long> _idsList)
+        {
+            foreach (var item in treeNodeList)
+            {
+                _idsList.Add(item.id);
+                if (item.children != null && item.children.Any())
+                {
+                    GetTreeIds(item.children, ref _idsList);
                 }
             }
         }
 
         public JsonResult SaveTreeViewData(string treeViewData)
         {
-            var tree = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
-            List<TreeView> treeData = dataContext.TreeViews.Where(x => x.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
-            TreeView view = new TreeView();
-            //foreach (var item in tree)
-            //{
-            //    if (item.parent != "#")
-            //    {
-            //        view = treeData.Where(t => t.ParentID == item.parent && t.BranchID == item.id).FirstOrDefault();
-            //        if (view != null)
-            //        {
-            //            dataCntext.TreeViews.Attach(new TreeView());
-            //        }
-            //        else
-            //        {
-            //            view = new TreeView();
-            //            view.ParentID = item.parent;
-            //            view.BranchID = item.id;
-            //            if (!string.IsNullOrEmpty(item.objecttype) && item.objecttype == "employee" && item.objectid != null)
-            //                view.EmployeeID = item.objectid;
-            //            else if (!string.IsNullOrEmpty(item.objecttype) && item.objecttype == "customer" && item.objectid != null)
-            //                view.CustomerID = item.objectid;
-            //            else
-            //                view.Decription = item.text;
-            //            dataCntext.TreeViews.Add(view);
-            //        }
+            var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
 
-            //    }
+            DeleteNodes(treeNodeList);
 
-            //}
-
+            SaveProcess(treeNodeList, null);
             dataContext.SaveChanges();
+                      
             return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        private void SaveProcess(List<TreeNodeData> treeNodeList, long? objParentNodeID)
+        {
+            TreeView objNode;
+            foreach (var objTreeNode in treeNodeList)
+            {
+                objNode = dataContext.TreeViews.FirstOrDefault(c => c.ID == objTreeNode.id);
+                if (objNode == null)
+                {
+                    objNode = new TreeView();
+                    objNode.Description = objTreeNode.text;
+                    objNode.FactoryID = SessionManegment.SessionManagement.FactoryID;
+                    if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "employee" && objTreeNode.objectid != null)
+                        objNode.EmployeeID = objTreeNode.objectid;
+                    else if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "customer" && objTreeNode.objectid != null)
+                        objNode.CustomerID = objTreeNode.objectid;
+
+                    if (objParentNodeID.HasValue)
+                    {
+                        objNode.ParentID = objParentNodeID;
+                    }
+                    dataContext.TreeViews.Add(objNode);
+                    dataContext.SaveChanges();
+                }
+                else
+                {
+                    objNode.Description = objTreeNode.text;
+                }
+                if (objTreeNode.children != null && objTreeNode.children.Any())
+                {
+                    SaveProcess(objTreeNode.children, objNode.ID);
+                }
+            }
         }
 
         #endregion

@@ -446,6 +446,7 @@
 </script>
 
 <script>
+    var newNodeID = -1000;
     var objTree = $('#jstree_demo_div').easytree(
         {
             data: treeJsonData,
@@ -460,6 +461,8 @@
         if ($('#addNewNode').val().trim().length > 0) {
             var sourceNode = {};
             sourceNode.text = $('#addNewNode').val();
+            sourceNode.id = newNodeID;
+            newNodeID = newNodeID - 1;
             sourceNode.isFolder = true;
             var target = $('#jstree_demo_div .easytree-active');
             var targetId
@@ -553,6 +556,9 @@
         if (isTargetNode && !isSourceNode) { // external to internal drop
             var node = {};
             node.text = $(source).data("name");
+            node.id = newNodeID;
+            newNodeID = newNodeID - 1;
+            node.objectid = $(source).data("oid");
             node.objecttype = $(source).data("type");
             objTree.addNode(node, target.id);
             alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");

@@ -401,15 +401,15 @@ namespace ISEE.Controllers
                 if (objTreeView.EmployeeID != null)
                 {
                     var emp = dataContext.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee" };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee", iconUrl = "/images/img/employee_16.png" };
                 }
                 else if (objTreeView.CustomerID != null)
                 {
                     var cust = dataContext.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer" };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer", iconUrl = "/images/img/customer_16.png" };
                 }
                 else
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description, objecttype = objTreeView.ParentID == null ? "companyNode" : "branchNode" };
                 if (hasChildren)
                 {
                     if (parentTreeNode.children == null)
@@ -462,7 +462,7 @@ namespace ISEE.Controllers
 
             SaveProcess(treeNodeList, null);
             dataContext.SaveChanges();
-                      
+
             return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 

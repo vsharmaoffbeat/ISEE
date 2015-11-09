@@ -16,6 +16,14 @@
         top: 2px;
         position: relative;
     }
+
+    .employee {
+        background-image: url("/images/img/employee_16.png") !important;
+    }
+
+    .customer {
+        background-image: url("/images/img/customer_16.png") !important;
+    }
 </style>
 
 
@@ -226,226 +234,8 @@
 </form>
 
 <script type="text/javascript">
-    //$(function () {
-    //    var jsonData = [
-    // { "id": "ajson1", "parent": "#", "text": "Simple root node" },
-    // { "id": "ajson2", "parent": "#", "text": "Root node 2" },
-    // { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
-    // { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
-    //    ];
-    //    $("#jstree_demo_div").jstree({
-    //        "core": {
-    //            "check_callback": true,
-    //            "data": jsonData
-    //        },
-    //        "plugins": ["dnd", "types", "changed", "state"]
-    //    });
-    //})
-
-
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 
-    // var treeJsonData = [
-    //{
-    //    "uiIcon": "ui-icon-lightbulb",
-    //    "id": "_st_node_5526_0",
-    //    "text": "First Node"
-    //},
-    //{
-    //    "liClass": "grey_background",
-    //    "id": "_st_node_5526_1",
-    //    "textCss": "red green_background ",
-    //    "text": "Custom classes"
-    //},
-    //{
-    //    "isFolder": true,
-    //    "isExpanded": true,
-    //    "uiIcon": "ui-icon-folder-open",
-    //    "id": "_st_node_5526_2",
-    //    "text": "Folder 1",
-    //    "tooltip": "Bookmarks",
-    //    "children": [
-    //       {
-    //           "id": "_st_node_5526_2_0",
-    //           "iconUrl": "/content/images/google.ico",
-    //           "text": "Go to Google.com"
-    //       },
-    //       {
-    //           "id": "_st_node_5526_2_1",
-    //           "iconUrl": "/content/images/yahoo.jpg",
-    //           "text": "Go to Yahoo.com"
-    //       }
-    //    ]
-    //},
-    //{
-    //    "isExpanded": true,
-    //    "uiIcon": "ui-icon-folder-collapsed",
-    //    "id": "_st_node_5526_3",
-    //    "text": "Jquery icon 'ui-icon-lightbulb'",
-    //    "children": [
-    //       {
-    //           "id": "_st_node_5526_3_0",
-    //           "iconUrl": "/content/images/news.png",
-    //           "text": "Custom image"
-    //       },
-    //       {
-    //           "uiIcon": "ui-icon-scissors",
-    //           "id": "_st_node_5526_3_1",
-    //           "text": "Jquery icon 'ui-icon-scissors'",
-    //           "children": [
-    //              {
-    //                  "id": "_st_node_5526_3_1_0",
-    //                  "text": "Sub Sub Node 1"
-    //              },
-    //              {
-    //                  "id": "_st_node_5526_3_1_1",
-    //                  "text": "Sub Sub Node 2"
-    //              },
-    //              {
-    //                  "id": "_st_node_5526_3_1_2",
-    //                  "text": "Sub Sub Node 3"
-    //              },
-    //              {
-    //                  "id": "_st_node_5526_3_1_3",
-    //                  "text": "Sub Sub Node 4"
-    //              }
-    //           ]
-    //       },
-    //       {
-    //           "id": "_st_node_5526_3_2",
-    //           "text": "Sub Node 3"
-    //       }
-    //    ]
-    //},
-    //{
-    //    "id": "_st_node_5526_4",
-    //    "textCss": "blue ",
-    //    "text": "Blue css style"
-    //}
-    // ];
-    ////this will hold reference to the tr we have dragged and its helper
-    //var c = {};
-
-    //$(document).ready(function () {
-    //    $("#jstree_demo_div").jstree({
-    //        'core': {
-    //            "check_callback": true,
-    //            'data': treeJsonData,
-    //        },
-    //        'themes': {
-    //            'url': '/Content/themes/default/style.css'
-    //        },
-    //        "dnd": {
-    //            "drop_finish": function () {
-    //                alert("DROP");
-    //            },
-    //            "drag_check": function (data) {
-    //                if (data.r.attr("id") == "phtml_1") {
-    //                    return false;
-    //                }
-    //                return {
-    //                    after: false,
-    //                    before: false,
-    //                    inside: true
-    //                };
-
-    //                alert("hhh jjj kk ");
-    //            },
-    //            "drag_finish": function () {
-    //                alert("DRAG OK");
-    //            }
-    //        },
-    //        "crrm": {
-
-    //            "move": {
-
-    //                "default_position": "first",
-
-    //                "check_move": function (m) {
-    //                    alert("in")
-    //                    return (m.o[0].id === "thtml_1") ? false : true;
-    //                }
-
-    //            }
-
-    //        },
-    //        "plugins": ["dnd", "themes", "html_data", "ui", "crrm"],
-    //        'types': {
-    //            'types': {
-    //                'file': {
-    //                    'icon': {
-    //                        'image': '/images/img/cl.png'
-    //                    }
-    //                },
-    //                'default': {
-    //                    'icon': {
-    //                        'image': '/images/img/cl.png'
-    //                    },
-    //                    'valid_children': 'default'
-    //                }
-    //            }
-    //        }
-    //    });
-
-    //    var notinprogress = true;
-    //    //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
-    //    //    //This will be the top-most DOM element under cursor
-    //    //    var target = e.target;
-    //    //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
-    //    //        notinprogress = false;
-    //    //        var newNode = { "id": "ajson" + c.helper.data("id"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("oid"), "objecttype": c.helper.data("type") };
-    //    //        treeJsonData.push(newNode);
-    //    //        resfreshJSTree();
-    //    //        notinprogress = true;
-    //    //        c = {};
-    //    //    }
-    //    //});
-
-    //});
-
-    //var draggedDivElement;
-
-
-    //var prevTarget = null;
-
-    //function resfreshJSTree() {
-    //    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
-    //    $('#jstree_demo_div').jstree(true).refresh();
-    //}
-
-    //function demo_create() {
-    //    var ref = $('#jstree_demo_div').jstree(true),
-    //        sel = ref.get_selected();
-    //    if (!sel.length) { return false; }
-    //    sel = sel[0];
-    //    sel = ref.create_node(sel, { "type": "file" });
-    //    if (sel) {
-    //        if ($('#addNewNode').text().trim().length > 0) {
-    //            ref.get_node(sel) = $('#addNewNode').text();
-    //            $('#addNewNode').text('');
-    //            treeJsonData.push(ref.get_node(sel));
-    //        }
-    //        else
-    //            ref.edit(sel);
-    //    }
-    //};
-    //function demo_rename() {
-    //    var ref = $('#jstree_demo_div').jstree(true),
-    //        sel = ref.get_selected();
-    //    if (!sel.length) { return false; }
-    //    sel = sel[0];
-    //    ref.edit(sel);
-    //};
-    //function demo_delete() {
-    //    var ref = $('#jstree_demo_div').jstree(true),
-    //        sel = ref.get_selected();
-    //    if (!sel.length) { return false; }
-    //    ref.delete_node(sel);
-    //};
-
-</script>
-
-<script>
     var newNodeID = -1000;
     var objTree = $('#jstree_demo_div').easytree(
         {
@@ -463,14 +253,20 @@
             sourceNode.text = $('#addNewNode').val();
             sourceNode.id = newNodeID;
             newNodeID = newNodeID - 1;
-            sourceNode.isFolder = true;
+            sourceNode.iconUrl = "/images/img/Blank300.png";
+            sourceNode.objecttype = "branchNode";
             var target = $('#jstree_demo_div .easytree-active');
             var targetId
             if (target.length > 0) {
-                targetId = target.attr("id")
+                var objType = objTree.getNode(target.attr("id")).objecttype;
+
+                if (objType == "companyNode" || objType == "branchNode") {
+                    targetId = target.attr("id")
+                    objTree.addNode(sourceNode, targetId);
+                    objTree.rebuildTree();
+                }
             }
-            objTree.addNode(sourceNode, targetId);
-            objTree.rebuildTree();
+
         }
         loadSelectBox();
     }
@@ -523,9 +319,6 @@
             }
         }
     }
-
-
-
     function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
         if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
             return source.href ? true : false;
@@ -537,31 +330,37 @@
             if (($(source).data("type") == "customer") && target.objecttype == "employee") {
                 return false;
             }
+            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                return false;
+            }
+            if (target.objecttype == undefined) {
+                return false;
+            }
             return true;
         }
     }
     function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
         if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
-            alertMessage("Dropping node rejected '" + source.text + "'");
+            //  alertMessage("Dropping node rejected '" + source.text + "'");
         }
     }
     function dropped(event, nodes, isSourceNode, source, isTargetNode, target) {
         // internal to external drop
         if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
-            alertMessage("Dropped node accepted '" + source.text + "'");
+            //  alertMessage("Dropped node accepted '" + source.text + "'");
         }
         if (isSourceNode && isTargetNode) { // internal to internal drop
-            alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
         }
         if (isTargetNode && !isSourceNode) { // external to internal drop
             var node = {};
             node.text = $(source).data("name");
             node.id = newNodeID;
             newNodeID = newNodeID - 1;
-            node.objectid = $(source).data("oid");
+            node.objectid = $(source).data("id");
             node.objecttype = $(source).data("type");
             objTree.addNode(node, target.id);
-            alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
         }
     }
     function alertMessage(message) {

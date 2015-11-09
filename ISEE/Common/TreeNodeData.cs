@@ -16,7 +16,13 @@ namespace ISEE.Common
         public List<TreeNodeData> children { get; set; }
         public int? objectid { get; set; }
         public string objecttype { get; set; }
-        
+
+        public TreeNodeData()
+        {
+            iconUrl = "/images/img/Blank300.png";
+        }
+
+
         //public long? parent { get; set; }
 
         //public object icon { get; set; }

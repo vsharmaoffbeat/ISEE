@@ -132,7 +132,8 @@
         <AssociationConnector Association="ISEEModel.FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_StreetSyn_Street" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ISEEModel.TreeView" Width="1.5" PointX="6.056814610053233" PointY="30.927848517395486" />
+        <EntityTypeShape EntityType="ISEEModel.TreeView" Width="1.5" PointX="5.2308141222367128" PointY="16.222082533045711" />
+        <AssociationConnector Association="ISEEModel.FK__TreeView__Parent__54CB950F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

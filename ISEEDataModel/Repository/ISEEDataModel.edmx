@@ -987,15 +987,15 @@
         </EntityType>
         <EntityType Name="TreeView">
           <Key>
-            <PropertyRef Name="TreeID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="TreeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ParentID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentID" Type="bigint" />
           <Property Name="BranchID" Type="nvarchar" MaxLength="50" />
           <Property Name="FactoryID" Type="int" />
-          <Property Name="Decription" Type="nvarchar" MaxLength="50" />
           <Property Name="EmployeeID" Type="int" />
           <Property Name="CustomerID" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserLogEntry">
           <Key>
@@ -1007,6 +1007,18 @@
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserExiteTime" Type="datetime" />
         </EntityType>
+        <Association Name="FK__TreeView__Parent__54CB950F">
+          <End Role="TreeView" Type="Self.TreeView" Multiplicity="0..1" />
+          <End Role="TreeView1" Type="Self.TreeView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeView">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TreeView1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Building_Street">
           <End Role="Street" Type="Self.Street" Multiplicity="1" />
           <End Role="Building" Type="Self.Building" Multiplicity="*" />
@@ -1700,6 +1712,10 @@
           <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeView" EntityType="Self.TreeView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TreeView__Parent__54CB950F" Association="Self.FK__TreeView__Parent__54CB950F">
+            <End Role="TreeView" EntitySet="TreeView" />
+            <End Role="TreeView1" EntitySet="TreeView" />
+          </AssociationSet>
           <AssociationSet Name="FK_Building_Street" Association="Self.FK_Building_Street">
             <End Role="Street" EntitySet="Street" />
             <End Role="Building" EntitySet="Building" />
@@ -3849,19 +3865,37 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="TreeViews" EntityType="ISEEModel.TreeView" />
+          <AssociationSet Name="FK__TreeView__Parent__54CB950F" Association="ISEEModel.FK__TreeView__Parent__54CB950F">
+            <End Role="TreeView" EntitySet="TreeViews" />
+            <End Role="TreeView1" EntitySet="TreeViews" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TreeView">
           <Key>
-            <PropertyRef Name="TreeID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="TreeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="Int64" />
           <Property Name="BranchID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FactoryID" Type="Int32" />
-          <Property Name="Decription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeID" Type="Int32" />
           <Property Name="CustomerID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TreeView1" Relationship="ISEEModel.FK__TreeView__Parent__54CB950F" FromRole="TreeView" ToRole="TreeView1" />
+          <NavigationProperty Name="TreeView2" Relationship="ISEEModel.FK__TreeView__Parent__54CB950F" FromRole="TreeView1" ToRole="TreeView" />
         </EntityType>
+        <Association Name="FK__TreeView__Parent__54CB950F">
+          <End Type="ISEEModel.TreeView" Role="TreeView" Multiplicity="0..1" />
+          <End Type="ISEEModel.TreeView" Role="TreeView1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeView">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TreeView1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4935,13 +4969,13 @@
           <EntitySetMapping Name="TreeViews">
             <EntityTypeMapping TypeName="ISEEModel.TreeView">
               <MappingFragment StoreEntitySet="TreeView">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Decription" ColumnName="Decription" />
                 <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
                 <ScalarProperty Name="BranchID" ColumnName="BranchID" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="TreeID" ColumnName="TreeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

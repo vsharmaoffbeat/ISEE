@@ -31,7 +31,7 @@ namespace ISEE.Controllers
 
         }
 
-        ISEEEntities dataCntext = new ISEEEntities();
+        ISEEEntities dataContext = new ISEEEntities();
         public ActionResult Admin()
         {
             //if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
@@ -45,57 +45,6 @@ namespace ISEE.Controllers
         public ActionResult _NewCustomer()
         {
             return PartialView();
-        }
-
-        public ActionResult _AdminTree()
-        {
-            SessionManegment.SessionManagement.FactoryID = 1;
-            SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
-            List<TreeView> data = dataCntext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
-
-            //List<Jstreenode> treeList = new List<Jstreenode>();
-            //treeList.Add(new Jstreenode() { id = "1", text = "Demo Company", icon = "" });
-            //treeList.Add(new Jstreenode() { id = "2", parent = "1", text = "Root Node", icon = "jstree-icon jstree-themeicon" });
-            //treeList.Add(new Jstreenode() { id = "3", parent = "1", text = "Child Node 1", icon = "jstree-icon jstree-themeicon" });
-            //treeList.Add(new Jstreenode() { id = "4", parent = "2", text = "Child Node 2", icon = "jstree-icon jstree-themeicon" });
-            var serializer = new JavaScriptSerializer();
-            ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
-
-            return PartialView();
-        }
-        public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
-        {
-
-            List<TreeNodeData> treeList = new List<TreeNodeData>();
-            treeList.Add(new TreeNodeData() { id = "treenode_" + SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
-            foreach (var item in data)
-            {
-                if (item.EmployeeID != null)
-                {
-
-                    //var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
-                    //treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
-
-                    var emp = dataCntext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
-                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
-
-                }
-                else if (item.CustomerID != null)
-                {
-                    var cust = dataCntext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
-
-
-                    //     treeList.Add(new TreeNodeData() { id = item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
-
-
-                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
-
-
-                }
-                else
-                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
-            }
-            return treeList;
         }
 
         public JsonResult GetEmployee(string firstname, string lastname, string phone)
@@ -125,7 +74,7 @@ namespace ISEE.Controllers
                 bool _Active = true;
 
                 var custData = dataCntext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").ToList().Where(x => x.Factory == factoryId &&
-                     (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode ==Common.Common.GetInteger(state) : x.Building.StateCode == null) &&
+                     (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode == Common.Common.GetInteger(state) : x.Building.StateCode == null) &&
                                                                                                             x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state)) &&
                                                                                                             x.Building.CityCode == (Common.Common.GetInteger(city) == 0 ? x.Building.CityCode : Common.Common.GetInteger(city)) &&
                                                                                                             x.Building.StreetCode == (Common.Common.GetInteger(street) == 0 ? x.Building.StreetCode : Common.Common.GetInteger(street)) &&
@@ -143,7 +92,7 @@ namespace ISEE.Controllers
 
 
 
-       
+
 
         public ActionResult _Category()
         {
@@ -419,7 +368,42 @@ namespace ISEE.Controllers
         #endregion
         #region Tree Tab
 
+        public ActionResult _AdminTree()
+        {
+            SessionManegment.SessionManagement.FactoryID = 1;
+            SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
+            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID).ToList();
 
+            var serializer = new JavaScriptSerializer();
+            ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
+
+            return PartialView();
+        }
+
+        public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
+        {
+            List<TreeNodeData> treeList = new List<TreeNodeData>();
+            treeList.Add(new TreeNodeData() { id = "treenode_" + SessionManegment.SessionManagement.FactoryID.ToString(), text = SessionManegment.SessionManagement.FactoryDesc, parent = "#" });
+
+
+            foreach (var item in data)
+            {
+                if (item.EmployeeID != null)
+                {
+                    var emp = dataContext.Employees.Where(x => x.EmployeeId == item.EmployeeID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = emp.LastName + " " + emp.FirstName, icon = "jstree-icon user", objectid = item.EmployeeID, objecttype = "employee" });
+                }
+                else if (item.CustomerID != null)
+                {
+                    var cust = dataContext.Customers.Where(x => x.CustomerId == item.CustomerID).FirstOrDefault();
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = cust.LastName + " " + cust.FirstName, icon = "jstree-icon user", objectid = item.CustomerID, objecttype = "customer" });
+                }
+                else
+                    treeList.Add(new TreeNodeData() { id = "treenode_" + item.BranchID, parent = item.ParentID, text = item.Decription, icon = "jstree-icon jstree-themeicon" });
+            }
+            return treeList;
+        }
+        
         public JsonResult SaveTreeViewData(string treeViewData)
         {
             var tree = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
@@ -456,22 +440,6 @@ namespace ISEE.Controllers
             return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        //  public List<Employee> GetEmployees(Guid factoryGuid,string _LN, string _FN,  string _Num, int _Manuf, int _Phonetype,bool _Active)
-        //{
-
-
-        //       // int factory = (int)HttpContext.Current.Session["FactoryId"];
-        //    int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-        //        var abc= dataCntext.Employees.Where(x => x.Factory == factoryId
-        //                                                          && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
-        //                                                          && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
-        //                                                          && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
-        //                                                          && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
-        //                                                          && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
-        //                                                          && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum).ToList();
-
-
-        //}
         #endregion
         //Customer Tab
         public JsonResult GetStaresByFactoryID()

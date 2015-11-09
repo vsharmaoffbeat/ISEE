@@ -14,12 +14,20 @@ namespace ISEEDataModel.Repository
     
     public partial class TreeView
     {
-        public int TreeID { get; set; }
-        public string ParentID { get; set; }
+        public TreeView()
+        {
+            this.TreeView1 = new HashSet<TreeView>();
+        }
+    
+        public long ID { get; set; }
+        public Nullable<long> ParentID { get; set; }
         public string BranchID { get; set; }
         public Nullable<int> FactoryID { get; set; }
-        public string Decription { get; set; }
         public Nullable<int> EmployeeID { get; set; }
         public Nullable<int> CustomerID { get; set; }
+        public string Description { get; set; }
+    
+        public virtual ICollection<TreeView> TreeView1 { get; set; }
+        public virtual TreeView TreeView2 { get; set; }
     }
 }

@@ -143,7 +143,7 @@
                                     <th class="tg-z1n2">Start Time</th>
                                     <th class="tg-z1n2">End Time</th>
                                 </tr>
-                                <tr ng-repeat="employee in employeeData">
+                                <tr ng-repeat="employee in employeeData track by $id($index)">
 
                                     <td class="tg-dx8v">
                                         {{employee.Day}}

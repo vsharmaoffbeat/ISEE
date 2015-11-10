@@ -70,7 +70,8 @@ namespace ISEE.Controllers
             Common.Common.GetInteger(state);
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                //int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                int factoryId = 2;
                 bool _Active = true;
 
                 var custData = dataContext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").ToList().Where(x => x.Factory == factoryId &&
@@ -506,12 +507,15 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                //var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+
+                int FactoryId = 2;
+                var CountryID = 2;
                 if (CountryID != null)
                 {
 
-                    var StateDec = context.States.Where(c => c.CountryCode == 2).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                    var StateDec = context.States.Where(c => c.CountryCode == FactoryId).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
                     return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -554,5 +558,20 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
+
+        public JsonResult GetEmployeeByEmployeeID(int EmployeeID)
+        {
+            if (EmployeeID != null)
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    var result = context.Employees.Where(e => e.EmployeeId == EmployeeID).Select(q => new { employeeID = q.EmployeeId, FirstName = q.FirstName, LastName = q.LastName, MainAreaPhone = q.MainAreaPhone, MainPhone = q.MainPhone }).FirstOrDefault();
+                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+    
+
     }
 }

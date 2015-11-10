@@ -3,12 +3,18 @@
 }
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="~/Scripts/Custom/jquery.timepicker.js"></script>
+<link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
+<link href="~/Content/css/main.css" rel="stylesheet" />
+<script src="~/Scripts/Custom/MapTab.js"></script>
 
 <div class="row">
-    <div class="col-md-3" id=" searchdiv" style="background-color:white;height:500px;width:300px">
+    <div class="col-md-3" id="searchdiv" style="background-color:white;height:500px;width:300px;display:block">
         First Name<input id="firstName" type="text" style="width:190px" />
         Last Name<input id="lastName" type="text" style="width:190px" />
         Number<input id="number" type="number" style="width:190px" />
@@ -23,9 +29,7 @@
                 </tr>
             </table>
         </div>
-
-
-        Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="Date" type="number" style="width:210px" required />
+        Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="Date" type="text" style="width:210px" required />
         From Time<input id="FromTime" onfocus="showTime(this)" style="width:210px" required />
         End Time&nbsp;&nbsp;<input id="EndTime" onfocus="showTime(this)" style="width:210px" required />
         <br /><br />
@@ -36,186 +40,39 @@
         <br />
         <input class="abc" type="radio" id="LastPointRadio" name="sex" value="LastPoint"> Last Point
         <br /><br /><br /><br />
-        <button type="button" onclick="ShowDataOnMap()" id="buttonShow">Show</button>
+        <button type="button" onclick="ShowDataOnMap()">Show</button>
+        <br />
+        <button type="button" onclick="ShowCustomer()">Customer</button>
     </div>
+
+    <div class="col-md-3" id="searchdivCustomer" style="background-color:white;height:500px;width:300px;display:none">
+        State<input id="StateInputCustomer" onblur="GetCitysByState()" type="text" style="width:190px" /><br />
+        City<input id="CityInputCustomer" onblur="GetStreetByCity()" type="text" style="width:190px" /><br />
+        Street<input id="StreetInputCustomer" onblur="GetBuildingsByCity()" type="text" style="width:190px" /><br />
+        Building No<input id="BuildingInputCustomer" onblur="GetSelectedBuildingLatLong()" type="text" width:190px" /><br />
+        Company N<input id="CompanyNameInput" type="text" style="width:190px" /><br />
+        Customer No<input id="CustomerNoInput" type="number" style="width:190px" /><br />
+        Search <button type="button" onclick="SearchCustomers()" id="btnSearch">search</button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="height:100px;overflow:auto;border:1px solid black">
+            <table id="mapSearchGridCustomer" class="tg">
+                <tr>
+                    <td class="tg-z1n2"></td>
+                    <th class="tg-z1n2">First Name</th>
+                    <th class="tg-z1n2">Last Name</th>
+                </tr>
+            </table>
+        </div>
+        <button type="button" onclick="ShowCustomerDataOnMap()">Show</button>
+        <br />
+        <button type="button" onclick="ShowEmployee()">Employee</button>
+    </div>
+
     <div class="col-md-9" id="MapMainDiv" style="min-width:350px;height:500px;float:left">
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        LoadMapByFactoryID();
-        $(document).on('click', '#mapSearchGrid tr', function () {
-            $("#mapSearchGrid tr").removeClass('active');
-            $(this).addClass('active');
-        });
-    });
-    function LoadMapByFactoryID() {
-        $.ajax({
-            url: "/Admin/GetCurrentLogedUserCountery", success: function (result) {
-                google.maps.visualRefresh = true;
-                var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
-                var mapOptions = {
-                    zoom: 14,
-                    center: Liverpool,
-                    mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                };
-                var map = new google.maps.Map(document.getElementById("MapMainDiv"), mapOptions);
-            }
-        });
-    }
 
-    function SearchEmployee() {
-        debugger;
-        var firstName = $('#firstName').val();
-        var LastName = $('#lastName').val();
-        var Active = $('#Active:checked').val() == undefined ? 0 : 1;
-        var Number = $('#number').val();
-        $.ajax({
-            type: "POST",
-            url: "/Map/GetEmployeeForMap",
-            data: { firstName: firstName, LastName: LastName, Active: Active, Number: Number },
-            dataType: "json",
-            success: function (response) {
-                $("#mapSearchGrid").html('');
-                if (response != null) {
-                    for (var i = 0; i < response.length; i++) {
-                        $("#mapSearchGrid").append("<tr id='" + response[i].EmployeeID + "'><td class='tg-dx8v'></td><td class='tg-dx8v'>" + response[i].FirstName + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td></tr>");
-                    }
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-        });
-    }
-
-
-    var PolyLineArray = [];
-    function ShowDataOnMap() {
-        var EmployeeID = $('#mapSearchGrid .active').attr('id');
-        var Date = $('#Date').val();
-        var FromTime = timeParseExact($('#FromTime').val());
-        var EndTime = timeParseExact($('#EndTime').val());
-        debugger;
-        if ($('.abc:checked').val().toLowerCase() == 'runwayshow') {
-            $.ajax({
-                type: "POST",
-                url: "/Map/GetEmployeeGpsPointsByEmployeeID",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime },
-                dataType: "json",
-                success: function (response) {
-                    var map = new google.maps.Map(document.getElementById('MapMainDiv'), {
-                        zoom: 10,
-                        center: new google.maps.LatLng(response[0].Lat, response[0].Long),
-                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                    });
-                    for (var i = 0; i < response.length; i++) {
-                        PolyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
-                    }
-                    var flightPath = new google.maps.Polyline({
-                        path: PolyLineArray,
-                        strokeColor: "#0000FF",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 2
-                    });
-                    flightPath.setMap(map);
-                    //var marker, i;
-                    //for (i = 0; i < response.length; i++) {
-                    //    marker = new google.maps.Marker({
-                    //        position: new google.maps.LatLng(response[i].Lat, response[i].Long),
-                    //        map: map
-                    //    });
-                    //}
-
-                }
-            });
-        }
-        else if ($('.abc:checked').val().toLowerCase() == 'stoppoint') {
-            $.ajax({
-                type: "POST",
-                url: "/Map/GetStopPointsForEmployee",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime },
-                dataType: "json",
-                success: function (response) {
-                    debugger;
-                    // google.maps.visualRefresh = true;
-                    var map = new google.maps.Map(document.getElementById('MapMainDiv'), {
-                        zoom: 10,
-                        center: new google.maps.LatLng(response[0].Lat, response[0].Long),
-                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                    });
-
-                    var marker, i;
-                    for (i = 0; i < response.length; i++) {
-                        marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(response[i].Lat, response[i].Long),
-                            map: map
-                        });
-                    }
-                }
-            });
-        }
-        else {
-            debugger;
-            $.ajax({
-                type: "POST",
-                url: "/Map/GetLastPointForEmployee",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime },
-                dataType: "json",
-                success: function (response) {
-                    debugger;
-                    var Liverpool = new google.maps.LatLng(response.Lat, response.Long);
-                    var mapOptions = {
-                        zoom: 14,
-                        center: Liverpool,
-                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                    };
-                    var map = new google.maps.Map(document.getElementById("MapMainDiv"), mapOptions);
-                    var marker = new google.maps.Marker({
-                        position: Liverpool,
-                        map: map,
-                    });
-
-
-
-                }
-            });
-        }
-    }
-    function showTime(obj) {
-        $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
-
-        if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
-            debugger;
-        }
-    }
-
-    function timeParseExact(time) {
-        var hhmm = time.split(' ')[0];
-        var tt = time.split(' ')[1].toLowerCase();
-        var hh = hhmm.split(':')[0];
-        var mm = hhmm.split(':')[1];
-        if (tt == "pm") {
-            if (hh == "12") {
-                hh = "0";
-            }
-            return parseFloat(hh + "." + mm) + 12;
-        }
-        else {
-            if (hh == "12") {
-                hh = "0";
-            }
-            return parseFloat(hh + "." + mm);
-        }
-
-
-    }
-
-
-
-</script>
-
-<style type="text/css">
-    .active {
-        background-color: rgba(254, 213, 97, 0.57);
-    }
-</style>

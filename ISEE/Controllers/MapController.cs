@@ -38,7 +38,7 @@ namespace ISEE.Controllers
             }
 
         }
-        public JsonResult GetEmployeeGpsPointsByEmployeeID(int EmployeeID, string FromTime, string EndTime)
+        public JsonResult GetEmployeeGpsPointsByEmployeeID(int EmployeeID, string FromTime, string EndTime, DateTime Date)
         {
             if (EmployeeID > 0)
             {
@@ -49,11 +49,11 @@ namespace ISEE.Controllers
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
                 DateTime date = DateTime.Now.AddYears(-4);
-                DateTime date1 = date.AddMonths(-4).Date;
+                Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID
-                         && s.GpsDate == date1
+                         && s.GpsDate == Date
                          && s.GpsTime >= fromTime
                          && s.GpsTime <= endTime
                     ).Select(s => new { Lat = s.Lat, Long = s.Long }).ToList();
@@ -64,7 +64,7 @@ namespace ISEE.Controllers
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public JsonResult GetStopPointsForEmployee(int EmployeeID, string FromTime, string EndTime)
+        public JsonResult GetStopPointsForEmployee(int EmployeeID, string FromTime, string EndTime, DateTime Date)
         {
             if (EmployeeID > 0)
             {
@@ -75,11 +75,11 @@ namespace ISEE.Controllers
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
                 DateTime date = DateTime.Now.AddYears(-4);
-                DateTime date1 = date.AddMonths(-4).Date;
+                Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID
-                         && s.GpsDate == date1
+                         && s.GpsDate == Date
                          && s.GpsTime >= fromTime
                          && s.GpsTime <= endTime
                          && s.StopTime != null
@@ -91,7 +91,7 @@ namespace ISEE.Controllers
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        public JsonResult GetLastPointForEmployee(int EmployeeID, string FromTime, string EndTime)
+        public JsonResult GetLastPointForEmployee(int EmployeeID, string FromTime, string EndTime, DateTime Date)
         {
             if (EmployeeID > 0)
             {
@@ -102,11 +102,11 @@ namespace ISEE.Controllers
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
                 DateTime date = DateTime.Now.AddYears(-4);
-                DateTime date1 = date.AddMonths(-4).Date;
+                Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID
-                         && s.GpsDate == date1
+                         && s.GpsDate == Date
                          && s.GpsTime >= fromTime
                          && s.GpsTime <= endTime
                      ).OrderBy(x => x.GpsDate).Select(s => new { Lat = s.Lat, Long = s.Long }).FirstOrDefault();
@@ -116,6 +116,33 @@ namespace ISEE.Controllers
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        public JsonResult GetCustomersForMap(int state, int city, int street, int BuildingID, string customerNumber, string companyName)
+        {
+            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                var customers = context.Customers.Where(s =>
+                    // s.CustomerNumber == (customerNumber != null ? customerNumber : s.CustomerNumber)
+                    // && s.FirstName.Contains(companyName != "" ? companyName : s.FirstName)
+                s.Building.StreetCode == (street != null ? street : s.Building.StreetCode)
+                && s.Building.StateCode == (state != null ? state : s.Building.StateCode)
+                && s.Building.CityCode == (city != null ? city : s.Building.CityCode)
+                && s.Building.BuildingCode == (BuildingID != null ? BuildingID : s.Building.BuildingCode)
+                ).Select(s => new { CustomerID = s.CustomerId, BuildingCode = s.BuildingCode, FirstName = s.FirstName, LastName = s.LastName }).ToList();
+                return new JsonResult { Data = customers, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+        public JsonResult GetCustomerForMapByCustomerID(int CustomerID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                var result = context.Customers.Where(s => s.CustomerId == CustomerID).Select(p => new { Lat = p.Building.Lat, Long = p.Building.Long, BuildingCode = p.BuildingCode }).ToList();
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
 
     }
 }

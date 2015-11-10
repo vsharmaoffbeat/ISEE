@@ -385,7 +385,7 @@ namespace ISEE.Controllers
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, objecttype = "companyNode" });
             }
             TreeNodeData parentTreeNode = new TreeNodeData();
             CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);

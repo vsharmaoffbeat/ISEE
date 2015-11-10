@@ -133,6 +133,7 @@
     <Compile Include="Controllers\employeeHours.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -282,6 +283,7 @@
     <Content Include="Views\Shared\_NewCustomer.cshtml" />
     <Content Include="Views\Shared\_Category.cshtml" />
     <Content Include="Views\Employee\Employee.cshtml" />
+    <Content Include="Views\Map\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Resource.de.resx">

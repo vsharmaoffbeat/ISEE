@@ -182,21 +182,20 @@
                                         <th class="tree_tg-z1n2">Phone1</th>
                                     </tr>
 
-                                    <tr ng-repeat="gridOption in newEmployeeGirdData" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="easytree-draggable">
+                                    <tr ng-hide="choice==2" data-oid='{{NewAddedEmployee.employeeID}}' data-id='{{NewAddedEmployee.employeeID}}' data-name='{{NewAddedEmployee.LastName}} {{NewAddedEmployee.FirstName}}' data-type="employee" class="easytree-draggable">
 
 
                                         <td class="tg-dx8v_category">
                                             <i></i>
-                                            <span style="display:none;" id='{gridOption.id}'>{{gridOption.id}}</span>
+                                            <span style="display:none;" id='{gridOption.employeeID}'>{{NewAddedEmployee.employeeID}}</span>
                                         </td>
 
 
                                         <td class="tg-dx8v_category" style="text-align:left !important;">
-
-                                            {{gridOption.LastName}}&nbsp;{{gridOption.FirstName}}
+                                            {{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
                                         </td>
                                         <td class="tg-dx8v_category" style="text-align:left !important;">
-                                            {{gridOption.MainAreaPhone}}-{{gridOption.MainPhone}}
+                                            {{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
                                         </td>
 
 

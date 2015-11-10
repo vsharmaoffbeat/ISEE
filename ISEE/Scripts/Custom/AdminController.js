@@ -292,19 +292,25 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $scope.employeeData = d.data;
     })
 
+
+
     //$scope.saveEmphour = function () {
     //    ContactService.SaveEmployeeHours($scope.employeeData).then(function (d) {
     //        $scope.employeeInfo = null;
     //    })
     //}
+    var EmployeeID = 0;
     $scope.SaveAllEmployeeData = function (d) {
         ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
             if (d.data != "0") {
+                EmployeeID = d.data;
                 ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
-                    debugger;
-                    if (d.data == true) {
+                    if (d.data != "0" || d.data == true) {
                         ContactService.GetEmployeeHours().then(function (d) {
                             $scope.employeeData = d.data;
+                        })
+                        ContactService.GetEmployeeByEmployeeID(EmployeeID).then(function (responce) {
+                            $scope.NewAddedEmployee = responce.data;
                         })
                         $scope.employeeInfo = null;
                         alert('Employee Saved');
@@ -314,6 +320,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         });
     }
 })
+
+
+
 
 
 
@@ -437,6 +446,16 @@ module.service('ContactService', function ($http) {
             //data: JSON.stringify(main),
             data: d,
             headers: { 'content-type': 'application/json' }
+        });
+
+    }
+    contacts.GetEmployeeByEmployeeID = function (d) {
+
+        return $http({
+            url: '/Admin/GetEmployeeByEmployeeID',
+            method: 'POST',
+            //data: JSON.stringify(main),
+            data: { EmployeeID: d },
         });
 
     }

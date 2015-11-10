@@ -28,9 +28,9 @@ $(document).ready(function () {
             text: i
         }).appendTo($('#ddlYearValue'));
     }
-  
+
     //   $("<option />").appendTo($('#ddlYearValue'));
-    
+
 
     $(manufacture).each(function () {
         $("<option />", {
@@ -48,6 +48,10 @@ $(document).ready(function () {
             text: this.PhoneManufacture1
         }).appendTo($('#ddlmanufacture'));
     });
+
+
+
+
 });
 
 function setDefaultValues() {
@@ -94,7 +98,7 @@ function clearInputFields() {
 //Search function for employee
 function searchEmployeeData() {
     $('#left_employee_window').empty();
-    var data = { manufacture: $("#ddlmanufacture").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType').val() }
+    var data = { manufacture: $("#ddlmanufacture").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType').val(), isActive: $('#isActive').is(':checked') }
     $.ajax({
         type: "POST",
         url: "/Data/GetEmployee",
@@ -153,8 +157,15 @@ function selectedEmployee(obj) {
     var data = $(obj).attr('employeedata').split('|');
     getMessageHistory(data[0], $("#datepicker1 input").val(), $("#datepicker2 input").val());
     _employeeId = data[0];
+    getEmployeeTimeTemplate(_employeeId);
+    getEmployeeTimeHistoryDiary(_employeeId);
     setInputValues(data);
     // alert('employee slected;')
+
+
+
+
+
 }
 
 
@@ -246,10 +257,20 @@ function getEmployeeTimeTemplate(id) {
             if (response == null) {
                 return true;
             }
-            
+
             $('#tblemployeeHours tr:gt(0)').remove();
+            var counter = 0;
+            var ids = '';
             $(response).each(function () {
-                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v">' + this.Start1 + '</td><td class="tg-dx8v">' + this.End1 + '</td><td class="tg-dx8v">' + this.Start2 + '</td><td class="tg-dx8v">' + this.End2 + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblemployeeHours'));;
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v"><input id="Start1' + counter + '" value="' + this.Start1 + '"></input></td><td class="tg-dx8v"><input id="end1' + counter + '"  value="' + this.End1 + '"></input></td><td class="tg-dx8v"><input id="Start2' + counter + '"  value="' + this.Start2 + '"></input></td><td class="tg-dx8v"><input id="end2' + counter + '"  value="' + this.End2 + '"></input></td><td class="tg-dx8v"></td></tr>').appendTo($('#tblemployeeHours'));;
+                ids += '#Start1' + counter + ',' + '#end1' + counter + ',' + '#Start2' + counter + ',' + '#end2' + counter + ','
+                counter++;
+            });
+            ids = ids.substring(0, ids.length - 1)
+            $(ids).timepicker({
+                minTime: '00',
+                maxTime: '23:30',
+                scrollbar: true,
             });
             debugger;
 
@@ -259,7 +280,7 @@ function getEmployeeTimeTemplate(id) {
 }
 
 function getEmployeeTimeHistoryDiary(id) {
-   // ddlMonthname
+    // ddlMonthname
 
     data = { employeeId: id, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
     $.ajax({
@@ -273,7 +294,7 @@ function getEmployeeTimeHistoryDiary(id) {
             }
             $('#tblEmpDiaryHistory tr:gt(0)').remove();
             $(response).each(function () {
-                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">'+this.Day+'</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start1) + ' ' + replaceNullWithEmpty(this.End1) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start2) + ' ' + replaceNullWithEmpty(this.End2) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start3) + ' ' + replaceNullWithEmpty(this.End3) + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblEmpDiaryHistory'));;
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start1) + ' ' + replaceNullWithEmpty(this.End1) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start2) + ' ' + replaceNullWithEmpty(this.End2) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start3) + ' ' + replaceNullWithEmpty(this.End3) + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblEmpDiaryHistory'));;
             });
             debugger;
 
@@ -287,3 +308,24 @@ function replaceNullWithEmpty(obj) {
     return obj
 }
 //End Time tab
+
+//Update Employee
+function updateEmployee() {
+    if (_employeeId > 0) {
+        $('#txtnumber').val();
+        $('#txtmail').val();
+        $('#txtfirstname').val();
+
+        $('#txtlastname').val();
+
+        $('#txtphone1').val();
+        $('#txtphone11').val();
+        $('#txtphone2').val();
+        $('#txtphone22').val();
+        $('#txtStart').val();
+        $('#txtapplication').val();
+        $('#txtend').val();
+    }
+}
+
+

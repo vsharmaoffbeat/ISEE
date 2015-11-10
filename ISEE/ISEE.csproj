@@ -233,6 +233,7 @@
     <Content Include="Scripts\Custom\date.js" />
     <Content Include="Scripts\Custom\Employee.js" />
     <Content Include="Scripts\Custom\EmployeeController.js" />
+    <Content Include="Scripts\Custom\jquery.easytree.js" />
     <Content Include="Scripts\Custom\jquery.timepicker.css" />
     <Content Include="Scripts\Custom\jquery.timepicker.js" />
     <Content Include="Scripts\Custom\jstree.css" />

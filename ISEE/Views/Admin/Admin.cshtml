@@ -77,6 +77,13 @@
             $('#bindPartial_Category').hide();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').hide();
+
+            $('#jstree_demo_div').empty()
+            $('#jstree_Employee_div').empty()
+            $('#jstree_Customer_div').empty()
+            objTree.rebuildTree()
+
+
         });
         $('.LoadCategoryParital').click(function (data) {
             $('#bindPartial_AdminTree').hide();
@@ -91,12 +98,22 @@
             $('#bindPartial_NewEmployee').show();
             $('#bindPartial_NewCustomer').hide();
 
+            $('#jstree_demo_div').empty()
+            $('#jstree_Employee_div').empty()
+            $('#jstree_Customer_div').empty()
+            objEmployeeTree.rebuildTree()
+
         });
         $('.LoadCustomerParital').click(function (data) {
             $('#bindPartial_AdminTree').hide();
             $('#bindPartial_Category').hide();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').show();
+
+            $('#jstree_demo_div').empty()
+            $('#jstree_Employee_div').empty()
+            $('#jstree_Customer_div').empty()
+            objCustomerTree.rebuildTree()
         });
     });
 </script>

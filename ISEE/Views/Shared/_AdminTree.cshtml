@@ -283,7 +283,7 @@
         if (node.objecttype == "companyNode")
             return
 
-        if (bIsNode ) {
+        if (bIsNode) {
             if (node.children.length > 0 && node.objecttype == "branchNode") {
                 alert("Branch can not deleted as it contains data");
                 return
@@ -337,6 +337,11 @@
             newNodeID = newNodeID - 1;
             node.objectid = $(source).data("id");
             node.objecttype = $(source).data("type");
+            if (node.objecttype == "employee") {
+                node.iconUrl = "/images/img/employee_16.png";
+            } else {
+                node.iconUrl = "/images/img/customer_16.png";
+            }
             objTree.addNode(node, target.id);
             //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
         }

@@ -184,7 +184,7 @@
                     <div class="col-md-6 col-xs-12 employee_inner_demo_first">
 
                         <div class="col-md-6 col-xs-12 employee_inner_demo_second">
-                            <p>Demo Company</p>
+                            <div id="jstree_Employee_div"></div>
                         </div>
                     </div>
 
@@ -196,6 +196,42 @@
     <!-- Customer right panel end---->
 </form>
 
+<script>
 
+    var objEmployeeTree = $('#jstree_Employee_div').easytree(
+       {
+           data: treeJsonData,
+           enableDnd: true,
+           canDrop: canDrop,
+           dropped: droppedEmployee,
+           dropping: dropping
+       });
+
+    function droppedEmployee(event, nodes, isSourceNode, source, isTargetNode, target) {
+        // internal to external drop
+        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropped node accepted '" + source.text + "'");
+        }
+        if (isSourceNode && isTargetNode) { // internal to internal drop
+            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+        }
+        if (isTargetNode && !isSourceNode) { // external to internal drop
+            var node = {};
+            node.text = $(source).data("name");
+            node.id = newNodeID;
+            newNodeID = newNodeID - 1;
+            node.objectid = $(source).data("id");
+            node.objecttype = $(source).data("type");
+            if (node.objecttype == "employee") {
+                node.iconUrl = "/images/img/employee_16.png";
+            } else {
+                node.iconUrl = "/images/img/customer_16.png";
+            }
+            objEmployeeTree.addNode(node, target.id);
+            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+        }
+    }
+
+</script>
 
 <!-- Employee_right_asidebar end -->

@@ -2,8 +2,9 @@
     ViewBag.Title = "employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-
+<script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 @*<form role="form" method="post" action=""> *@
 <div class="container top_employee_tab" style="background:#edecec;">
 
@@ -48,7 +49,7 @@
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group e_chkbox">
-            <input type="checkbox" class="myClass" value="yes" id="" name="answer" data-color="green">
+            <input type="checkbox" class="myClass" id="isActive" name="answer" data-color="green">
             <label for="usr">Active</label>
         </div>
         <button type="button" class="btn btn-default pull-right e_pencil isee_button_color" onabort="clearInputFields()"><i class="fa fa-pencil"></i></button>
@@ -134,7 +135,7 @@
                     <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-list-alt"> Set Details</i></button>
                     <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-calendar"> Scheduler</i></button>
                     <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-close"> Cancel</i></button>
-                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-save"> Save</i></button>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="updateEmployee()"><i class="fa fa-save"> Save</i></button>
 
                 </div>
 
@@ -295,7 +296,7 @@
                                                         <th class="tg-z1n2"></th>
                                                     </tr>
 
-                                                
+
 
                                                 </table>
 
@@ -334,9 +335,7 @@
 
                                                         <div class="form-group">
                                                             <label for="usr">Year</label>
-                                                            <select class="form-control tree_select_option isee_button_color" id="ddlYearValue" maxlength="50" name="manufacture"  >
-                                                               
-                                                            </select>
+                                                            <select class="form-control tree_select_option isee_button_color" id="ddlYearValue" maxlength="50" name="manufacture"></select>
                                                         </div>
 
                                                     </div>

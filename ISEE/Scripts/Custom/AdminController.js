@@ -288,32 +288,29 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     };
 
     ContactService.GetEmployeeHours().then(function (d) {
+        debugger;
         $scope.employeeData = d.data;
     })
 
-    $scope.saveEmphour = function () {
-        ContactService.SaveEmployeeHours($scope.employeeData).then(function (d) {
-            $scope.employeeInfo = null;
-        })
-    }
+    //$scope.saveEmphour = function () {
+    //    ContactService.SaveEmployeeHours($scope.employeeData).then(function (d) {
+    //        $scope.employeeInfo = null;
+    //    })
+    //}
     $scope.SaveAllEmployeeData = function (d) {
         ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
             if (d.data != "0") {
                 ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
-                    if (d == true) {
+                    debugger;
+                    if (d.data == true) {
                         ContactService.GetEmployeeHours().then(function (d) {
                             $scope.employeeData = d.data;
                         })
+                        $scope.employeeInfo = null;
+                        alert('Employee Saved');
                     }
                 })
-                $scope.employeeInfo = null;
-                alert('Employee Saved');
             }
-            else {
-                alert('Please checked fields');
-            }
-
-
         });
     }
 })

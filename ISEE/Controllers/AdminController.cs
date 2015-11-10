@@ -31,7 +31,7 @@ namespace ISEE.Controllers
 
         }
 
-        ISEEEntities dataContext = new ISEEEntities();
+        static ISEEEntities dataContext = new ISEEEntities();
         public ActionResult Admin()
         {
             //if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
@@ -119,13 +119,13 @@ namespace ISEE.Controllers
                     foreach (var item in mainData)
                     {
                         EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
-                        factoryDairyTemplet.DayStatus = item.Day;
+                        factoryDairyTemplet.DayStatus = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         factoryDairyTemplet.EmployeeId = employeeID;
                         factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                         factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                         factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
                         factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                        factoryDairyTemplet.OrderDay = item.Day;
+                        factoryDairyTemplet.OrderDay = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
                         context.SaveChanges();
                     }
@@ -150,8 +150,8 @@ namespace ISEE.Controllers
                     emp.EmployeeNum = number;
                     emp.SysCreatDate = DateTime.Now;
                     emp.Factory = factoryId;
-                    emp.StartDay = Convert.ToDateTime(startDay).Date;
-                    emp.EndDay = Convert.ToDateTime(enddate).Date;
+                    emp.StartDay = startDay != "" ? Convert.ToDateTime(startDay).Date : emp.StartDay;
+                    emp.EndDay = enddate != "" ? Convert.ToDateTime(enddate).Date : emp.EndDay;
                     emp.PhoneManufactory = Convert.ToInt32(ManufactureChoice);
                     emp.PhoneType = Convert.ToInt32(phoneTypeChoice != "" ? phoneTypeChoice : "1");
                     emp.SecondPhone = phone2;
@@ -380,7 +380,7 @@ namespace ISEE.Controllers
             return PartialView();
         }
 
-        public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
+        public static List<TreeNodeData> CreateJsonTree(List<TreeView> data)
         {
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
@@ -393,7 +393,7 @@ namespace ISEE.Controllers
             return treeList;
         }
 
-        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
+        private static void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
         {
             TreeNodeData objTreeNodeData;
             foreach (var objTreeView in data)

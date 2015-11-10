@@ -466,7 +466,7 @@
                                 <div class="tab-pane" id="employeeTree">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
-                                            <p class="text-left">Demo</p>
+                                            <div id="jstree_Employee_div"></div>
                                         </div>
 
                                         <div class="col-md-6">
@@ -606,9 +606,75 @@
 
 <script type="text/javascript">
     var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
+
 </script>
 
 
 <script src="~/Scripts/Custom/Employee.js"></script>
+<script>
+
+    var objEmployeeTree = $('#jstree_Employee_div').easytree(
+       {
+           data: treeJsonData,
+           enableDnd: true,
+           canDrop: canDrop,
+           dropped: droppedCustomer,
+           dropping: dropping
+       });
+
+    function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
+        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+            return source.href ? true : false;
+        }
+        if (isTargetNode) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                return false;
+            }
+            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+                return false;
+            }
+            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                return false;
+            }
+            if (target.objecttype == undefined) {
+                return false;
+            }
+            return true;
+        }
+    }
+    function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropping node rejected '" + source.text + "'");
+        }
+    }
+
+
+    function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+        // internal to external drop
+        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropped node accepted '" + source.text + "'");
+        }
+        if (isSourceNode && isTargetNode) { // internal to internal drop
+            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+        }
+        if (isTargetNode && !isSourceNode) { // external to internal drop
+            var node = {};
+            node.text = $(source).data("name");
+            node.id = newNodeID;
+            newNodeID = newNodeID - 1;
+            node.objectid = $(source).data("id");
+            node.objecttype = $(source).data("type");
+            if (node.objecttype == "employee") {
+                node.iconUrl = "/images/img/employee_16.png";
+            } else {
+                node.iconUrl = "/images/img/customer_16.png";
+            }
+            objEmployeeTree.addNode(node, target.id);
+            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+        }
+    }
+
+</script>
 
 

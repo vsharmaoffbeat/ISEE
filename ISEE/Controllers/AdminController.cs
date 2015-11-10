@@ -31,7 +31,7 @@ namespace ISEE.Controllers
 
         }
 
-        ISEEEntities dataContext = new ISEEEntities();
+        static ISEEEntities dataContext = new ISEEEntities();
         public ActionResult Admin()
         {
             //if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
@@ -380,7 +380,7 @@ namespace ISEE.Controllers
             return PartialView();
         }
 
-        public List<TreeNodeData> CreateJsonTree(List<TreeView> data)
+        public static List<TreeNodeData> CreateJsonTree(List<TreeView> data)
         {
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
@@ -393,7 +393,7 @@ namespace ISEE.Controllers
             return treeList;
         }
 
-        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
+        private static void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
         {
             TreeNodeData objTreeNodeData;
             foreach (var objTreeView in data)

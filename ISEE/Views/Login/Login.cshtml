@@ -20,7 +20,7 @@
 
     <div class="col-md-4"></div>
     <div class="col-md-4 main_login" ng-controller="LoginCtrl">
-        <label class="login_form_title">@ISEE.Resources.Resource.LogIn</label><label class="pull-right resionSEE_form_title">resionSEE</label>
+        <label class="login_form_title">@ISEE.Resources.Resource.LogIn</label><label class="pull-right resionSEE_form_title">regionSEE</label>
         <form class="form-horizontal" role="form" method="post" novalidate name="login" ng-submit="Login(IsFormValid)">
             <div class="form-group">
                 <label for="name" class="col-md-4 control-label">@ISEE.Resources.Resource.UserName</label>
@@ -39,16 +39,16 @@
 
             <div class="form-group login_save_data">
 
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-4 col-sm-4 col-xs-4">
                     <button type="submit" class="btn btn-default pull-left login_btn isee_button" ng-click="LoginFirst()">@ISEE.Resources.Resource.OK</button>
                 </div>
 
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-4 col-sm-4 col-xs-4">
                     <button type="reset" class="btn btn-default pull-left login_btn isee_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
 
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-4 col-sm-4 col-xs-4">
                     <div class="dropdown">
                         <!---- new changes today-->
                         <!---- new changes today-->     <button class="btn btn-default login_flag pull-right  dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -65,14 +65,7 @@
                             </li>
                         </ul>
                     </div>
-                    @*<select name="language" class="form-control isee_button language_flag pull-right">
-                            <option value="arabic">USA</option>
-                            <option value="english">ISR</option>
-                            <option value="french">RUS</option>
-                            <option value="german">CHI</option>
-                            <option value="other">MEX</option>
-                            <option value="other">GER</option>
-                        </select>*@
+
                 </div>
 
             </div>

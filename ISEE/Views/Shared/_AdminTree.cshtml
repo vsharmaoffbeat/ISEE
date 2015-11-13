@@ -33,7 +33,7 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Type Find Tree</label>
-                <select class="form-control tree_select_option" ng-model="choice">
+                <select class="form-control isee_select_option" ng-model="choice">
                     <option value='' selected="selected">Employee</option>
                     <option value="2">Customer</option>
                 </select>
@@ -43,7 +43,7 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Type Drag drop</label>
-                <select class="form-control tree_select_option" ng-model="choiceType">
+                <select class="form-control isee_select_option" ng-model="choiceType">
                     <option value='' selected="selected">Multi</option>
                     <option value="2">Single</option>
                 </select>
@@ -51,34 +51,34 @@
         </div>
 
         <div class="col-md-6 col-xs-12 tree_save_button">
-            <button type="button" class="btn btn-default button_color" ng-click="search()"><i class="fa fa-search"></i></button>
-            <button type="button" class="btn btn-default button_color" ng-click="clear()"><i class="fa fa-pencil"></i></button>
-            <button type="button" class="btn btn-default button_color" onclick="saveTree()"><i class="fa fa-save"></i></button>
+            <button type="button" class="btn btn-default isee_select_button search_tree" ng-click="search()"><img src="../images/img/search5.png" /></button>
+            <button type="button" class="btn btn-default isee_select_button edit_tree" ng-click="clear()"><img src="../images/img/edit5.png" /></button>
+            <button type="button" class="btn btn-default isee_select_button save_tree" onclick="saveTree()"><img src="../images/img/save.png" /></button>
         </div>
 
     </div>
 
     <div class="row second_tree_rightbar" ng-hide="choice==2">
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Last Name</label>
-                <input type="text" class="form-control" ng-model="EmployeeSearchData.LastName">
+                <input type="text" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.LastName">
             </div>
         </div>
 
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <div class="form-group">
                     <label for="usr">First Name</label>
-                    <input type="text" class="form-control" ng-model="EmployeeSearchData.FirstName">
+                    <input type="text" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.FirstName">
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Number</label>
-                <input type="number" class="form-control" ng-model="EmployeeSearchData.phone">
+                <input type="number" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.phone">
             </div>
         </div>
 
@@ -88,12 +88,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">State</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.state">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.state">
             </div>
 
             <div class="form-group">
                 <label for="usr">Contact Name</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.contactName">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.contactName">
             </div>
 
         </div>
@@ -101,12 +101,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">City</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.city">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.city">
             </div>
 
             <div class="form-group">
                 <label for="usr">Company Name</label>
-                <input type="text" class="form-control" ng-model="CustomerSearchData.companyName">
+                <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.companyName">
             </div>
         </div>
 
@@ -126,12 +126,12 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="usr">Bulding Number</label>
-                <input type="number" class="form-control fields" ng-model="CustomerSearchData.buldingNumber" />
+                <input type="number" class="form-control isee_input" ng-model="CustomerSearchData.buldingNumber" />
             </div>
 
             <div class="form-group">
                 <label for="usr">Customer Number</label>
-                <input type="number" class="form-control fields" ng-model="CustomerSearchData.customerNumber" />
+                <input type="number" class="form-control isee_input" ng-model="CustomerSearchData.customerNumber" />
             </div>
         </div>
 
@@ -140,26 +140,34 @@
     <div class="row fourth_tree_rightbar">
 
         <div class="col-md-12 col-xs-12 search_result_header">
-            <h5 class="text-right">Search result</h5>
+            <h5 class="tree_title">Search result</h5>
         </div>
 
         <div class="col-md-6 col-xs-12 tree_scroll_panel">
 
             <div class="col-lg-12 col-xs-12 tree_demo_company">
-                <div class="form-group">
-                    <input type="text" class="form-control tree_panel_search" id="addNewNode">
+
+                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(false)">Delete Leaf</button></div>
+
+                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(true)">Delete Node</button></div>
+
+                <div class="col-md-3 col-xs-12 demo_row">
+                    <div class="form-group">
+                        <input type="text" class="form-control isee_input tree_panel_search" id="addNewNode">
+                    </div>
+                    </div>
+
+                <div class="col-md-3 col-xs-12 demo_row">
+
+                    <button type="button" class="btn btn-default isee_select_button btn_down" onclick="addNode()">Add Node</button></div>
+
+                    <div class="col-lg-12 col-sm-12 tree_second_company">
+
+                        <div id="jstree_demo_div"></div>
+
+
+                    </div>
                 </div>
-                <button type="button" class="btn btn-default button_color" onclick="removeNodeX(false)">Delete Leaf</button>
-                <button type="button" class="btn btn-default button_color" onclick="removeNodeX(true)">Delete Node</button>
-                <button type="button" class="btn btn-default button_color" onclick="addNode()">Add Node</button>
-
-                <div class="col-lg-12 col-sm-12 tree_second_company">
-
-                    <div id="jstree_demo_div"></div>
-
-
-                </div>
-            </div>
 
         </div>
 

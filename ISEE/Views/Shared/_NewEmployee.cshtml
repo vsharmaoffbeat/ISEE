@@ -3,8 +3,8 @@
 
     <div class="row employee_top_rightbar">
         <div class="col-md-12 col-xs-12 employee_save_header">
-            <button type="reset" class="btn btn-default pull-right button_color"><i class="fa fa-pencil"></i></button>
-            <button type="submit" class="btn btn-default pull-right floppy-icon button_color" ng-click="SaveAllEmployeeData()"><i class="fa fa-save"></i></button>
+            <button type="reset" class="btn btn-default pull-right isee_select_button search_tree"><img src="../images/img/edit5.png" /></button>
+            <button type="submit" class="btn btn-default pull-right floppy-icon isee_select_button search_tree" ng-click="SaveAllEmployeeData()"><img src="../images/img/save.png" /></button>
         </div>
 
         <div class="col-md-12 col-xs-12 employee_info_panel">
@@ -60,9 +60,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-12 employee_right_form">
-                    <h4 class="customer_title">Add An info</h4>
+                <div class="col-md-6 col-xs-12 employee_left_form">
                     <div class="col-md-12 col-xs-12 right_inner_emptab">
+                        <h4 class="customer_title">Add An info</h4>
+
 
                         <div class="col-md-6">
                             <div class="row">
@@ -120,13 +121,12 @@
                             </div>
 
                         </div>
-
-
                     </div>
+
                 </div>
             </div>
-            <!---- employee info panel-->
-            <!----- ================End======================-->
+
+
 
             <div class="row">
                 <div class="col-md-6 col-xs-12 employee_hours">
@@ -176,12 +176,6 @@
                         <div class="col-md-12 col-xs-12">
                             <div class="tree_tg-wrap">
                                 <table class="tree_tg" id="newemployeeGrid">
-                                    <tr>
-                                        <th class="tree_tg-zqgi"></th>
-                                        <th class="tree_tg-z1n2">Name</th>
-                                        <th class="tree_tg-z1n2">Phone1</th>
-                                    </tr>
-
                                     <tr ng-hide="choice==2" data-oid='{{NewAddedEmployee.employeeID}}' data-id='{{NewAddedEmployee.employeeID}}' data-name='{{NewAddedEmployee.LastName}} {{NewAddedEmployee.FirstName}}' data-type="employee" class="easytree-draggable">
                                         <td class="tg-dx8v_category">
                                             <i></i>
@@ -201,11 +195,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-12 employee_inner_demo">
+                <div class="col-md-6 col-xs-12">
                     <div class="col-md-6 col-xs-12 employee_inner_demo_first">
 
-                        <div class="col-md-6 col-xs-12 employee_inner_demo_second">
-                            <div id="jstree_Employee_div"></div>
+                        <div class="employee_inner_demo">
+                            <div class="col-md-6 col-xs-12 employee_inner_demo_second">
+                                <div id="jstree_Employee_div"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -213,7 +209,10 @@
             </div>
 
         </div>
+
+
     </div>
+
     <!-- Customer right panel end---->
 </form>
 

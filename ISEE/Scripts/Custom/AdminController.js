@@ -5,7 +5,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     var SysIdLevel1 = {};
     var SysIdLevel1max = {};
     var OverallSecondarys = [];
-
+    $scope.SelectedSysIdLevel1;
 
     $scope.$watch('choice', function (value) {
         if (value == '2') {

@@ -261,22 +261,27 @@ namespace ISEE.Controllers
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
                     return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == Common.Common.GetInteger(id)).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).OrderBy(x => x.RequestSysIdLevel1).ToList();
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == Common.Common.GetInteger(id)).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
                     return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
                 }
             }
         }
 
-        public JsonResult GetSecondary(Int32 sysIdLevel1)
+        public JsonResult GetSecondary(Int32 sysIdLevel1, int? ContactStatus)
         {
+
             using (ISEEEntities dataContext = new ISEEEntities())
             {
                 var factoryLevel2list = dataContext.RequsetToFactoryLevel2.Where(d => d.RequestSysIdLevel1 == sysIdLevel1).Select(x => new { x.RequestDescCodeLevel2, x.RequsetOrder, x.RequestSysIdLevel1, x.RequestSysIdLevel2, x.StatusCode }).ToList();
+                if (ContactStatus.HasValue)
+                {
+                    factoryLevel2list = factoryLevel2list.Where(c => c.StatusCode == ContactStatus).ToList();
+                }
                 return Json(factoryLevel2list, JsonRequestBehavior.AllowGet);
             }
         }
@@ -571,7 +576,7 @@ namespace ISEE.Controllers
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-    
+
 
     }
 }

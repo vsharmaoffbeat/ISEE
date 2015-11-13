@@ -1,4 +1,5 @@
 ﻿var module = angular.module('TreeDetails', [])
+
 module.controller('SearchCtrl', function ($scope, ContactService) {
     //  $scope.contacts = ContactService.list();
     var SysIdLevel1 = {};
@@ -64,9 +65,11 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
         $scope.contacts = null;
         ContactService.getList($scope.DDLType.id).then(function (d) {
-
             $scope.contacts = $.makeArray(d.data);
             SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
+            if ($scope.contacts.length > 0) {
+                $scope.BindSecondary($scope.contacts[0]);
+            }
         }, function (error) {
             alert('Error !');
         });
@@ -84,9 +87,11 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     ContactService.getList($scope.DDLType.id).then(function (d) {
-
         $scope.contacts = $.makeArray(d.data);
         SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
+        if ($scope.contacts.length > 0) {
+            $scope.BindSecondary($scope.contacts[0]);
+        }
     }, function (error) {
         alert('Error !');
     });
@@ -121,7 +126,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         //    //}
         //}
         if (!isVAlExisting) {
-            ContactService.getSecondarylist(SysIdLevel1).then(function (d) {
+            ContactService.getSecondarylist(SysIdLevel1, $scope.DDLType.id).then(function (d) {
                 var array = $.makeArray(d.data);
                 if (array.length > 0) {
                     $scope.Secondarys = d.data;
@@ -151,6 +156,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         if ($scope.newcontact != undefined) {
             var newcontact = $scope.newcontact;
             newcontact.RequestSysIdLevel1 = SysIdLevel1max;
+            newcontact.StatusCode = 0
             SysIdLevel1max = SysIdLevel1max + 1;
             $scope.SelectedSysIdLevel1 = newcontact.RequestSysIdLevel1;
             // Save in context class
@@ -166,6 +172,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         if ($scope.newSecondary != undefined) {
             var newSecondary = $scope.newSecondary;
             newSecondary.RequestSysIdLevel1 = $scope.SelectedSysIdLevel1;
+            newSecondary.StatusCode = 0;
             newSecondary.RequestSysIdLevel2 = 0;
             if ($scope.Secondarys.length == 0) {
 
@@ -191,8 +198,6 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         if ($scope.choice == "" || $scope.choice == undefined) {
             $scope.clearControlsEmployee();
             $scope.datareturneds = null;
-
-
         }
         else if ($scope.choice == "2") {
             $scope.clearControlsCustomers();
@@ -345,12 +350,12 @@ module.service('ContactService', function ($http) {
             method: 'GET',
         });
     }
-    contacts.getSecondarylist = function (SysIdLevel1) {
+    contacts.getSecondarylist = function (SysIdLevel1, contactStatus) {
         // var SysIdLevel1Val = { SysIdLevel1: SysIdLevel1 };
 
         return $http({
             url: '/Admin/GetSecondary',
-            data: { SysIdLevel1: SysIdLevel1 },
+            data: { SysIdLevel1: SysIdLevel1, ContactStatus: contactStatus },
             method: 'POST',
 
         });

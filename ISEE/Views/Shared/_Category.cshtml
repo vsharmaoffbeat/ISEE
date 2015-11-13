@@ -10,23 +10,7 @@
 
                     <select name="language" class="form-control language_box" ng-model="DDLType.id"
                             ng-options="s.id as s.name for s in DDLTypeList"
-                            ng-change="SetSelectedType()">
-                        @*<option value=" ">
-                                Language
-                            </option>
-                            <option value="arabic">Arabic</option>
-                            <option value="english">English</option>
-                            <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="other">Other</option>*@
-                    </select>
-
-
-                    @*<select class="form-control" id="categoryType">
-                            <option>Active</option>
-                            <option>Non-Active</option>
-                            <option>Select All</option>
-                        </select>*@
+                            ng-change="SetSelectedType()"></select>
                 </div>
             </div>
 
@@ -69,23 +53,17 @@
                     <div class="category_tg-wrap">
                         <table class="category_tg">
                             <tr>
-                                @*<th class="category_tg-zqgi"></th>*@
                                 <th class="category_tg-z1n21">Main Classification</th>
                                 <th class="category_tg-z1n2">Order</th>
                                 <th class="category_tg-z1n2">Active</th>
                             </tr>
 
                             <tr ng-repeat="contact in contacts" ng-click="BindSecondary(contact)">
-                                @*<td class="tg-dx8v_category"></td>*@
-
-
                                 <td class="tg-dx8v_category">
                                     <span ng-hide="contact.editing" ng-dblclick="editItem(contact)">{{ contact.RequestDescCodeLevel1 }}</span>
                                     <input type="hidden" ng-model="contact.RequestSysIdLevel1" />
                                     <input ng-show="contact.editing" ng-model="contact.RequestDescCodeLevel1" ng-blur="doneEditing(contact)" />
                                 </td>
-
-
                                 <td class="tg-dx8v_category">
                                     <div class="form-group">
                                         <input type="number" class="form-control category_form_table" min="0" step="1" ng-model="contact.RequsetOrder">
@@ -93,10 +71,9 @@
                                 </td>
                                 <td class="tg-dx8v_category">
                                     <div class="form-group">
-                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-checked="!contact.StatusCode" />
+                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode" />
                                     </div>
                                 </td>
-
                             </tr>
 
                         </table>
@@ -111,30 +88,24 @@
             <div class="col-lg-12 col-xs-12 category_company">
                 <h4 class="customer_title">Secondary Classification</h4>
                 <div class="row">
-
                     <div class="col-md-5">
                         <label for="usr">Secondary Classification</label>
                         <div class="form-group">
                             <input type="text" class="form-control" ng-model="newSecondary.RequestDescCodeLevel2" required autofocus>
                         </div>
                     </div>
-
-
                     <div class="col-md-3">
                         <label for="usr">Order</label>
                         <div class="form-group">
                             <input type="number" class="form-control" min="0" step="1" ng-model="newSecondary.RequsetOrder" required autofocus>
                             <input type="hidden" ng-model="newSecondary.RequestSysIdLevel2" />
                             <input type="hidden" ng-model="newSecondary.RequestSysIdLevel1" />
-
                         </div>
                     </div>
-
                     <div class="col-md-4">
                         <button type="button" class="btn btn-default pull-left left_pannel_btn  button_color" ng-click="saveSecondary()">
                             <i class="fa fa-plus"></i>
                         </button>
-
                     </div>
 
                 </div>
@@ -143,14 +114,12 @@
                     <div class="category_tg-wrap">
                         <table class="category_tg">
                             <tr>
-                                @*<th class="category_tg-zqgi"></th>*@
                                 <th class="category_tg-z1n21">Secondary Classification</th>
                                 <th class="category_tg-z1n2">Order</th>
                                 <th class="category_tg-z1n2">Active</th>
                             </tr>
 
                             <tr ng-repeat="Secondary in Secondarys">
-                                @*<td class="tg-dx8v_category"></td>*@
                                 <td class="tg-dx8v_category">
                                     <span ng-hide="Secondary.editing" ng-dblclick="editSecondary(Secondary)">  {{ Secondary.RequestDescCodeLevel2 }}</span>
                                     <input ng-show="Secondary.editing" ng-model="contact.RequestDescCodeLevel2" ng-blur="doneEditingSecondary(Secondary)" />
@@ -162,7 +131,7 @@
                                 </td>
                                 <td class="tg-dx8v_category">
                                     <div class="form-group">
-                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-checked="Secondary.StatusCode" />
+                                        <input type="checkbox" class="myClass" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="Secondary.StatusCode" />
                                     </div>
                                 </td>
 

@@ -356,10 +356,36 @@
        {
            data: treeJsonData,
            enableDnd: true,
-           canDrop: canDrop,
+           canDrop: canDropCustomer,
            dropped: droppedCustomer,
-           dropping: dropping
+           dropping: droppingCustomer
        });
+
+    function canDropCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+            return source.href ? true : false;
+        }
+        if (isTargetNode) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                return false;
+            }
+            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+                return false;
+            }
+            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                return false;
+            }
+            if (target.objecttype == undefined) {
+                return false;
+            }
+            return true;
+        }
+    }
+    function droppingCustomer(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropping node rejected '" + source.text + "'");
+        }
+    }
 
     function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
         // internal to external drop
@@ -381,8 +407,8 @@
             } else {
                 node.iconUrl = "/images/img/customer_16.png";
             }
-            objEmployeeTree.addNode(node, target.id);
-            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+            objCustomerTree.addNode(node, target.id);
+              alertMessage("Dropped 234234234 '" + node.text + "' to '" + target.text + "'");
         }
     }
 

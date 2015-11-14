@@ -391,7 +391,7 @@ namespace ISEE.Controllers
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, objecttype = "companyNode" });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, textCss="customnode", objecttype = "companyNode" });
             }
             TreeNodeData parentTreeNode = new TreeNodeData();
             CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
@@ -407,15 +407,15 @@ namespace ISEE.Controllers
                 if (objTreeView.EmployeeID != null)
                 {
                     var emp = dataContext.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, objecttype = "employee", iconUrl = "/images/img/employee_16.png" };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, textCss = "employeeTitle", objecttype = "employee", iconUrl = "/images/img/employee_16.png" };
                 }
                 else if (objTreeView.CustomerID != null)
                 {
                     var cust = dataContext.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, objecttype = "customer", iconUrl = "/images/img/customer_16.png" };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, textCss = "customerTitle", objecttype = "customer", iconUrl = "/images/img/customer_16.png" };
                 }
                 else
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description, objecttype = objTreeView.ParentID == null ? "companyNode" : "branchNode" };
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description, textCss = "customnode", objecttype = objTreeView.ParentID == null ? "companyNode" : "branchNode" };
                 if (hasChildren)
                 {
                     if (parentTreeNode.children == null)

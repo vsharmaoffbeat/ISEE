@@ -325,7 +325,7 @@ function SaveCustomerForm() {
 
     var data = {
         //inputCompanyName: $('#inputCompanyName').val(),                                     
-                        
+
         //inputMobile: $('#inputMobile').val(),                     
         //state: $('#inputState').val(),
         //city: $('#inputCity').val(),
@@ -370,14 +370,6 @@ function SaveCustomerForm() {
 
 //Start Tree View Section
 
-//var treeJsonData = [
-//       { "id": "ajsonte", "parent": "#", "text": "Simple root node", "icon": "/images/Home.png" },
-//      { "id": "ajsontest1", "parent": "ajsonte", "text": "Simple root node", "icon": "/images/Home.png" },
-//  { "id": "ajsontest2", "parent": "ajsonte", "text": "Root node 2", "icon": "/images/Home.png" },
-//  { "id": "ajsontest3", "parent": "ajsontest2", "text": "Child 1" },
-//  { "id": "ajsontest4", "parent": "ajsontest2", "text": "Child 2" },
-//];
-
 //this will hold reference to the tr we have dragged and its helper
 var c = {};
 
@@ -395,144 +387,10 @@ $(document).ready(function () {
         }
     });
 
-    //$("#jstree_demo_div").jstree({
-
-    //    'core': {
-    //        "check_callback": true,
-    //        'data': treeJsonData
-    //    },
-    //    "plugins": ["dnd"],
-    //    'types': {
-    //    'types' : {
-    //        'file' : {
-    //            'icon' : {
-    //                'image' : ''
-    //            }
-    //        },
-    //        'default' : {
-    //            'icon' : {
-    //                'image' : ''
-    //            },
-    //            'valid_children' : 'default'
-    //        }
-    //    }
-
-    //}
-    //});
     GetStaresByFactoryID();
-    //var notinprogress = true;
-    //document.getElementById("jstree_demo_div").addEventListener('mouseover', function (e) {
-    //    //This will be the top-most DOM element under cursor
-    //    var target = e.target;
-
-    //    if (notinprogress && c.helper != undefined && target.tagName == "A" && target.parentElement != undefined && target.parentElement.tagName == "LI" && e.target.parentElement.className.indexOf("jstree-node") >= 0) {
-    //        notinprogress = false;
-    //        var newNode = { "id": target.parentElement.getAttribute("id") + c.helper.data("id"), "icon": c.helper.data("type"), "parent": target.parentElement.getAttribute("id"), "text": c.helper.data("name"), "objectid": c.helper.data("id"), "objecttype": c.helper.data("type") };
-
-    //        if (IsValid(newNode, e.target)) {
-    //            treeJsonData.push(newNode);
-    //            resfreshJSTree();
-    //        }
-    //        notinprogress = true;
-    //        c = {};
-    //    }
-    //});
-
 });
 
-//function GetTreeNodeData(nodeid) {
-//    var node;
-//    $.each(treeJsonData, function () {
-//        if (this.id === nodeid) {
-//            node = this;
-//            return false;
-//        }
-//    });
-//    return node;
-//}
-//function IsValid(selectedNode, targetElement) {
-//    var hasValid = true;
-//    var hoveredNodeData = GetTreeNodeData(targetElement.parentElement.getAttribute("id"))
 
-//    if (hoveredNodeData != undefined && selectedNode.objecttype == 'employee' && hoveredNodeData.objecttype == selectedNode.objecttype) {
-//        hasValid = false;
-//    }
-
-
-//    if (hoveredNodeData != undefined && selectedNode.objecttype == 'customer' && hoveredNodeData.objecttype == "employee") {
-//        hasValid = false;
-//    }
-//    if (hoveredNodeData != undefined && hoveredNodeData.objectid == selectedNode.objectid) {
-//        hasValid = false;
-//    }
-
-//    $.each(treeJsonData, function () {
-//        if (!hasValid)
-//            return false;
-//        var currentNode = this;
-//        if (currentNode.parent == selectedNode.parent && currentNode.text == selectedNode.text && currentNode.objectid == selectedNode.objectid && currentNode.objecttype == selectedNode.objecttype) {
-//            hasValid = false;
-//        }
-
-//    });
-//    return hasValid;
-//}
-
-//var draggedDivElement;
-
-
-//$("#employeeGrid tr.tree-drop").draggable({
-//    helper: "clone",
-//    start: function (event, ui) {
-//        c.tr = this;
-//        c.helper = ui.helper;
-//    }
-//});
-
-//var prevTarget = null;
-
-//function resfreshJSTree() {
-//    $('#jstree_demo_div').jstree(true).settings.core.data = treeJsonData;
-//    $('#jstree_demo_div').jstree(true).refresh();
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function demo_create() {
-    var ref = $('#jstree_demo_div').jstree(true),
-        sel = ref.get_selected();
-    if (!sel.length) { return false; }
-    sel = sel[0];
-    sel = ref.create_node(sel, { "type": "file" });
-    if (sel) {
-        treeJsonData.push(ref.get_node(sel));
-        ref.edit(sel);
-    }
-};
-function demo_rename() {
-    var ref = $('#jstree_demo_div').jstree(true),
-        sel = ref.get_selected();
-    if (!sel.length) { return false; }
-    sel = sel[0];
-    ref.edit(sel);
-};
-function demo_delete() {
-    var ref = $('#jstree_demo_div').jstree(true),
-        sel = ref.get_selected();
-    if (!sel.length) { return false; }
-    ref.delete_node(sel);
-};
 function saveTree() {
     //var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
     var treeViewData = JSON.stringify(treeJsonData);

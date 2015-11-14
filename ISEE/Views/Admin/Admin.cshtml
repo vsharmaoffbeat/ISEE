@@ -55,6 +55,30 @@
                     @{Html.RenderAction("_NewCustomer", "Admin");}
                 </div>
             </div>
+
+            @*Common Modal Pop Up*@
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{MessageBoxModal.HeaderTitle}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{MessageBoxModal.Content}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            @*Common Modal Pop Up End*@
         </div>
     </div>
 </div>
@@ -72,6 +96,13 @@
                 $(footer[i]).hide();
         }
         $("#popup_div").dialog({ autoOpen: false });
+
+        $('#jstree_demo_div').empty()
+        $('#jstree_Employee_div').empty()
+        $('#jstree_Customer_div').empty()
+        objTree.rebuildTree()
+
+
         $('.LoadTreeParital').click(function (data) {
             $('#bindPartial_AdminTree').show();
             $('#bindPartial_Category').hide();

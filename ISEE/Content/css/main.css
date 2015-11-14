@@ -1619,16 +1619,30 @@ font-weight:bold;
 /**Customer Calendar Control Icon Publish*/
 
 
-tr.active {
-    background-color: rgba(128, 128, 128, 0.16);
-}
-
-
-
-
 .grid_style {
     margin-bottom: 4px !important;
     padding: 0px !important;
     padding-bottom: -4px;
     margin-top: -11px;
 }
+
+
+/**Easy Tree Custom Css*/
+span.customnode {
+    font-weight: bold;
+}
+
+span.easytree-drag-source {
+    background-color: rgba(247, 161, 87, 0.74) !important;
+}
+
+.easytree-focused span.easytree-active .easytree-title, .easytree-title:hover {
+    color:black;s
+    border-color: transparent !important;
+    background: transparent !important;
+}
+
+tr.active {
+    background-color: rgba(247, 161, 87, 0.74);
+}
+/**Easy Tree Custom Css Ends */

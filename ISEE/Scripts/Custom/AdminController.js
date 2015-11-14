@@ -7,6 +7,38 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     var OverallSecondarys = [];
     $scope.SelectedSysIdLevel1;
 
+    //Common PopUP
+    $scope.MessageBoxModal = {
+        HeaderTitle: '',
+        Content: ''
+    };
+
+    $scope.ShowMessageBox = function (headerTitle,content) {
+        $scope.MessageBoxModal.HeaderTitle = headerTitle;
+        $scope.MessageBoxModal.Content = content;
+        $('#myModal').modal('show');
+    };
+
+    //Common PopUP End
+
+
+    //Admin Tree Tab variable
+    $scope.SelectedAdminTreeEmployee;
+    $scope.SelectedAdminTreeCustomer;
+    //Admin Tree Tab variable End
+
+
+    //Admin Tree Tab Methods
+    $scope.setVariable = function (gridOption) {
+        if ($scope.choice == "2") {
+            $scope.SelectedAdminTreeCustomer = gridOption.id;
+        } else {
+            $scope.SelectedAdminTreeEmployee = gridOption.id;
+        }
+    }
+    //Admin Tree Tab Methods End
+
+
     $scope.$watch('choice', function (value) {
         if (value == '2') {
             $scope.EmployeeSearchData = null;
@@ -204,12 +236,38 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             $scope.datareturneds = null;
         }
     }
+
+    //Clear Employee Controls
+    $scope.clearControlsEmployee = function () {
+        $scope.EmployeeSearchData = {
+            FirstName: '',
+            LastName: '',
+            phone: ''
+        };
+    }
+
+    //Clear Customer Controls
+    $scope.clearControlsCustomers = function () {
+        $scope.CustomerSearchData = {
+            state: '',
+            city: '',
+            street: '',
+            buldingNumber: '',
+            customerNumber: '',
+            contactName: '',
+            companyName: '',
+            phone1: ''
+        };
+    }
+
+    //Employee Search Model
     $scope.EmployeeSearchData = {
         FirstName: '',
         LastName: '',
         phone: ''
     };
 
+    //Customer Search Model
     $scope.CustomerSearchData = {
         state: '',
         city: '',
@@ -220,16 +278,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         companyName: '',
         phone1: ''
     };
-    //$scope.GetEmployeeData = function () {
-    //    ContactService.GetEmployeeData($scope.)
 
-    //}
-
-
-
+    //Search Function
     $scope.search = function () {
         if ($scope.choice == "" || $scope.choice == undefined) {
-
             ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
                 if (d.data.length > 0) {
                     $scope.gridOptions = d.data;

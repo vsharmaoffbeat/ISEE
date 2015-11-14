@@ -155,19 +155,20 @@
                     <div class="form-group">
                         <input type="text" class="form-control isee_input tree_panel_search" id="addNewNode">
                     </div>
-                    </div>
+                </div>
 
                 <div class="col-md-3 col-xs-12 demo_row">
 
-                    <button type="button" class="btn btn-default isee_select_button btn_down" onclick="addNode()">Add Node</button></div>
-
-                    <div class="col-lg-12 col-sm-12 tree_second_company">
-
-                        <div id="jstree_demo_div"></div>
-
-
-                    </div>
+                    <button type="button" class="btn btn-default isee_select_button btn_down" onclick="addNode()">Add Node</button>
                 </div>
+
+                <div class="col-lg-12 col-sm-12 tree_second_company">
+
+                    <div id="jstree_demo_div"></div>
+
+
+                </div>
+            </div>
 
         </div>
 
@@ -183,7 +184,7 @@
                             <th class="tree_tg-z1n2">Phone1</th>
                         </tr>
 
-                        <tr ng-repeat="gridOption in gridOptions" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" class="easytree-draggable">
+                        <tr ng-repeat="gridOption in gridOptions" ng-attr-class="{{gridOption.id == SelectedAdminTreeEmployee && 'easytree-draggable active' || 'easytree-draggable' }}" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" ng-mousedown="setVariable(gridOption)">
 
 
                             <td class="tg-dx8v_category">
@@ -202,7 +203,7 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" data-type="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' class="easytree-draggable">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" ng-attr-class="{{gridOption.id == SelectedAdminTreeCustomer && 'easytree-draggable active' || 'easytree-draggable' }}" data-type="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' ng-mousedown="setVariable(gridOption)">
 
 
                             <td class="tg-dx8v_category">
@@ -265,12 +266,14 @@
 
                 if (objType == "companyNode" || objType == "branchNode") {
                     targetId = target.attr("id")
+                    sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
-                    objTree.rebuildTree();
+                    alert("asdasdasds")
                 }
             }
 
         }
+        objTree.rebuildTree();
 
     }
     function removeNodeX(bIsNode) {
@@ -287,17 +290,24 @@
             return
 
         if (bIsNode) {
-            if (node.children !=undefined &&  node.children.length > 0 && node.objecttype == "branchNode") {
-                alert("Branch can not deleted as it contains data");
+            if (node.children != undefined && node.children.length > 0 && node.objecttype == "branchNode") {
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                $scope.$apply(function () {
+                    $scope.ShowMessageBox('Drag and Drop alert', 'Branch can not deleted as it contains data')
+                });
+
                 return
             }
-        }
-
-        if (node.objecttype == "employee" || node.objecttype == "customer") {
             objTree.removeNode(node.id);
-            objTree.rebuildTree();
-        }
 
+        } else {
+
+            if (node.objecttype == "employee" || node.objecttype == "customer") {
+                objTree.removeNode(node.id);
+            }
+        }
+        objTree.rebuildTree();
     }
 
     function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
@@ -346,7 +356,8 @@
                 node.iconUrl = "/images/img/customer_16.png";
             }
             objTree.addNode(node, target.id);
-            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
+            objTree.rebuildTree();
+               alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
         }
     }
     function alertMessage(message) {

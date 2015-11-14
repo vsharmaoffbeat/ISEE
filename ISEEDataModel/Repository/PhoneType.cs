@@ -14,18 +14,12 @@ namespace ISEEDataModel.Repository
     
     public partial class PhoneType
     {
-        public PhoneType()
-        {
-            this.Employees = new HashSet<Employee>();
-        }
-    
         public int PhoneTypeCode { get; set; }
         public int PhoneManufacturId { get; set; }
         public string PhoneTypeDesc { get; set; }
         public Nullable<int> SortingOrder { get; set; }
         public int RecordStatus { get; set; }
     
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual PhoneManufacture PhoneManufacture { get; set; }
     }
 }

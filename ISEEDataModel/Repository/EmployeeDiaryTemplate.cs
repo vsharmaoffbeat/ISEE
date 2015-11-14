@@ -24,6 +24,5 @@ namespace ISEEDataModel.Repository
         public Nullable<int> OrderDay { get; set; }
     
         public virtual DiaryDayStatu DiaryDayStatu { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

@@ -27,6 +27,5 @@ namespace ISEEDataModel.Repository
         public Nullable<System.TimeSpan> Stop3 { get; set; }
     
         public virtual Calendar Calendar { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

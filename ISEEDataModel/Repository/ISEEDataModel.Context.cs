@@ -49,7 +49,6 @@ namespace ISEEDataModel.Repository
         public DbSet<CustomerRequest> CustomerRequests { get; set; }
         public DbSet<CustomerToBuilding> CustomerToBuildings { get; set; }
         public DbSet<DiaryDayStatu> DiaryDayStatus { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeeActive> EmployeeActives { get; set; }
         public DbSet<EmployeeClientParams_old> EmployeeClientParams_old { get; set; }
         public DbSet<EmployeeDiarySm> EmployeeDiarySms { get; set; }
@@ -104,5 +103,6 @@ namespace ISEEDataModel.Repository
         public DbSet<TreeLocation> TreeLocations { get; set; }
         public DbSet<UserLogEntry> UserLogEntries { get; set; }
         public DbSet<TreeView> TreeViews { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

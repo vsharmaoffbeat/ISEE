@@ -18,7 +18,6 @@ namespace ISEEDataModel.Repository
         {
             this.Customers = new HashSet<Customer>();
             this.CustomerToBuildings = new HashSet<CustomerToBuilding>();
-            this.Employees = new HashSet<Employee>();
             this.EmployeeGroups = new HashSet<EmployeeGroup>();
             this.RequsetToFactoryLevel1 = new HashSet<RequsetToFactoryLevel1>();
         }
@@ -32,7 +31,6 @@ namespace ISEEDataModel.Repository
     
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<CustomerToBuilding> CustomerToBuildings { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<EmployeeGroup> EmployeeGroups { get; set; }
         public virtual FactoryParm FactoryParm { get; set; }
         public virtual ICollection<RequsetToFactoryLevel1> RequsetToFactoryLevel1 { get; set; }

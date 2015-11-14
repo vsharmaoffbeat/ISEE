@@ -26,7 +26,5 @@ namespace ISEEDataModel.Repository
         public Nullable<int> Satellite { get; set; }
         public Nullable<int> ProcessStatus { get; set; }
         public Nullable<System.DateTime> CreateUtc { get; set; }
-    
-        public virtual Employee Employee { get; set; }
     }
 }

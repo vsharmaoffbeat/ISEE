@@ -24,6 +24,5 @@ namespace ISEEDataModel.Repository
         public Nullable<int> EmployeeGroupId { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

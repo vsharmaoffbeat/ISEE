@@ -213,40 +213,43 @@ namespace ISEE.Controllers
 
         public ActionResult SaveCustomerForm(CustomerDataModel objCustomerData)
         {
-            int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-            var CustomerData = objCustomerData;
-
-            using (ISEEEntities context = new ISEEEntities())
+            try
             {
-                try
+                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                var CustomerData = objCustomerData;
+
+                using (ISEEEntities context = new ISEEEntities())
                 {
                     Customer customer = new Customer();
                     customer.CreateDate = DateTime.Now;
-                    customer.BuildingCode = objCustomerData.buldingCode;
+                    customer.BuildingCode = objCustomerData.BuldingCode;
                     customer.CustomerNumber = objCustomerData.CustomerNumber;
                     customer.Factory = FactoryId;
                     customer.FirstName = objCustomerData.ContactName;
                     customer.Floor = objCustomerData.Floor;
-                    customer.Apartment = objCustomerData.inputApartment;
-                    customer.AreaPhone1 = objCustomerData.inputPhoneArea1;
+                    customer.Apartment = objCustomerData.Apartment;
+                    customer.AreaPhone1 = objCustomerData.PhoneArea1;
                     customer.Phone1 = objCustomerData.Phone1;
-                    customer.AreaPhone2 = objCustomerData.inputPhoneArea2;
+                    customer.AreaPhone2 = objCustomerData.PhoneArea2;
                     customer.Phone2 = objCustomerData.Phone2;
                     customer.Fax = objCustomerData.Fax;
                     customer.Mail = objCustomerData.Mail;
-                    customer.VisitInterval = objCustomerData.visitInterval;
+                    customer.VisitInterval = objCustomerData.VisitInterval;
                     customer.NextVisit = objCustomerData.NextVisit;
                     customer.VisitTime = objCustomerData.VisitTime;
                     context.Customers.Add(customer);
                     context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
+                    var customerDetails = new { CustomerID = customer.CustomerId, LastName = customer.LastName, FirstName = customer.FirstName, AreaPhone1 = customer.AreaPhone1, Phone1 = customer.Phone1 };
+                    return new JsonResult { Data = new { Message = "Success", CustomerDetails = customerDetails }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-                    throw ex;
                 }
+
             }
-            return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            catch (Exception ex)
+            {
+                return new JsonResult { Data = new { Message = "Error", ErrorDetails = ex.InnerException }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+
         }
 
         #region Category Tab
@@ -391,7 +394,7 @@ namespace ISEE.Controllers
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, textCss="customnode", objecttype = "companyNode" });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
             }
             TreeNodeData parentTreeNode = new TreeNodeData();
             CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
@@ -463,13 +466,27 @@ namespace ISEE.Controllers
         public JsonResult SaveTreeViewData(string treeViewData)
         {
             var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
+            try
+            {
+                DeleteNodes(treeNodeList);
 
-            DeleteNodes(treeNodeList);
+                SaveProcess(treeNodeList, null);
+                dataContext.SaveChanges();
 
-            SaveProcess(treeNodeList, null);
-            dataContext.SaveChanges();
+                List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
-            return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                var serializer = new JavaScriptSerializer();
+                var jsonString = serializer.Serialize(CreateJsonTree(data));
+
+                return new JsonResult { Data = new { Message = "Success", NewTreeJson = jsonString }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult { Data = new { Message = "Error", ErrorDetails = ex.InnerException }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+
         }
 
         private void SaveProcess(List<TreeNodeData> treeNodeList, long? objParentNodeID)
@@ -515,12 +532,12 @@ namespace ISEE.Controllers
                 //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 //var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
 
-                int FactoryId = 2;
-                var CountryID = 2;
+                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
                 if (CountryID != null)
                 {
 
-                    var StateDec = context.States.Where(c => c.CountryCode == FactoryId).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                    var StateDec = context.States.Where(c => c.CountryCode == FactoryId && c.CountryCode == CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
                     return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

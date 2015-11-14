@@ -24,7 +24,6 @@ namespace ISEEDataModel.Repository
         public int InsertStatus { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual EmployeeGpsPoint EmployeeGpsPoint { get; set; }
     }
 }

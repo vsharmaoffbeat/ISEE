@@ -25,7 +25,5 @@ namespace ISEEDataModel.Repository
         public Nullable<int> ApplicationId { get; set; }
         public string Ip { get; set; }
         public string Ip2 { get; set; }
-    
-        public virtual Employee Employee { get; set; }
     }
 }

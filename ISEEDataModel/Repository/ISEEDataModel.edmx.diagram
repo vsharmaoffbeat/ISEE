@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="728be7015af54ed9a0485c5940b523ba" Name="Diagram1">
+      <Diagram DiagramId="728be7015af54ed9a0485c5940b523ba" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="ISEEModel.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.AddressTypeTable" Width="1.5" PointX="1.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.AgentToFactory" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
@@ -29,7 +29,6 @@
         <EntityTypeShape EntityType="ISEEModel.CustomerRequest" Width="1.5" PointX="7.5" PointY="45.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.CustomerToBuilding" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.DiaryDayStatu" Width="1.5" PointX="12" PointY="23.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ISEEModel.Employee" Width="1.5" PointX="9" PointY="27.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.EmployeeActive" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.EmployeeClientParams_old" Width="1.5" PointX="16.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.EmployeeDiarySm" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
@@ -104,20 +103,9 @@
         <AssociationConnector Association="ISEEModel.FK_CustomerEmployeeContact_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_CustomerRequest_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_CustomerEmployeeContact_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_CustomerRequest_RequsetToFactoryLevel2" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_CustomerToBuilding_Factory" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTemplate_DiaryDayStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_Employee_Factory" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_Employee_PhoneType" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTemplate_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTime_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsLog_Employee1" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsPoints_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeSmsSend_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_MoblieApplicationRequest_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_EmployeeGpsPoints" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_EmployeeGroup_Factory" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_EmployeeGroup" ManuallyRouted="false" />
@@ -134,6 +122,7 @@
         <AssociationConnector Association="ISEEModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ISEEModel.TreeView" Width="1.5" PointX="5.2308141222367128" PointY="16.222082533045711" />
         <AssociationConnector Association="ISEEModel.FK__TreeView__Parent__54CB950F" />
+        <EntityTypeShape EntityType="ISEEModel.Employee" Width="1.5" PointX="10.352410637937677" PointY="2.456848369192727" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

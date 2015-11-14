@@ -56,6 +56,15 @@ function GetStaresByFactoryID() {
         type: "POST",
         url: "/Admin/GetStaresByFactoryID",
         success: function (response) {
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $scope.$apply(function () {
+                if (response.length > 0) {
+                    $scope.HasStateActive = "false";
+                } else {
+                    $scope.HasStateActive = "true";
+                }
+            });
             $(response).each(function () {
                 $("<option />", {
                     val: this.CountryCode,
@@ -318,54 +327,54 @@ function Initialize(obj) {
 
 
 
-function SaveCustomerForm() {
-    var buildingNumber = $('#inputBuldingNumber').val();
-    debugger;
+//function SaveCustomerForm() {
+//    var buildingNumber = $('#inputBuldingNumber').val();
+//    debugger;
 
 
-    var data = {
-        //inputCompanyName: $('#inputCompanyName').val(),                                     
+//    var data = {
+//        //inputCompanyName: $('#inputCompanyName').val(),                                     
 
-        //inputMobile: $('#inputMobile').val(),                     
-        //state: $('#inputState').val(),
-        //city: $('#inputCity').val(),
-        //street: $('#inputStreet').val(),                       
-        //zipCode: $('#inputZipCode').val(),
-        //visitTime: $('#inputVisitTime').val(),
-        //entry: $('#inputEntry').val(),
+//        //inputMobile: $('#inputMobile').val(),                     
+//        //state: $('#inputState').val(),
+//        //city: $('#inputCity').val(),
+//        //street: $('#inputStreet').val(),                       
+//        //zipCode: $('#inputZipCode').val(),
+//        //visitTime: $('#inputVisitTime').val(),
+//        //entry: $('#inputEntry').val(),
 
-        ContactName: $('#inputContactName').val(),
-        inputApartment: $('#inputApartment').val(),
-        Phone2: $('#inputPhone22').val(),
-        Mail: $('#inputMail').val(),
-        Fax: $('#inputFax').val(),
-        CustomerNumber: $('#inputCustomerNumber').val(),
-        Floor: $('#inputFloor').val(),
-        Phone1: $('#inputPhone11').val(),
-        inputPhoneArea1: $('#inputPhoneOne').val(),
-        inputPhoneArea2: $('#inputPhoneTwo').val(),
-        visitInterval: $('#inputVisitInterval').val(),
-        VisitTime: $('#inputVisitTime').val(),
-        NextVisit: $('#inputNextVisit').val(),
-        buldingCode: (abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf(buildingNumber)]),
-    };
-    if (buildingNumber != "") {
-        if ($('#inputCompanyName').val() != '') {
-            debugger;
-            $.ajax({
-                url: "/Admin/SaveCustomerForm",
-                type: "post",
-                contentType: "application/json",
-                data: JSON.stringify({ objCustomerData: data }),
-                dataType: "json",
-                success: function (result) {
-                    debugger;
-                }
-            });
-            return false;
-        }
-    }
-}
+//        ContactName: $('#inputContactName').val(),
+//        inputApartment: $('#inputApartment').val(),
+//        Phone2: $('#inputPhone22').val(),
+//        Mail: $('#inputMail').val(),
+//        Fax: $('#inputFax').val(),
+//        CustomerNumber: $('#inputCustomerNumber').val(),
+//        Floor: $('#inputFloor').val(),
+//        Phone1: $('#inputPhone11').val(),
+//        inputPhoneArea1: $('#inputPhoneOne').val(),
+//        inputPhoneArea2: $('#inputPhoneTwo').val(),
+//        VisitInterval: $('#inputVisitInterval').val(),
+//        VisitTime: $('#inputVisitTime').val(),
+//        NextVisit: $('#inputNextVisit').val(),
+//        buldingCode: (abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf(buildingNumber)]),
+//    };
+//    if (buildingNumber != "") {
+//        if ($('#inputCompanyName').val() != '') {
+//            debugger;
+//            $.ajax({
+//                url: "/Admin/SaveCustomerForm",
+//                type: "post",
+//                contentType: "application/json",
+//                data: JSON.stringify({ objCustomerData: data }),
+//                dataType: "json",
+//                success: function (result) {
+//                    debugger;
+//                }
+//            });
+//            return false;
+//        }
+//    }
+//}
 //End Customer section
 
 //Start Tree View Section
@@ -391,16 +400,5 @@ $(document).ready(function () {
 });
 
 
-function saveTree() {
-    //var treeViewData = JSON.stringify($("#jstree_demo_div").jstree(true).get_json('#', { 'flat': true }));
-    var treeViewData = JSON.stringify(treeJsonData);
 
-    $.ajax({
-        type: "POST",
-        url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-
-            // Initialize(result);
-        }
-    });
-}
 //End Tree View Section

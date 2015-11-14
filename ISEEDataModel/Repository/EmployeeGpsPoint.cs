@@ -36,7 +36,6 @@ namespace ISEEDataModel.Repository
         public Nullable<int> ProcessStatus { get; set; }
         public Nullable<System.DateTime> CreateUtc { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual ICollection<GpsEmployeeCustomer> GpsEmployeeCustomers { get; set; }
     }
 }

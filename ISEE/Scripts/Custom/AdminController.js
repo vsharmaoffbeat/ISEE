@@ -13,7 +13,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         Content: ''
     };
 
-    $scope.ShowMessageBox = function (headerTitle,content) {
+    $scope.ShowMessageBox = function (headerTitle, content) {
         $scope.MessageBoxModal.HeaderTitle = headerTitle;
         $scope.MessageBoxModal.Content = content;
         $('#myModal').modal('show');
@@ -36,8 +36,6 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             $scope.SelectedAdminTreeEmployee = gridOption.id;
         }
     }
-    //Admin Tree Tab Methods End
-
 
     $scope.$watch('choice', function (value) {
         if (value == '2') {
@@ -69,32 +67,102 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         // Here i get always the same value
         // console.log("Selected goalType, text: " + value);//
     });
+
     $scope.selectType = function () {
-
-
-
     }
-    //ContactService.getMaxValue().then(function (d) {
-    //    var array = $.makeArray(d.data);
-    //    Math.max.apply(Math, array.map(function (maxvalue) {
-    //        return SysIdLevel1max = maxvalue.RequestSysIdLevel1 + 1;
-    //    }))
-    //}, function (error) {
-    //    alert('Error !');
-    //});
 
-    //Category Active DDl
-    //ContactService.DDLType().then(function (d) {
 
+    //Tree Tab Code
+    $scope.clear = function () {
+        if ($scope.choice == "" || $scope.choice == undefined) {
+            $scope.clearControlsEmployee();
+            $scope.datareturneds = null;
+        }
+        else if ($scope.choice == "2") {
+            $scope.clearControlsCustomers();
+            $scope.datareturneds = null;
+        }
+    }
+
+    //Clear Employee Controls
+    $scope.clearControlsEmployee = function () {
+        $scope.EmployeeSearchData = {
+            FirstName: '',
+            LastName: '',
+            phone: ''
+        };
+    }
+
+    //Clear Customer Controls
+    $scope.clearControlsCustomers = function () {
+        $scope.CustomerSearchData = {
+            state: '',
+            city: '',
+            street: '',
+            buldingNumber: '',
+            customerNumber: '',
+            contactName: '',
+            companyName: '',
+            phone1: ''
+        };
+    }
+
+    //Employee Search Model
+    $scope.EmployeeSearchData = {
+        FirstName: '',
+        LastName: '',
+        phone: ''
+    };
+
+    //Customer Search Model
+    $scope.CustomerSearchData = {
+        state: '',
+        city: '',
+        street: '',
+        buldingNumber: '',
+        customerNumber: '',
+        contactName: '',
+        companyName: '',
+        phone1: ''
+    };
+
+    //Search Function
+    $scope.search = function () {
+        if ($scope.choice == "" || $scope.choice == undefined) {
+            ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
+                if (d.data.length > 0) {
+                    $scope.gridOptions = d.data;
+                }
+                else {
+                    alert('No Records Founded');
+                }
+            }, function (error) {
+                alert('Error !');
+            });
+        }
+        else if ($scope.choice == "2") {
+
+            ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
+                if (d.data.length > 0) {
+                    $scope.gridCustOptions = d.data;
+                }
+                else {
+                    alert('No Records Founded');
+                }
+            }, function (error) {
+                alert('Error !');
+            });
+        }
+    }
+    //Admin Tree Tab Methods End
+
+
+    //Admin Category Tab Methods
 
     data = [{ 'id': '0', 'name': 'Active' }, { 'id': '-1', 'name': 'InActive' }, { 'id': '', 'name': 'Select All' }]
     $scope.DDLTypeList = data;
     $scope.DDLType = $scope.DDLTypeList[0];
-    // });
-
     $scope.SetSelectedType = function () {
-
-
         $scope.contacts = null;
         ContactService.getList($scope.DDLType.id).then(function (d) {
             $scope.contacts = $.makeArray(d.data);
@@ -105,18 +173,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         }, function (error) {
             alert('Error !');
         });
-        //ContactService.SetSelectedDDLType($scope.DDLType).then(function (d) {
-        //    
-        //    window.location.reload();
-        //    //        $scope.CountryCodeList = d.data;
-        //});
-
-
     }
-    //END
-
-
-
 
     ContactService.getList($scope.DDLType.id).then(function (d) {
         $scope.contacts = $.makeArray(d.data);
@@ -216,6 +273,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             $scope.newSecondary = {};
         }
     }
+
     // code  for Secondary cases
     $scope.OverallSave = function () {
         ContactService.OverallSave($scope.contacts, OverallSecondarys).then(function (d) {
@@ -224,90 +282,6 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             //  $window.alert("Save SuccessFully");
         })
     }
-
-    //Tree Tab Code
-    $scope.clear = function () {
-        if ($scope.choice == "" || $scope.choice == undefined) {
-            $scope.clearControlsEmployee();
-            $scope.datareturneds = null;
-        }
-        else if ($scope.choice == "2") {
-            $scope.clearControlsCustomers();
-            $scope.datareturneds = null;
-        }
-    }
-
-    //Clear Employee Controls
-    $scope.clearControlsEmployee = function () {
-        $scope.EmployeeSearchData = {
-            FirstName: '',
-            LastName: '',
-            phone: ''
-        };
-    }
-
-    //Clear Customer Controls
-    $scope.clearControlsCustomers = function () {
-        $scope.CustomerSearchData = {
-            state: '',
-            city: '',
-            street: '',
-            buldingNumber: '',
-            customerNumber: '',
-            contactName: '',
-            companyName: '',
-            phone1: ''
-        };
-    }
-
-    //Employee Search Model
-    $scope.EmployeeSearchData = {
-        FirstName: '',
-        LastName: '',
-        phone: ''
-    };
-
-    //Customer Search Model
-    $scope.CustomerSearchData = {
-        state: '',
-        city: '',
-        street: '',
-        buldingNumber: '',
-        customerNumber: '',
-        contactName: '',
-        companyName: '',
-        phone1: ''
-    };
-
-    //Search Function
-    $scope.search = function () {
-        if ($scope.choice == "" || $scope.choice == undefined) {
-            ContactService.GetEmployeeData($scope.EmployeeSearchData).then(function (d) {
-                if (d.data.length > 0) {
-                    $scope.gridOptions = d.data;
-                }
-                else {
-                    alert('No Records Founded');
-                }
-            }, function (error) {
-                alert('Error !');
-            });
-        }
-        else if ($scope.choice == "2") {
-
-            ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
-                if (d.data.length > 0) {
-                    $scope.gridCustOptions = d.data;
-                }
-                else {
-                    alert('No Records Founded');
-                }
-            }, function (error) {
-                alert('Error !');
-            });
-        }
-    }
-    //ContactService.
 
     $scope.editEmployee = function (employee) {
         employee.editing = true;
@@ -329,6 +303,19 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         }
 
     };
+
+    //Admin Category Tab Methods Ends
+
+
+
+
+
+
+
+    //ContactService.
+
+
+    // Admin Employee Tab Methods
     $scope.employeeInfo = {
         Number: '',
         firstname: '',
@@ -345,34 +332,142 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     };
 
     ContactService.GetEmployeeHours().then(function (d) {
-        debugger;
         $scope.employeeData = d.data;
     })
 
+    $scope.EmployeeID = 0;
+    $scope.SaveAllEmployeeData = function () {
+        if ($scope.EmployeeID == 0) {
+            ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
+                if (d.data != "0") {
+                    $scope.EmployeeID = d.data;
+                    ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
+                        if (d.data != "0" || d.data == true) {
+                            ContactService.GetEmployeeHours().then(function (d) {
+                                $scope.employeeData = d.data;
+                            })
+                            ContactService.GetEmployeeByEmployeeID($scope.EmployeeID).then(function (responce) {
+                                $scope.NewAddedEmployee = responce.data;
+                            })
+                            $scope.employeeInfo = null;
+                            $scope.ShowMessageBox('Message', ' Employee Saved')
+                        }
+                    })
+                }
+            });
+        } else {
+            $scope.saveTree();
+        }
+    }
+    // Admin Employee Tab Methods
 
 
-    //$scope.saveEmphour = function () {
-    //    ContactService.SaveEmployeeHours($scope.employeeData).then(function (d) {
-    //        $scope.employeeInfo = null;
-    //    })
-    //}
-    var EmployeeID = 0;
-    $scope.SaveAllEmployeeData = function (d) {
-        ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
-            if (d.data != "0") {
-                EmployeeID = d.data;
-                ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
-                    if (d.data != "0" || d.data == true) {
-                        ContactService.GetEmployeeHours().then(function (d) {
-                            $scope.employeeData = d.data;
-                        })
-                        ContactService.GetEmployeeByEmployeeID(EmployeeID).then(function (responce) {
-                            $scope.NewAddedEmployee = responce.data;
-                        })
-                        $scope.employeeInfo = null;
-                        alert('Employee Saved');
-                    }
-                })
+    // Admin Customer Tab Methods
+    $scope.HasStateActive = "false";
+    $scope.clearCustomerDetails = function myfunction() {
+        $scope.NewCustomerDetails = null;
+        $scope.CustomerInfo = {
+            ContactName: '',
+            CompanyName: '',
+            Apartment: '',
+            Phone2: '',
+            Mail: '',
+            AreaFax: '',
+            Fax: '',
+            CustomerNumber: '',
+            Floor: '',
+            Phone1: '',
+            PhoneArea1: '',
+            PhoneArea2: '',
+            VisitInterval: '',
+            VisitTime: '',
+            NextVisit: '',
+            BuldingCode: '',
+            MobileOne: '',
+            MobileTwo: '',
+            BuildingNumber: '',
+            State: '',
+            City: '',
+            Street: '',
+            Entry: '',
+            ZipCode: ''
+        };
+        $scope.CustomerID = 0;
+    };
+    $scope.NewCustomerDetails;
+    $scope.CustomerInfo = {
+        ContactName: '',
+        CompanyName: '',
+        Apartment: '',
+        Phone2: '',
+        Mail: '',
+        AreaFax: '',
+        Fax: '',
+        CustomerNumber: '',
+        Floor: '',
+        Phone1: '',
+        PhoneArea1: '',
+        PhoneArea2: '',
+        VisitInterval: '',
+        VisitTime: '',
+        NextVisit: '',
+        BuldingCode: '',
+        MobileOne: '',
+        MobileTwo: '',
+        BuildingNumber: '',
+        State: '',
+        City: '',
+        Street: '',
+        Entry: '',
+        ZipCode: ''
+    };
+    $scope.CustomerID = 0
+    $scope.SaveCustomerForm = function () {
+        $scope.CustomerInfo.BuldingCode = (abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($scope.CustomerInfo.BuildingNumber)])
+
+        if ($scope.CustomerID == 0) {
+            if ($scope.CustomerInfo.BuildingNumber != '') {
+                if ($scope.CustomerInfo.CompanyName != '') {
+                    $.ajax({
+                        url: "/Admin/SaveCustomerForm",
+                        type: "post",
+                        contentType: "application/json",
+                        data: JSON.stringify({ objCustomerData: $scope.CustomerInfo }),
+                        dataType: "json",
+                        success: function (result) {
+                            $scope.$apply(function () {
+                                if (result.Message == 'Success') {
+                                    $scope.NewCustomerDetails = result.CustomerDetails;
+                                    $scope.CustomerID = result.CustomerDetails.CustomerID
+                                    $scope.ShowMessageBox('Save Message', 'Customer data saved sucessfully.')
+                                } else {
+                                    $scope.ShowMessageBox('Error', result.ErrorDetails)
+                                }
+                            });
+                        }
+                    });
+                }
+                return false;
+            }
+        } else {
+            $scope.saveTree();
+        }
+
+
+    };
+    // Admin Customer Tab Methods Ends
+
+    //Common Method To Save Tree Data
+    $scope.saveTree = function () {
+        var treeViewData = JSON.stringify(treeJsonData);
+        $.ajax({
+            type: "POST",
+            url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
+                if (result.Message == "Success") {
+                    treeJsonData = JSON.parse(result.NewTreeJson)
+                } else {
+                    $scope.ShowMessageBox("Error", result.ErrorDetails)
+                }
             }
         });
     }
@@ -520,35 +615,6 @@ module.service('ContactService', function ($http) {
     return contacts;
 });
 
-
-//var count = 0;
-//module.directive('draggable', function () {
-//    return {
-//        // A = attribute, E = Element, C = Class and M = HTML Comment
-//        restrict: 'A',
-//        //The link function is responsible for registering DOM listeners as well as updating the DOM.
-//        link: function (scope, element, attrs) {
-//            element.draggable({
-
-//                helper: "clone",
-//                start: function (event, ui) {
-//                    c.tr = this;
-//                    c.helper = ui.helper//.find("td:first").append("<img src='/images/img/customer.png' />");
-//                }, drag: function (event, ui) {
-//                    if (count % 2 == 0) {
-//                        ui.helper.find("td:first").text("odd")
-//                        count++;
-//                    } else {
-//                        ui.helper.find("td:first").text("even")
-//                        count++;
-//                    }
-//                }
-//            });
-//        }
-//    };
-//});
-
-
 function timeParseExact(time) {
     var hhmm = time.split(' ')[0];
     var tt = time.split(' ')[1].toLowerCase();
@@ -569,3 +635,4 @@ function timeParseExact(time) {
 
 
 }
+

@@ -14,19 +14,6 @@ namespace ISEEDataModel.Repository
     
     public partial class Employee
     {
-        public Employee()
-        {
-            this.CustomerEmployeeContacts = new HashSet<CustomerEmployeeContact>();
-            this.EmployeeDiaryTemplates = new HashSet<EmployeeDiaryTemplate>();
-            this.EmployeeDiaryTimes = new HashSet<EmployeeDiaryTime>();
-            this.EmployeeGpsLogs = new HashSet<EmployeeGpsLog>();
-            this.EmployeeGpsPoints = new HashSet<EmployeeGpsPoint>();
-            this.EmployeeSmsSends = new HashSet<EmployeeSmsSend>();
-            this.EmployeeToGroups = new HashSet<EmployeeToGroup>();
-            this.GpsEmployeeCustomers = new HashSet<GpsEmployeeCustomer>();
-            this.MoblieApplicationRequests = new HashSet<MoblieApplicationRequest>();
-        }
-    
         public int EmployeeId { get; set; }
         public System.DateTime SysCreatDate { get; set; }
         public int Factory { get; set; }
@@ -47,17 +34,5 @@ namespace ISEEDataModel.Repository
         public string Mail { get; set; }
         public Nullable<int> CustomerLinkDistanceThreshold { get; set; }
         public Nullable<int> DefultClientParamMode { get; set; }
-    
-        public virtual ICollection<CustomerEmployeeContact> CustomerEmployeeContacts { get; set; }
-        public virtual Factory Factory1 { get; set; }
-        public virtual PhoneType PhoneType1 { get; set; }
-        public virtual ICollection<EmployeeDiaryTemplate> EmployeeDiaryTemplates { get; set; }
-        public virtual ICollection<EmployeeDiaryTime> EmployeeDiaryTimes { get; set; }
-        public virtual ICollection<EmployeeGpsLog> EmployeeGpsLogs { get; set; }
-        public virtual ICollection<EmployeeGpsPoint> EmployeeGpsPoints { get; set; }
-        public virtual ICollection<EmployeeSmsSend> EmployeeSmsSends { get; set; }
-        public virtual ICollection<EmployeeToGroup> EmployeeToGroups { get; set; }
-        public virtual ICollection<GpsEmployeeCustomer> GpsEmployeeCustomers { get; set; }
-        public virtual ICollection<MoblieApplicationRequest> MoblieApplicationRequests { get; set; }
     }
 }

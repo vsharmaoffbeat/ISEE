@@ -29,25 +29,6 @@ $(document).ready(function () {
         }).appendTo($('#ddlYearValue'));
     }
 
-    //   $("<option />").appendTo($('#ddlYearValue'));
-
-
-    $(manufacture).each(function () {
-        $("<option />", {
-            val: this.PhoneManufacturId,
-            text: this.PhoneManufacture1
-        }).appendTo($('#ddlmanufacture'));
-    });
-
-
-    $('#ddlmanufacture').empty();
-    $("<option />").appendTo($('#ddlmanufacture'));
-    $(manufacture).each(function () {
-        $("<option />", {
-            val: this.PhoneManufacturId,
-            text: this.PhoneManufacture1
-        }).appendTo($('#ddlmanufacture'));
-    });
 
 
 
@@ -65,8 +46,11 @@ function setDefaultValues() {
 
 }
 //Bind Phone Types ddl
-function ManufactureTypes(obj) {
+function ManufactureTypes(obj, valMan) {
     $('#ddlphoneType').empty();
+
+    if ($('#ddlmanufacture :selected').val() == "")
+        return false;
     $("<option />").appendTo($('#ddlphoneType'));
     $.ajax({
         type: "POST",
@@ -80,6 +64,8 @@ function ManufactureTypes(obj) {
                     text: this.PhoneTypeDesc
                 }).appendTo($('#ddlphoneType'));
             });
+            if (obj)
+                $('#ddlphonetype :selected').val(valMan);
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -87,7 +73,7 @@ function ManufactureTypes(obj) {
 
 //clear input fields
 function clearInputFields() {
-    $("#ddlmanufacture").val('');
+    // $("#ddlmanufacture").val('');
     $('#empLastname').text('');
     $('#empFirstname').text('');
     $('#empNumber').text('');
@@ -112,37 +98,47 @@ function searchEmployeeData() {
             debugger;
             var setAttr = ''
             $(response).each(function () {
-                if (this.LastSendApp == null && this.EndDay != null) {
+                //if (this.LastSendApp == null && this.EndDay != null) {
 
-                    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                     + this.SecondPhone + '||' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1')
+                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
+                //     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
+                //     + this.SecondPhone + '||' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1')
 
-                }
-                else if (this.LastSendApp != null && this.EndDay == null) {
+                //}
+                //else if (this.LastSendApp != null && this.EndDay == null) {
 
-                    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                     + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1')
-                    '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') + '||';
+                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
+                //     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
+                //     + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1')
+                //    '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') + '||';
 
-                }
-                else if (this.LastSendApp == null && this.EndDay == null)
-                    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                       + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                       + this.SecondPhone + '|||';
+                //}
+                //else if (this.LastSendApp == null && this.EndDay == null)
+                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
+                //       + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
+                //       + this.SecondPhone + '|||';
 
-                else
-                    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                   + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                   + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') +
-                '|' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|';
+                //else
+                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
+                //   + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
+                //   + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') +
+                //'|' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|';
 
 
-                $('<div class="row" onclick="selectedEmployee(this)" employeeData="' + setAttr + '"> <div class="col-md-12 col-xs-12 tab_box">First Name: '
+                $('<div class="row" onclick="selectedEmployee(this)" EmployeeId="' + this.EmployeeId + '" EmployeeNum="' + this.EmployeeNum +
+                    '" Mail="' + this.Mail + '" FirstName="' + this.FirstName + '" LastName="' + this.LastName +
+                    '" LastSendApp="' + this.LastSendApp + '" EndDay="' + this.EndDay + '" PhoneManufactory="' + this.PhoneManufactory +
+                    '" PhoneType="' + this.PhoneType +
+                    '" MainPhone="' + this.MainPhone + '" MainAreaPhone="' + this.MainAreaPhone +
+                    '" SecondAreaPhone="' + this.SecondAreaPhone + '" SecondPhone="' + this.SecondPhone +
+                    '" StartDay="' + this.StartDay +
+
+                    '"> <div class="col-md-12 col-xs-12 tab_box">First Name: '
                    + this.FirstName + ' <p>Last Name: ' + this.LastName + '</p><p>Phone1: ' + this.MainAreaPhone + '-' + this.MainPhone
                    + '</p></div></div>').appendTo($('#left_employee_window'));
             });
+
+
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -150,19 +146,20 @@ function searchEmployeeData() {
 }
 function selectedEmployee(obj) {
     var d = new Date();
-    d.setMonth(d.getMonth() - 3);
+     d.setMonth(d.getMonth() - 3);
     $("#datepicker1").datepicker('setDate', d);
     d = new Date();
     $("#datepicker2").datepicker('setDate', d);
-    var data = $(obj).attr('employeedata').split('|');
-    getMessageHistory(data[0], $("#datepicker1 input").val(), $("#datepicker2 input").val());
-    _employeeId = data[0];
+    var data = $(obj).attr('EmployeeId').split('|');
+    _employeeId = $(obj).attr('EmployeeId');
+    //get messgae history
+    getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
+    //get Employeefill hours
     getEmployeeTimeTemplate(_employeeId);
-    getEmployeeTimeHistoryDiary(_employeeId);
-    setInputValues(data);
-    // alert('employee slected;')
-
-
+    //get Employee history template
+    getEmployeeTimeHistoryDiary();
+    //Set employee data
+    setInputValues(obj);
 
 
 
@@ -171,29 +168,50 @@ function selectedEmployee(obj) {
 
 
 
-function setInputValues(data) {
+function setInputValues(obj) {
 
     $("#employeeData :input").prop("disabled", false);
-    $('#txtnumber').val(data[1]);
-    $('#txtmail').val(data[2]);
-    $('#txtfirstname').val(data[3]);
+    $('#txtnumber').val($(obj).attr('EmployeeNum'));
+    $('#txtmail').val($(obj).attr('Mail'));
+    $('#txtfirstname').val($(obj).attr('FirstName'));
 
-    $('#txtlastname').val(data[4]);
+    $('#txtlastname').val($(obj).attr('LastName'));
 
-    $('#txtphone1').val(data[6]);
-    $('#txtphone11').val(data[7]);
-    $('#txtphone2').val(data[8]);
-    $('#txtphone22').val(data[9]);
-    $('#txtStart').val(getDateFormat(Date(data[5])));
-    if (data[10] != "")
-        $('#txtapplication').val(getDateFormat(Date(data[10])));
-    if (data[11] != "")
-        $('#txtend').val(getDateFormat(Date(data[11])));
+    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
+    $('#txtphone11').val($(obj).attr('MainPhone'));
+    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
+    $('#txtphone22').val($(obj).attr('SecondPhone'));
+    $('#txtStart').val($(obj).attr('StartDay'));
+
+    $('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
+    // bindDdlphonetype($(obj).attr('PhoneManufactory'));
+
+    ManufactureTypes(true, $(obj).attr('PhoneType'))
+    //  $('#ddlphonetype').val($(obj).attr('PhoneType'));
+    $('#txtapplication').val($(obj).attr('LastSendApp'));
+    $('#txtend').val($(obj).attr('EndDay'));
+    $('#employoeeDrag').empty();
+    $('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
+
+
+
+    //$("#employeeData :input").prop("disabled", false);
+    //$('#txtnumber').val(data[1]);
+    //$('#txtmail').val(data[2]);
+    //$('#txtfirstname').val(data[3]);
+
+    //$('#txtlastname').val(data[4]);
+
+    //$('#txtphone1').val(data[6]);
+    //$('#txtphone11').val(data[7]);
+    //$('#txtphone2').val(data[8]);
+    //$('#txtphone22').val(data[9]);
+    //$('#txtStart').val(getDateFormat(Date(data[5])));
+    //if (data[10] != "")
+    //    $('#txtapplication').val(getDateFormat(Date(data[10])));
+    //if (data[11] != "")
+    //    $('#txtend').val(getDateFormat(Date(data[11])));
 }
-function getDateFormat(d) {
-    return ('' + (1 + d.getMonth()) + '-' + d.getDate() + '-' + d.getFullYear().toString())
-}
-
 
 //Sms Tab all methods
 function searchMessageHistory() {
@@ -214,7 +232,7 @@ function getMessageHistory(id, start, end) {
                 return true;
             }
             $(response).each(function () {
-                $('<tr><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
             });
             debugger;
 
@@ -262,7 +280,7 @@ function getEmployeeTimeTemplate(id) {
             var counter = 0;
             var ids = '';
             $(response).each(function () {
-                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v"><input id="Start1' + counter + '" value="' + this.Start1 + '"></input></td><td class="tg-dx8v"><input id="end1' + counter + '"  value="' + this.End1 + '"></input></td><td class="tg-dx8v"><input id="Start2' + counter + '"  value="' + this.Start2 + '"></input></td><td class="tg-dx8v"><input id="end2' + counter + '"  value="' + this.End2 + '"></input></td><td class="tg-dx8v"></td></tr>').appendTo($('#tblemployeeHours'));;
+                $('<tr id="' + this.DayStatus + '"><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v"><input id="Start1' + counter + '" value="' + this.Start1 + '" class="inputClass start1" Start="Start1"></input></td><td class="tg-dx8v"><input id="end1' + counter + '"  value="' + this.End1 + '" class="inputClass end1" end="end1"></input></td><td class="tg-dx8v"><input id="Start2' + counter + '"  value="' + this.Start2 + '" class="inputClass start2" Start="Start2"></input></td><td class="tg-dx8v"><input id="end2' + counter + '"  value="' + this.End2 + '" class="inputClass end2" end="end2"></input></td><td class="tg-dx8v"></td></tr>').appendTo($('#tblemployeeHours'));;
                 ids += '#Start1' + counter + ',' + '#end1' + counter + ',' + '#Start2' + counter + ',' + '#end2' + counter + ','
                 counter++;
             });
@@ -279,10 +297,11 @@ function getEmployeeTimeTemplate(id) {
     });
 }
 
-function getEmployeeTimeHistoryDiary(id) {
+function getEmployeeTimeHistoryDiary() {
     // ddlMonthname
-
-    data = { employeeId: id, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
+    if (_employeeId <= 0)
+        return false;
+    data = { employeeId: _employeeId, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
     $.ajax({
         type: "POST",
         url: "/Data/GetEmployeeTimeHistoryDiary",
@@ -312,20 +331,84 @@ function replaceNullWithEmpty(obj) {
 //Update Employee
 function updateEmployee() {
     if (_employeeId > 0) {
-        $('#txtnumber').val();
-        $('#txtmail').val();
-        $('#txtfirstname').val();
+        var houlyFilled = getHourData();
+        d = {
+            employeeId: _employeeId,
+            number: $('#txtnumber').val(), mail: $('#txtmail').val(), firstName: $('#txtfirstname').val(),
+            lastName: $('#txtlastname').val(),
+            phone1: $('#txtphone1').val(),
+            phone11: $('#txtphone11').val(),
+            phone2: $('#txtphone2').val(),
+            phone22: $('#txtphone22').val(),
+            Start: $('#txtStart').val(),
+            manufacture: $('#ddlmanufacture').val(),
+            // bindDdlphonetype($(obj).attr('PhoneManufactory'));
 
-        $('#txtlastname').val();
+            //ManufactureTypes(true, $(obj).attr('PhoneType'))
+            phoneType: $('#ddlphonetype').val(),
+            //   $('#txtapplication').val();
+            end: $('#txtend').val(),
+            hourlyData: houlyFilled
+        }
 
-        $('#txtphone1').val();
-        $('#txtphone11').val();
-        $('#txtphone2').val();
-        $('#txtphone22').val();
-        $('#txtStart').val();
-        $('#txtapplication').val();
-        $('#txtend').val();
+        $.ajax({
+            type: "POST",
+            url: "/Data/UpdateEmployee",
+            data: d,
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+            },
+            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+        });
+
+
+        //$('#txtend').val();
     }
+}
+
+function getHourData() {
+    //var data = { day: '', start1: '', start2: '', end1: '', end2: '' };
+    var dataList = [];
+    $("#tblemployeeHours tr").each(function () {
+        //if ($(this).find('input').length > 0) {
+        //    $(this).find('input').attr('start') == 'Start1'
+        //    '';// data.sta
+        //}
+        var data = {};
+        $(this).find('td').find('input').each(function () {
+
+            if ($(this).hasClass('start1')) {
+                if (this.value != 'null' && this.value != "")
+                    data.start1 = this.value;
+                else
+                    data.start1 = null
+            }
+            if ($(this).hasClass('start2')) {
+                if (this.value != 'null' && this.value != "")
+                    data.start2 = this.value;
+                else
+                    data.start2 = null
+            }
+            if ($(this).hasClass('end1')) {
+                if (this.value != 'null' && this.value != "")
+                    data.end1 = this.value;
+                else
+                    data.end1 = null
+            }
+            if ($(this).hasClass('end2')) {
+                if (this.value != 'null' && this.value != "")
+                    data.end2 = this.value;
+                else
+                    data.end2 = null
+            }
+        })
+        if ($(this).find('td').find('input').length > 0) {
+            data.Day = this.id;
+            dataList.push(data);
+        }
+    })
+    return JSON.stringify(dataList);
 }
 
 

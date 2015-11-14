@@ -58,7 +58,7 @@ namespace ISEEREGION.Controllers
                                 TopEmployeeSearch = fd.TopEmployeeSearch,
                                 ZoomSearchLevel = fd.ZoomSearchLevel,
                                 CalendarShowRadius = fd.CalendarShowRadius,
-                                CalenderShowZoomLevel = fd.CalenderShowZoomLevel
+                                CalenderShowZoomLevel = fd.CalenderShowZoomLevel,
                             };
 
 
@@ -73,6 +73,8 @@ namespace ISEEREGION.Controllers
                 SessionManegment.SessionManagement.FactoryID = loginData.FactoryID;
                 SessionManegment.SessionManagement.Country = loginData.Country;
                 SessionManegment.SessionManagement.CurrentGmt = loginData.CurrentGmt;
+                SessionManegment.SessionManagement.SmsProvider = loginData.SmsProvider;
+                SessionManegment.SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
@@ -92,7 +94,7 @@ namespace ISEEREGION.Controllers
 
 
         #region Search for Employee
-        public JsonResult GetEmployee(string manufacture, string lastname, string firstname, string empNumber, string phoneType)
+        public JsonResult GetEmployee(string manufacture, string lastname, string firstname, string empNumber, string phoneType, bool isActive)
         {
             firstname = string.IsNullOrEmpty(firstname) ? null : firstname;
             lastname = string.IsNullOrEmpty(lastname) ? null : lastname;
@@ -101,29 +103,31 @@ namespace ISEEREGION.Controllers
             using (ISEEEntities context = new ISEEEntities())
             {
                 int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
-                bool _Active = true;
                 var empData = context.Employees.ToList().Where(x => x.Factory == factoryId
-                                                         && (string.IsNullOrEmpty(firstname) || x.FirstName.Contains(firstname))
+                                                        && (string.IsNullOrEmpty(firstname) || x.FirstName.Contains(firstname))
                     //       x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
-                                                         && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))
-                                                           && (string.IsNullOrEmpty(empNumber) || x.EmployeeNum.Contains(empNumber))
-                                                         && x.PhoneManufactory == (Common.GetInteger(manufacture) == 0 ? x.PhoneManufactory : Common.GetInteger(manufacture))
-                                                                  && x.PhoneType == (Common.GetInteger(phoneType) == 0 ? x.PhoneType : Common.GetInteger(phoneType))
-                                                                  && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum).Select(x => new
-                                                                  {
-                                                                      EmployeeId = x.EmployeeId,
-                                                                      EmployeeNum = x.EmployeeNum,
-                                                                      Mail = x.Mail == null ? "" : x.Mail,
-                                                                      FirstName = x.FirstName == null ? "" : x.FirstName,
-                                                                      LastName = x.LastName == null ? "" : x.LastName,
-                                                                      StartDay = x.StartDay,
-                                                                      MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
-                                                                      MainPhone = x.MainPhone == null ? "" : x.MainPhone,
-                                                                      SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
-                                                                      SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
-                                                                      LastSendApp = x.LastSendApp,
-                                                                      EndDay = x.EndDay
-                                                                  }).ToList();
+                                                        && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))
+                                                          && (string.IsNullOrEmpty(empNumber) || x.EmployeeNum.Contains(empNumber))
+                                                        && x.PhoneManufactory == (Common.GetInteger(manufacture) == 0 ? x.PhoneManufactory : Common.GetInteger(manufacture))
+                                                                 && x.PhoneType == (Common.GetInteger(phoneType) == 0 ? x.PhoneType : Common.GetInteger(phoneType))
+                                                                 && (isActive == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).ToList().OrderBy(x => x.EmployeeNum).Select(x => new
+                                                                 {
+                                                                     EmployeeId = x.EmployeeId,
+                                                                     EmployeeNum = x.EmployeeNum,
+                                                                     Mail = x.Mail == null ? "" : x.Mail,
+                                                                     FirstName = x.FirstName == null ? "" : x.FirstName,
+                                                                     LastName = x.LastName == null ? "" : x.LastName,
+                                                                     StartDay = x.StartDay.Value.ToString("dd/MM/yyyy"),
+                                                                     MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
+                                                                     MainPhone = x.MainPhone == null ? "" : x.MainPhone,
+                                                                     SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
+                                                                     SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
+                                                                     LastSendApp = x.LastSendApp == null ? "" : x.LastSendApp.Value.ToString("dd/MM/yyyy"),
+                                                                     EndDay = x.EndDay == null ? "" : x.EndDay.Value.ToString("dd/MM/yyyy"),
+                                                                     PhoneManufactory = x.PhoneManufactory,
+                                                                     PhoneType = x.PhoneType
+
+                                                                 }).ToList();
 
 
                 return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -134,8 +138,8 @@ namespace ISEEREGION.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= Convert.ToDateTime(start)
-                        && x.SmsCreatDate <= Convert.ToDateTime(end))
+                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= Convert.ToDateTime(start.Replace('-', '/'))
+                        && x.SmsCreatDate <= Convert.ToDateTime(end.Replace('-', '/')))
                         .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
 
                 return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -147,7 +151,7 @@ namespace ISEEREGION.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId == employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
+                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId == employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
 
                 //     var EmpHour = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -155,24 +159,142 @@ namespace ISEEREGION.Controllers
         }
         public JsonResult GetEmployeeTimeHistoryDiary(int employeeId, int month, int year)
         {
-            var start=new DateTime(year, month, 1);
+            var start = new DateTime(year, month, 1);
             var end = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.EmployeeDiaryTimes.Where(s => s.EmployeeId == employeeId && s.Day >= start  && s.Day <= end).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
+                var EmpHours = context.EmployeeDiaryTimes.Where(s => s.EmployeeId == employeeId && s.Day >= start && s.Day <= end).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
         public bool SendMessage(int employeeId, string msg, string phoneNumber)
         {
-            string result = SendSms(msg, phoneNumber, employeeId);
+            //string result = SendSms(msg, phoneNumber, employeeId);
+
+            switch (SessionManegment.SessionManagement.SmsProvider)
+            {
+                case 1:
+                    SenderSMS(employeeId, msg, phoneNumber);
+                    break;
+                case 2:
+                    inv = context.SenderSMSMexico(GuidID, strMsg, strPhone, currGmt);
+                    break;
+                case 3:
+                    strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
+                    inv = context.SendSMSClickatell(GuidID, strMsg, strPhone, PhoneAreaCode, currGmt);
+                    break;
+
+            }
+
+
             return true;
 
         }
 
+        public string SenderSMS(int EmpID, string _strMsg, string _phone )
+        {
+            string UserName = "sparta";
+            string Password = "5632455";
+            string msg = System.Security.SecurityElement.Escape(_strMsg);
+            string senderName = "regionSEE";
+            string senderNumber = "5632455";
+
+            //set phone numbers "0545500378;0545500379;"
+            string phonesList = _phone;
+
+           
+            //create XML
+            StringBuilder cbXml = new StringBuilder();
+            cbXml.Append("<Inforu>");
+            cbXml.Append("<User>");
+            cbXml.Append("<Username>" + UserName + "</Username>");
+            cbXml.Append("<Password>" + Password + "</Password>");
+            cbXml.Append("</User>");
+            cbXml.Append("<Content Type=\"sms\">");
+            cbXml.Append("<Message>" + msg + "</Message>");
+            cbXml.Append("</Content>");
+            cbXml.Append("<Recipients>");
+            cbXml.Append("<PhoneNumber>" + phonesList + "</PhoneNumber>");
+            cbXml.Append("</Recipients>");
+            cbXml.Append("<Settings>");
+            cbXml.Append("<SenderName>" + senderName + "</SenderName>");
+            cbXml.Append("<SenderNumber>" + senderNumber + "</SenderNumber>");
+            cbXml.Append("</Settings>");
+            cbXml.Append("</Inforu>");
+
+            string strXML = HttpUtility.UrlEncode(cbXml.ToString(), System.Text.Encoding.UTF8);
+
+            string result = PostDataToURL("http://api.inforu.co.il/SendMessageXml.ashx", "InforuXML=" + strXML);
+
+            //one time get result empty(check )!!!!!!
+            int Status = 1;
+            if (!string.IsNullOrEmpty(result))
+            {
+                XmlDocument xmlRez = new XmlDocument();
+                xmlRez.LoadXml(result);
+                XmlNode xnNote = xmlRez.SelectSingleNode("Result");
+                Status = Convert.ToInt32(xnNote["Status"].InnerText);
+            }
+
+
+            //add and save row to DB
+            EmployeeSmsSend emp_sms = new EmployeeSmsSend();
+            emp_sms.EmployeeId = EmpID;
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManegment.SessionManagement.CurrentGmt);
+            emp_sms.SmsMsg = _strMsg;
+            emp_sms.SmsCount = 1;
+            emp_sms.SmsStatus = Convert.ToInt32(Status);
+
+            //this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
+            //this.ObjectContext.SaveChanges();
+
+            return result;
+        }
+
+      
+        [Invoke]
+        public string SenderSMSMexico(Guid EmpGuidID, string _strMsg, string _phone, double CurrentGmt)
+        {
+
+            var empID = this.ObjectContext.Employee.FirstOrDefault(x => x.EmployeeKey == EmpGuidID).EmployeeId;
+            // string strXML1 = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=0506447976&Text=Test";
+            string strXML = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=" + _phone + "&Text=" + _strMsg;
+
+            string result = PostDataToURL("http://ign-sms.com/Scripts/mgrqispi.dll?", strXML);
+
+            ////one time get result empty(check )!!!!!!
+            int Status;
+            if (result.Contains("OK"))
+                Status = 1;
+            else
+                Status = -1;
+
+            //add and save row to DB
+            EmployeeSmsSend emp_sms = new EmployeeSmsSend();
+            emp_sms.EmployeeId = empID;
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
+            emp_sms.SmsMsg = _strMsg;
+            emp_sms.SmsCount = 1;
+            emp_sms.SmsStatus = Convert.ToInt32(Status);
+
+            this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
+            this.ObjectContext.SaveChanges();
+
+            return result;
+        }
+
+
+
+
+
+
+
         public string SendSms(string _strMsg, string phoneNumber, int employeeId)
         {
+
+            string sss = SessionManegment.SessionManagement.PhoneAreaCode;
+
             //  string _strMsg = "";
             string UserName = "sparta";
             string Password = "5632455";
@@ -181,7 +303,7 @@ namespace ISEEREGION.Controllers
             string senderNumber = "5632455";
 
             //set phone numbers "0545500378;0545500379;"
-            string phonesList = "0505774499";
+            string phonesList = SessionManegment.SessionManagement.PhoneAreaCode + "0505774499";
 
 
             //create XML
@@ -286,6 +408,41 @@ namespace ISEEREGION.Controllers
             }
         }
 
+        public bool UpdateEmployee(int employeeId, string number, string mail, string firstName, string lastName, string phone1, string phone11, string phone2, string phone22, string Start, int manufacture, int phoneType, string end, string hourlyData)
+        {
+            var mainData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ISEEDataModel.Repository.employeeHours>>(hourlyData);
+            foreach (var item in mainData)
+            {
+                using (ISEEEntities db = new ISEEEntities())
+                {
+                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == Convert.ToInt16(item.Day)).FirstOrDefault();
+                    factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                    factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                    factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
+                    factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                    db.SaveChanges();
+                }
+
+            }
+            using (ISEEEntities db = new ISEEEntities())
+            {
+
+                Employee employee = db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
+                employee.EmployeeNum = number;
+                employee.Mail = mail;
+                employee.FirstName = firstName;
+                employee.LastName = lastName;
+                employee.MainAreaPhone = phone1;
+                employee.MainPhone = phone11;
+                employee.SecondAreaPhone = phone2;
+                employee.SecondPhone = phone22;
+                employee.PhoneManufactory = manufacture;
+                employee.PhoneType = phoneType;
+                db.SaveChanges();
+
+            }
+            return true;
+        }
         #endregion
     }
 }

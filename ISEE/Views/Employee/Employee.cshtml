@@ -6,6 +6,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 @*<form role="form" method="post" action=""> *@
+<style>
+    .inputClass {
+        max-width: 60px !important;
+        border: 0px !important;
+    }
+</style>
 <div class="container top_employee_tab" style="background:#edecec;">
 
     <!---- top header start----->
@@ -13,28 +19,36 @@
     <div class="col-md-2 col-xs-12 ">
         <div class="form-group">
             <label for="usr">Last Name</label>
-            <input class="form-control isee_input" id="empLastname" name="lastname" type="text" value="">
+            <input class="form-control isee_input_shadow" id="empLastname" name="lastname" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">First Name</label>
-            <input class="form-control isee_input" id="empFirstname" name="firstname" type="text" value="">
+            <input class="form-control isee_input_shadow" id="empFirstname" name="firstname" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">Number</label>
-            <input class="form-control isee_input" id="empNumber" maxlength="50" name="number" type="tel" value="">
+            <input class="form-control isee_input_shadow" id="empNumber" maxlength="50" name="number" type="tel" value="">
         </div>
     </div>
 
     <div class="col-md-2 col-xs-12">
         <div class="form-group">
             <label for="usr">Manufacture</label>
-            <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control tree_select_option isee_button_color"></select>
+            <select id="ddlmanufacture" onchange="ManufactureTypes(this)" class="form-control isee_select_option ">
+                <option value=""></option>
+                <option value="1">Nokia</option>
+                <option value="2">Samsung</option>
+                <option value="3">Motorola</option>
+                <option value="4">BlackBerry</option>
+                <option value="5">LG</option>
+                <option value="6">Appel</option>
+            </select>
         </div>
     </div>
 
@@ -42,7 +56,7 @@
         <div class="form-group">
             <label for="usr">Phone Type</label>
 
-            <select id="ddlphoneType" class="form-control tree_select_option isee_button_color"></select>
+            <select id="ddlphoneType" class="form-control select_color"></select>
 
         </div>
     </div>
@@ -157,9 +171,9 @@
 
                                     <div class="form-group">
                                         <label for="usr">Start Day</label>
-                                        <div id="datepickerStartDay" class="input-group date" data-date-format="mm-dd-yyyy">
+                                        <div id="datepickerStartDay" class="input-group date" data-date-format="mm/dd/yyyy">
                                             <input class="form-control isee_input" type="text" id="txtStart" name="startday" value="" />
-                                            <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
+                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                         </div>
                                     </div>
 
@@ -179,7 +193,7 @@
 
                                     <div class="form-group">
                                         <label for="usr">End Date</label>
-                                        <div id="datepickerEndDay" class="input-group date" data-date-format="mm-dd-yyyy">
+                                        <div id="datepickerEndDay" class="input-group date" data-date-format="mm/dd/yyyy">
                                             <input class="form-control isee_input" type="text" id="txtend" title="enddate" value="" />
                                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                         </div>
@@ -214,7 +228,15 @@
 
                                     <div class="form-group">
                                         <label for="usr">Manufacture</label>
-                                        <select class="form-control tree_select_option isee_button_color" id="txtphone11" maxlength="50" name="manufacture"></select>
+                                        <select class="form-control tree_select_option isee_button_color" id="ddlmanufacture" maxlength="50" name="manufacture">
+                                            <option value=""></option>
+                                            <option value="2">Samsung</option>
+                                            <option value="5">LG</option>
+                                            <option value="4">BlackBerry</option>
+                                            <option value="6">Apple</option>
+                                            <option value="3">Motorola</option>
+                                            <option value="1">Nokia</option>
+                                        </select>
                                     </div>
 
 
@@ -237,8 +259,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="usr">Phone Type *</label>
-                                        <select class="form-control tree_select_option isee_button_color" id="" name="phonetype" value="" required>
+                                        <label for="usr">Phone Type </label>
+                                        <select class="form-control tree_select_option isee_button_color" id="ddlphonetype" name="phonetype">
                                             <option></option>
                                             <option></option>
                                         </select>
@@ -250,7 +272,7 @@
 
                                     <div class="form-group">
                                         <label for="usr">Last application</label>
-                                        <div id="datepickerLastApp" class="input-group date" data-date-format="mm-dd-yyyy">
+                                        <div id="datepickerLastApp" class="input-group date" data-date-format="mm/dd/yyyy">
                                             <input class="form-control isee_input" type="text" id="txtapplication" name="startday" value="" />
                                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                                         </div>
@@ -347,9 +369,9 @@
                                                     </div>
 
                                                     <div class="col-md-9 col-xs-9">
-                                                        <button type="button" class="btn btn-default pull-right isee_button_color">Show Below</button>
+                                                        <button type="button" class="btn btn-default pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">Show Below</button>
 
-                                                        <button type="button" class="btn btn-default full_screen pull-right isee_button_color">View Full Screen</button>
+                                                        <button type="button" class="btn btn-default full_screen pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">View Full Screen</button>
                                                     </div>
 
                                                 </div>
@@ -412,7 +434,7 @@
                                                     <div class="col-sm-5">
                                                         <div class="form-group">
                                                             <label for="usr">From</label>
-                                                            <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <div id="datepicker1" class="input-group date" data-date-format="mm/dd/yyyy">
                                                                 <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
                                                                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                                             </div>
@@ -423,7 +445,7 @@
 
                                                         <div class="form-group">
                                                             <label for="usr">To</label>
-                                                            <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <div id="datepicker2" class="input-group date" data-date-format="mm/dd/yyyy">
                                                                 <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
                                                                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                                             </div>
@@ -466,13 +488,17 @@
                                 <div class="tab-pane" id="employeeTree">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
-                                            <div id="jstree_Employee_div"></div>
+                                            <p class="text-left">Demo</p>
                                         </div>
 
                                         <div class="col-md-6">
 
-                                            <div class="container right_content_tabs_window">
-                                                <input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />
+                                            <div class="container right_content_tabs_window" id="employoeeDrag">
+
+
+
+
+                                                @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
                                             </div>
 
                                         </div>
@@ -606,75 +632,9 @@
 
 <script type="text/javascript">
     var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
-    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
-
 </script>
 
 
 <script src="~/Scripts/Custom/Employee.js"></script>
-<script>
-
-    var objEmployeeTree = $('#jstree_Employee_div').easytree(
-       {
-           data: treeJsonData,
-           enableDnd: true,
-           canDrop: canDrop,
-           dropped: droppedCustomer,
-           dropping: dropping
-       });
-
-    function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
-        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
-            return source.href ? true : false;
-        }
-        if (isTargetNode) {
-            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
-                return false;
-            }
-            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
-                return false;
-            }
-            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
-                return false;
-            }
-            if (target.objecttype == undefined) {
-                return false;
-            }
-            return true;
-        }
-    }
-    function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
-        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
-            //  alertMessage("Dropping node rejected '" + source.text + "'");
-        }
-    }
-
-
-    function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
-        // internal to external drop
-        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
-            //  alertMessage("Dropped node accepted '" + source.text + "'");
-        }
-        if (isSourceNode && isTargetNode) { // internal to internal drop
-            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
-        }
-        if (isTargetNode && !isSourceNode) { // external to internal drop
-            var node = {};
-            node.text = $(source).data("name");
-            node.id = newNodeID;
-            newNodeID = newNodeID - 1;
-            node.objectid = $(source).data("id");
-            node.objecttype = $(source).data("type");
-            if (node.objecttype == "employee") {
-                node.iconUrl = "/images/img/employee_16.png";
-            } else {
-                node.iconUrl = "/images/img/customer_16.png";
-            }
-            objEmployeeTree.addNode(node, target.id);
-            //   alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
-        }
-    }
-
-</script>
 
 

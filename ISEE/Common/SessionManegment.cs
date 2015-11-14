@@ -144,23 +144,22 @@ namespace ISEE.Common
                 set { HttpContext.Current.Session["MapProvider"] = value; }
             }
 
-            public static string SmsProvider
+            public static int SmsProvider
             {
-                get
-                {
-                    if (HttpContext.Current.Session["SmsProvider"] != null)
-                        return Convert.ToString(HttpContext.Current.Session["SmsProvider"]);
-                    else
-                        return "";
-                }
+                get { return Convert.ToInt16(HttpContext.Current.Session["SmsProvider"]); }
                 set { HttpContext.Current.Session["SmsProvider"] = value; }
             }
 
-            public static int PhoneAreaCode
+            public static string PhoneAreaCode
             {
-                get { return Convert.ToInt16(HttpContext.Current.Session["PhoneAreaCode"]); }
+                get
+                {
+                    if (HttpContext.Current.Session["PhoneAreaCode"] != null)
+                        return Convert.ToString(HttpContext.Current.Session["PhoneAreaCode"]);
+                    else
+                        return "";
+                }
                 set { HttpContext.Current.Session["PhoneAreaCode"] = value; }
-
             }
 
             public static string CountryDesc

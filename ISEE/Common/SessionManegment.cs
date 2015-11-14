@@ -29,7 +29,15 @@ namespace ISEE.Common
                         return Convert.ToString(HttpContext.Current.Session["Language"]);
                     else
                     {
-                        HttpContext.Current.Session["Language"] = HttpContext.Current.Request.UserLanguages[0].ToUpper().ToString();
+                        //Need to remove when images names changes to Similar we get from request
+                        if (HttpContext.Current.Request.UserLanguages[0].ToLower().Contains("en"))
+                        {
+                            HttpContext.Current.Session["Language"] = "EN";
+                        }
+                        else
+                        {
+                            HttpContext.Current.Session["Language"] = HttpContext.Current.Request.UserLanguages[0].ToUpper().ToString();
+                        }
                         return Convert.ToString(HttpContext.Current.Session["Language"]);
                     }
                 }

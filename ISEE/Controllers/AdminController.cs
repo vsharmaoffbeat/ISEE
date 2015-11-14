@@ -159,7 +159,7 @@ namespace ISEE.Controllers
                     emp.SecondAreaPhone = phone22;
                     emp.MainAreaPhone = phone11;
                     emp.MainPhone = phone1;
-                    emp.EmployeeKey = new Guid();
+                    emp.EmployeeKey = Guid.NewGuid();
                     context.Employees.Add(emp);
                     context.SaveChanges();
                     EmployeeID = emp.EmployeeId;

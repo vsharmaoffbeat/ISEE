@@ -174,16 +174,16 @@ namespace ISEEREGION.Controllers
 
             switch (SessionManegment.SessionManagement.SmsProvider)
             {
-                case 1:
-                    SenderSMS(employeeId, msg, phoneNumber);
-                    break;
-                case 2:
-                    inv = context.SenderSMSMexico(GuidID, strMsg, strPhone, currGmt);
-                    break;
-                case 3:
-                    strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
-                    inv = context.SendSMSClickatell(GuidID, strMsg, strPhone, PhoneAreaCode, currGmt);
-                    break;
+                //case 1:
+                //    SenderSMS(employeeId, msg, phoneNumber);
+                //    break;
+                //case 2:
+                //    inv = context.SenderSMSMexico(GuidID, strMsg, strPhone, currGmt);
+                //    break;
+                //case 3:
+                //    strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
+                //    inv = context.SendSMSClickatell(GuidID, strMsg, strPhone, PhoneAreaCode, currGmt);
+                //    break;
 
             }
 
@@ -253,36 +253,36 @@ namespace ISEEREGION.Controllers
         }
 
       
-        [Invoke]
-        public string SenderSMSMexico(Guid EmpGuidID, string _strMsg, string _phone, double CurrentGmt)
-        {
+        //[Invoke]
+        //public string SenderSMSMexico(Guid EmpGuidID, string _strMsg, string _phone, double CurrentGmt)
+        //{
 
-            var empID = this.ObjectContext.Employee.FirstOrDefault(x => x.EmployeeKey == EmpGuidID).EmployeeId;
-            // string strXML1 = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=0506447976&Text=Test";
-            string strXML = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=" + _phone + "&Text=" + _strMsg;
+        //    var empID = this.ObjectContext.Employee.FirstOrDefault(x => x.EmployeeKey == EmpGuidID).EmployeeId;
+        //    // string strXML1 = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=0506447976&Text=Test";
+        //    string strXML = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=" + _phone + "&Text=" + _strMsg;
 
-            string result = PostDataToURL("http://ign-sms.com/Scripts/mgrqispi.dll?", strXML);
+        //    string result = PostDataToURL("http://ign-sms.com/Scripts/mgrqispi.dll?", strXML);
 
-            ////one time get result empty(check )!!!!!!
-            int Status;
-            if (result.Contains("OK"))
-                Status = 1;
-            else
-                Status = -1;
+        //    ////one time get result empty(check )!!!!!!
+        //    int Status;
+        //    if (result.Contains("OK"))
+        //        Status = 1;
+        //    else
+        //        Status = -1;
 
-            //add and save row to DB
-            EmployeeSmsSend emp_sms = new EmployeeSmsSend();
-            emp_sms.EmployeeId = empID;
-            emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
-            emp_sms.SmsMsg = _strMsg;
-            emp_sms.SmsCount = 1;
-            emp_sms.SmsStatus = Convert.ToInt32(Status);
+        //    //add and save row to DB
+        //    EmployeeSmsSend emp_sms = new EmployeeSmsSend();
+        //    emp_sms.EmployeeId = empID;
+        //    emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
+        //    emp_sms.SmsMsg = _strMsg;
+        //    emp_sms.SmsCount = 1;
+        //    emp_sms.SmsStatus = Convert.ToInt32(Status);
 
-            this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
-            this.ObjectContext.SaveChanges();
+        //    this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
+        //    this.ObjectContext.SaveChanges();
 
-            return result;
-        }
+        //    return result;
+        //}
 
 
 

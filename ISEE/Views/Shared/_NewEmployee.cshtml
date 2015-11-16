@@ -1,5 +1,5 @@
 ﻿<!-- employee right panel start ---->
-<form role="form" method="post">
+<form role="form" method="post" action="">
 
     <div class="row employee_top_rightbar">
         <div class="col-md-12 col-xs-12 employee_save_header">
@@ -213,14 +213,13 @@
 
     </div>
 
-    <!-- Customer right panel end---->
-</form>
 
+</form>
+<!-- employee right panel end---->
 <script>
 
     var objEmployeeTree = $('#jstree_Employee_div').easytree(
        {
-           data: treeJsonData,
            enableDnd: true,
            canDrop: canDropEmployee,
            dropped: droppedEmployee,
@@ -244,6 +243,8 @@
             if (target.objecttype == undefined) {
                 return false;
             }
+
+            isCurrentNodeAdded = false;
             return true;
         }
     }
@@ -262,18 +263,21 @@
             // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
         }
         if (isTargetNode && !isSourceNode) { // external to internal drop
-            var node = {};
-            node.text = $(source).data("name");
-            node.id = newNodeID;
-            newNodeID = newNodeID - 1;
-            node.objectid = $(source).data("id");
-            node.objecttype = $(source).data("type");
-            if (node.objecttype == "employee") {
-                node.iconUrl = "/images/img/employee_16.png";
-            } else {
-                node.iconUrl = "/images/img/customer_16.png";
+            if (!isCurrentNodeAdded) {
+                var node = {};
+                node.text = $(source).data("name");
+                node.id = newNodeID;
+                newNodeID = newNodeID - 1;
+                node.objectid = $(source).data("id");
+                node.objecttype = $(source).data("type");
+                if (node.objecttype == "employee") {
+                    node.iconUrl = "/images/img/employee_16.png";
+                } else {
+                    node.iconUrl = "/images/img/customer_16.png";
+                }
+                objEmployeeTree.addNode(node, target.id);
+                isCurrentNodeAdded = true;
             }
-            objEmployeeTree.addNode(node, target.id);
         }
     }
 

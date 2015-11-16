@@ -239,11 +239,11 @@
 
 <script type="text/javascript">
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var isCurrentNodeAdded = false;
 
     var newNodeID = -1000;
     var objTree = $('#jstree_demo_div').easytree(
         {
-            data: treeJsonData,
             enableDnd: true,
             canDrop: canDrop,
             dropped: dropped,
@@ -268,7 +268,6 @@
                     targetId = target.attr("id")
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
-                    alert("asdasdasds")
                 }
             }
 
@@ -327,6 +326,7 @@
             if (target.objecttype == undefined) {
                 return false;
             }
+            isCurrentNodeAdded = false;
             return true;
         }
     }
@@ -344,20 +344,22 @@
             // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
         }
         if (isTargetNode && !isSourceNode) { // external to internal drop
-            var node = {};
-            node.text = $(source).data("name");
-            node.id = newNodeID;
-            newNodeID = newNodeID - 1;
-            node.objectid = $(source).data("id");
-            node.objecttype = $(source).data("type");
-            if (node.objecttype == "employee") {
-                node.iconUrl = "/images/img/employee_16.png";
-            } else {
-                node.iconUrl = "/images/img/customer_16.png";
+            if (!isCurrentNodeAdded) {
+                var node = {};
+                node.text = $(source).data("name");
+                node.id = newNodeID;
+                newNodeID = newNodeID - 1;
+                node.objectid = $(source).data("id");
+                node.objecttype = $(source).data("type");
+                if (node.objecttype == "employee") {
+                    node.iconUrl = "/images/img/employee_16.png";
+                } else {
+                    node.iconUrl = "/images/img/customer_16.png";
+                }
+                objTree.addNode(node, target.id);
+                objTree.rebuildTree();
+                isCurrentNodeAdded = true;
             }
-            objTree.addNode(node, target.id);
-            objTree.rebuildTree();
-               alertMessage("Dropped '" + node.text + "' to '" + target.text + "'");
         }
     }
     function alertMessage(message) {

@@ -68,7 +68,6 @@ namespace ISEEDataModel.Repository
         public DbSet<FactoryParm> FactoryParms { get; set; }
         public DbSet<FactoryUsePay> FactoryUsePays { get; set; }
         public DbSet<FactoryUsePrice> FactoryUsePrices { get; set; }
-        public DbSet<GeocodeStringResponse> GeocodeStringResponses { get; set; }
         public DbSet<GeocodeToTable> GeocodeToTables { get; set; }
         public DbSet<GisSource> GisSources { get; set; }
         public DbSet<GpsEmployeeCustomer> GpsEmployeeCustomers { get; set; }
@@ -104,5 +103,6 @@ namespace ISEEDataModel.Repository
         public DbSet<UserLogEntry> UserLogEntries { get; set; }
         public DbSet<TreeView> TreeViews { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<GeocodeStringResponse> GeocodeStringResponses { get; set; }
     }
 }

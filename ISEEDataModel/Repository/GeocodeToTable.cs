@@ -23,6 +23,5 @@ namespace ISEEDataModel.Repository
     
         public virtual AddressTypeTable AddressTypeTable1 { get; set; }
         public virtual Country Country { get; set; }
-        public virtual GeocodeStringResponse GeocodeStringResponse { get; set; }
     }
 }

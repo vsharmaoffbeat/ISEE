@@ -20,5 +20,7 @@ namespace ISEEDataModel.Repository
         public string ClaimValue { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetUserClaim AspNetUserClaims1 { get; set; }
+        public virtual AspNetUserClaim AspNetUserClaim1 { get; set; }
     }
 }

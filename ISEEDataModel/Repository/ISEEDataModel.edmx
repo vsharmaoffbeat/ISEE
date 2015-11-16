@@ -5,58 +5,35 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ISEEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.__MigrationHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
-            
-            
           </Key>
           <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AddressTypeTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AddressTypeTable">
           <Key>
             <PropertyRef Name="AddressTypeTable" />
-            
           </Key>
           <Property Name="AddressTypeTable" Type="int" Nullable="false" />
           <Property Name="Table" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AgentToFactory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AgentToFactory">
           <Key>
             <PropertyRef Name="AgentToFactoryPk" />
-            
-            
-            
           </Key>
           <Property Name="AgentToFactoryPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="AgentFk" Type="int" Nullable="false" />
           <Property Name="FactoryFk" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AgentUser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AgentUser">
           <Key>
             <PropertyRef Name="AgentUserPk" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="AgentUserPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -70,24 +47,18 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AgentUser' does not have a p
           <Property Name="BrowserPrice" Type="float" Nullable="false" />
           <Property Name="FactoryPrice" Type="float" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
-            
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserClaims' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
-            
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
@@ -104,8 +75,6 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserLogins' does not h
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetUserRoles">
           <Key>
             <PropertyRef Name="UserId" />
@@ -114,17 +83,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserRoles' does not ha
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -139,18 +100,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUsers' does not have a
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Building' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Building">
           <Key>
             <PropertyRef Name="BuildingCode" />
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="BuildingCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
@@ -170,17 +122,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Building' does not have a pr
           <Property Name="CountTransitions" Type="int" />
           <Property Name="AvergeDistance" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Calendar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="CalendarID" />
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="CalendarID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Country" Type="int" Nullable="false" />
@@ -190,12 +134,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Calendar' does not have a pr
           <Property Name="DiaryDayStatus" Type="int" Nullable="false" />
           <Property Name="DayDesc" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CalendarStatusDay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CalendarStatusDay">
           <Key>
             <PropertyRef Name="StatusId" />
-            
           </Key>
           <Property Name="StatusId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Daystatus" Type="int" Nullable="false" />
@@ -862,14 +803,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryUsePrice' does not ha
           <Property Name="FactoryPriceUpdate" Type="int" Nullable="false" />
           <Property Name="FactoryPrice" Type="float" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GeocodeStringResponse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GeocodeStringResponse">
           <Key>
             <PropertyRef Name="GeocodeStringResponsePk" />
-            
           </Key>
-          <Property Name="GeocodeStringResponsePk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GeocodeStringResponsePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GeocodeTagResponse" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -1409,130 +1347,55 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.UserLogEntry' does not have 
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserExiteTime" Type="datetime" />
         </EntityType>
+        <Association Name="FK_AspNetUserClaims_AspNetUserClaims">
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="1" />
+          <End Role="AspNetUserClaims1" Type="Self.AspNetUserClaims" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUserClaims">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TreeView_TreeView">
+          <End Role="TreeView" Type="Self.TreeView" Multiplicity="0..1" />
+          <End Role="TreeView1" Type="Self.TreeView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreeView">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TreeView1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ISEEModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddressTypeTable" EntityType="Self.AddressTypeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentToFactory" EntityType="Self.AgentToFactory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentUser" EntityType="Self.AgentUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarStatusDay" EntityType="Self.CalendarStatusDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDiaryTemplate" EntityType="Self.EmployeeDiaryTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDiaryTime" EntityType="Self.EmployeeDiaryTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeGpsLog" EntityType="Self.EmployeeGpsLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeocodeStringResponse" EntityType="Self.GeocodeStringResponse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeView" EntityType="Self.TreeView" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[__MigrationHistory].[MigrationId] AS [MigrationId], 
-[__MigrationHistory].[ContextKey] AS [ContextKey], 
-[__MigrationHistory].[Model] AS [Model], 
-[__MigrationHistory].[ProductVersion] AS [ProductVersion]
-FROM [dbo].[__MigrationHistory] AS [__MigrationHistory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AddressTypeTable" EntityType="Self.AddressTypeTable" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AddressTypeTable].[AddressTypeTable] AS [AddressTypeTable], 
-[AddressTypeTable].[Table] AS [Table]
-FROM [dbo].[AddressTypeTable] AS [AddressTypeTable]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AgentToFactory" EntityType="Self.AgentToFactory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AgentToFactory].[AgentToFactoryPk] AS [AgentToFactoryPk], 
-[AgentToFactory].[CreatedDate] AS [CreatedDate], 
-[AgentToFactory].[AgentFk] AS [AgentFk], 
-[AgentToFactory].[FactoryFk] AS [FactoryFk]
-FROM [dbo].[AgentToFactory] AS [AgentToFactory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AgentUser" EntityType="Self.AgentUser" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AgentUser].[AgentUserPk] AS [AgentUserPk], 
-[AgentUser].[User] AS [User], 
-[AgentUser].[Password] AS [Password], 
-[AgentUser].[PasswordId] AS [PasswordId], 
-[AgentUser].[ActiveAgent] AS [ActiveAgent], 
-[AgentUser].[MainCountry] AS [MainCountry], 
-[AgentUser].[MobileUserPrice] AS [MobileUserPrice], 
-[AgentUser].[SmsProvider] AS [SmsProvider], 
-[AgentUser].[SmsPrice] AS [SmsPrice], 
-[AgentUser].[BrowserPrice] AS [BrowserPrice], 
-[AgentUser].[FactoryPrice] AS [FactoryPrice]
-FROM [dbo].[AgentUser] AS [AgentUser]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AspNetRoles].[Id] AS [Id], 
-[AspNetRoles].[Name] AS [Name]
-FROM [dbo].[AspNetRoles] AS [AspNetRoles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AspNetUserClaims].[Id] AS [Id], 
-[AspNetUserClaims].[UserId] AS [UserId], 
-[AspNetUserClaims].[ClaimType] AS [ClaimType], 
-[AspNetUserClaims].[ClaimValue] AS [ClaimValue]
-FROM [dbo].[AspNetUserClaims] AS [AspNetUserClaims]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [AspNetUserLogins].[LoginProvider] AS [LoginProvider], 
 [AspNetUserLogins].[ProviderKey] AS [ProviderKey], 
 [AspNetUserLogins].[UserId] AS [UserId]
 FROM [dbo].[AspNetUserLogins] AS [AspNetUserLogins]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AspNetUserRoles].[UserId] AS [UserId], 
-[AspNetUserRoles].[RoleId] AS [RoleId]
-FROM [dbo].[AspNetUserRoles] AS [AspNetUserRoles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AspNetUsers].[Id] AS [Id], 
-[AspNetUsers].[Email] AS [Email], 
-[AspNetUsers].[EmailConfirmed] AS [EmailConfirmed], 
-[AspNetUsers].[PasswordHash] AS [PasswordHash], 
-[AspNetUsers].[SecurityStamp] AS [SecurityStamp], 
-[AspNetUsers].[PhoneNumber] AS [PhoneNumber], 
-[AspNetUsers].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
-[AspNetUsers].[TwoFactorEnabled] AS [TwoFactorEnabled], 
-[AspNetUsers].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
-[AspNetUsers].[LockoutEnabled] AS [LockoutEnabled], 
-[AspNetUsers].[AccessFailedCount] AS [AccessFailedCount], 
-[AspNetUsers].[UserName] AS [UserName]
-FROM [dbo].[AspNetUsers] AS [AspNetUsers]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Building" EntityType="Self.Building" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Building].[BuildingCode] AS [BuildingCode], 
-[Building].[CreateDate] AS [CreateDate], 
-[Building].[StatusCode] AS [StatusCode], 
-[Building].[CountryCode] AS [CountryCode], 
-[Building].[StateCode] AS [StateCode], 
-[Building].[CityCode] AS [CityCode], 
-[Building].[StreetCode] AS [StreetCode], 
-[Building].[Entry] AS [Entry], 
-[Building].[Number] AS [Number], 
-[Building].[ZipCode] AS [ZipCode], 
-[Building].[Lat] AS [Lat], 
-[Building].[Long] AS [Long], 
-[Building].[BuildingComment] AS [BuildingComment], 
-[Building].[GisAccuracy] AS [GisAccuracy], 
-[Building].[GisSource] AS [GisSource], 
-[Building].[CountTransitions] AS [CountTransitions], 
-[Building].[AvergeDistance] AS [AvergeDistance]
-FROM [dbo].[Building] AS [Building]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Calendar" EntityType="Self.Calendar" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Calendar].[CalendarID] AS [CalendarID], 
-[Calendar].[Country] AS [Country], 
-[Calendar].[Year] AS [Year], 
-[Calendar].[Month] AS [Month], 
-[Calendar].[Day] AS [Day], 
-[Calendar].[DiaryDayStatus] AS [DiaryDayStatus], 
-[Calendar].[DayDesc] AS [DayDesc]
-FROM [dbo].[Calendar] AS [Calendar]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CalendarStatusDay" EntityType="Self.CalendarStatusDay" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CalendarStatusDay].[StatusId] AS [StatusId], 
-[CalendarStatusDay].[Daystatus] AS [Daystatus]
-FROM [dbo].[CalendarStatusDay] AS [CalendarStatusDay]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="City" EntityType="Self.City" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1876,12 +1739,6 @@ FROM [dbo].[FactoryUsePay] AS [FactoryUsePay]</DefiningQuery>
 [FactoryUsePrice].[FactoryPrice] AS [FactoryPrice]
 FROM [dbo].[FactoryUsePrice] AS [FactoryUsePrice]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="GeocodeStringResponse" EntityType="Self.GeocodeStringResponse" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GeocodeStringResponse].[GeocodeStringResponsePk] AS [GeocodeStringResponsePk], 
-[GeocodeStringResponse].[GeocodeTagResponse] AS [GeocodeTagResponse]
-FROM [dbo].[GeocodeStringResponse] AS [GeocodeStringResponse]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="GeocodeToTable" EntityType="Self.GeocodeToTable" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [GeocodeToTable].[GeocodeToTablePk] AS [GeocodeToTablePk], 
@@ -2219,6 +2076,14 @@ FROM [dbo].[TreeLocation] AS [TreeLocation]</DefiningQuery>
 [UserLogEntry].[UserExiteTime] AS [UserExiteTime]
 FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUserClaims" Association="Self.FK_AspNetUserClaims_AspNetUserClaims">
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+            <End Role="AspNetUserClaims1" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TreeView_TreeView" Association="Self.FK_TreeView_TreeView">
+            <End Role="TreeView" EntitySet="TreeView" />
+            <End Role="TreeView1" EntitySet="TreeView" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -2284,6 +2149,8 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUserClaims1" Relationship="ISEEModel.FK_AspNetUserClaims_AspNetUserClaims" FromRole="AspNetUserClaim" ToRole="AspNetUserClaim1" />
+          <NavigationProperty Name="AspNetUserClaim1" Relationship="ISEEModel.FK_AspNetUserClaims_AspNetUserClaims" FromRole="AspNetUserClaim1" ToRole="AspNetUserClaim" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -2851,14 +2718,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           <Property Name="FactoryPriceUpdate" Type="Int32" Nullable="false" />
           <Property Name="FactoryPrice" Type="Double" Nullable="false" />
         </EntityType>
-        <EntityType Name="GeocodeStringResponse">
-          <Key>
-            <PropertyRef Name="GeocodeStringResponsePk" />
-          </Key>
-          <Property Name="GeocodeStringResponsePk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GeocodeTagResponse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="GeocodeToTables" Relationship="Self.FK_GeocodeToTable_2" FromRole="GeocodeStringResponse" ToRole="GeocodeToTable" />
-        </EntityType>
         <EntityType Name="GeocodeToTable">
           <Key>
             <PropertyRef Name="GeocodeToTablePk" />
@@ -2871,7 +2730,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           <Property Name="Insert" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AddressTypeTable1" Relationship="Self.FK_GeocodeToTable_0" FromRole="GeocodeToTable" ToRole="AddressTypeTable" />
           <NavigationProperty Name="Country" Relationship="Self.FK_GeocodeToTable_1" FromRole="GeocodeToTable" ToRole="Country" />
-          <NavigationProperty Name="GeocodeStringResponse" Relationship="Self.FK_GeocodeToTable_2" FromRole="GeocodeToTable" ToRole="GeocodeStringResponse" />
         </EntityType>
         <EntityType Name="GisSource">
           <Key>
@@ -3611,18 +3469,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GeocodeToTable_2">
-          <End Role="GeocodeStringResponse" Type="Self.GeocodeStringResponse" Multiplicity="1" />
-          <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GeocodeStringResponse">
-              <PropertyRef Name="GeocodeStringResponsePk" />
-            </Principal>
-            <Dependent Role="GeocodeToTable">
-              <PropertyRef Name="GeocodeTagResponse" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PhoneType_PhoneManufacture">
           <End Role="PhoneManufacture" Type="Self.PhoneManufacture" Multiplicity="1" />
           <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="*" />
@@ -3755,7 +3601,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           <EntitySet Name="FactoryParms" EntityType="Self.FactoryParm" />
           <EntitySet Name="FactoryUsePays" EntityType="Self.FactoryUsePay" />
           <EntitySet Name="FactoryUsePrices" EntityType="Self.FactoryUsePrice" />
-          <EntitySet Name="GeocodeStringResponses" EntityType="Self.GeocodeStringResponse" />
           <EntitySet Name="GeocodeToTables" EntityType="Self.GeocodeToTable" />
           <EntitySet Name="GisSources" EntityType="Self.GisSource" />
           <EntitySet Name="GpsEmployeeCustomers" EntityType="Self.GpsEmployeeCustomer" />
@@ -3905,10 +3750,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
             <End Role="Factory" EntitySet="Factories" />
             <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
           </AssociationSet>
-          <AssociationSet Name="FK_GeocodeToTable_2" Association="Self.FK_GeocodeToTable_2">
-            <End Role="GeocodeStringResponse" EntitySet="GeocodeStringResponses" />
-            <End Role="GeocodeToTable" EntitySet="GeocodeToTables" />
-          </AssociationSet>
           <AssociationSet Name="FK_PhoneType_PhoneManufacture" Association="Self.FK_PhoneType_PhoneManufacture">
             <End Role="PhoneManufacture" EntitySet="PhoneManufactures" />
             <End Role="PhoneType" EntitySet="PhoneTypes" />
@@ -3947,6 +3788,11 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
             <End Role="TreeView1" EntitySet="TreeViews" />
           </AssociationSet>
           <EntitySet Name="Employees" EntityType="ISEEModel.Employee" />
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUserClaims" Association="ISEEModel.FK_AspNetUserClaims_AspNetUserClaims">
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+            <End Role="AspNetUserClaim1" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <EntitySet Name="GeocodeStringResponses" EntityType="ISEEModel.GeocodeStringResponse" />
         </EntityContainer>
         <EntityType Name="TreeView">
           <Key>
@@ -3998,6 +3844,25 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
           <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerLinkDistanceThreshold" Type="Int32" />
           <Property Name="DefultClientParamMode" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_AspNetUserClaims_AspNetUserClaims">
+          <End Type="ISEEModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="1" />
+          <End Type="ISEEModel.AspNetUserClaim" Role="AspNetUserClaim1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUserClaim">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GeocodeStringResponse">
+          <Key>
+            <PropertyRef Name="GeocodeStringResponsePk" />
+          </Key>
+          <Property Name="GeocodeStringResponsePk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GeocodeTagResponse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4624,14 +4489,6 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GeocodeStringResponses">
-            <EntityTypeMapping TypeName="ISEEModel.GeocodeStringResponse">
-              <MappingFragment StoreEntitySet="GeocodeStringResponse">
-                <ScalarProperty Name="GeocodeStringResponsePk" ColumnName="GeocodeStringResponsePk" />
-                <ScalarProperty Name="GeocodeTagResponse" ColumnName="GeocodeTagResponse" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GeocodeToTables">
             <EntityTypeMapping TypeName="ISEEModel.GeocodeToTable">
               <MappingFragment StoreEntitySet="GeocodeToTable">
@@ -5079,6 +4936,14 @@ FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
                 <ScalarProperty Name="Factory" ColumnName="Factory" />
                 <ScalarProperty Name="SysCreatDate" ColumnName="SysCreatDate" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeocodeStringResponses">
+            <EntityTypeMapping TypeName="ISEEModel.GeocodeStringResponse">
+              <MappingFragment StoreEntitySet="GeocodeStringResponse">
+                <ScalarProperty Name="GeocodeTagResponse" ColumnName="GeocodeTagResponse" />
+                <ScalarProperty Name="GeocodeStringResponsePk" ColumnName="GeocodeStringResponsePk" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

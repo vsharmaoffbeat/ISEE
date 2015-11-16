@@ -48,7 +48,6 @@
         <EntityTypeShape EntityType="ISEEModel.FactoryParm" Width="1.5" PointX="3" PointY="57.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.FactoryUsePay" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.FactoryUsePrice" Width="1.5" PointX="5.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ISEEModel.GeocodeStringResponse" Width="1.5" PointX="1.5" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.GeocodeToTable" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.GisSource" Width="1.5" PointX="7.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ISEEModel.GpsEmployeeCustomer" Width="1.5" PointX="13.5" PointY="31.75" IsExpanded="true" />
@@ -111,7 +110,6 @@
         <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_EmployeeGroup" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_FactoryParm_Factory" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_RequsetToFactoryLevel1_Factory" ManuallyRouted="false" />
-        <AssociationConnector Association="ISEEModel.FK_GeocodeToTable_2" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_PhoneType_PhoneManufacture" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_ReportLocalParmeter_0" ManuallyRouted="false" />
         <AssociationConnector Association="ISEEModel.FK_ReportName_0" ManuallyRouted="false" />
@@ -123,6 +121,8 @@
         <EntityTypeShape EntityType="ISEEModel.TreeView" Width="1.5" PointX="5.2308141222367128" PointY="16.222082533045711" />
         <AssociationConnector Association="ISEEModel.FK__TreeView__Parent__54CB950F" />
         <EntityTypeShape EntityType="ISEEModel.Employee" Width="1.5" PointX="10.352410637937677" PointY="2.456848369192727" />
+        <AssociationConnector Association="ISEEModel.FK_AspNetUserClaims_AspNetUserClaims" />
+        <EntityTypeShape EntityType="ISEEModel.GeocodeStringResponse" Width="1.5" PointX="10.511345983721011" PointY="26.862980706087772" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

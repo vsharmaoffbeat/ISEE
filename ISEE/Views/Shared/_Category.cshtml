@@ -69,11 +69,11 @@
                                 </tr>
 
                                 <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)">
-                                    
-                                   <td class="tg-dx8v_category">
+
+                                    <td class="tg-dx8v_category">
                                         <span ng-hide="contact.editing" ng-dblclick="editItem(contact)">{{ contact.RequestDescCodeLevel1 }}</span>
                                         <input type="hidden" ng-model="contact.RequestSysIdLevel1" />
-                                        <input ng-show="contact.editing" ng-model="contact.RequestDescCodeLevel1" ng-blur="doneEditing(contact)" />
+                                        <input focus-on-show ng-show="contact.editing" ng-model="contact.RequestDescCodeLevel1" ng-blur="doneEditing(contact)" />
                                     </td>
                                     <td class="tg-dx8v_category">
                                         <div class="form-group grid_style">
@@ -116,13 +116,13 @@
 
                         <div class="col-md-1"></div>
 
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-default pull-left left_pannel_btn  isee_select_button search_tree" ng-click="saveSecondary()">
-                                    <img src="../images/img/rsz_1edit_add.png" />
-                                </button>
-                            </div>
-
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-default pull-left left_pannel_btn  isee_select_button search_tree" ng-click="saveSecondary()">
+                                <img src="../images/img/rsz_1edit_add.png" />
+                            </button>
                         </div>
+
+                    </div>
 
                     <div class="qwert">
                         <div class="category_tg-wrap">
@@ -136,7 +136,7 @@
                                 <tr ng-repeat="Secondary in Secondarys">
                                     <td class="tg-dx8v_category">
                                         <span ng-hide="Secondary.editing" ng-dblclick="editSecondary(Secondary)">  {{ Secondary.RequestDescCodeLevel2 }}</span>
-                                        <input ng-show="Secondary.editing" ng-model="contact.RequestDescCodeLevel2" ng-blur="doneEditingSecondary(Secondary)" />
+                                        <input focus-on-show ng-show="Secondary.editing" ng-model="contact.RequestDescCodeLevel2" ng-blur="doneEditingSecondary(Secondary)" />
                                     </td>
                                     <td class="tg-dx8v_category">
                                         <div class="form-group grid_style">

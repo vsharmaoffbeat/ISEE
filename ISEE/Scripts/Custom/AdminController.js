@@ -473,11 +473,6 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     }
 })
 
-
-
-
-
-
 module.service('ContactService', function ($http) {
     //to create unique contact id
     var contacts = {};
@@ -614,6 +609,36 @@ module.service('ContactService', function ($http) {
 
     return contacts;
 });
+
+module.directive('focusOnShow', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function ($scope, $element, $attr) {
+            if ($attr.ngShow) {
+                $scope.$watch($attr.ngShow, function (newValue) {
+                    if (newValue) {
+                        $timeout(function () {
+                            $element.focus();
+                        }, 0);
+                    }
+                })
+            }
+            if ($attr.ngHide) {
+                $scope.$watch($attr.ngHide, function (newValue) {
+                    if (!newValue) {
+                        $timeout(function () {
+                            $element.focus();
+                        }, 0);
+                    }
+                })
+            }
+
+        }
+    };
+})
+
+
+
 
 function timeParseExact(time) {
     var hhmm = time.split(' ')[0];

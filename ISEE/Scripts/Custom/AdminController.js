@@ -134,10 +134,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                     $scope.gridOptions = d.data;
                 }
                 else {
-                    alert('No Records Founded');
+                    $scope.ShowMessageBox('Message', 'No Records Founded');
                 }
             }, function (error) {
-                alert('Error !');
+                $scope.ShowMessageBox('Message', 'An Error has been occured....');
             });
         }
         else if ($scope.choice == "2") {
@@ -147,10 +147,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                     $scope.gridCustOptions = d.data;
                 }
                 else {
-                    alert('No Records Founded');
+                    $scope.ShowMessageBox('Message', 'No Records Founded');
                 }
             }, function (error) {
-                alert('Error !');
+                $scope.ShowMessageBox('Message', 'An Error has been occured....');
             });
         }
     }
@@ -171,7 +171,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                 $scope.BindSecondary($scope.contacts[0]);
             }
         }, function (error) {
-            alert('Error !');
+            $scope.ShowMessageBox('Error', 'An Error has been occured ....');
         });
     }
 
@@ -182,7 +182,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             $scope.BindSecondary($scope.contacts[0]);
         }
     }, function (error) {
-        alert('Error !');
+        $scope.ShowMessageBox('Error', 'An Error has been occured ....');
     });
 
     $scope.BindSecondary = function (contact) {
@@ -279,6 +279,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         ContactService.OverallSave($scope.contacts, OverallSecondarys).then(function (d) {
 
             $scope.msg = "Save SuccessFully";
+            $scope.ShowMessageBox('Message', 'Save SuccessFully.')
             //  $window.alert("Save SuccessFully");
         })
     }
@@ -287,20 +288,67 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         employee.editing = true;
     }
     $scope.doneEditingEmployee = function (employee) {
-        debugger;
         if (timeParseExact(employee.Start1) > timeParseExact(employee.End1)) {
-            alert('Stop1 date is more then start1');
+            $scope.ShowMessageBox('Message', ' Stop1 date is more then start1')
         }
         else {
             employee.editing = false;
         }
 
         if (timeParseExact(employee.Start2) > timeParseExact(employee.End2)) {
-            alert('Stop2 date is more then start2');
+            $scope.ShowMessageBox('Message', ' Stop2 date is more then start2')
         }
         else {
             employee.editing = false;
         }
+
+    };
+
+    $scope.editEmployeeHour = function (employeeHour, propName) {
+        switch (propName) {
+            case 'Start1':
+                employeeHour.editingStart1 = true;
+                break;
+            case 'End1':
+                employeeHour.editingEnd1 = true;
+                break;
+            case 'Start2':
+                employeeHour.editingStart2 = true;
+                break;
+            case 'End2':
+                employeeHour.editingEnd2 = true;
+                break;
+        }
+
+    }
+    $scope.doneEditingEmployeeHour = function (employeeHour, propName) {
+        if (timeParseExact(employeeHour.Start1) > timeParseExact(employeeHour.End1)) {
+
+            if (employeeHour.End1 != undefined)
+                $scope.ShowMessageBox('Message', ' Stop1 date is more then start1')
+        }
+        else if (timeParseExact(employeeHour.Start2) > timeParseExact(employeeHour.End2)) {
+
+            if (employeeHour.End2 != undefined)
+                $scope.ShowMessageBox('Message', ' Stop2 date is more then start2')
+
+        }
+
+        switch (propName) {
+            case 'Start1':
+                employeeHour.editingStart1 = false;
+                break;
+            case 'End1':
+                employeeHour.editingEnd1 = false;
+                break;
+            case 'Start2':
+                employeeHour.editingStart2 = false;
+                break;
+            case 'End2':
+                employeeHour.editingEnd2 = false;
+                break;
+        }
+
 
     };
 
@@ -334,9 +382,6 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         };
         $scope.EmployeeID = 0;
     };
-
-
-
 
     $scope.employeeInfo = {
         Number: '',
@@ -487,6 +532,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
                 if (result.Message == "Success") {
                     treeJsonData = JSON.parse(result.NewTreeJson)
+                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
                 } else {
                     $scope.ShowMessageBox("Error", result.ErrorDetails)
                 }
@@ -663,21 +709,25 @@ module.directive('focusOnShow', function ($timeout) {
 
 
 function timeParseExact(time) {
-    var hhmm = time.split(' ')[0];
-    var tt = time.split(' ')[1].toLowerCase();
-    var hh = hhmm.split(':')[0];
-    var mm = hhmm.split(':')[1];
-    if (tt == "pm") {
-        if (hh == "12") {
-            hh = "0";
+    if (time != undefined) {
+        var hhmm = time.split(' ')[0];
+        var tt = time.split(' ')[1].toLowerCase();
+        var hh = hhmm.split(':')[0];
+        var mm = hhmm.split(':')[1];
+        if (tt == "pm") {
+            if (hh == "12") {
+                hh = "0";
+            }
+            return parseFloat(hh + "." + mm) + 12;
         }
-        return parseFloat(hh + "." + mm) + 12;
-    }
-    else {
-        if (hh == "12") {
-            hh = "0";
+        else {
+            if (hh == "12") {
+                hh = "0";
+            }
+            return parseFloat(hh + "." + mm);
         }
-        return parseFloat(hh + "." + mm);
+    } else {
+        return parseFloat("00.00");
     }
 
 

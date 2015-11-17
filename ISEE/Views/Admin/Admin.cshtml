@@ -85,19 +85,25 @@
 <script>
 
     function loadTreeData(treeName) {
-
-        objCustomerTree.rebuildTree([]);
-        objEmployeeTree.rebuildTree([]);
-        objTree.rebuildTree([])
+        $('#jstree_demo_div').empty();
+        $('#jstree_Customer_div').empty();
+        $('#jstree_Employee_div').empty();
+        //objCustomerTree.rebuildTree([]);
+        //objEmployeeTree.rebuildTree([]);
+        //objTree.rebuildTree([])
         switch (treeName) {
             case 'tree':
                 objTree.rebuildTree(treeJsonData)
+                break;
             case 'employee':
                 objEmployeeTree.rebuildTree(treeJsonData)
+                break;
             case 'customer':
                 objCustomerTree.rebuildTree(treeJsonData)
+                break;
             default:
                 objTree.rebuildTree(treeJsonData)
+                break;
         }
     }
 
@@ -165,7 +171,7 @@
         //}
     });
     $(function () {
-        $("#datepicker1,#datepicker2").datepicker({
+        $("#datepicker1,#datepicker2,#datepickerNextVisit").datepicker({
             autoclose: true,
             todayHighlight: true
         }).datepicker('update', new Date());;
@@ -183,12 +189,9 @@
 
     function showTime(obj) {
         $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
-
         if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
-            debugger;
+
         }
     }
-
-
 
 </script>

@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="usr">Start Day</label>
+                                <label for="usr">Start Date</label>
                                 <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
                                     <input class="form-control isee_input" type="text" value="" ng-model="employeeInfo.startDay" />
                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -146,30 +146,30 @@
                                     <th class="tg-z1n2">Start Time</th>
                                     <th class="tg-z1n2">End Time</th>
                                 </tr>
-                                <tr ng-repeat="employee in employeeData track by $id($index)">
+                                <tr ng-repeat="employeeHour in employeeData track by $id($index)">
 
                                     <td class="tg-dx8v">
-                                        {{employee.Day}}
+                                        {{employeeHour.Day}}
                                     </td>
-                                    <td class="tg-dx8v">
-                                        <span ng-hide="employee.editing" typeof="time" ng-click="editEmployee(employee)">{{employee.Start1}}</span>
-                                        <input type="hidden" ng-model="employee.Start1" />
-                                        <input id='{{employee.Day}}_1' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.Start1" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'Start1')">
+                                        <span ng-hide="employeeHour.editingStart1" typeof="time">{{employeeHour.Start1}}</span>
+                                        <input type="hidden" ng-model="employeeHour.Start1" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_1' onclick="showTime(this)" ng-show="employeeHour.editingStart1" ng-model="employeeHour.Start1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start1')" />
                                     </td>
-                                    <td class="tg-dx8v">
-                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.End1}}</span>
+                                    <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'End1')">
+                                        <span ng-hide="employeeHour.editingEnd1">{{employeeHour.End1}}</span>
                                         <input type="hidden" ng-model="employee.End1" />
-                                        <input id='{{employee.Day}}_2' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.End1" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_2' onclick="showTime(this)" ng-show="employeeHour.editingEnd1" ng-model="employeeHour.End1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End1')" />
                                     </td>
-                                    <td class="tg-dx8v">
-                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.Start2}}</span>
-                                        <input type="hidden" ng-model="employee.Start2" />
-                                        <input id='{{employee.Day}}_3' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.Start2" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'Start2')">
+                                        <span ng-hide="employeeHour.editingStart2">{{employeeHour.Start2}}</span>
+                                        <input type="hidden" ng-model="employeeHour.Start2" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_3' onclick="showTime(this)" ng-show="employeeHour.editingStart2" ng-model="employeeHour.Start2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start2')" />
                                     </td>
-                                    <td class="tg-dx8v">
-                                        <span ng-hide="employee.editing" ng-click="editEmployee(employee)">{{employee.End2}}</span>
-                                        <input type="hidden" ng-model="employee.End2" />
-                                        <input id='{{employee.Day}}_4' onfocus="showTime(this)" ng-show="employee.editing" ng-model="employee.End2" style="width:50px !important" ng-blur="doneEditingEmployee(employee)" />
+                                    <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'End2')"s>
+                                        <span ng-hide="employeeHour.editingEnd2">{{employeeHour.End2}}</span>
+                                        <input type="hidden" ng-model="employeeHour.End2" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_4' onclick="showTime(this)" ng-show="employeeHour.editingEnd2" ng-model="employeeHour.End2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End2')" />
                                     </td>
                                 </tr>
                             </table>

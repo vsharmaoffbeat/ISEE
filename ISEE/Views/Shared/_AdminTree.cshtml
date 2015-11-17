@@ -359,6 +359,11 @@
                 objTree.addNode(node, target.id);
                 objTree.rebuildTree();
                 isCurrentNodeAdded = true;
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                if ($scope.choiceType == '2') {
+                    $('#employeeGrid tr[data-id="' + node.objectid + '"]').remove();
+                }
             }
         }
     }

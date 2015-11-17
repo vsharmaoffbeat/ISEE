@@ -272,17 +272,25 @@ function InsertAddress() {
     entry = $('#inputVisitInterval').val();
     visitInterval = $('#inputVisitTime').val();
     nextVisit = $('#inputNextVisit').val();
-    $.ajax({
-        url: "/Admin/InsertAddress",
-        data: { stateID: stateID, cityID: cityID, streetID: streetID },
-        success: function (response) {
-            $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
-            for (var i = 0; i < response.length; i++) {
-                $("#MapHeaderGrid").append("<tr id='" + response[i].Number + "' class='" + response[i].Lat + "' rel='" + response[i].Long + "'><td class='tg-dx8v'>" + response[i].CountryName + "</td><td class='tg-dx8v'>" + response[i].StateName + "</td><td class='tg-dx8v'>" + response[0].CityName + "</td><td class='tg-dx8v'>" + response[0].StreetName + "</td><td class='tg-dx8v'>" + response[0].BuldingNumber + "</td><td class='tg-dx8v'>" + response[i].CountryName + "," + response[i].StateName + "," + response[i].CityName + "," + response[i].StreetName + "," + response[0].BuldingNumber + "</td></tr>");
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
+    if (cityID == '' && streetID == '' && buildingNumber == '') {
+        var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+        var $scope = angular.element(appElement).scope();
+        $scope.$apply(function () {
+            $scope.ShowMessageBox('Message','Must select address first.')
+        });
+    } else {
+        $.ajax({
+            url: "/Admin/InsertAddress",
+            data: { stateID: stateID, cityID: cityID, streetID: streetID },
+            success: function (response) {
+                $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
+                for (var i = 0; i < response.length; i++) {
+                    $("#MapHeaderGrid").append("<tr id='" + response[i].Number + "' class='" + response[i].Lat + "' rel='" + response[i].Long + "'><td class='tg-dx8v'>" + response[i].CountryName + "</td><td class='tg-dx8v'>" + response[i].StateName + "</td><td class='tg-dx8v'>" + response[0].CityName + "</td><td class='tg-dx8v'>" + response[0].StreetName + "</td><td class='tg-dx8v'>" + response[0].BuldingNumber + "</td><td class='tg-dx8v'>" + response[i].CountryName + "," + response[i].StateName + "," + response[i].CityName + "," + response[i].StreetName + "," + response[0].BuldingNumber + "</td></tr>");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+        });
+    }
     if (stateID != "" || cityID != "" || streetID != "") {
         $("#popup_div").dialog("open");
         if (buildingLatLong[0] == null || buildingLatLong[1] == undefined) {

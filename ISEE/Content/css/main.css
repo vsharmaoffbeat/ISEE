@@ -2,6 +2,11 @@ html {
     height: 100%;
 }
 
+.btn
+{
+    color:#000;
+}
+
 body {
     padding: 0px;
     margin: 0px;
@@ -103,10 +108,13 @@ label {
 }
 
 .form-control {
+    width: 100%;
     border-radius: 0px;
     height: 25px;
-    padding: 4px;
+    padding: 1px;
     font-size: 12px !important;
+    color:#000;
+    -moz-appearance: none;
 }
 
 /*.customer_title {
@@ -193,6 +201,7 @@ font-weight:bold;
     font-size: 15px;
     text-align: center;
     margin-left: -35px;
+    height: 88px;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
@@ -202,7 +211,7 @@ font-weight:bold;
     background: -moz-linear-gradient(#b6c3a1, #f1f8e8 60%);
     background: -ms-linear-gradient(#b6c3a1, #f1f8e8 60%);
     background: -o-linear-gradient(#b6c3a1, #f1f8e8 60%);
-    padding: 20px;
+    padding: 15px; /* 16 nov changes */
     margin: 0px;
     height: 90px;
 }
@@ -493,36 +502,36 @@ font-weight:bold;
 }
 
 .first_tree_rightbar {
-    border-radius: 5px;
-    margin-top: 2px;
+   border-radius: 5px;
     height: auto;
-    padding: 0px;
+    padding-top: 0px;
     color: #6a6a6a;
-    background: #e6e6e6;
+    background: #e6e6e6
 }
 
 .tree_save_button {
     margin-top: 16px;
 }
 
-.form-control {
-    width: 100%;
-}
+
 
 .search_tree {
-    padding: 3px;
-    height: 35px;
+    padding: 0px;
+    height: 33px;
+    width: 35px;
 }
 
 .edit_tree {
-    padding: 3px;
-    height: 35px;
+    padding: 0px;
+    height: 33px;
+    width: 35px;
     margin-left: 10px;
 }
 
 .save_tree {
-    padding: 3px;
-    height: 35px;
+    padding: 0px;
+    height: 33px;
+    width: 35px;
     margin-left: 25px;
 }
 
@@ -573,7 +582,7 @@ font-weight:bold;
 }
 
 .tree_scroll_panel {
-    height: 400px;
+    height:auto;
     border-radius: 0px 5px 5px;
 }
 
@@ -582,7 +591,9 @@ font-weight:bold;
 }
 
 .tree_demo_company {
-    margin-top: 5px;
+   margin-top: 5px;
+    padding: 4px;
+    padding-top: 0px;
     border-radius: 5px;
     height: auto;
     border: 1px solid #64623a;
@@ -595,9 +606,10 @@ font-weight:bold;
 .tree_second_company {
     border: 1px solid #b6b5a2;
     height: 318px;
-    margin-top: 5px;
+    margin-top: -5px;
     overflow: auto;
     margin-bottom: 10px;
+    padding:0px;
 }
 
 .tree_grid_panel {
@@ -690,7 +702,7 @@ font-weight:bold;
 
 
 .floppy-icon {
-    margin-right: 10px;
+    margin-right: 2px;
 }
 
 .customer_top_rightbar {
@@ -878,9 +890,7 @@ font-weight:bold;
     top: -7px;
 }
 
-.floppy-icon {
-    margin-right: 10px;
-}
+
 
 .employee_top_rightbar {
     border-radius: 8px;
@@ -1281,7 +1291,9 @@ font-weight:bold;
 
 .btn {
     font-size: 12px !important;
+    border:1px solid #a5a5a5;
 }
+
 
 
 
@@ -1613,7 +1625,7 @@ font-weight:bold;
 
 .input-group-addon:last-child {
     border-left: 0;
-    height: 25px;
+    height: 25px;  
     padding: 4px;
 }
 /**Customer Calendar Control Icon Publish*/
@@ -1646,3 +1658,5 @@ tr.active {
     background-color: rgba(247, 161, 87, 0.74);
 }
 /**Easy Tree Custom Css Ends */
+
+

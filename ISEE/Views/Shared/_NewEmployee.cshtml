@@ -3,8 +3,11 @@
 
     <div class="row employee_top_rightbar">
         <div class="col-md-12 col-xs-12 employee_save_header">
-            <button type="reset" class="btn btn-default pull-right isee_select_button search_tree"><img src="../images/img/edit5.png" /></button>
-            <button type="submit" class="btn btn-default pull-right floppy-icon isee_select_button search_tree" ng-click="SaveAllEmployeeData()"><img src="../images/img/save.png" /></button>
+            <button type="button" class="btn btn-default pull-right isee_select_button search_tree" ng-click="clearEmployeeDetails()" >
+            <img src="../images/img/edit5.png" />
+            </button>
+            <button type="submit" class="btn btn-default pull-right floppy-icon isee_select_button search_tree" ng-click="SaveAllEmployeeData()">
+            <img src="../images/img/save.png" /></button>
         </div>
 
         <div class="col-md-12 col-xs-12 employee_info_panel">

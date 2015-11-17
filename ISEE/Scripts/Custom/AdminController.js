@@ -316,6 +316,28 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     // Admin Employee Tab Methods
+    $scope.clearEmployeeDetailsss = function myfunction() {
+        $scope.NewAddedEmployee = null;
+        $scope.employeeInfo = {
+            Number: '',
+            firstname: '',
+            startDay: '',
+            mail: '',
+            lastname: '',
+            enddate: '',
+            phone1: '',
+            phone11: '',
+            phone2: '',
+            phone22: '',
+            ManufactureChoice: '',
+            phoneTypeChoice: '',
+        };
+        $scope.EmployeeID = 0;
+    };
+
+
+
+
     $scope.employeeInfo = {
         Number: '',
         firstname: '',

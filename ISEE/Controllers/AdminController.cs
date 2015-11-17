@@ -534,25 +534,19 @@ namespace ISEE.Controllers
 
                 int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-                if (CountryID != null)
-                {
 
-                    var StateDec = context.States.Where(c => c.CountryCode == FactoryId && c.CountryCode == CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
-                    return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                var StateDec = context.States.Where(c => c.CountryCode == FactoryId && c.CountryCode == CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
         public JsonResult GetCitysByState(int stateID)
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                if (stateID != null)
-                {
-                    var Cityes = context.Cities.Where(p => p.StateCode == stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
-                    return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                var Cityes = context.Cities.Where(p => p.StateCode == stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
+                return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
         public JsonResult GetStreetByCity(int stateID, int cityID)

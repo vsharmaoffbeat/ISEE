@@ -625,15 +625,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeToGroup' does not ha
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Factory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Factory">
           <Key>
             <PropertyRef Name="FactoryId" />
-            
-            
-            
-            
           </Key>
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="FactoryCreateDate" Type="smalldatetime" Nullable="false" />
@@ -1143,18 +1137,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportPanelType' does not ha
           <Property Name="ReportPanelFk" Type="int" Nullable="false" />
           <Property Name="ReportPanelTypeDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.RequsetToFactoryLevel1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RequsetToFactoryLevel1">
           <Key>
             <PropertyRef Name="RequestSysIdLevel1" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="RequestSysIdLevel1" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestSysIdLevel1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="Factory" Type="int" Nullable="false" />
           <Property Name="RequestIdLevel1" Type="int" Nullable="false" />
@@ -1162,17 +1149,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.RequsetToFactoryLevel1' does
           <Property Name="RequsetOrder" Type="int" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.RequsetToFactoryLevel2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RequsetToFactoryLevel2">
           <Key>
             <PropertyRef Name="RequestSysIdLevel2" />
-            
-            
-            
-            
           </Key>
-          <Property Name="RequestSysIdLevel2" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestSysIdLevel2" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="RequestSysIdLevel1" Type="int" Nullable="false" />
           <Property Name="RequestIdLevel2" Type="int" Nullable="false" />
@@ -1263,29 +1244,21 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.sysdiagrams' does not have a
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.SystemSmsSend' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SystemSmsSend">
           <Key>
             <PropertyRef Name="ID" />
-            
-            
-            
-            
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="SmsType" Type="int" Nullable="false" />
           <Property Name="SendTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.TableTestItay-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TableTestItay-old">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Lat" Type="float" />
           <Property Name="Long" Type="float" />
           <Property Name="Accuracy" Type="float" />
@@ -1294,28 +1267,19 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.TableTestItay-old' does not 
           <Property Name="GpsTime" Type="time" Precision="0" />
           <Property Name="Speed" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.TestCalendar-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TestCalendar-old">
           <Key>
             <PropertyRef Name="sysid" />
-            
-            
           </Key>
-          <Property Name="sysid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="sysid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Day" Type="date" Nullable="false" />
           <Property Name="DayStatus" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.TreeLocation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TreeLocation">
           <Key>
             <PropertyRef Name="ID" />
-            
-            
-            
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name=" FactoryTreeLocation" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Factort" Type="int" Nullable="false" />
           <Property Name="UpdateCounter" Type="int" Nullable="false" />
@@ -1332,16 +1296,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.TreeLocation' does not have 
           <Property Name="CustomerID" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.UserLogEntry' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserLogEntry">
           <Key>
             <PropertyRef Name="ID" />
-            
-            
-            
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1356,6 +1315,18 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.UserLogEntry' does not have 
             </Principal>
             <Dependent Role="AspNetUserClaims1">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequsetToFactoryLevel1_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="RequsetToFactoryLevel1" Type="Self.RequsetToFactoryLevel1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="RequsetToFactoryLevel1">
+              <PropertyRef Name="Factory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1388,8 +1359,16 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.UserLogEntry' does not have 
           <EntitySet Name="EmployeeDiaryTemplate" EntityType="Self.EmployeeDiaryTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDiaryTime" EntityType="Self.EmployeeDiaryTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeGpsLog" EntityType="Self.EmployeeGpsLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factory" EntityType="Self.Factory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeocodeStringResponse" EntityType="Self.GeocodeStringResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequsetToFactoryLevel1" EntityType="Self.RequsetToFactoryLevel1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequsetToFactoryLevel2" EntityType="Self.RequsetToFactoryLevel2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemSmsSend" EntityType="Self.SystemSmsSend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableTestItay-old" EntityType="Self.TableTestItay-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeView" EntityType="Self.TreeView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [AspNetUserLogins].[LoginProvider] AS [LoginProvider], 
@@ -1630,16 +1609,6 @@ FROM [dbo].[EmployeeSmsSend] AS [EmployeeSmsSend]</DefiningQuery>
 [EmployeeToGroup].[EmployeeId] AS [EmployeeId], 
 [EmployeeToGroup].[Status] AS [Status]
 FROM [dbo].[EmployeeToGroup] AS [EmployeeToGroup]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Factory" EntityType="Self.Factory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Factory].[FactoryId] AS [FactoryId], 
-[Factory].[FactoryCreateDate] AS [FactoryCreateDate], 
-[Factory].[FactoryDesc] AS [FactoryDesc], 
-[Factory].[UserName] AS [UserName], 
-[Factory].[Password] AS [Password], 
-[Factory].[FactoryKey] AS [FactoryKey]
-FROM [dbo].[Factory] AS [Factory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="FactoryDairyTemplet" EntityType="Self.FactoryDairyTemplet" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1959,28 +1928,6 @@ FROM [dbo].[ReportPanel] AS [ReportPanel]</DefiningQuery>
 [ReportPanelType].[ReportPanelTypeDesc] AS [ReportPanelTypeDesc]
 FROM [dbo].[ReportPanelType] AS [ReportPanelType]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="RequsetToFactoryLevel1" EntityType="Self.RequsetToFactoryLevel1" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[RequsetToFactoryLevel1].[RequestSysIdLevel1] AS [RequestSysIdLevel1], 
-[RequsetToFactoryLevel1].[CreateDate] AS [CreateDate], 
-[RequsetToFactoryLevel1].[Factory] AS [Factory], 
-[RequsetToFactoryLevel1].[RequestIdLevel1] AS [RequestIdLevel1], 
-[RequsetToFactoryLevel1].[RequestDescCodeLevel1] AS [RequestDescCodeLevel1], 
-[RequsetToFactoryLevel1].[RequsetOrder] AS [RequsetOrder], 
-[RequsetToFactoryLevel1].[StatusCode] AS [StatusCode]
-FROM [dbo].[RequsetToFactoryLevel1] AS [RequsetToFactoryLevel1]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="RequsetToFactoryLevel2" EntityType="Self.RequsetToFactoryLevel2" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[RequsetToFactoryLevel2].[RequestSysIdLevel2] AS [RequestSysIdLevel2], 
-[RequsetToFactoryLevel2].[CreateDate] AS [CreateDate], 
-[RequsetToFactoryLevel2].[RequestSysIdLevel1] AS [RequestSysIdLevel1], 
-[RequsetToFactoryLevel2].[RequestIdLevel2] AS [RequestIdLevel2], 
-[RequsetToFactoryLevel2].[RequestDescCodeLevel2] AS [RequestDescCodeLevel2], 
-[RequsetToFactoryLevel2].[RequsetOrder] AS [RequsetOrder], 
-[RequsetToFactoryLevel2].[StatusCode] AS [StatusCode]
-FROM [dbo].[RequsetToFactoryLevel2] AS [RequsetToFactoryLevel2]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="StarLinkClients" EntityType="Self.StarLinkClients" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [StarLinkClients].[StarLinkUnitID] AS [StarLinkUnitID], 
@@ -2031,54 +1978,13 @@ FROM [dbo].[StreetSyn-old] AS [StreetSyn-old]</DefiningQuery>
 [sysdiagrams].[definition] AS [definition]
 FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="SystemSmsSend" EntityType="Self.SystemSmsSend" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[SystemSmsSend].[ID] AS [ID], 
-[SystemSmsSend].[FactoryId] AS [FactoryId], 
-[SystemSmsSend].[EmployeeId] AS [EmployeeId], 
-[SystemSmsSend].[SmsType] AS [SmsType], 
-[SystemSmsSend].[SendTime] AS [SendTime]
-FROM [dbo].[SystemSmsSend] AS [SystemSmsSend]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TableTestItay-old" EntityType="Self.TableTestItay-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[TableTestItay-old].[ID] AS [ID], 
-[TableTestItay-old].[Lat] AS [Lat], 
-[TableTestItay-old].[Long] AS [Long], 
-[TableTestItay-old].[Accuracy] AS [Accuracy], 
-[TableTestItay-old].[Heading] AS [Heading], 
-[TableTestItay-old].[GpsDate] AS [GpsDate], 
-[TableTestItay-old].[GpsTime] AS [GpsTime], 
-[TableTestItay-old].[Speed] AS [Speed]
-FROM [dbo].[TableTestItay-old] AS [TableTestItay-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[TestCalendar-old].[sysid] AS [sysid], 
-[TestCalendar-old].[Day] AS [Day], 
-[TestCalendar-old].[DayStatus] AS [DayStatus]
-FROM [dbo].[TestCalendar-old] AS [TestCalendar-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[TreeLocation].[ID] AS [ID], 
-[TreeLocation].[ FactoryTreeLocation] AS [ FactoryTreeLocation], 
-[TreeLocation].[Factort] AS [Factort], 
-[TreeLocation].[UpdateCounter] AS [UpdateCounter]
-FROM [dbo].[TreeLocation] AS [TreeLocation]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[UserLogEntry].[ID] AS [ID], 
-[UserLogEntry].[CreateDate] AS [CreateDate], 
-[UserLogEntry].[FactoryId] AS [FactoryId], 
-[UserLogEntry].[IPAddress] AS [IPAddress], 
-[UserLogEntry].[UserExiteTime] AS [UserExiteTime]
-FROM [dbo].[UserLogEntry] AS [UserLogEntry]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_AspNetUserClaims_AspNetUserClaims" Association="Self.FK_AspNetUserClaims_AspNetUserClaims">
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
             <End Role="AspNetUserClaims1" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequsetToFactoryLevel1_Factory" Association="Self.FK_RequsetToFactoryLevel1_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
           </AssociationSet>
           <AssociationSet Name="FK_TreeView_TreeView" Association="Self.FK_TreeView_TreeView">
             <End Role="TreeView" EntitySet="TreeView" />

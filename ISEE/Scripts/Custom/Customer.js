@@ -1,6 +1,7 @@
 ﻿var stateNames = [];
 var stateIds = [];
 $(document).ready(function () {
+    $(".right_main_employee :input").prop("disabled", true);
     GetStaresByFactoryID();
 });
 
@@ -13,7 +14,7 @@ function GetStaresByFactoryID() {
     stateIds = [];
     $.ajax({
         type: "POST",
-        url: "/Data/GetStaresByFactoryID",
+        url: "/Data/GetStatesByFactoryID",
         success: function (response) {
             if (response.length == 1 && response[0].CountryDescEng == null) {
 
@@ -184,27 +185,24 @@ function searchCustomerData() {
             $(response).each(function () {
                 $('<div class="col-sm-12 col-xs-12 tab_box" onclick="selectedCustomer(this)"' +
 
-                     '" CustomerId="' + this.CustomerId + '" CustomerNumber="' + this.CustomerNumber + '" FirstName="' + this.FirstName +
-                      '" LastName="' + this.LastName + '" Floor="' + this.Floor + '" Apartment="' + this.Apartment +
-                       '" Phone2="' + this.Phone2 + '" AreaFax="' + this.AreaFax + '" Fax="' + this.Fax +
-                        '" AreaPhone2="' + this.AreaPhone2 + '" Phone1="' + this.Phone1 + '" AreaPhone1="' + this.AreaPhone1 +
-                         '" Mail="' + this.Mail + '" CustomerRemark1="' + this.CustomerRemark1 + '" CustomerRemark2="' + this.CustomerRemark2 +
-                          '" VisitInterval="' + this.VisitInterval + '" NextVisit="' + this.NextVisit + '" LastName="' + this.LastName +
-                           '" VisitDate="' + this.VisitDate + '" VisitTime="' + this.VisitTime + '" ZipCode="' + this.ZipCode +
-                       '>Company Name: '
-                   + this.FirstName + ' <p>Contact Name: ' + this.LastName + '</p><p>City: ' + this.MainAreaPhone + '-' + this.MainPhone
-                   + '</p>        </div>').appendTo($('.scroll_window'));
-                $('<div class="row" onclick="selectedEmployee(this)" EmployeeId="' + this.EmployeeId + '" EmployeeNum="' + this.EmployeeNum +
-                    '" Mail="' + this.Mail + '" FirstName="' + this.FirstName + '" LastName="' + this.LastName +
-                    '" LastSendApp="' + this.LastSendApp + '" EndDay="' + this.EndDay + '" PhoneManufactory="' + this.PhoneManufactory +
-                    '" PhoneType="' + this.PhoneType +
-                    '" MainPhone="' + this.MainPhone + '" MainAreaPhone="' + this.MainAreaPhone +
-                    '" SecondAreaPhone="' + this.SecondAreaPhone + '" SecondPhone="' + this.SecondPhone +
-                    '" StartDay="' + this.StartDay +
+                     ' CustomerId=' + this.CustomerId + ' CustomerNumber=' + this.CustomerNumber + ' FirstName=' + this.FirstName +
+                       ' LastName=' + this.LastName + ' Floor=' + this.Floor + ' Apartment=' + this.Apartment +
+                       ' Phone2=' + this.Phone2 + ' AreaFax=' + this.AreaFax + ' Fax=' + this.Fax +
+                       ' AreaPhone2=' + this.AreaPhone2 + ' Phone1=' + this.Phone1 + ' AreaPhone1=' + this.AreaPhone1 +
+  ' Mail=' + this.Mail + ' CustomerRemark1=' + this.CustomerRemark1 + ' CustomerRemark2=' + this.CustomerRemark2 +
+                          ' VisitInterval=' + this.VisitInterval + ' NextVisit=' + this.NextVisit + ' LastName=' + this.LastName +
 
-                    '"> <div class="col-md-12 col-xs-12 tab_box">First Name: '
-                   + this.FirstName + ' <p>Last Name: ' + this.LastName + '</p><p>Phone1: ' + this.MainAreaPhone + '-' + this.MainPhone
-                   + '</p></div></div>').appendTo($('#left_employee_window'));
+                           ' VisitDate=' + this.VisitDate + ' VisitTime=' + this.VisitTime + ' ZipCode=' + this.ZipCode +
+
+
+
+                            ' StreetName=' + this.StreetName + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
+                           ' CityId=' + this.CityId + ' StateName=' + this.StateName + ' StateId=' + this.StateId +
+
+
+                                            '>Company Name: '
+                   + this.FirstName + ' </br>Contact Name: ' + this.LastName + '</br>City: ' + this.CityName + '</br>Street: ' + this.StreetName + ' , ' + this.BuildingNumber + '</br>Phone1: ' + this.AreaPhone1 + '-' + this.Phone1
+                   + '        </div>').appendTo($('#left_employee_window'));
             });
 
 
@@ -235,5 +233,82 @@ function selectedEmployee(obj) {
 }
 
 function selectedCustomer(obj) {
-    alert('test');
+    setInputValues(obj);
+}
+
+function setInputValues(obj) {
+
+    $(".right_main_employee :input").prop("disabled", false);
+
+    $('#inputCustomerNumber').val(defaultValues($(obj).attr('CustomerNumber')));
+    $('#inputCompanyName').val(defaultValues($(obj).attr('lastName')));
+    $('#inputContactName').val(defaultValues($(obj).attr('firstName'))); 1
+    $('#inputFloor').val(defaultValues($(obj).attr('Floor')));
+    
+    $('#inputApartment').val(defaultValues($(obj).attr('Apartment')));
+    $('#inputMail').val(defaultValues($(obj).attr('inputMail')));
+    $('#inputPhoneOne').val(defaultValues($(obj).attr('AreaPhone1')));
+    $('#inputPhone11').val(defaultValues($(obj).attr('Phone1')));
+    $('#inputPhoneTwo').val(defaultValues($(obj).attr('AreaPhone2')));
+    $('#inputPhone22').val(defaultValues($(obj).attr('Phone2')));
+    $('#inputFax').val(defaultValues($(obj).attr('AreaFax')));
+    $('#inputFax1').val(defaultValues($(obj).attr('Fax')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+    //$('#').val(defaultValues($(obj).attr('')));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#txtmail').val($(obj).attr('Mail'));
+    $('#txtfirstname').val($(obj).attr('FirstName'));
+
+    $('#txtlastname').val($(obj).attr('LastName'));
+
+    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
+    $('#txtphone11').val($(obj).attr('MainPhone'));
+    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
+    $('#txtphone22').val($(obj).attr('SecondPhone'));
+    $('#txtStart').val($(obj).attr('StartDay'));
+
+    $('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
+    // bindDdlphonetype($(obj).attr('PhoneManufactory'));
+
+    ManufactureTypes(true, $(obj).attr('PhoneType'))
+    //  $('#ddlphonetype').val($(obj).attr('PhoneType'));
+    $('#txtapplication').val($(obj).attr('LastSendApp'));
+    $('#txtend').val($(obj).attr('EndDay'));
+    $('#employoeeDrag').empty();
+    $('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
+}
+
+function defaultValues(val) {
+    if (val == '' || val == 'null' || val == '!@#$')
+        return '';
+    return val;
 }

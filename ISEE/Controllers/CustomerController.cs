@@ -41,56 +41,65 @@ namespace ISEE.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-
-                var ss = (from cc in context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State")
-                          join s in context.States on cc.Building.StateCode equals s.StateCode
-                          join c in context.Cities on cc.Building.CityCode equals c.CityCode
-                          join st in context.Streets on cc.Building.StreetCode equals st.StreetCode
-                          where cc.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID
-                     &&
-                      (state != 0 ? cc.Building.StateCode == state : cc.Building.StateCode == null) &&
-      cc.Building.StateCode == (state == 0 ? cc.Building.StateCode : state) &&
-      cc.Building.CityCode == (city == 0 ? cc.Building.CityCode : city) &&
-      cc.Building.StreetCode == (street == 0 ? cc.Building.StreetCode : street) &&
-      cc.Building.Number.Contains(building == null ? cc.Building.Number : building) &&
-      cc.CustomerNumber.CompareTo(custNumber == null ? cc.CustomerNumber : custNumber) == 0
-
-
-                 && cc.FirstName.Contains(firstName == null ? cc.FirstName : firstName) &&
-      (cc.LastName == null || cc.LastName.Contains(lastName == null ? cc.LastName : lastName)) &&
-      (cc.AreaPhone1 == null || cc.AreaPhone1.Contains(phone == null ? cc.AreaPhone1 : phone)) &&
-      (cc.Phone1 == null || cc.Phone1.Contains(phone1 == null ? cc.Phone1 : phone1)) &&
-      (isActive ? (cc.EndDate == null || (cc.EndDate != null && cc.EndDate >= DateTime.Now)) : (cc.EndDate != null && cc.EndDate < DateTime.Now))
-                          select new
-    {
-        CustomerId = cc.CustomerId,
-        CustomerNumber = cc.CustomerNumber,
-        FirstName = cc.FirstName,
-        LastName = cc.LastName,
-        Floor = cc.Floor,
-        Apartment = cc.Apartment,
-        AreaPhone1 = cc.AreaPhone1,
-        Phone1 = cc.Phone1,
-        AreaPhone2 = cc.AreaPhone2,
-        Phone2 = cc.Phone2,
-        AreaFax = cc.AreaFax,
-        Fax = cc.Fax,
-        Mail = cc.Mail,
-        CustomerRemark1 = cc.CustomerRemark1,
-        CustomerRemark2 = cc.CustomerRemark2,
-        VisitInterval = cc.VisitInterval,
-        NextVisit = cc.NextVisit,
-        VisitDate = cc.VisitDate,
-        VisitTime = cc.VisitTime,
-        EndDate = cc.EndDate,
-        Lat = cc.Building.Lat,
-        Long = cc.Building.Long,
-        ZipCode = cc.Building.ZipCode,
-        StateName = cc.Building.StateCode,
-        IS = c.CityDesc
-    }).ToList();
+                var sbdhj = context.Customers.Where(x => x.Factory == 1).ToList();
+               
 
                 //var ccccc= (from ss in context.States 
+                var results11 = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
+                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
+     x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
+     x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
+     x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
+     x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
+     x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
+
+
+                && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
+     (x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
+     (x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
+     (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
+     (isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
+     {
+         CustomerId = x.CustomerId,
+         CustomerNumber = x.CustomerNumber,
+         FirstName = x.FirstName ?? "!@#$" ,
+         LastName = x.LastName ?? "!@#$",
+         Floor = x.Floor ?? "!@#$",
+         Apartment = x.Apartment ?? "!@#$",
+         AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+         Phone1 = x.Phone1 ?? "!@#$",
+         AreaPhone2 = x.AreaPhone2 ?? "!@#$",
+         Phone2 = x.Phone2 ?? "!@#$",
+         AreaFax = x.AreaFax ?? "!@#$",
+         Fax = x.Fax ?? "!@#$",
+         Mail = x.Mail ?? "!@#$",
+         CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
+         CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
+         VisitInterval = x.VisitInterval ?? 0,
+         NextVisit = x.NextVisit,
+         VisitDate = x.VisitDate,
+         VisitTime = x.VisitTime,
+         EndDate = x.EndDate,
+         Lat = x.Building.Lat,
+         BuildingCode= x.BuildingCode,
+         BuildingNumber = x.Building.Number ?? "!@#$",
+         Long = x.Building.Long,
+         ZipCode = x.Building.ZipCode,
+         StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+         StreetId = x.Building.Street.StateCode,
+         CityId = x.Building.Street.City.CityCode,
+         CityName = x.Building.Street.City.CityDesc ?? "!@#$" ,
+         StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+         StateId = x.Building.Street.City.State.StateCode
+
+
+
+     }).ToList();
+
+
+
+
+
 
 
                 var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
@@ -135,7 +144,7 @@ namespace ISEE.Controllers
 
      }).ToList();
 
-                return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = results11, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 

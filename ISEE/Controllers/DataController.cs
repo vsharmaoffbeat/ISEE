@@ -444,5 +444,67 @@ namespace ISEEREGION.Controllers
             return true;
         }
         #endregion
+
+        #region Country Data Common Methods
+
+        public JsonResult GetStatesByFactoryID()
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                //var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+
+                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+                if (CountryID != null)
+                {
+
+                    var StateDec = context.States.Where(c => c.CountryCode == CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                    return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetCitysByState(int stateID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (stateID != null)
+                {
+                    var Cityes = context.Cities.Where(p => p.StateCode == stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
+                    return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetStreetByCity(int stateID, int cityID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (cityID != null)
+                {
+                    var Streets = context.Streets.Where(p => p.CityCode == cityID && p.StateCode == stateID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
+                    return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+        public JsonResult GetBuildingsByCity(int streetID, int stateID, int cityID)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                if (streetID != null)
+                {
+                    var Buildings = context.Buildings.Where(p => p.StreetCode == streetID && p.StateCode == stateID && p.CityCode == cityID).Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number }).ToList();
+                    return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+
+
+        #endregion
     }
 }

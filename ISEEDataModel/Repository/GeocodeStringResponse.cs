@@ -14,7 +14,14 @@ namespace ISEEDataModel.Repository
     
     public partial class GeocodeStringResponse
     {
+        public GeocodeStringResponse()
+        {
+            this.GeocodeToTables = new HashSet<GeocodeToTable>();
+        }
+    
         public int GeocodeStringResponsePk { get; set; }
         public string GeocodeTagResponse { get; set; }
+    
+        public virtual ICollection<GeocodeToTable> GeocodeToTables { get; set; }
     }
 }

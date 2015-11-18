@@ -21,5 +21,6 @@ namespace ISEEDataModel.Repository
         public int Status { get; set; }
     
         public virtual EmployeeGroup EmployeeGroup { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

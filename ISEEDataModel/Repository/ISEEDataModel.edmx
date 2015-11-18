@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="AgentToFactoryPk" />
           </Key>
-          <Property Name="AgentToFactoryPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AgentToFactoryPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="AgentFk" Type="int" Nullable="false" />
           <Property Name="FactoryFk" Type="int" Nullable="false" />
@@ -35,7 +35,7 @@
           <Key>
             <PropertyRef Name="AgentUserPk" />
           </Key>
-          <Property Name="AgentUserPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AgentUserPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PasswordId" Type="uniqueidentifier" Nullable="false" />
@@ -58,13 +58,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserLogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AspNetUserLogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
@@ -104,7 +102,7 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserLogins' does not h
           <Key>
             <PropertyRef Name="BuildingCode" />
           </Key>
-          <Property Name="BuildingCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BuildingCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
@@ -126,7 +124,7 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserLogins' does not h
           <Key>
             <PropertyRef Name="CalendarID" />
           </Key>
-          <Property Name="CalendarID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CalendarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Country" Type="int" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="Month" Type="int" Nullable="false" />
@@ -138,21 +136,14 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.AspNetUserLogins' does not h
           <Key>
             <PropertyRef Name="StatusId" />
           </Key>
-          <Property Name="StatusId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Daystatus" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.City' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="CityCode" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="CityCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CityCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
@@ -160,16 +151,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.City' does not have a primar
           <Property Name="CityDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CityDescEn" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CitySyn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CitySyn">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
-            
           </Key>
           <Property Name="SysId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
@@ -179,16 +163,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CitySyn' does not have a pri
           <Property Name="CityCode" Type="int" Nullable="false" />
           <Property Name="SynDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientInsertLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientInsertLog">
           <Key>
             <PropertyRef Name="InsertSysId" />
-            
-            
-            
           </Key>
-          <Property Name="InsertSysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="InsertSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="InsertTimeUtc" Type="datetime" Nullable="false" />
           <Property Name="PlatformType" Type="int" Nullable="false" />
@@ -197,20 +176,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientInsertLog' does not ha
           <Property Name="GpsPointsDispatched" Type="int" />
           <Property Name="SendCounter" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientLoginLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientLoginLog">
           <Key>
             <PropertyRef Name="LoginSysId" />
-            
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="LoginSysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="LoginTimeUtc" Type="datetime" Nullable="false" />
           <Property Name="PlatformType" Type="int" Nullable="false" />
@@ -219,16 +189,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientLoginLog' does not hav
           <Property Name="UniqueIdentifier" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MobileClientVersion" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientLogoutLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientLogoutLog">
           <Key>
             <PropertyRef Name="LogoutSysId" />
-            
-            
-            
           </Key>
-          <Property Name="LogoutSysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LogoutSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="LogoutTimeUtc" Type="datetime" Nullable="false" />
           <Property Name="PlatformType" Type="int" Nullable="false" />
@@ -237,22 +202,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientLogoutLog' does not ha
           <Property Name="GpsPointsDispatched" Type="int" />
           <Property Name="SendCounter" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientParamModes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientParamModes">
           <Key>
             <PropertyRef Name="Mode" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="Mode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Mode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ModeDesc" Type="nvarchar" MaxLength="50" />
           <Property Name="DataSendInterval" Type="int" Nullable="false" />
           <Property Name="SampleRate" Type="int" Nullable="false" />
@@ -264,30 +218,20 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientParamModes' does not h
           <Property Name="SamplesToDetermineStand" Type="int" Nullable="false" />
           <Property Name="StandingAvgDistance" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ClientWatchdogKillLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ClientWatchdogKillLog">
           <Key>
             <PropertyRef Name="WatchdogKillSysId" />
-            
-            
-            
           </Key>
-          <Property Name="WatchdogKillSysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WatchdogKillSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="WatchdogKillTimeUtc" Type="datetime" Nullable="false" />
           <Property Name="LastTransmissionGmt" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryCode" />
-            
-            
-            
           </Key>
-          <Property Name="CountryCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CountryCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="CountryDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CountryDescEn" Type="nvarchar" MaxLength="50" />
@@ -330,17 +274,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Country' does not have a pri
           <Property Name="Lat" Type="float" />
           <Property Name="Long" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerEmployeeContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerEmployeeContact">
           <Key>
             <PropertyRef Name="CustomerToEmployeeSysId" />
-            
-            
-            
-            
           </Key>
-          <Property Name="CustomerToEmployeeSysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerToEmployeeSysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="smalldatetime" Nullable="false" />
           <Property Name="UserId" Type="int" />
           <Property Name="UpdateDate" Type="smalldatetime" />
@@ -349,18 +287,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerEmployeeContact' doe
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="EmployeeGroupId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerRequest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerRequest">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="RequestSysIdLevel2" Type="int" Nullable="false" />
@@ -369,17 +300,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerRequest' does not ha
           <Property Name="TreatmentDate" Type="date" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerToBuilding' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerToBuilding">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="BuildingCode" Type="int" Nullable="false" />
@@ -387,14 +312,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.CustomerToBuilding' does not
           <Property Name="Remark1" Type="nvarchar" MaxLength="100" />
           <Property Name="Remark2" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.DiaryDayStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DiaryDayStatus">
           <Key>
             <PropertyRef Name="DayStatus" />
-            
           </Key>
-          <Property Name="DayStatus" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DayStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DayDesc" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
@@ -422,22 +344,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.DiaryDayStatus' does not hav
           <Property Name="CustomerLinkDistanceThreshold" Type="int" />
           <Property Name="DefultClientParamMode" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeActive' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeActive">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="LogInTime" Type="datetime" Nullable="false" />
           <Property Name="LastTransmit" Type="datetime" Nullable="false" />
@@ -453,30 +364,21 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeActive' does not hav
           <Property Name="BatteryLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastSendCounter" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeClientParams-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeClientParams-old">
           <Key>
             <PropertyRef Name="EmployeeId" />
-            
-            
-            
-            
           </Key>
-          <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DataSendInterval" Type="int" Nullable="false" />
           <Property Name="SampleRate" Type="int" Nullable="false" />
           <Property Name="GpsLossSleepTime" Type="int" Nullable="false" />
           <Property Name="StandSleepTime" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeDiarySms' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeDiarySms">
           <Key>
             <PropertyRef Name="ID" />
-            
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeDiaryTemplate">
@@ -508,14 +410,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeDiarySms' does not h
           <Property Name="Start3" Type="time" Precision="7" />
           <Property Name="Stop3" Type="time" Precision="7" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeExtra' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeExtra">
           <Key>
             <PropertyRef Name="EmployeeId" />
-            
           </Key>
-          <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DefultClientParamMode" Type="int" Nullable="false" />
           <Property Name="UpdateUrl" Type="nvarchar(max)" />
           <Property Name="LastLogin" Type="datetime" />
@@ -538,14 +437,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeExtra' does not have
           <Property Name="ProcessStatus" Type="int" />
           <Property Name="CreateUtc" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeGpsPoints' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeGpsPoints">
           <Key>
             <PropertyRef Name="SysId" />
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" />
           <Property Name="GpsDate" Type="date" Nullable="false" />
           <Property Name="GpsTime" Type="time" Precision="7" />
@@ -562,8 +458,6 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeGpsPoints' does not 
           <Property Name="ProcessStatus" Type="int" />
           <Property Name="CreateUtc" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeGpsStatus-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeGpsStatus-old">
           <Key>
             <PropertyRef Name="EmployeeId" />
@@ -575,33 +469,22 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeGpsStatus-old' does 
           <Property Name="Battery" Type="int" />
           <Property Name="SampleRate" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeGroup">
           <Key>
             <PropertyRef Name="EmployeeGroupId" />
-            
-            
-            
-            
           </Key>
-          <Property Name="EmployeeGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" />
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="GroupCode" Type="int" Nullable="false" />
           <Property Name="GroupDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeSmsSend' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeSmsSend">
           <Key>
             <PropertyRef Name="SmsId" />
-            
-            
-            
           </Key>
-          <Property Name="SmsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SmsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SmsCreatDate" Type="datetime" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="SmsMsg" Type="nvarchar" MaxLength="500" Nullable="false" />
@@ -609,17 +492,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeSmsSend' does not ha
           <Property Name="SmsGroup" Type="int" />
           <Property Name="SmsCount" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeToGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EmployeeToGroup">
           <Key>
             <PropertyRef Name="EmployeeToGroupId" />
-            
-            
-            
-            
           </Key>
-          <Property Name="EmployeeToGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeToGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreatDate" Type="date" Nullable="false" />
           <Property Name="EmployeeGroupId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
@@ -636,16 +513,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.EmployeeToGroup' does not ha
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FactoryKey" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryDairyTemplet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryDairyTemplet">
           <Key>
             <PropertyRef Name="FactoryDairyTempletId" />
-            
-            
-            
           </Key>
-          <Property Name="FactoryDairyTempletId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FactoryDairyTempletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Factory" Type="int" Nullable="false" />
           <Property Name="DayStatus" Type="int" Nullable="false" />
           <Property Name="Start1" Type="time" Precision="7" />
@@ -654,18 +526,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryDairyTemplet' does no
           <Property Name="Stop2" Type="time" Precision="7" />
           <Property Name="OrderDay" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryDistance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryDistance">
           <Key>
             <PropertyRef Name="FactoryId" />
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="CustomerLinkDistanceThreshold" Type="int" Nullable="false" />
@@ -676,25 +539,17 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryDistance' does not ha
           <Property Name="CalenderShowZoomLevel" Type="int" Nullable="false" />
           <Property Name="MapSearchModule" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryLogo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryLogo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LogoImage" Type="image" />
           <Property Name="ArrImage" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryParm' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryParm">
           <Key>
             <PropertyRef Name="FactoryId" />
-            
-            
-            
-            
           </Key>
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="StopEmployeeTime" Type="int" />
@@ -719,34 +574,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryParm' does not have a
           <Property Name="CalenderShowZoomLevel" Type="int" />
           <Property Name="MapSearchModoul" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryUsePay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryUsePay">
           <Key>
             <PropertyRef Name="SystemUseId" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="SystemUseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SystemUseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="MainFactory" Type="int" Nullable="false" />
           <Property Name="Factory" Type="int" Nullable="false" />
@@ -769,21 +601,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryUsePay' does not have
           <Property Name="TotalPay" Type="float" Nullable="false" />
           <Property Name="IsPay" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryUsePrice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactoryUsePrice">
           <Key>
             <PropertyRef Name="Factory" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="Factory" Type="int" Nullable="false" />
           <Property Name="UpdateDate" Type="date" Nullable="false" />
@@ -804,47 +624,29 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.FactoryUsePrice' does not ha
           <Property Name="GeocodeStringResponsePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GeocodeTagResponse" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GeocodeToTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GeocodeToTable">
           <Key>
             <PropertyRef Name="GeocodeToTablePk" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="GeocodeToTablePk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GeocodeToTablePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
           <Property Name="AddressTypeTable" Type="int" Nullable="false" />
           <Property Name="GeocodeTagResponse" Type="int" Nullable="false" />
           <Property Name="OrderGeocodeTagResponse" Type="int" Nullable="false" />
           <Property Name="Insert" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GisSource' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GisSource">
           <Key>
             <PropertyRef Name="GisSourcePk" />
-            
           </Key>
-          <Property Name="GisSourcePk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GisSourcePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GisSourceDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GpsEmployeeCustomer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GpsEmployeeCustomer">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="VisiteDate" Type="date" Nullable="false" />
           <Property Name="VisitTime" Type="time" Precision="7" Nullable="false" />
@@ -853,13 +655,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GpsEmployeeCustomer' does no
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="InsertStatus" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GpsInputLog-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GpsInputLog-old">
           <Key>
             <PropertyRef Name="SysId" />
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" />
           <Property Name="SysCreateDate" Type="datetime" />
           <Property Name="NextGpsStatus" Type="int" />
@@ -869,36 +669,26 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GpsInputLog-old' does not ha
           <Property Name="InputParametrs" Type="varchar(max)" />
           <Property Name="Error" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.GpsParametrs-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GpsParametrs-old">
           <Key>
             <PropertyRef Name="ParamId" />
           </Key>
-          <Property Name="ParamId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParamValue" Type="varchar" MaxLength="50" />
           <Property Name="ParamDesc" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Holiday-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Holiday-old">
           <Key>
             <PropertyRef Name="HolidayIndx" />
-            
-            
-            
           </Key>
-          <Property Name="HolidayIndx" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="HolidayIndx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HoliadyDate" Type="date" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.JobManager' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="JobManager">
           <Key>
             <PropertyRef Name="SysId" />
-            
           </Key>
           <Property Name="SysId" Type="int" Nullable="false" />
           <Property Name="Job" Type="nchar" MaxLength="50" Nullable="false" />
@@ -908,29 +698,21 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.JobManager' does not have a 
           <Property Name="NextTime" Type="datetime" />
           <Property Name="InProgress" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.LanguageList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LanguageList">
           <Key>
             <PropertyRef Name="IdList" />
-            
-            
           </Key>
-          <Property Name="IdList" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdList" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LanguageDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LanguageNickname" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="OneUpLanguage" Type="nvarchar" MaxLength="50" />
           <Property Name="OneUpLanguageNicknae" Type="nchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.MainStringTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MainStringTable">
           <Key>
             <PropertyRef Name="IdLanguage" />
-            
-            
           </Key>
-          <Property Name="IdLanguage" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdLanguage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DefaultLanguage" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="HE" Type="nvarchar" MaxLength="50" />
@@ -938,33 +720,22 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.MainStringTable' does not ha
           <Property Name="ES" Type="nvarchar" MaxLength="50" />
           <Property Name="DE" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.MethodLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MethodLog">
           <Key>
             <PropertyRef Name="ID" />
-            
-            
-            
-            
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LogUtcTime" Type="datetime" Nullable="false" />
           <Property Name="MethodName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="InOut" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ThreadId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.MoblieApplicationRequest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MoblieApplicationRequest">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="RandomValue" Type="varchar" MaxLength="50" Nullable="false" />
@@ -976,15 +747,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.MoblieApplicationRequest' do
           <Property Name="Ip" Type="varchar" MaxLength="50" />
           <Property Name="Ip2" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.PeriodicJobs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PeriodicJobs">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
           </Key>
           <Property Name="SysId" Type="int" Nullable="false" />
           <Property Name="JobName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -993,25 +758,19 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.PeriodicJobs' does not have 
           <Property Name="IntervalSec" Type="int" Nullable="false" />
           <Property Name="TimeoutIntervalSec" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.PhoneManufacture' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PhoneManufacture">
           <Key>
             <PropertyRef Name="PhoneManufacturId" />
-            
           </Key>
           <Property Name="PhoneManufacturId" Type="int" Nullable="false" />
           <Property Name="PhoneManufacture" Type="nvarchar" MaxLength="50" />
           <Property Name="SortingOrder" Type="int" />
           <Property Name="RecordStatus" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.PhoneType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PhoneType">
           <Key>
             <PropertyRef Name="PhoneTypeCode" />
             <PropertyRef Name="PhoneManufacturId" />
-            
           </Key>
           <Property Name="PhoneTypeCode" Type="int" Nullable="false" />
           <Property Name="PhoneManufacturId" Type="int" Nullable="false" />
@@ -1019,12 +778,9 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.PhoneType' does not have a p
           <Property Name="SortingOrder" Type="int" />
           <Property Name="RecordStatus" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ProesssParm' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProesssParm">
           <Key>
             <PropertyRef Name="SysId" />
-            
           </Key>
           <Property Name="SysId" Type="int" Nullable="false" />
           <Property Name="TabalName" Type="nchar" MaxLength="20" Nullable="false" />
@@ -1033,15 +789,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ProesssParm' does not have a
           <Property Name="StartRecord" Type="int" />
           <Property Name="StopRecord" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.RepoetStringLabel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RepoetStringLabel">
           <Key>
             <PropertyRef Name="RepoetStringLabelPk" />
-            
-            
           </Key>
-          <Property Name="RepoetStringLabelPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RepoetStringLabelPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MainString" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="HE" Type="nvarchar" MaxLength="50" />
@@ -1049,15 +801,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.RepoetStringLabel' does not 
           <Property Name="ES" Type="nvarchar" MaxLength="50" />
           <Property Name="DE" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportCategory">
           <Key>
             <PropertyRef Name="ReportCategoryPk" />
-            
-            
           </Key>
-          <Property Name="ReportCategoryPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReportCategoryPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EN" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="HE" Type="nvarchar" MaxLength="50" />
@@ -1065,14 +813,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportCategory' does not hav
           <Property Name="ES" Type="nvarchar" MaxLength="50" />
           <Property Name="DE" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportLocalParmeter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportLocalParmeter">
           <Key>
             <PropertyRef Name="ReportLocalParmeterPk" />
-            
           </Key>
-          <Property Name="ReportLocalParmeterPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReportLocalParmeterPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReportStringLabaleFk" Type="int" Nullable="false" />
           <Property Name="ParameterValue1" Type="float" />
           <Property Name="ParameterValue2" Type="float" />
@@ -1089,18 +834,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportLocalParmeter' does no
           <Property Name="ParameterForeColor" Type="nvarchar" MaxLength="50" />
           <Property Name="PartameterBackColor" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportName">
           <Key>
             <PropertyRef Name="ReporNametPk" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="ReporNametPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReporNametPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReportName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ReportParmeterTypeFk" Type="int" Nullable="false" />
           <Property Name="LeftRight" Type="int" Nullable="false" />
@@ -1111,27 +849,18 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportName' does not have a 
           <Property Name="ES" Type="nvarchar" MaxLength="50" />
           <Property Name="DE" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportPanel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportPanel">
           <Key>
             <PropertyRef Name="ReportPanelPk" />
-            
-            
-            
           </Key>
-          <Property Name="ReportPanelPk" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReportPanelPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReporNametFk" Type="int" Nullable="false" />
           <Property Name="ReportParamTypeFk" Type="int" Nullable="false" />
           <Property Name="ColumnName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportPanelType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportPanelType">
           <Key>
             <PropertyRef Name="ReportPanelTypePk" />
-            
-            
           </Key>
           <Property Name="ReportPanelTypePk" Type="int" Nullable="false" />
           <Property Name="ReportPanelFk" Type="int" Nullable="false" />
@@ -1161,46 +890,30 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.ReportPanelType' does not ha
           <Property Name="RequsetOrder" Type="int" />
           <Property Name="StatusCode" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.StarLinkClients' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StarLinkClients">
           <Key>
             <PropertyRef Name="StarLinkUnitID" />
-            
           </Key>
           <Property Name="StarLinkUnitID" Type="bigint" Nullable="false" />
           <Property Name="EmployeeID_FK" Type="int" Nullable="false" />
           <Property Name="LastTransmission" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.State' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="State">
           <Key>
             <PropertyRef Name="StateCode" />
-            
-            
-            
           </Key>
-          <Property Name="StateCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StateCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
           <Property Name="StateDesc" Type="nvarchar" MaxLength="100" />
           <Property Name="StateDescEn" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Street' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Street">
           <Key>
             <PropertyRef Name="StreetCode" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="StreetCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StreetCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="StateCode" Type="int" Nullable="false" />
@@ -1209,19 +922,11 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.Street' does not have a prim
           <Property Name="StreetDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="StreetDescEn" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.StreetSyn-old' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StreetSyn-old">
           <Key>
             <PropertyRef Name="SysId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="SysId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SysId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreateDate" Type="date" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="CountryCode" Type="int" Nullable="false" />
@@ -1230,17 +935,13 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.StreetSyn-old' does not have
           <Property Name="StreetCode" Type="int" Nullable="false" />
           <Property Name="StreetDesc" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.sysdiagrams' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="sysdiagrams">
           <Key>
-            
-            
             <PropertyRef Name="diagram_id" />
           </Key>
           <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
@@ -1306,15 +1007,567 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.sysdiagrams' does not have a
           <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserExiteTime" Type="datetime" />
         </EntityType>
-        <Association Name="FK_AspNetUserClaims_AspNetUserClaims">
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="1" />
-          <End Role="AspNetUserClaims1" Type="Self.AspNetUserClaims" Multiplicity="0..1" />
+        <Association Name="FK__TreeView__Parent__67DE6983">
+          <End Role="TreeView" Type="Self.TreeView" Multiplicity="0..1" />
+          <End Role="TreeView1" Type="Self.TreeView" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUserClaims">
+            <Principal Role="TreeView">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TreeView1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Building_Street">
+          <End Role="Street" Type="Self.Street" Multiplicity="1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Street">
+              <PropertyRef Name="StreetCode" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="StreetCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendar_CalendarStatusDay">
+          <End Role="CalendarStatusDay" Type="Self.CalendarStatusDay" Multiplicity="1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarStatusDay">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="DiaryDayStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendar_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendar_DiaryDayStatus">
+          <End Role="DiaryDayStatus" Type="Self.DiaryDayStatus" Multiplicity="1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaryDayStatus">
+              <PropertyRef Name="DayStatus" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="DayDesc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_0">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateCode" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitySyn_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="CitySyn" Type="Self.CitySyn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityCode" />
+            </Principal>
+            <Dependent Role="CitySyn">
+              <PropertyRef Name="CityCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingCode" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BuildingCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="Factory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerEmployeeContact_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerEmployeeContact" Type="Self.CustomerEmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerEmployeeContact">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerEmployeeContact_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="CustomerEmployeeContact" Type="Self.CustomerEmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="CustomerEmployeeContact">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerRequest_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerRequest" Type="Self.CustomerRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerRequest">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerRequest_RequsetToFactoryLevel2">
+          <End Role="RequsetToFactoryLevel2" Type="Self.RequsetToFactoryLevel2" Multiplicity="1" />
+          <End Role="CustomerRequest" Type="Self.CustomerRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequsetToFactoryLevel2">
+              <PropertyRef Name="RequestSysIdLevel2" />
+            </Principal>
+            <Dependent Role="CustomerRequest">
+              <PropertyRef Name="RequestSysIdLevel2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerToBuilding_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="1" />
+          <End Role="CustomerToBuilding" Type="Self.CustomerToBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingCode" />
+            </Principal>
+            <Dependent Role="CustomerToBuilding">
+              <PropertyRef Name="BuildingCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerToBuilding_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="CustomerToBuilding" Type="Self.CustomerToBuilding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="CustomerToBuilding">
+              <PropertyRef Name="Factory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaims1">
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Factory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_PhoneType">
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="PhoneTypeCode" />
+              <PropertyRef Name="PhoneManufacturId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PhoneType" />
+              <PropertyRef Name="PhoneManufactory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTemplate_DiaryDayStatus">
+          <End Role="DiaryDayStatus" Type="Self.DiaryDayStatus" Multiplicity="1" />
+          <End Role="EmployeeDiaryTemplate" Type="Self.EmployeeDiaryTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiaryDayStatus">
+              <PropertyRef Name="DayStatus" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTemplate">
+              <PropertyRef Name="DayStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTemplate_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeDiaryTemplate" Type="Self.EmployeeDiaryTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTemplate">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTime_Calendar">
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="1" />
+          <End Role="EmployeeDiaryTime" Type="Self.EmployeeDiaryTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calendar">
+              <PropertyRef Name="CalendarID" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTime">
+              <PropertyRef Name="CalendarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTime_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeDiaryTime" Type="Self.EmployeeDiaryTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTime">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGpsLog_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeGpsLog" Type="Self.EmployeeGpsLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeGpsLog">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGpsPoints_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="EmployeeGpsPoints" Type="Self.EmployeeGpsPoints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeGpsPoints">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGroup_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="EmployeeGroup">
+              <PropertyRef Name="FactoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSmsSend_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeSmsSend" Type="Self.EmployeeSmsSend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeSmsSend">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeToGroup_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeToGroup" Type="Self.EmployeeToGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeToGroup">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeToGroup_EmployeeGroup">
+          <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="1" />
+          <End Role="EmployeeToGroup" Type="Self.EmployeeToGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeGroup">
+              <PropertyRef Name="EmployeeGroupId" />
+            </Principal>
+            <Dependent Role="EmployeeToGroup">
+              <PropertyRef Name="EmployeeGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FactoryParm_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="FactoryParm" Type="Self.FactoryParm" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="FactoryParm">
+              <PropertyRef Name="FactoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeocodeToTable_0">
+          <End Role="AddressTypeTable" Type="Self.AddressTypeTable" Multiplicity="1" />
+          <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressTypeTable">
+              <PropertyRef Name="AddressTypeTable" />
+            </Principal>
+            <Dependent Role="GeocodeToTable">
+              <PropertyRef Name="AddressTypeTable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeocodeToTable_1">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="GeocodeToTable">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeocodeToTable_2">
+          <End Role="GeocodeStringResponse" Type="Self.GeocodeStringResponse" Multiplicity="1" />
+          <End Role="GeocodeToTable" Type="Self.GeocodeToTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeocodeStringResponse">
+              <PropertyRef Name="GeocodeStringResponsePk" />
+            </Principal>
+            <Dependent Role="GeocodeToTable">
+              <PropertyRef Name="GeocodeTagResponse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GpsEmployeeCustomer_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="GpsEmployeeCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GpsEmployeeCustomer_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="GpsEmployeeCustomer">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GpsEmployeeCustomer_EmployeeGpsPoints">
+          <End Role="EmployeeGpsPoints" Type="Self.EmployeeGpsPoints" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GpsEmployeeCustomer" Type="Self.GpsEmployeeCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeGpsPoints">
+              <PropertyRef Name="SysId" />
+            </Principal>
+            <Dependent Role="GpsEmployeeCustomer">
+              <PropertyRef Name="GpsPointId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Holiday_CalendarStatusDay">
+          <End Role="CalendarStatusDay" Type="Self.CalendarStatusDay" Multiplicity="1" />
+          <End Role="Holiday-old" Type="Self.Holiday-old" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarStatusDay">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Holiday-old">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Holiday_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Holiday-old" Type="Self.Holiday-old" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Holiday-old">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoblieApplicationRequest_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="MoblieApplicationRequest" Type="Self.MoblieApplicationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="MoblieApplicationRequest">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneType_PhoneManufacture">
+          <End Role="PhoneManufacture" Type="Self.PhoneManufacture" Multiplicity="1" />
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneManufacture">
+              <PropertyRef Name="PhoneManufacturId" />
+            </Principal>
+            <Dependent Role="PhoneType">
+              <PropertyRef Name="PhoneManufacturId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportLocalParmeter_0">
+          <End Role="RepoetStringLabel" Type="Self.RepoetStringLabel" Multiplicity="1" />
+          <End Role="ReportLocalParmeter" Type="Self.ReportLocalParmeter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepoetStringLabel">
+              <PropertyRef Name="RepoetStringLabelPk" />
+            </Principal>
+            <Dependent Role="ReportLocalParmeter">
+              <PropertyRef Name="ReportStringLabaleFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportName_0">
+          <End Role="ReportCategory" Type="Self.ReportCategory" Multiplicity="1" />
+          <End Role="ReportName" Type="Self.ReportName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCategory">
+              <PropertyRef Name="ReportCategoryPk" />
+            </Principal>
+            <Dependent Role="ReportName">
+              <PropertyRef Name="ReportCategoryFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportPanel_0">
+          <End Role="ReportName" Type="Self.ReportName" Multiplicity="1" />
+          <End Role="ReportPanel" Type="Self.ReportPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportName">
+              <PropertyRef Name="ReporNametPk" />
+            </Principal>
+            <Dependent Role="ReportPanel">
+              <PropertyRef Name="ReporNametFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportPanel_1">
+          <End Role="ReportPanelType" Type="Self.ReportPanelType" Multiplicity="1" />
+          <End Role="ReportPanel" Type="Self.ReportPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportPanelType">
+              <PropertyRef Name="ReportPanelTypePk" />
+            </Principal>
+            <Dependent Role="ReportPanel">
+              <PropertyRef Name="ReportParamTypeFk" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1330,15 +1583,51 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.sysdiagrams' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TreeView_TreeView">
-          <End Role="TreeView" Type="Self.TreeView" Multiplicity="0..1" />
-          <End Role="TreeView1" Type="Self.TreeView" Multiplicity="*" />
+        <Association Name="FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1">
+          <End Role="RequsetToFactoryLevel1" Type="Self.RequsetToFactoryLevel1" Multiplicity="1" />
+          <End Role="RequsetToFactoryLevel2" Type="Self.RequsetToFactoryLevel2" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TreeView">
-              <PropertyRef Name="ID" />
+            <Principal Role="RequsetToFactoryLevel1">
+              <PropertyRef Name="RequestSysIdLevel1" />
             </Principal>
-            <Dependent Role="TreeView1">
-              <PropertyRef Name="ParentID" />
+            <Dependent Role="RequsetToFactoryLevel2">
+              <PropertyRef Name="RequestSysIdLevel1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Street_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Street" Type="Self.Street" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityCode" />
+            </Principal>
+            <Dependent Role="Street">
+              <PropertyRef Name="CityCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StreetSyn_Street">
+          <End Role="Street" Type="Self.Street" Multiplicity="1" />
+          <End Role="StreetSyn-old" Type="Self.StreetSyn-old" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Street">
+              <PropertyRef Name="StreetCode" />
+            </Principal>
+            <Dependent Role="StreetSyn-old">
+              <PropertyRef Name="StreetCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1349,646 +1638,283 @@ warning 6002: The table/view 'DB_9E01E5_iSEEnew.dbo.sysdiagrams' does not have a
           <EntitySet Name="AgentUser" EntityType="Self.AgentUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarStatusDay" EntityType="Self.CalendarStatusDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CitySyn" EntityType="Self.CitySyn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientInsertLog" EntityType="Self.ClientInsertLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientLoginLog" EntityType="Self.ClientLoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientLogoutLog" EntityType="Self.ClientLogoutLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientParamModes" EntityType="Self.ClientParamModes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientWatchdogKillLog" EntityType="Self.ClientWatchdogKillLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerEmployeeContact" EntityType="Self.CustomerEmployeeContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerRequest" EntityType="Self.CustomerRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerToBuilding" EntityType="Self.CustomerToBuilding" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DiaryDayStatus" EntityType="Self.DiaryDayStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeActive" EntityType="Self.EmployeeActive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeClientParams-old" EntityType="Self.EmployeeClientParams-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeDiarySms" EntityType="Self.EmployeeDiarySms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDiaryTemplate" EntityType="Self.EmployeeDiaryTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDiaryTime" EntityType="Self.EmployeeDiaryTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeExtra" EntityType="Self.EmployeeExtra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeGpsLog" EntityType="Self.EmployeeGpsLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeGpsPoints" EntityType="Self.EmployeeGpsPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeGpsStatus-old" EntityType="Self.EmployeeGpsStatus-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeGroup" EntityType="Self.EmployeeGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeSmsSend" EntityType="Self.EmployeeSmsSend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeToGroup" EntityType="Self.EmployeeToGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factory" EntityType="Self.Factory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryDairyTemplet" EntityType="Self.FactoryDairyTemplet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryDistance" EntityType="Self.FactoryDistance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryLogo" EntityType="Self.FactoryLogo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryParm" EntityType="Self.FactoryParm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryUsePay" EntityType="Self.FactoryUsePay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FactoryUsePrice" EntityType="Self.FactoryUsePrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeocodeStringResponse" EntityType="Self.GeocodeStringResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeocodeToTable" EntityType="Self.GeocodeToTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GisSource" EntityType="Self.GisSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GpsEmployeeCustomer" EntityType="Self.GpsEmployeeCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GpsInputLog-old" EntityType="Self.GpsInputLog-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GpsParametrs-old" EntityType="Self.GpsParametrs-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holiday-old" EntityType="Self.Holiday-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobManager" EntityType="Self.JobManager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageList" EntityType="Self.LanguageList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MainStringTable" EntityType="Self.MainStringTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MethodLog" EntityType="Self.MethodLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoblieApplicationRequest" EntityType="Self.MoblieApplicationRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PeriodicJobs" EntityType="Self.PeriodicJobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneManufacture" EntityType="Self.PhoneManufacture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProesssParm" EntityType="Self.ProesssParm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepoetStringLabel" EntityType="Self.RepoetStringLabel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportCategory" EntityType="Self.ReportCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportLocalParmeter" EntityType="Self.ReportLocalParmeter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportName" EntityType="Self.ReportName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportPanel" EntityType="Self.ReportPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportPanelType" EntityType="Self.ReportPanelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequsetToFactoryLevel1" EntityType="Self.RequsetToFactoryLevel1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequsetToFactoryLevel2" EntityType="Self.RequsetToFactoryLevel2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StarLinkClients" EntityType="Self.StarLinkClients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Street" EntityType="Self.Street" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StreetSyn-old" EntityType="Self.StreetSyn-old" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemSmsSend" EntityType="Self.SystemSmsSend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableTestItay-old" EntityType="Self.TableTestItay-old" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestCalendar-old" EntityType="Self.TestCalendar-old" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeLocation" EntityType="Self.TreeLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TreeView" EntityType="Self.TreeView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogEntry" EntityType="Self.UserLogEntry" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[AspNetUserLogins].[LoginProvider] AS [LoginProvider], 
-[AspNetUserLogins].[ProviderKey] AS [ProviderKey], 
-[AspNetUserLogins].[UserId] AS [UserId]
-FROM [dbo].[AspNetUserLogins] AS [AspNetUserLogins]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="City" EntityType="Self.City" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[City].[CityCode] AS [CityCode], 
-[City].[CreateDate] AS [CreateDate], 
-[City].[StatusCode] AS [StatusCode], 
-[City].[CountryCode] AS [CountryCode], 
-[City].[StateCode] AS [StateCode], 
-[City].[CityDesc] AS [CityDesc], 
-[City].[CityDescEn] AS [CityDescEn]
-FROM [dbo].[City] AS [City]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CitySyn" EntityType="Self.CitySyn" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CitySyn].[SysId] AS [SysId], 
-[CitySyn].[CreateDate] AS [CreateDate], 
-[CitySyn].[StatusCode] AS [StatusCode], 
-[CitySyn].[CountryCode] AS [CountryCode], 
-[CitySyn].[StateCode] AS [StateCode], 
-[CitySyn].[CityCode] AS [CityCode], 
-[CitySyn].[SynDesc] AS [SynDesc]
-FROM [dbo].[CitySyn] AS [CitySyn]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ClientInsertLog" EntityType="Self.ClientInsertLog" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ClientInsertLog].[InsertSysId] AS [InsertSysId], 
-[ClientInsertLog].[EmployeeId] AS [EmployeeId], 
-[ClientInsertLog].[InsertTimeUtc] AS [InsertTimeUtc], 
-[ClientInsertLog].[PlatformType] AS [PlatformType], 
-[ClientInsertLog].[BatteryLevel] AS [BatteryLevel], 
-[ClientInsertLog].[IsGpsEnabled] AS [IsGpsEnabled], 
-[ClientInsertLog].[GpsPointsDispatched] AS [GpsPointsDispatched], 
-[ClientInsertLog].[SendCounter] AS [SendCounter]
-FROM [dbo].[ClientInsertLog] AS [ClientInsertLog]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ClientLoginLog" EntityType="Self.ClientLoginLog" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ClientLoginLog].[LoginSysId] AS [LoginSysId], 
-[ClientLoginLog].[EmployeeId] AS [EmployeeId], 
-[ClientLoginLog].[LoginTimeUtc] AS [LoginTimeUtc], 
-[ClientLoginLog].[PlatformType] AS [PlatformType], 
-[ClientLoginLog].[WasActiveBefore] AS [WasActiveBefore], 
-[ClientLoginLog].[BatteryLevel] AS [BatteryLevel], 
-[ClientLoginLog].[UniqueIdentifier] AS [UniqueIdentifier], 
-[ClientLoginLog].[MobileClientVersion] AS [MobileClientVersion]
-FROM [dbo].[ClientLoginLog] AS [ClientLoginLog]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ClientLogoutLog" EntityType="Self.ClientLogoutLog" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ClientLogoutLog].[LogoutSysId] AS [LogoutSysId], 
-[ClientLogoutLog].[EmployeeId] AS [EmployeeId], 
-[ClientLogoutLog].[LogoutTimeUtc] AS [LogoutTimeUtc], 
-[ClientLogoutLog].[PlatformType] AS [PlatformType], 
-[ClientLogoutLog].[BatteryLevel] AS [BatteryLevel], 
-[ClientLogoutLog].[IsGpsEnabled] AS [IsGpsEnabled], 
-[ClientLogoutLog].[GpsPointsDispatched] AS [GpsPointsDispatched], 
-[ClientLogoutLog].[SendCounter] AS [SendCounter]
-FROM [dbo].[ClientLogoutLog] AS [ClientLogoutLog]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ClientParamModes" EntityType="Self.ClientParamModes" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ClientParamModes].[Mode] AS [Mode], 
-[ClientParamModes].[ModeDesc] AS [ModeDesc], 
-[ClientParamModes].[DataSendInterval] AS [DataSendInterval], 
-[ClientParamModes].[SampleRate] AS [SampleRate], 
-[ClientParamModes].[GpsSigLossSleep] AS [GpsSigLossSleep], 
-[ClientParamModes].[StandingGpsSleep] AS [StandingGpsSleep], 
-[ClientParamModes].[MinimalAccuracyReq] AS [MinimalAccuracyReq], 
-[ClientParamModes].[GpsLossTimeOutWithRecep] AS [GpsLossTimeOutWithRecep], 
-[ClientParamModes].[GpsLossTimeOutNoRecep] AS [GpsLossTimeOutNoRecep], 
-[ClientParamModes].[SamplesToDetermineStand] AS [SamplesToDetermineStand], 
-[ClientParamModes].[StandingAvgDistance] AS [StandingAvgDistance]
-FROM [dbo].[ClientParamModes] AS [ClientParamModes]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ClientWatchdogKillLog" EntityType="Self.ClientWatchdogKillLog" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ClientWatchdogKillLog].[WatchdogKillSysId] AS [WatchdogKillSysId], 
-[ClientWatchdogKillLog].[EmployeeId] AS [EmployeeId], 
-[ClientWatchdogKillLog].[WatchdogKillTimeUtc] AS [WatchdogKillTimeUtc], 
-[ClientWatchdogKillLog].[LastTransmissionGmt] AS [LastTransmissionGmt]
-FROM [dbo].[ClientWatchdogKillLog] AS [ClientWatchdogKillLog]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Country" EntityType="Self.Country" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Country].[CountryCode] AS [CountryCode], 
-[Country].[CreateDate] AS [CreateDate], 
-[Country].[CountryDesc] AS [CountryDesc], 
-[Country].[CountryDescEn] AS [CountryDescEn], 
-[Country].[CurrentGmt] AS [CurrentGmt]
-FROM [dbo].[Country] AS [Country]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CustomerEmployeeContact" EntityType="Self.CustomerEmployeeContact" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CustomerEmployeeContact].[CustomerToEmployeeSysId] AS [CustomerToEmployeeSysId], 
-[CustomerEmployeeContact].[CreateDate] AS [CreateDate], 
-[CustomerEmployeeContact].[UserId] AS [UserId], 
-[CustomerEmployeeContact].[UpdateDate] AS [UpdateDate], 
-[CustomerEmployeeContact].[CustomerToEmployeeStatus] AS [CustomerToEmployeeStatus], 
-[CustomerEmployeeContact].[CustomerId] AS [CustomerId], 
-[CustomerEmployeeContact].[EmployeeId] AS [EmployeeId], 
-[CustomerEmployeeContact].[EmployeeGroupId] AS [EmployeeGroupId]
-FROM [dbo].[CustomerEmployeeContact] AS [CustomerEmployeeContact]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CustomerRequest" EntityType="Self.CustomerRequest" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CustomerRequest].[SysId] AS [SysId], 
-[CustomerRequest].[CreateDate] AS [CreateDate], 
-[CustomerRequest].[CustomerId] AS [CustomerId], 
-[CustomerRequest].[RequestSysIdLevel2] AS [RequestSysIdLevel2], 
-[CustomerRequest].[Request] AS [Request], 
-[CustomerRequest].[Treatment] AS [Treatment], 
-[CustomerRequest].[TreatmentDate] AS [TreatmentDate], 
-[CustomerRequest].[Status] AS [Status]
-FROM [dbo].[CustomerRequest] AS [CustomerRequest]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CustomerToBuilding" EntityType="Self.CustomerToBuilding" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[CustomerToBuilding].[SysId] AS [SysId], 
-[CustomerToBuilding].[CreateDate] AS [CreateDate], 
-[CustomerToBuilding].[StatusCode] AS [StatusCode], 
-[CustomerToBuilding].[BuildingCode] AS [BuildingCode], 
-[CustomerToBuilding].[Factory] AS [Factory], 
-[CustomerToBuilding].[Remark1] AS [Remark1], 
-[CustomerToBuilding].[Remark2] AS [Remark2]
-FROM [dbo].[CustomerToBuilding] AS [CustomerToBuilding]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="DiaryDayStatus" EntityType="Self.DiaryDayStatus" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[DiaryDayStatus].[DayStatus] AS [DayStatus], 
-[DiaryDayStatus].[DayDesc] AS [DayDesc]
-FROM [dbo].[DiaryDayStatus] AS [DiaryDayStatus]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeActive" EntityType="Self.EmployeeActive" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeActive].[SysId] AS [SysId], 
-[EmployeeActive].[EmployeeId] AS [EmployeeId], 
-[EmployeeActive].[LogInTime] AS [LogInTime], 
-[EmployeeActive].[LastTransmit] AS [LastTransmit], 
-[EmployeeActive].[LastInsert] AS [LastInsert], 
-[EmployeeActive].[LastProcess] AS [LastProcess], 
-[EmployeeActive].[LastEmployeeGpsLog] AS [LastEmployeeGpsLog], 
-[EmployeeActive].[LastEmployeeGpsPoint] AS [LastEmployeeGpsPoint], 
-[EmployeeActive].[LastTransmitInserts] AS [LastTransmitInserts], 
-[EmployeeActive].[ClientParamMode] AS [ClientParamMode], 
-[EmployeeActive].[UpdateNextTransmit] AS [UpdateNextTransmit], 
-[EmployeeActive].[CurrentGmt] AS [CurrentGmt], 
-[EmployeeActive].[UniqueIdentifier] AS [UniqueIdentifier], 
-[EmployeeActive].[BatteryLevel] AS [BatteryLevel], 
-[EmployeeActive].[LastSendCounter] AS [LastSendCounter]
-FROM [dbo].[EmployeeActive] AS [EmployeeActive]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeClientParams-old" EntityType="Self.EmployeeClientParams-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeClientParams-old].[EmployeeId] AS [EmployeeId], 
-[EmployeeClientParams-old].[DataSendInterval] AS [DataSendInterval], 
-[EmployeeClientParams-old].[SampleRate] AS [SampleRate], 
-[EmployeeClientParams-old].[GpsLossSleepTime] AS [GpsLossSleepTime], 
-[EmployeeClientParams-old].[StandSleepTime] AS [StandSleepTime]
-FROM [dbo].[EmployeeClientParams-old] AS [EmployeeClientParams-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeDiarySms" EntityType="Self.EmployeeDiarySms" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeDiarySms].[ID] AS [ID], 
-[EmployeeDiarySms].[EmployeeId] AS [EmployeeId]
-FROM [dbo].[EmployeeDiarySms] AS [EmployeeDiarySms]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeExtra" EntityType="Self.EmployeeExtra" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeExtra].[EmployeeId] AS [EmployeeId], 
-[EmployeeExtra].[DefultClientParamMode] AS [DefultClientParamMode], 
-[EmployeeExtra].[UpdateUrl] AS [UpdateUrl], 
-[EmployeeExtra].[LastLogin] AS [LastLogin], 
-[EmployeeExtra].[LastLoginPlatform] AS [LastLoginPlatform]
-FROM [dbo].[EmployeeExtra] AS [EmployeeExtra]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeGpsPoints" EntityType="Self.EmployeeGpsPoints" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeGpsPoints].[SysId] AS [SysId], 
-[EmployeeGpsPoints].[EmployeeId] AS [EmployeeId], 
-[EmployeeGpsPoints].[GpsDate] AS [GpsDate], 
-[EmployeeGpsPoints].[GpsTime] AS [GpsTime], 
-[EmployeeGpsPoints].[Lat] AS [Lat], 
-[EmployeeGpsPoints].[Long] AS [Long], 
-[EmployeeGpsPoints].[Speed] AS [Speed], 
-[EmployeeGpsPoints].[Accuracy] AS [Accuracy], 
-[EmployeeGpsPoints].[Heading] AS [Heading], 
-[EmployeeGpsPoints].[PointStatus] AS [PointStatus], 
-[EmployeeGpsPoints].[AverageOfCount] AS [AverageOfCount], 
-[EmployeeGpsPoints].[StopStartTime] AS [StopStartTime], 
-[EmployeeGpsPoints].[StopUpdateTime] AS [StopUpdateTime], 
-[EmployeeGpsPoints].[StopTime] AS [StopTime], 
-[EmployeeGpsPoints].[ProcessStatus] AS [ProcessStatus], 
-[EmployeeGpsPoints].[CreateUtc] AS [CreateUtc]
-FROM [dbo].[EmployeeGpsPoints] AS [EmployeeGpsPoints]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeGpsStatus-old" EntityType="Self.EmployeeGpsStatus-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeGpsStatus-old].[EmployeeId] AS [EmployeeId], 
-[EmployeeGpsStatus-old].[LastInsertTime] AS [LastInsertTime], 
-[EmployeeGpsStatus-old].[Period] AS [Period], 
-[EmployeeGpsStatus-old].[GpsStatus] AS [GpsStatus], 
-[EmployeeGpsStatus-old].[Battery] AS [Battery], 
-[EmployeeGpsStatus-old].[SampleRate] AS [SampleRate]
-FROM [dbo].[EmployeeGpsStatus-old] AS [EmployeeGpsStatus-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeGroup" EntityType="Self.EmployeeGroup" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeGroup].[EmployeeGroupId] AS [EmployeeGroupId], 
-[EmployeeGroup].[CreateDate] AS [CreateDate], 
-[EmployeeGroup].[FactoryId] AS [FactoryId], 
-[EmployeeGroup].[GroupCode] AS [GroupCode], 
-[EmployeeGroup].[GroupDesc] AS [GroupDesc], 
-[EmployeeGroup].[Status] AS [Status]
-FROM [dbo].[EmployeeGroup] AS [EmployeeGroup]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeSmsSend" EntityType="Self.EmployeeSmsSend" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeSmsSend].[SmsId] AS [SmsId], 
-[EmployeeSmsSend].[SmsCreatDate] AS [SmsCreatDate], 
-[EmployeeSmsSend].[EmployeeId] AS [EmployeeId], 
-[EmployeeSmsSend].[SmsMsg] AS [SmsMsg], 
-[EmployeeSmsSend].[SmsStatus] AS [SmsStatus], 
-[EmployeeSmsSend].[SmsGroup] AS [SmsGroup], 
-[EmployeeSmsSend].[SmsCount] AS [SmsCount]
-FROM [dbo].[EmployeeSmsSend] AS [EmployeeSmsSend]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EmployeeToGroup" EntityType="Self.EmployeeToGroup" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[EmployeeToGroup].[EmployeeToGroupId] AS [EmployeeToGroupId], 
-[EmployeeToGroup].[CreatDate] AS [CreatDate], 
-[EmployeeToGroup].[EmployeeGroupId] AS [EmployeeGroupId], 
-[EmployeeToGroup].[EmployeeId] AS [EmployeeId], 
-[EmployeeToGroup].[Status] AS [Status]
-FROM [dbo].[EmployeeToGroup] AS [EmployeeToGroup]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryDairyTemplet" EntityType="Self.FactoryDairyTemplet" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryDairyTemplet].[FactoryDairyTempletId] AS [FactoryDairyTempletId], 
-[FactoryDairyTemplet].[Factory] AS [Factory], 
-[FactoryDairyTemplet].[DayStatus] AS [DayStatus], 
-[FactoryDairyTemplet].[Start1] AS [Start1], 
-[FactoryDairyTemplet].[Stop1] AS [Stop1], 
-[FactoryDairyTemplet].[Start2] AS [Start2], 
-[FactoryDairyTemplet].[Stop2] AS [Stop2], 
-[FactoryDairyTemplet].[OrderDay] AS [OrderDay]
-FROM [dbo].[FactoryDairyTemplet] AS [FactoryDairyTemplet]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryDistance" EntityType="Self.FactoryDistance" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryDistance].[FactoryId] AS [FactoryId], 
-[FactoryDistance].[CustomerLinkDistanceThreshold] AS [CustomerLinkDistanceThreshold], 
-[FactoryDistance].[RadiusSearch] AS [RadiusSearch], 
-[FactoryDistance].[TopEmployeeSearch] AS [TopEmployeeSearch], 
-[FactoryDistance].[ZoomSearchLevel] AS [ZoomSearchLevel], 
-[FactoryDistance].[CalendarShowRadius] AS [CalendarShowRadius], 
-[FactoryDistance].[CalenderShowZoomLevel] AS [CalenderShowZoomLevel], 
-[FactoryDistance].[MapSearchModule] AS [MapSearchModule]
-FROM [dbo].[FactoryDistance] AS [FactoryDistance]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryLogo" EntityType="Self.FactoryLogo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryLogo].[ID] AS [ID], 
-[FactoryLogo].[LogoImage] AS [LogoImage], 
-[FactoryLogo].[ArrImage] AS [ArrImage]
-FROM [dbo].[FactoryLogo] AS [FactoryLogo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryParm" EntityType="Self.FactoryParm" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryParm].[FactoryId] AS [FactoryId], 
-[FactoryParm].[StopEmployeeTime] AS [StopEmployeeTime], 
-[FactoryParm].[Country] AS [Country], 
-[FactoryParm].[SplitTime] AS [SplitTime], 
-[FactoryParm].[Lat] AS [Lat], 
-[FactoryParm].[Long] AS [Long], 
-[FactoryParm].[Zoom] AS [Zoom], 
-[FactoryParm].[MapProvider] AS [MapProvider], 
-[FactoryParm].[SmsProvider] AS [SmsProvider], 
-[FactoryParm].[PhoneAreaCode] AS [PhoneAreaCode], 
-[FactoryParm].[VisitCompanyTime] AS [VisitCompanyTime], 
-[FactoryParm].[VisitCompanyTimeTolerance] AS [VisitCompanyTimeTolerance], 
-[FactoryParm].[VisitCompanyTimeTolerancePercent] AS [VisitCompanyTimeTolerancePercent], 
-[FactoryParm].[CompanyLogo] AS [CompanyLogo], 
-[FactoryParm].[CurrentGmt] AS [CurrentGmt], 
-[FactoryParm].[CustomerLinkDistanceThreshold] AS [CustomerLinkDistanceThreshold], 
-[FactoryParm].[RadiusSearch] AS [RadiusSearch], 
-[FactoryParm].[TopEmployeeShearch] AS [TopEmployeeShearch], 
-[FactoryParm].[ZoomSearchLevel] AS [ZoomSearchLevel], 
-[FactoryParm].[CalendarShowRadius] AS [CalendarShowRadius], 
-[FactoryParm].[CalenderShowZoomLevel] AS [CalenderShowZoomLevel], 
-[FactoryParm].[MapSearchModoul] AS [MapSearchModoul]
-FROM [dbo].[FactoryParm] AS [FactoryParm]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryUsePay" EntityType="Self.FactoryUsePay" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryUsePay].[SystemUseId] AS [SystemUseId], 
-[FactoryUsePay].[CreateDate] AS [CreateDate], 
-[FactoryUsePay].[MainFactory] AS [MainFactory], 
-[FactoryUsePay].[Factory] AS [Factory], 
-[FactoryUsePay].[AgentFk] AS [AgentFk], 
-[FactoryUsePay].[MonthUse] AS [MonthUse], 
-[FactoryUsePay].[MobileUserPrice] AS [MobileUserPrice], 
-[FactoryUsePay].[MobileRegisteredUsers] AS [MobileRegisteredUsers], 
-[FactoryUsePay].[MobileActiveUsers] AS [MobileActiveUsers], 
-[FactoryUsePay].[MobileTotalUserPay] AS [MobileTotalUserPay], 
-[FactoryUsePay].[SystemSmsSend] AS [SystemSmsSend], 
-[FactoryUsePay].[UsreSmsSend] AS [UsreSmsSend], 
-[FactoryUsePay].[TotalSmsUse] AS [TotalSmsUse], 
-[FactoryUsePay].[SmsInBank] AS [SmsInBank], 
-[FactoryUsePay].[SmsPrice] AS [SmsPrice], 
-[FactoryUsePay].[TotalSmsPay] AS [TotalSmsPay], 
-[FactoryUsePay].[BrowsersAllow] AS [BrowsersAllow], 
-[FactoryUsePay].[BrowserPrice] AS [BrowserPrice], 
-[FactoryUsePay].[TotalBrowserPay] AS [TotalBrowserPay], 
-[FactoryUsePay].[FactoryPrice] AS [FactoryPrice], 
-[FactoryUsePay].[TotalPay] AS [TotalPay], 
-[FactoryUsePay].[IsPay] AS [IsPay]
-FROM [dbo].[FactoryUsePay] AS [FactoryUsePay]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FactoryUsePrice" EntityType="Self.FactoryUsePrice" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[FactoryUsePrice].[Factory] AS [Factory], 
-[FactoryUsePrice].[UpdateDate] AS [UpdateDate], 
-[FactoryUsePrice].[MobilePriceUpdateDate] AS [MobilePriceUpdateDate], 
-[FactoryUsePrice].[AgentFk] AS [AgentFk], 
-[FactoryUsePrice].[MobilePrice] AS [MobilePrice], 
-[FactoryUsePrice].[BrowserPriceUpdateDate] AS [BrowserPriceUpdateDate], 
-[FactoryUsePrice].[BrowserPrice] AS [BrowserPrice], 
-[FactoryUsePrice].[SmsPriceUpdateDate] AS [SmsPriceUpdateDate], 
-[FactoryUsePrice].[SmsPrice] AS [SmsPrice], 
-[FactoryUsePrice].[FactoryPriceUpdate] AS [FactoryPriceUpdate], 
-[FactoryUsePrice].[FactoryPrice] AS [FactoryPrice]
-FROM [dbo].[FactoryUsePrice] AS [FactoryUsePrice]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="GeocodeToTable" EntityType="Self.GeocodeToTable" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GeocodeToTable].[GeocodeToTablePk] AS [GeocodeToTablePk], 
-[GeocodeToTable].[CountryCode] AS [CountryCode], 
-[GeocodeToTable].[AddressTypeTable] AS [AddressTypeTable], 
-[GeocodeToTable].[GeocodeTagResponse] AS [GeocodeTagResponse], 
-[GeocodeToTable].[OrderGeocodeTagResponse] AS [OrderGeocodeTagResponse], 
-[GeocodeToTable].[Insert] AS [Insert]
-FROM [dbo].[GeocodeToTable] AS [GeocodeToTable]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="GisSource" EntityType="Self.GisSource" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GisSource].[GisSourcePk] AS [GisSourcePk], 
-[GisSource].[GisSourceDesc] AS [GisSourceDesc]
-FROM [dbo].[GisSource] AS [GisSource]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="GpsEmployeeCustomer" EntityType="Self.GpsEmployeeCustomer" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GpsEmployeeCustomer].[SysId] AS [SysId], 
-[GpsEmployeeCustomer].[CreateDate] AS [CreateDate], 
-[GpsEmployeeCustomer].[VisiteDate] AS [VisiteDate], 
-[GpsEmployeeCustomer].[VisitTime] AS [VisitTime], 
-[GpsEmployeeCustomer].[GpsPointId] AS [GpsPointId], 
-[GpsEmployeeCustomer].[CustomerId] AS [CustomerId], 
-[GpsEmployeeCustomer].[EmployeeId] AS [EmployeeId], 
-[GpsEmployeeCustomer].[InsertStatus] AS [InsertStatus]
-FROM [dbo].[GpsEmployeeCustomer] AS [GpsEmployeeCustomer]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="GpsInputLog-old" EntityType="Self.GpsInputLog-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GpsInputLog-old].[SysId] AS [SysId], 
-[GpsInputLog-old].[EmployeeId] AS [EmployeeId], 
-[GpsInputLog-old].[SysCreateDate] AS [SysCreateDate], 
-[GpsInputLog-old].[NextGpsStatus] AS [NextGpsStatus], 
-[GpsInputLog-old].[NextPeriod] AS [NextPeriod], 
-[GpsInputLog-old].[Battery] AS [Battery], 
-[GpsInputLog-old].[NextSampelRate] AS [NextSampelRate], 
-[GpsInputLog-old].[InputParametrs] AS [InputParametrs], 
-[GpsInputLog-old].[Error] AS [Error]
-FROM [dbo].[GpsInputLog-old] AS [GpsInputLog-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="GpsParametrs-old" EntityType="Self.GpsParametrs-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[GpsParametrs-old].[ParamId] AS [ParamId], 
-[GpsParametrs-old].[ParamValue] AS [ParamValue], 
-[GpsParametrs-old].[ParamDesc] AS [ParamDesc]
-FROM [dbo].[GpsParametrs-old] AS [GpsParametrs-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Holiday-old" EntityType="Self.Holiday-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Holiday-old].[HolidayIndx] AS [HolidayIndx], 
-[Holiday-old].[HoliadyDate] AS [HoliadyDate], 
-[Holiday-old].[StatusId] AS [StatusId], 
-[Holiday-old].[CountryCode] AS [CountryCode]
-FROM [dbo].[Holiday-old] AS [Holiday-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="JobManager" EntityType="Self.JobManager" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[JobManager].[SysId] AS [SysId], 
-[JobManager].[Job] AS [Job], 
-[JobManager].[JobNumber] AS [JobNumber], 
-[JobManager].[StartTime] AS [StartTime], 
-[JobManager].[StopTime] AS [StopTime], 
-[JobManager].[NextTime] AS [NextTime], 
-[JobManager].[InProgress] AS [InProgress]
-FROM [dbo].[JobManager] AS [JobManager]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="LanguageList" EntityType="Self.LanguageList" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[LanguageList].[IdList] AS [IdList], 
-[LanguageList].[LanguageDesc] AS [LanguageDesc], 
-[LanguageList].[LanguageNickname] AS [LanguageNickname], 
-[LanguageList].[OneUpLanguage] AS [OneUpLanguage], 
-[LanguageList].[OneUpLanguageNicknae] AS [OneUpLanguageNicknae]
-FROM [dbo].[LanguageList] AS [LanguageList]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="MainStringTable" EntityType="Self.MainStringTable" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[MainStringTable].[IdLanguage] AS [IdLanguage], 
-[MainStringTable].[DefaultLanguage] AS [DefaultLanguage], 
-[MainStringTable].[EN] AS [EN], 
-[MainStringTable].[HE] AS [HE], 
-[MainStringTable].[RU] AS [RU], 
-[MainStringTable].[ES] AS [ES], 
-[MainStringTable].[DE] AS [DE]
-FROM [dbo].[MainStringTable] AS [MainStringTable]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="MethodLog" EntityType="Self.MethodLog" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[MethodLog].[ID] AS [ID], 
-[MethodLog].[LogUtcTime] AS [LogUtcTime], 
-[MethodLog].[MethodName] AS [MethodName], 
-[MethodLog].[InOut] AS [InOut], 
-[MethodLog].[RoleId] AS [RoleId], 
-[MethodLog].[ThreadId] AS [ThreadId]
-FROM [dbo].[MethodLog] AS [MethodLog]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="MoblieApplicationRequest" EntityType="Self.MoblieApplicationRequest" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[MoblieApplicationRequest].[SysId] AS [SysId], 
-[MoblieApplicationRequest].[EmployeeId] AS [EmployeeId], 
-[MoblieApplicationRequest].[CreateDate] AS [CreateDate], 
-[MoblieApplicationRequest].[RandomValue] AS [RandomValue], 
-[MoblieApplicationRequest].[PhoneManufacturId] AS [PhoneManufacturId], 
-[MoblieApplicationRequest].[PhoneTypeCode] AS [PhoneTypeCode], 
-[MoblieApplicationRequest].[DownloadDate] AS [DownloadDate], 
-[MoblieApplicationRequest].[Version] AS [Version], 
-[MoblieApplicationRequest].[ApplicationId] AS [ApplicationId], 
-[MoblieApplicationRequest].[Ip] AS [Ip], 
-[MoblieApplicationRequest].[Ip2] AS [Ip2]
-FROM [dbo].[MoblieApplicationRequest] AS [MoblieApplicationRequest]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PeriodicJobs" EntityType="Self.PeriodicJobs" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[PeriodicJobs].[SysId] AS [SysId], 
-[PeriodicJobs].[JobName] AS [JobName], 
-[PeriodicJobs].[LastRunTime] AS [LastRunTime], 
-[PeriodicJobs].[InProgress] AS [InProgress], 
-[PeriodicJobs].[IntervalSec] AS [IntervalSec], 
-[PeriodicJobs].[TimeoutIntervalSec] AS [TimeoutIntervalSec]
-FROM [dbo].[PeriodicJobs] AS [PeriodicJobs]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PhoneManufacture" EntityType="Self.PhoneManufacture" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[PhoneManufacture].[PhoneManufacturId] AS [PhoneManufacturId], 
-[PhoneManufacture].[PhoneManufacture] AS [PhoneManufacture], 
-[PhoneManufacture].[SortingOrder] AS [SortingOrder], 
-[PhoneManufacture].[RecordStatus] AS [RecordStatus]
-FROM [dbo].[PhoneManufacture] AS [PhoneManufacture]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[PhoneType].[PhoneTypeCode] AS [PhoneTypeCode], 
-[PhoneType].[PhoneManufacturId] AS [PhoneManufacturId], 
-[PhoneType].[PhoneTypeDesc] AS [PhoneTypeDesc], 
-[PhoneType].[SortingOrder] AS [SortingOrder], 
-[PhoneType].[RecordStatus] AS [RecordStatus]
-FROM [dbo].[PhoneType] AS [PhoneType]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ProesssParm" EntityType="Self.ProesssParm" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ProesssParm].[SysId] AS [SysId], 
-[ProesssParm].[TabalName] AS [TabalName], 
-[ProesssParm].[FromTime] AS [FromTime], 
-[ProesssParm].[Totime] AS [Totime], 
-[ProesssParm].[StartRecord] AS [StartRecord], 
-[ProesssParm].[StopRecord] AS [StopRecord]
-FROM [dbo].[ProesssParm] AS [ProesssParm]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="RepoetStringLabel" EntityType="Self.RepoetStringLabel" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[RepoetStringLabel].[RepoetStringLabelPk] AS [RepoetStringLabelPk], 
-[RepoetStringLabel].[MainString] AS [MainString], 
-[RepoetStringLabel].[EN] AS [EN], 
-[RepoetStringLabel].[HE] AS [HE], 
-[RepoetStringLabel].[RU] AS [RU], 
-[RepoetStringLabel].[ES] AS [ES], 
-[RepoetStringLabel].[DE] AS [DE]
-FROM [dbo].[RepoetStringLabel] AS [RepoetStringLabel]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ReportCategory" EntityType="Self.ReportCategory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ReportCategory].[ReportCategoryPk] AS [ReportCategoryPk], 
-[ReportCategory].[Category] AS [Category], 
-[ReportCategory].[EN] AS [EN], 
-[ReportCategory].[HE] AS [HE], 
-[ReportCategory].[RU] AS [RU], 
-[ReportCategory].[ES] AS [ES], 
-[ReportCategory].[DE] AS [DE]
-FROM [dbo].[ReportCategory] AS [ReportCategory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ReportLocalParmeter" EntityType="Self.ReportLocalParmeter" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ReportLocalParmeter].[ReportLocalParmeterPk] AS [ReportLocalParmeterPk], 
-[ReportLocalParmeter].[ReportStringLabaleFk] AS [ReportStringLabaleFk], 
-[ReportLocalParmeter].[ParameterValue1] AS [ParameterValue1], 
-[ReportLocalParmeter].[ParameterValue2] AS [ParameterValue2], 
-[ReportLocalParmeter].[ParameterValue3] AS [ParameterValue3], 
-[ReportLocalParmeter].[ParameterTime1] AS [ParameterTime1], 
-[ReportLocalParmeter].[ParameterTime2] AS [ParameterTime2], 
-[ReportLocalParmeter].[ParameterTime3] AS [ParameterTime3], 
-[ReportLocalParmeter].[ParameterData1] AS [ParameterData1], 
-[ReportLocalParmeter].[ParameterData2] AS [ParameterData2], 
-[ReportLocalParmeter].[ParameterData3] AS [ParameterData3], 
-[ReportLocalParmeter].[ParameterString1] AS [ParameterString1], 
-[ReportLocalParmeter].[ParameterString2] AS [ParameterString2], 
-[ReportLocalParmeter].[ParameterString3] AS [ParameterString3], 
-[ReportLocalParmeter].[ParameterForeColor] AS [ParameterForeColor], 
-[ReportLocalParmeter].[PartameterBackColor] AS [PartameterBackColor]
-FROM [dbo].[ReportLocalParmeter] AS [ReportLocalParmeter]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ReportName" EntityType="Self.ReportName" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ReportName].[ReporNametPk] AS [ReporNametPk], 
-[ReportName].[ReportName] AS [ReportName], 
-[ReportName].[ReportParmeterTypeFk] AS [ReportParmeterTypeFk], 
-[ReportName].[LeftRight] AS [LeftRight], 
-[ReportName].[ReportCategoryFk] AS [ReportCategoryFk], 
-[ReportName].[EN] AS [EN], 
-[ReportName].[HE] AS [HE], 
-[ReportName].[RU] AS [RU], 
-[ReportName].[ES] AS [ES], 
-[ReportName].[DE] AS [DE]
-FROM [dbo].[ReportName] AS [ReportName]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ReportPanel" EntityType="Self.ReportPanel" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ReportPanel].[ReportPanelPk] AS [ReportPanelPk], 
-[ReportPanel].[ReporNametFk] AS [ReporNametFk], 
-[ReportPanel].[ReportParamTypeFk] AS [ReportParamTypeFk], 
-[ReportPanel].[ColumnName] AS [ColumnName]
-FROM [dbo].[ReportPanel] AS [ReportPanel]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ReportPanelType" EntityType="Self.ReportPanelType" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ReportPanelType].[ReportPanelTypePk] AS [ReportPanelTypePk], 
-[ReportPanelType].[ReportPanelFk] AS [ReportPanelFk], 
-[ReportPanelType].[ReportPanelTypeDesc] AS [ReportPanelTypeDesc]
-FROM [dbo].[ReportPanelType] AS [ReportPanelType]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="StarLinkClients" EntityType="Self.StarLinkClients" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[StarLinkClients].[StarLinkUnitID] AS [StarLinkUnitID], 
-[StarLinkClients].[EmployeeID_FK] AS [EmployeeID_FK], 
-[StarLinkClients].[LastTransmission] AS [LastTransmission]
-FROM [dbo].[StarLinkClients] AS [StarLinkClients]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="State" EntityType="Self.State" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[State].[StateCode] AS [StateCode], 
-[State].[CreateDate] AS [CreateDate], 
-[State].[StatusCode] AS [StatusCode], 
-[State].[CountryCode] AS [CountryCode], 
-[State].[StateDesc] AS [StateDesc], 
-[State].[StateDescEn] AS [StateDescEn]
-FROM [dbo].[State] AS [State]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Street" EntityType="Self.Street" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Street].[StreetCode] AS [StreetCode], 
-[Street].[CountryCode] AS [CountryCode], 
-[Street].[StatusCode] AS [StatusCode], 
-[Street].[StateCode] AS [StateCode], 
-[Street].[CityCode] AS [CityCode], 
-[Street].[CreatDate] AS [CreatDate], 
-[Street].[StreetDesc] AS [StreetDesc], 
-[Street].[StreetDescEn] AS [StreetDescEn]
-FROM [dbo].[Street] AS [Street]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="StreetSyn-old" EntityType="Self.StreetSyn-old" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[StreetSyn-old].[SysId] AS [SysId], 
-[StreetSyn-old].[CreateDate] AS [CreateDate], 
-[StreetSyn-old].[StatusCode] AS [StatusCode], 
-[StreetSyn-old].[CountryCode] AS [CountryCode], 
-[StreetSyn-old].[StateCode] AS [StateCode], 
-[StreetSyn-old].[CityCode] AS [CityCode], 
-[StreetSyn-old].[StreetCode] AS [StreetCode], 
-[StreetSyn-old].[StreetDesc] AS [StreetDesc]
-FROM [dbo].[StreetSyn-old] AS [StreetSyn-old]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[sysdiagrams].[name] AS [name], 
-[sysdiagrams].[principal_id] AS [principal_id], 
-[sysdiagrams].[diagram_id] AS [diagram_id], 
-[sysdiagrams].[version] AS [version], 
-[sysdiagrams].[definition] AS [definition]
-FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_AspNetUserClaims_AspNetUserClaims" Association="Self.FK_AspNetUserClaims_AspNetUserClaims">
+          <AssociationSet Name="FK__TreeView__Parent__67DE6983" Association="Self.FK__TreeView__Parent__67DE6983">
+            <End Role="TreeView" EntitySet="TreeView" />
+            <End Role="TreeView1" EntitySet="TreeView" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Building_Street" Association="Self.FK_Building_Street">
+            <End Role="Street" EntitySet="Street" />
+            <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendar_CalendarStatusDay" Association="Self.FK_Calendar_CalendarStatusDay">
+            <End Role="CalendarStatusDay" EntitySet="CalendarStatusDay" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendar_Country" Association="Self.FK_Calendar_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendar_DiaryDayStatus" Association="Self.FK_Calendar_DiaryDayStatus">
+            <End Role="DiaryDayStatus" EntitySet="DiaryDayStatus" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_0" Association="Self.FK_City_0">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitySyn_City" Association="Self.FK_CitySyn_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="CitySyn" EntitySet="CitySyn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Building" Association="Self.FK_Customer_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Factory" Association="Self.FK_Customer_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerEmployeeContact_Customer" Association="Self.FK_CustomerEmployeeContact_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerEmployeeContact" EntitySet="CustomerEmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerEmployeeContact_Employee" Association="Self.FK_CustomerEmployeeContact_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CustomerEmployeeContact" EntitySet="CustomerEmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerRequest_Customer" Association="Self.FK_CustomerRequest_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerRequest" EntitySet="CustomerRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerRequest_RequsetToFactoryLevel2" Association="Self.FK_CustomerRequest_RequsetToFactoryLevel2">
+            <End Role="RequsetToFactoryLevel2" EntitySet="RequsetToFactoryLevel2" />
+            <End Role="CustomerRequest" EntitySet="CustomerRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerToBuilding_Building" Association="Self.FK_CustomerToBuilding_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="CustomerToBuilding" EntitySet="CustomerToBuilding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerToBuilding_Factory" Association="Self.FK_CustomerToBuilding_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="CustomerToBuilding" EntitySet="CustomerToBuilding" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-            <End Role="AspNetUserClaims1" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Factory" Association="Self.FK_Employee_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_PhoneType" Association="Self.FK_Employee_PhoneType">
+            <End Role="PhoneType" EntitySet="PhoneType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTemplate_DiaryDayStatus" Association="Self.FK_EmployeeDiaryTemplate_DiaryDayStatus">
+            <End Role="DiaryDayStatus" EntitySet="DiaryDayStatus" />
+            <End Role="EmployeeDiaryTemplate" EntitySet="EmployeeDiaryTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTemplate_Employee" Association="Self.FK_EmployeeDiaryTemplate_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeDiaryTemplate" EntitySet="EmployeeDiaryTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTime_Calendar" Association="Self.FK_EmployeeDiaryTime_Calendar">
+            <End Role="Calendar" EntitySet="Calendar" />
+            <End Role="EmployeeDiaryTime" EntitySet="EmployeeDiaryTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTime_Employee" Association="Self.FK_EmployeeDiaryTime_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeDiaryTime" EntitySet="EmployeeDiaryTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGpsLog_Employee1" Association="Self.FK_EmployeeGpsLog_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeGpsLog" EntitySet="EmployeeGpsLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGpsPoints_Employee" Association="Self.FK_EmployeeGpsPoints_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeGpsPoints" EntitySet="EmployeeGpsPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGroup_Factory" Association="Self.FK_EmployeeGroup_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSmsSend_Employee" Association="Self.FK_EmployeeSmsSend_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeSmsSend" EntitySet="EmployeeSmsSend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeToGroup_Employee" Association="Self.FK_EmployeeToGroup_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeToGroup" EntitySet="EmployeeToGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeToGroup_EmployeeGroup" Association="Self.FK_EmployeeToGroup_EmployeeGroup">
+            <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+            <End Role="EmployeeToGroup" EntitySet="EmployeeToGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FactoryParm_Factory" Association="Self.FK_FactoryParm_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="FactoryParm" EntitySet="FactoryParm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeocodeToTable_0" Association="Self.FK_GeocodeToTable_0">
+            <End Role="AddressTypeTable" EntitySet="AddressTypeTable" />
+            <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeocodeToTable_1" Association="Self.FK_GeocodeToTable_1">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeocodeToTable_2" Association="Self.FK_GeocodeToTable_2">
+            <End Role="GeocodeStringResponse" EntitySet="GeocodeStringResponse" />
+            <End Role="GeocodeToTable" EntitySet="GeocodeToTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GpsEmployeeCustomer_Customer" Association="Self.FK_GpsEmployeeCustomer_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GpsEmployeeCustomer_Employee" Association="Self.FK_GpsEmployeeCustomer_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GpsEmployeeCustomer_EmployeeGpsPoints" Association="Self.FK_GpsEmployeeCustomer_EmployeeGpsPoints">
+            <End Role="EmployeeGpsPoints" EntitySet="EmployeeGpsPoints" />
+            <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holiday_CalendarStatusDay" Association="Self.FK_Holiday_CalendarStatusDay">
+            <End Role="CalendarStatusDay" EntitySet="CalendarStatusDay" />
+            <End Role="Holiday-old" EntitySet="Holiday-old" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holiday_Country" Association="Self.FK_Holiday_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Holiday-old" EntitySet="Holiday-old" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoblieApplicationRequest_Employee" Association="Self.FK_MoblieApplicationRequest_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="MoblieApplicationRequest" EntitySet="MoblieApplicationRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneType_PhoneManufacture" Association="Self.FK_PhoneType_PhoneManufacture">
+            <End Role="PhoneManufacture" EntitySet="PhoneManufacture" />
+            <End Role="PhoneType" EntitySet="PhoneType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportLocalParmeter_0" Association="Self.FK_ReportLocalParmeter_0">
+            <End Role="RepoetStringLabel" EntitySet="RepoetStringLabel" />
+            <End Role="ReportLocalParmeter" EntitySet="ReportLocalParmeter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportName_0" Association="Self.FK_ReportName_0">
+            <End Role="ReportCategory" EntitySet="ReportCategory" />
+            <End Role="ReportName" EntitySet="ReportName" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportPanel_0" Association="Self.FK_ReportPanel_0">
+            <End Role="ReportName" EntitySet="ReportName" />
+            <End Role="ReportPanel" EntitySet="ReportPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportPanel_1" Association="Self.FK_ReportPanel_1">
+            <End Role="ReportPanelType" EntitySet="ReportPanelType" />
+            <End Role="ReportPanel" EntitySet="ReportPanel" />
           </AssociationSet>
           <AssociationSet Name="FK_RequsetToFactoryLevel1_Factory" Association="Self.FK_RequsetToFactoryLevel1_Factory">
             <End Role="Factory" EntitySet="Factory" />
             <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
           </AssociationSet>
-          <AssociationSet Name="FK_TreeView_TreeView" Association="Self.FK_TreeView_TreeView">
-            <End Role="TreeView" EntitySet="TreeView" />
-            <End Role="TreeView1" EntitySet="TreeView" />
+          <AssociationSet Name="FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1" Association="Self.FK_RequsetToFactoryLevel2_RequsetToFactoryLevel1">
+            <End Role="RequsetToFactoryLevel1" EntitySet="RequsetToFactoryLevel1" />
+            <End Role="RequsetToFactoryLevel2" EntitySet="RequsetToFactoryLevel2" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Street_City" Association="Self.FK_Street_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Street" EntitySet="Street" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StreetSyn_Street" Association="Self.FK_StreetSyn_Street">
+            <End Role="Street" EntitySet="Street" />
+            <End Role="StreetSyn-old" EntitySet="StreetSyn-old" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2300,6 +2226,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeGroupId" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerEmployeeContact_Customer" FromRole="CustomerEmployeeContact" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_CustomerEmployeeContact_Employee" FromRole="CustomerEmployeeContact" ToRole="Employee" />
         </EntityType>
         <EntityType Name="CustomerRequest">
           <Key>
@@ -2389,6 +2316,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="Stop2" Type="Time" Precision="7" />
           <Property Name="OrderDay" Type="Int32" />
           <NavigationProperty Name="DiaryDayStatu" Relationship="Self.FK_EmployeeDiaryTemplate_DiaryDayStatus" FromRole="EmployeeDiaryTemplate" ToRole="DiaryDayStatus" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeDiaryTemplate_Employee" FromRole="EmployeeDiaryTemplate" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeDiaryTime">
           <Key>
@@ -2406,6 +2334,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="Start3" Type="Time" Precision="7" />
           <Property Name="Stop3" Type="Time" Precision="7" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK_EmployeeDiaryTime_Calendar" FromRole="EmployeeDiaryTime" ToRole="Calendar" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeDiaryTime_Employee" FromRole="EmployeeDiaryTime" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeExtra">
           <Key>
@@ -2433,6 +2362,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="Satellite" Type="Int32" />
           <Property Name="ProcessStatus" Type="Int32" />
           <Property Name="CreateUtc" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeGpsLog_Employee1" FromRole="EmployeeGpsLog" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeGpsPoint">
           <Key>
@@ -2455,6 +2385,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="ProcessStatus" Type="Int32" />
           <Property Name="CreateUtc" Type="DateTime" Precision="3" />
           <NavigationProperty Name="GpsEmployeeCustomers" Relationship="Self.FK_GpsEmployeeCustomer_EmployeeGpsPoints" FromRole="EmployeeGpsPoints" ToRole="GpsEmployeeCustomer" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeGpsPoints_Employee" FromRole="EmployeeGpsPoint" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeGpsStatus_old">
           <Key>
@@ -2491,6 +2422,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="SmsStatus" Type="Int32" />
           <Property Name="SmsGroup" Type="Int32" />
           <Property Name="SmsCount" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeSmsSend_Employee" FromRole="EmployeeSmsSend" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeToGroup">
           <Key>
@@ -2502,6 +2434,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmployeeGroup" Relationship="Self.FK_EmployeeToGroup_EmployeeGroup" FromRole="EmployeeToGroup" ToRole="EmployeeGroup" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_EmployeeToGroup_Employee" FromRole="EmployeeToGroup" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Factory">
           <Key>
@@ -2518,6 +2451,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <NavigationProperty Name="EmployeeGroups" Relationship="Self.FK_EmployeeGroup_Factory" FromRole="Factory" ToRole="EmployeeGroup" />
           <NavigationProperty Name="FactoryParm" Relationship="Self.FK_FactoryParm_Factory" FromRole="Factory" ToRole="FactoryParm" />
           <NavigationProperty Name="RequsetToFactoryLevel1" Relationship="Self.FK_RequsetToFactoryLevel1_Factory" FromRole="Factory" ToRole="RequsetToFactoryLevel1" />
+          <NavigationProperty Name="Employees" Relationship="ISEEModel.FK_Employee_Factory" FromRole="Factory" ToRole="Employee" />
         </EntityType>
         <EntityType Name="FactoryDairyTemplet">
           <Key>
@@ -2636,6 +2570,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="Insert" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AddressTypeTable1" Relationship="Self.FK_GeocodeToTable_0" FromRole="GeocodeToTable" ToRole="AddressTypeTable" />
           <NavigationProperty Name="Country" Relationship="Self.FK_GeocodeToTable_1" FromRole="GeocodeToTable" ToRole="Country" />
+          <NavigationProperty Name="GeocodeStringResponse" Relationship="ISEEModel.FK_GeocodeToTable_2" FromRole="GeocodeToTable" ToRole="GeocodeStringResponse" />
         </EntityType>
         <EntityType Name="GisSource">
           <Key>
@@ -2658,6 +2593,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="InsertStatus" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_GpsEmployeeCustomer_Customer" FromRole="GpsEmployeeCustomer" ToRole="Customer" />
           <NavigationProperty Name="EmployeeGpsPoint" Relationship="Self.FK_GpsEmployeeCustomer_EmployeeGpsPoints" FromRole="GpsEmployeeCustomer" ToRole="EmployeeGpsPoints" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_GpsEmployeeCustomer_Employee" FromRole="GpsEmployeeCustomer" ToRole="Employee" />
         </EntityType>
         <EntityType Name="GpsInputLog_old">
           <Key>
@@ -2752,6 +2688,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="ApplicationId" Type="Int32" />
           <Property Name="Ip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Ip2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="ISEEModel.FK_MoblieApplicationRequest_Employee" FromRole="MoblieApplicationRequest" ToRole="Employee" />
         </EntityType>
         <EntityType Name="PeriodicJob">
           <Key>
@@ -2785,6 +2722,7 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="SortingOrder" Type="Int32" />
           <Property Name="RecordStatus" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PhoneManufacture" Relationship="Self.FK_PhoneType_PhoneManufacture" FromRole="PhoneType" ToRole="PhoneManufacture" />
+          <NavigationProperty Name="Employees" Relationship="ISEEModel.FK_Employee_PhoneType" FromRole="PhoneType" ToRole="Employee" />
         </EntityType>
         <EntityType Name="ProesssParm">
           <Key>
@@ -3699,6 +3637,54 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
             <End Role="AspNetUserClaim1" EntitySet="AspNetUserClaims" />
           </AssociationSet>
           <EntitySet Name="GeocodeStringResponses" EntityType="ISEEModel.GeocodeStringResponse" />
+          <AssociationSet Name="FK_CustomerEmployeeContact_Employee" Association="ISEEModel.FK_CustomerEmployeeContact_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="CustomerEmployeeContact" EntitySet="CustomerEmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Factory" Association="ISEEModel.FK_Employee_Factory">
+            <End Role="Factory" EntitySet="Factories" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_PhoneType" Association="ISEEModel.FK_Employee_PhoneType">
+            <End Role="PhoneType" EntitySet="PhoneTypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTemplate_Employee" Association="ISEEModel.FK_EmployeeDiaryTemplate_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeDiaryTemplate" EntitySet="EmployeeDiaryTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDiaryTime_Employee" Association="ISEEModel.FK_EmployeeDiaryTime_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeDiaryTime" EntitySet="EmployeeDiaryTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGpsLog_Employee1" Association="ISEEModel.FK_EmployeeGpsLog_Employee1">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeGpsLog" EntitySet="EmployeeGpsLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeGpsPoints_Employee" Association="ISEEModel.FK_EmployeeGpsPoints_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeGpsPoint" EntitySet="EmployeeGpsPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeSmsSend_Employee" Association="ISEEModel.FK_EmployeeSmsSend_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeSmsSend" EntitySet="EmployeeSmsSends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeToGroup_Employee" Association="ISEEModel.FK_EmployeeToGroup_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeToGroup" EntitySet="EmployeeToGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GpsEmployeeCustomer_Employee" Association="ISEEModel.FK_GpsEmployeeCustomer_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="GpsEmployeeCustomer" EntitySet="GpsEmployeeCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MoblieApplicationRequest_Employee" Association="ISEEModel.FK_MoblieApplicationRequest_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="MoblieApplicationRequest" EntitySet="MoblieApplicationRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeocodeToTable_2" Association="ISEEModel.FK_GeocodeToTable_2">
+            <End Role="GeocodeStringResponse" EntitySet="GeocodeStringResponses" />
+            <End Role="GeocodeToTable" EntitySet="GeocodeToTables" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TreeView">
           <Key>
@@ -3750,6 +3736,17 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerLinkDistanceThreshold" Type="Int32" />
           <Property Name="DefultClientParamMode" Type="Int32" />
+          <NavigationProperty Name="CustomerEmployeeContacts" Relationship="ISEEModel.FK_CustomerEmployeeContact_Employee" FromRole="Employee" ToRole="CustomerEmployeeContact" />
+          <NavigationProperty Name="Factory1" Relationship="ISEEModel.FK_Employee_Factory" FromRole="Employee" ToRole="Factory" />
+          <NavigationProperty Name="PhoneType1" Relationship="ISEEModel.FK_Employee_PhoneType" FromRole="Employee" ToRole="PhoneType" />
+          <NavigationProperty Name="EmployeeDiaryTemplates" Relationship="ISEEModel.FK_EmployeeDiaryTemplate_Employee" FromRole="Employee" ToRole="EmployeeDiaryTemplate" />
+          <NavigationProperty Name="EmployeeDiaryTimes" Relationship="ISEEModel.FK_EmployeeDiaryTime_Employee" FromRole="Employee" ToRole="EmployeeDiaryTime" />
+          <NavigationProperty Name="EmployeeGpsLogs" Relationship="ISEEModel.FK_EmployeeGpsLog_Employee1" FromRole="Employee" ToRole="EmployeeGpsLog" />
+          <NavigationProperty Name="EmployeeGpsPoints" Relationship="ISEEModel.FK_EmployeeGpsPoints_Employee" FromRole="Employee" ToRole="EmployeeGpsPoint" />
+          <NavigationProperty Name="EmployeeSmsSends" Relationship="ISEEModel.FK_EmployeeSmsSend_Employee" FromRole="Employee" ToRole="EmployeeSmsSend" />
+          <NavigationProperty Name="EmployeeToGroups" Relationship="ISEEModel.FK_EmployeeToGroup_Employee" FromRole="Employee" ToRole="EmployeeToGroup" />
+          <NavigationProperty Name="GpsEmployeeCustomers" Relationship="ISEEModel.FK_GpsEmployeeCustomer_Employee" FromRole="Employee" ToRole="GpsEmployeeCustomer" />
+          <NavigationProperty Name="MoblieApplicationRequests" Relationship="ISEEModel.FK_MoblieApplicationRequest_Employee" FromRole="Employee" ToRole="MoblieApplicationRequest" />
         </EntityType>
         <Association Name="FK_AspNetUserClaims_AspNetUserClaims">
           <End Type="ISEEModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="1" />
@@ -3769,7 +3766,154 @@ FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
           </Key>
           <Property Name="GeocodeStringResponsePk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GeocodeTagResponse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GeocodeToTables" Relationship="ISEEModel.FK_GeocodeToTable_2" FromRole="GeocodeStringResponse" ToRole="GeocodeToTable" />
         </EntityType>
+        <Association Name="FK_CustomerEmployeeContact_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.CustomerEmployeeContact" Role="CustomerEmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="CustomerEmployeeContact">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Factory">
+          <End Type="ISEEModel.Factory" Role="Factory" Multiplicity="1" />
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="FactoryId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Factory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_PhoneType">
+          <End Type="ISEEModel.PhoneType" Role="PhoneType" Multiplicity="1" />
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="PhoneTypeCode" />
+              <PropertyRef Name="PhoneManufacturId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PhoneType" />
+              <PropertyRef Name="PhoneManufactory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTemplate_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.EmployeeDiaryTemplate" Role="EmployeeDiaryTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTemplate">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeDiaryTime_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.EmployeeDiaryTime" Role="EmployeeDiaryTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeDiaryTime">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGpsLog_Employee1">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.EmployeeGpsLog" Role="EmployeeGpsLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeGpsLog">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeGpsPoints_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ISEEModel.EmployeeGpsPoint" Role="EmployeeGpsPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeGpsPoint">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeSmsSend_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.EmployeeSmsSend" Role="EmployeeSmsSend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeSmsSend">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeToGroup_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.EmployeeToGroup" Role="EmployeeToGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeToGroup">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GpsEmployeeCustomer_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.GpsEmployeeCustomer" Role="GpsEmployeeCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="GpsEmployeeCustomer">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MoblieApplicationRequest_Employee">
+          <End Type="ISEEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ISEEModel.MoblieApplicationRequest" Role="MoblieApplicationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="MoblieApplicationRequest">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeocodeToTable_2">
+          <End Type="ISEEModel.GeocodeStringResponse" Role="GeocodeStringResponse" Multiplicity="1" />
+          <End Type="ISEEModel.GeocodeToTable" Role="GeocodeToTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeocodeStringResponse">
+              <PropertyRef Name="GeocodeStringResponsePk" />
+            </Principal>
+            <Dependent Role="GeocodeToTable">
+              <PropertyRef Name="GeocodeTagResponse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

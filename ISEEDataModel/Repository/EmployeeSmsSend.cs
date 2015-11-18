@@ -21,5 +21,7 @@ namespace ISEEDataModel.Repository
         public Nullable<int> SmsStatus { get; set; }
         public Nullable<int> SmsGroup { get; set; }
         public Nullable<int> SmsCount { get; set; }
+    
+        public virtual Employee Employee { get; set; }
     }
 }

@@ -37,5 +37,6 @@ namespace ISEEDataModel.Repository
         public Nullable<System.DateTime> CreateUtc { get; set; }
     
         public virtual ICollection<GpsEmployeeCustomer> GpsEmployeeCustomers { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

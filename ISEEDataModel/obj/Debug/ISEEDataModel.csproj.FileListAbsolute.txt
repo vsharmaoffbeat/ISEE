@@ -68,3 +68,11 @@ E:\Projects\ISEE\ISEEDataModel\bin\Debug\EntityFramework.dll
 E:\Projects\ISEE\ISEEDataModel\bin\Debug\EntityFramework.xml
 E:\Projects\ISEE\ISEEDataModel\obj\Debug\ISEEDataModel.dll
 E:\Projects\ISEE\ISEEDataModel\obj\Debug\ISEEDataModel.pdb
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\bin\Debug\ISEEDataModel.dll.config
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\bin\Debug\ISEEDataModel.dll
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\bin\Debug\ISEEDataModel.pdb
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\bin\Debug\EntityFramework.dll
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\bin\Debug\EntityFramework.xml
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\obj\Debug\ISEEDataModel.csprojResolveAssemblyReference.cache
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\obj\Debug\ISEEDataModel.dll
+E:\Projects\ISEE_Server_Latest\ISEEDataModel\obj\Debug\ISEEDataModel.pdb

@@ -123,6 +123,18 @@
         <EntityTypeShape EntityType="ISEEModel.Employee" Width="1.5" PointX="10.352410637937677" PointY="2.456848369192727" />
         <AssociationConnector Association="ISEEModel.FK_AspNetUserClaims_AspNetUserClaims" />
         <EntityTypeShape EntityType="ISEEModel.GeocodeStringResponse" Width="1.5" PointX="10.511345983721011" PointY="26.862980706087772" />
+        <AssociationConnector Association="ISEEModel.FK_CustomerEmployeeContact_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_Employee_Factory" />
+        <AssociationConnector Association="ISEEModel.FK_Employee_PhoneType" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTemplate_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeDiaryTime_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsLog_Employee1" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeGpsPoints_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeSmsSend_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_EmployeeToGroup_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_GpsEmployeeCustomer_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_MoblieApplicationRequest_Employee" />
+        <AssociationConnector Association="ISEEModel.FK_GeocodeToTable_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

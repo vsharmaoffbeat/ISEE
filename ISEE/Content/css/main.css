@@ -1660,3 +1660,83 @@ tr.active {
 /**Easy Tree Custom Css Ends */
 
 
+/*========================== customer section start ====================== */
+
+.main_customer_tab
+ {
+    width: 99%!important;
+    margin: auto;
+    height: auto;
+    border-radius: 8px;
+    background: #e6e6e6;
+    padding: 5px!important;
+    color: #000;
+    margin-top:10px;
+}
+
+.customer_input {
+position:relative;
+top:17px;
+}
+
+.customer_input1
+{
+    position:relative;
+top:39px;
+}
+
+.customer_check_box
+{
+ position:relative;
+top:41px;
+}
+
+.customer_edit_btn {
+position:relative;
+top:32px;
+}
+
+
+.left_inner_main_cuttab {
+    margin-top: 5px;
+    border-radius: 5px;
+    color: #000;
+    border: 1px solid #64623a;
+    background: -webkit-linear-gradient(#dfdfdf, #ffffff 10%);
+    background: -o-linear-gradient(#dfdfdf, #ffffff 10%);
+    background: -moz-linear-gradient(#dfdfdf, #ffffff 10%);
+    background: linear-gradient(#dfdfdf, #ffffff 10%);
+
+}
+
+.cutomer_label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    position: relative;
+    top: 5px;
+}
+
+
+
+.main_cust_area {
+    width: 98%!important;
+    height: 60px;;
+    margin:auto;
+    border: 1px solid #6a6a6a;
+    box-shadow:5px 5px 10px #e6e6e6;
+}
+
+
+
+
+
+
+
+
+
+/*========================== customer section end ====================== */
+
+

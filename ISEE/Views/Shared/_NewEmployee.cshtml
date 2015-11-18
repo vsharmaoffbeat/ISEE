@@ -6,8 +6,9 @@
             <button type="button" class="btn btn-default pull-right isee_select_button search_tree" ng-click="clearEmployeeDetails()" >
             <img src="../images/img/edit5.png" />
             </button>
-            <button type="submit" class="btn btn-default pull-right floppy-icon isee_select_button search_tree" ng-click="SaveAllEmployeeData()">
-            <img src="../images/img/save.png" /></button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button search_tree" ng-click="SaveAllEmployeeData()">
+                <img src="../images/img/save.png" />
+            </button>
         </div>
 
         <div class="col-md-12 col-xs-12 employee_info_panel">
@@ -20,7 +21,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="usr">Number</label>
-                                <input type="tel" class="form-control isee_input" id="txtNumber" ng-model="employeeInfo.Number">
+                                <input type="tel" class="form-control isee_input" id="txtNumber" min="0" ng-model="employeeInfo.Number">
                             </div>
 
                             <div class="form-group">

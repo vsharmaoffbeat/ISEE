@@ -3,6 +3,7 @@
 }
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link href="~/Content/css/bootstrap-combined.min.css" rel="stylesheet" />
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -12,67 +13,660 @@
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <link href="~/Content/css/main.css" rel="stylesheet" />
 <script src="~/Scripts/Custom/MapTab.js"></script>
+<script src="~/Scripts/js/bootstrap-paginator.js"></script>
 
-<div class="row">
-    <div class="col-md-3" id="searchdiv" style="background-color:white;height:500px;width:300px;display:block">
-        First Name<input id="firstName" type="text" style="width:190px" />
-        Last Name<input id="lastName" type="text" style="width:190px" />
-        Number<input id="number" type="number" style="width:190px" />
-        Active <input id="Active" type="checkbox" style="width:190px" />
-        Search <button type="button" onclick="SearchEmployee()" id="btnSearch">search</button>
-        <div id="searchedDiv" style="height:100px;overflow:auto;border:1px solid black">
-            <table id="mapSearchGrid" class="tg">
-                <tr>
-                    <td class="tg-z1n2"></td>
-                    <th class="tg-z1n2">First Name</th>
-                    <th class="tg-z1n2">Last Name</th>
-                </tr>
-            </table>
+
+
+<div class="container employee_map_section">
+
+
+    <div class="col-sm-3 col-xs-12 map_left_asidebar">
+        <!--- employee flip div -->
+        <div class="col-sm-12 employee_flip_window side">
+
+            <div class=" col-sm-6">
+                <h4 class="customer_title">Employee</h4>
+            </div>
+
+            <div class="col-sm-6">
+                <button type="button" id="flip-button" class="btn btn-default pull-right">Flip</button>
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 col-sm-6 col-xs-12">
+
+                    <form class="form-horizontal flip_map_container" action="#">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">First Name</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input type="text" name="" id="firstName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Last Name</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control" id="lastName" type="text" name="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Number</label>
+
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control map_emplayee_number" id="number" type="text" name="">
+
+                                <input type="checkbox" class="map_checkbox" value="yes" id="Active" name="" data-color="green">
+                                <label for="usr" class="map_emplayee_active">Active</label>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <button type="button" onclick="SearchEmployee()" id="btnSearch" class="btn btn-default map_search_tree">
+                        <img src="../images/img/search5.png">
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="panel-group" id="accordion">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                Result Search
+                            </a>
+                            <i class="indicator fa fa-chevron-down  pull-left"></i>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="map_qwert">
+
+                                <div class="map_category_tg-wrap">
+                                    <table id="mapSearchGrid" class="map_category_tg">
+                                        <tbody>
+                                            <tr>
+                                                <div class="pagination_window1">
+                                                    <div id="example1"></div>
+                                                </div>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style">
+                                                        <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                    </div>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <span ng-hide="contact.editing">level 7</span>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style"></div>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style"></div>
+                                                </td>
+                                            </tr>
+
+                                            @*<tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>*@
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map_drag_data">
+                    <div class="inner_map_drag_item"></div>
+                </div>
+
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 col-sm-6 col-xs-12">
+
+                    <form class="form-horizontal flip_map_container" action="#">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Date</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
+                                    <input class="form-control isee_input" id="Date" type="text" />
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">From</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                @*<div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">*@
+                                <input class="form-control isee_input" id="FromTime" onfocus="showTime(this)" type="text" />
+                                @*<span class="input-group-addon"><i class="fa fa-th"></i></span>*@
+                                @*</div>*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">To</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                @*<div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">*@
+                                <input class="form-control isee_input" id="EndTime" onfocus="showTime(this)" type="text" />
+                                @*<span class="input-group-addon"><i class="fa fa-th"></i></span>*@
+                                @*</div>*@
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="panel-group" id="accordion1">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo2">
+                                More Options
+                            </a>
+                            <i class="indicator1 fa fa-chevron-down  pull-left"></i>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo2" class="panel-collapse collapse opt">
+                        <div class="panel-body">
+
+                            <div class="col-sm-12">
+                                <input type="checkbox" class="myClass" value="yes" id="showWithCustomer" name="answer" data-color="green">
+                                <label for="usr">Show With Customers</label>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input type="radio" value="" id="RunWayShowRadio" name="">
+                                <label for="usr">Runway Show</label>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input type="radio" value="" id="StopPointRadio" name="">
+                                <label for="usr">Stop point</label>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input type="radio" value="" id="LastPointRadio" name="">
+                                <label for="usr">Last Point</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-sm-6">
+                <h4 class="customer_title"></h4>
+            </div>
+
+            <div class="col-sm-6">
+                <button type="button" onclick="ShowDataOnMap()" class=" btn btn-default pull-right">Show</button>
+            </div>
+
+
         </div>
-        Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="Date" type="text" style="width:210px" required />
-        From Time<input id="FromTime" onfocus="showTime(this)" style="width:210px" required />
-        End Time&nbsp;&nbsp;<input id="EndTime" onfocus="showTime(this)" style="width:210px" required />
-        <br /><br />
-        <input id="showWithCustomer" type="checkbox" />Show With Customer<br />
-        <input class="abc" type="radio" id="RunWayShowRadio" name="sex" value="RunWayShow"> Run Way Show
-        <br>
-        <input class="abc" type="radio" id="StopPointRadio" name="sex" value="StopPoint">  Stop Point
-        <br />
-        <input class="abc" type="radio" id="LastPointRadio" name="sex" value="LastPoint"> Last Point
-        <br /><br /><br /><br />
-        <button type="button" onclick="ShowDataOnMap()">Show</button>
-        <br />
-        <button type="button" onclick="ShowCustomer()">Customer</button>
-    </div>
+        <!--- END-->
+        <!--- Customer flip div -->
+        <div class="col-sm-12 customer_flip_window side">
 
-    <div class="col-md-3" id="searchdivCustomer" style="background-color:white;height:500px;width:300px;display:none">
-        State<input id="StateInputCustomer" onblur="GetCitysByState()" type="text" style="width:190px" /><br />
-        City<input id="CityInputCustomer" onblur="GetStreetByCity()" type="text" style="width:190px" /><br />
-        Street<input id="StreetInputCustomer" onblur="GetBuildingsByCity()" type="text" style="width:190px" /><br />
-        Building No<input id="BuildingInputCustomer" onblur="GetSelectedBuildingLatLong()" type="text" width:190px" /><br />
-        Company N<input id="CompanyNameInput" type="text" style="width:190px" /><br />
-        Customer No<input id="CustomerNoInput" type="number" style="width:190px" /><br />
-        Search <button type="button" onclick="SearchCustomers()" id="btnSearch">search</button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <div style="height:100px;overflow:auto;border:1px solid black">
-            <table id="mapSearchGridCustomer" class="tg">
-                <tr>
-                    <td class="tg-z1n2"></td>
-                    <th class="tg-z1n2">First Name</th>
-                    <th class="tg-z1n2">Last Name</th>
-                </tr>
-            </table>
+            <div class=" col-sm-6">
+                <h4 class="customer_title">Customer</h4>
+            </div>
+
+            <div class="col-sm-6">
+                <button type="button" id="flip-buttons" class="btn btn-default pull-right">Back</button>
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <form class="form-horizontal flip_map_container" action="#">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">State</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input type="text" id="StateInputCustomer" onblur="GetCitysByState()" name="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">City</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control" type="text" id="CityInputCustomer" onblur="GetStreetByCity()" name="pass">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Street</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control" id="StreetInputCustomer" onblur="GetBuildingsByCity()" type="text" name="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Building Number</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control" id="BuildingInputCustomer" onblur="GetSelectedBuildingLatLong()" type="tel" name="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Company Name</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class=" form-control" id="CompanyNameInput" type="text" name="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 form_name_title" control-label">Customer Number</label>
+                            <div class="col-md-10 col-xs-12 form_map_inputbox">
+                                <input class="form-control" id="CustomerNoInput" type="text" name="pass">
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <button type="button" onclick="SearchCustomers()" class="btn btn-default map_search_tree">
+                        <img src="../images/img/search5.png">
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="panel-group" id="accordion2">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo3">
+                                Search Customer
+                            </a>
+                            <i class="indicator2 fa fa-chevron-down  pull-left"></i>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="map_qwert">
+
+                                <div class="map_category_tg-wrap">
+                                    <table class="map_category_tg">
+                                        <tbody>
+                                            <tr>
+                                                <div class="pagination_window">
+                                                    <div id="example"></div>
+                                                </div>
+                                            </tr>
+                                            <tr>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style">
+                                                        <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                    </div>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <span ng-hide="contact.editing">level 7</span>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style"></div>
+                                                </td>
+
+                                                <td class="employee_map_grid">
+                                                    <div class="form-group map_grid_style"></div>
+                                                </td>
+                                            </tr>
+
+                                            @*<tr>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style">
+                                                            <input type="checkbox" class="myClass  grid_check" value="yes" id="answer" name="answer" data-color="green" ng-true-value="0" ng-false-value="-1" ng-model="contact.StatusCode">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <span ng-hide="contact.editing">Text</span>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+
+                                                    <td class="employee_map_grid">
+                                                        <div class="form-group map_grid_style"></div>
+                                                    </td>
+                                                </tr>*@
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map_drag_data">
+                    <div class="inner_map_drag_item"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-6"></div>
+
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-default pull-right">Show</button>
+            </div>
         </div>
-        <button type="button" onclick="ShowCustomerDataOnMap()">Show</button>
-        <br />
-        <button type="button" onclick="ShowEmployee()">Employee</button>
+        <!--- END -->
+
+    </div>
+    <div class="col-sm-9 col-md-9 col-xs-12 right_map_window">
+        <div class="col-md-9" id="MapMainDiv" style="height:580px;width:100%;z-index:999">
+        </div>
     </div>
 
-    <div class="col-md-9" id="MapMainDiv" style="min-width:350px;height:500px;float:left">
-    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    //accordion first
+    $('#accordion').on('hidden.bs.collapse', function () {
+
+    })
+
+    $('#accordion .accordion-toggle').click(function (e) {
+        var chevState = $(e.target).siblings("i.indicator").toggleClass('fa-chevron-down fa-chevron-up');
+        $("i.indicator").not(chevState).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    });
+    // end
+
+
+    //accordion second
+    $('#accordion1').on('hidden.bs.collapse', function () {
+
+    })
+
+    $('#accordion1 .accordion-toggle').click(function (e) {
+        var chevState = $(e.target).siblings("i.indicator1").toggleClass('fa-chevron-down fa-chevron-up');
+        $("i.indicator1").not(chevState).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    });
+
+    // end
+
+
+    //accordion third
+    $('#accordion2').on('hidden.bs.collapse', function () {
+
+    })
+
+    $('#accordion2 .accordion-toggle').click(function (e) {
+        var chevState = $(e.target).siblings("i.indicator2").toggleClass('fa-chevron-down fa-chevron-up');
+        $("i.indicator2").not(chevState).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    });
+
+    //End
+
+
+
+
+    //Flip function
+    $('#flip-button').on('click', function () {
+        $('.side').toggleClass('rotated');
+    });
+
+
+    $('#flip-buttons').on('click', function () {
+        $('.side').toggleClass('rotated');
+    });
+
+
+</script>
+
+
+
+
+
+<script>
+    //Pagination
+    var options = {
+        currentPage: 3,
+        totalPages: 100,
+        onPageClicked: function (e, originalEvent, type, page) {
+            $('#alert-content').text("Page item clicked, type: " + type + " page: " + page);
+        }
+    }
+
+    $('#example').bootstrapPaginator(options);
+    $('#example1').bootstrapPaginator(options);
+</script>
+
+
+<script src="~/Scripts/Custom/Employee.js"></script>
+
+
+
+@*<div class="row">
+        <div class="col-md-3" id="searchdiv" style="background-color:white;height:500px;width:300px;display:block">
+            First Name<input id="firstName" type="text" style="width:190px" />
+            Last Name<input id="lastName" type="text" style="width:190px" />
+            Number<input id="number" type="number" style="width:190px" />
+            Active <input id="Active" type="checkbox" style="width:190px" />
+            Search <button type="button" onclick="SearchEmployee()" id="btnSearch">search</button>
+            <div id="searchedDiv" style="height:100px;overflow:auto;border:1px solid black">
+                <table id="mapSearchGrid" class="tg">
+                    <tr>
+                        <td class="tg-z1n2"></td>
+                        <th class="tg-z1n2">First Name</th>
+                        <th class="tg-z1n2">Last Name</th>
+                    </tr>
+                </table>
+            </div>
+            Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="Date" type="text" style="width:210px" required />
+            From Time<input id="FromTime" onfocus="showTime(this)" style="width:210px" required />
+            End Time&nbsp;&nbsp;<input id="EndTime" onfocus="showTime(this)" style="width:210px" required />
+            <br /><br />
+            <input id="showWithCustomer" type="checkbox" />Show With Customer<br />
+            <input class="abc" type="radio" id="RunWayShowRadio" name="sex" value="RunWayShow"> Run Way Show
+            <br>
+            <input class="abc" type="radio" id="StopPointRadio" name="sex" value="StopPoint">  Stop Point
+            <br />
+            <input class="abc" type="radio" id="LastPointRadio" name="sex" value="LastPoint"> Last Point
+            <br /><br /><br /><br />
+            <button type="button" onclick="ShowDataOnMap()">Show</button>
+            <br />
+            <button type="button" onclick="ShowCustomer()">Customer</button>
+        </div>
+
+        <div class="col-md-3" id="searchdivCustomer" style="background-color:white;height:500px;width:300px;display:none">
+            State<input id="StateInputCustomer" onblur="GetCitysByState()" type="text" style="width:190px" /><br />
+            City<input id="CityInputCustomer" onblur="GetStreetByCity()" type="text" style="width:190px" /><br />
+            Street<input id="StreetInputCustomer" onblur="GetBuildingsByCity()" type="text" style="width:190px" /><br />
+            Building No<input id="BuildingInputCustomer" onblur="GetSelectedBuildingLatLong()" type="text" width:190px" /><br />
+            Company N<input id="CompanyNameInput" type="text" style="width:190px" /><br />
+            Customer No<input id="CustomerNoInput" type="number" style="width:190px" /><br />
+            Search <button type="button" onclick="SearchCustomers()" id="btnSearch">search</button>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div style="height:100px;overflow:auto;border:1px solid black">
+                <table id="mapSearchGridCustomer" class="tg">
+                    <tr>
+                        <td class="tg-z1n2"></td>
+                        <th class="tg-z1n2">First Name</th>
+                        <th class="tg-z1n2">Last Name</th>
+                    </tr>
+                </table>
+            </div>
+            <button type="button" onclick="ShowCustomerDataOnMap()">Show</button>
+            <br />
+            <button type="button" onclick="ShowEmployee()">Employee</button>
+        </div>
+
+        <div class="col-md-9" id="MapMainDiv" style="min-width:350px;height:500px;float:left">
+        </div>
+    </div>*@
 
 

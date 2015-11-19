@@ -23,7 +23,7 @@ function LoadMapByFactoryID() {
             google.maps.visualRefresh = true;
             var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
             var mapOptions = {
-                zoom: 14,
+                zoom: 6,
                 center: Liverpool,
                 mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
             };
@@ -352,9 +352,7 @@ function SearchCustomers() {
             }
         }
     })
-
 };
-
 
 function ShowCustomerDataOnMap() {
     var CustomerID = $('#mapSearchGridCustomer .active').attr('id');

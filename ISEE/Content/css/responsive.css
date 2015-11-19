@@ -1,88 +1,82 @@
 ﻿
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
 
-.nav navbar-nav
-{
-background:#f8f8f8!important;
-margin: 0px!important;
-padding: 0px!important;
-z-index:999;
-position:relative;
-}
+    .nav navbar-nav {
+        background: #f8f8f8 !important;
+        margin: 0px !important;
+        padding: 0px !important;
+        z-index: 999;
+        position: relative;
+    }
 
 
     .round_nav {
-    display:none!important;
-    } 
-    
+        display: none !important;
+    }
+
     .isee_logo {
-    position: relative;
-    float: right;
-    top: 0px;
-    z-index:-10;
-position:relative;
-}
+        position: relative;
+        float: right;
+        top: 0px;
+        z-index: -10;
+        position: relative;
+    }
 
     .right_menu_isee {
-    position:relative;
-    z-index:-20;
+        position: relative;
+        z-index: -20;
     }
-    
-    
-    .navbar-nav {
-       margin-left: 0px;
-    text-align: left;
-    margin-top: 104px;
-}
 
-    
-    
+
+    .navbar-nav {
+        margin-left: 0px;
+        text-align: left;
+        margin-top: 104px;
+    }
+
+
+
     /* login page start*/
     .cust_phone {
-    width: 100%!important;
-}
-   
+        width: 100% !important;
+    }
+
     .bottom_save_area {
         margin-top: 20px;
-        display: inherit!important;
+        display: inherit !important;
     }
 
     .language_box {
-    width:85%;
-    float:right;
-    padding:0px;
+        width: 85%;
+        float: right;
+        padding: 0px;
     }
     /* login page end*/
 
     .login_cover_background {
-    width:100%!important;
-    display:none!important;
+        width: 100% !important;
+        display: none !important;
     }
 
 
     .left_content_area {
-     border-right:none!important; 
-     height:0px!important; 
-    padding: 0px!important;
-    margin-bottom: 10px!important;
-}
+        border-right: none !important;
+        height: 0px !important;
+        padding: 0px !important;
+        margin-bottom: 10px !important;
+    }
 
-.msg_date_area {
-    width: 100%!important;
-    padding:0px!important;
-}
-
-
+    .msg_date_area {
+        width: 100% !important;
+        padding: 0px !important;
+    }
 }
 
 @media only screen and (min-device-width:250px) and (max-device-width: 1200px) {
 
- .login_cover_background{
-    display:none!important;
+    .login_cover_background {
+        display: none !important;
     }
-
-
-
 }
 
 
@@ -90,22 +84,22 @@ position:relative;
 @media only screen and (min-device-width:768px) and (max-device-width: 1024px) {
 
     .login_cover_background {
-        display: none!important;
+        display: none !important;
     }
 
-     .left_content_area {
-     border-right:none!important; 
-     height:0px!important; 
-    padding: 0px!important;
-    margin-bottom: 10px!important;
-}
+    .left_content_area {
+        border-right: none !important;
+        height: 0px !important;
+        padding: 0px !important;
+        margin-bottom: 10px !important;
+    }
 }
 
 
 @media (min-width: 768px) {
-   
-     .left_main-asidebar {
-        width: 22%!important;
+
+    .left_main-asidebar {
+        width: 22% !important;
     }
 
     .right_main_employee {
@@ -114,33 +108,33 @@ position:relative;
         padding: 0px;
     }
 
-.category_active{
-    width: 12.666667%!important;
-}
+    .category_active {
+        width: 12.666667% !important;
+    }
 
-.category_active_save{
-    width: 11.666667%!important;
-}
+    .category_active_save {
+        width: 11.666667% !important;
+    }
 
     .category_active_blank {
-        width: 49.666667%!important;
+        width: 49.666667% !important;
     }
 }
 
 
-    .left_inner_main_emptab {
-        width: 100%;
-        margin:auto;
-        margin-left:0px;
-        margin-right:0px;
-        margin-top:10px;
-    }
+.left_inner_main_emptab {
+    width: 100%;
+    margin: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 10px;
+}
 
 }
 
 @media (min-width: 768px) {
     .left_inner_main_emptab {
-        width: 48%!important;
+        width: 48% !important;
         margin-top: 10px;
     }
 }
@@ -177,25 +171,86 @@ position:relative;
     }
 
     .employee_inner_demo {
-    width: 100% !important;
-}
+        width: 100% !important;
+    }
 
     .left_inner_main_emptab {
-    width: 48%!important;
-    margin: 10px!important;
+        width: 48% !important;
+        margin: 10px !important;
     }
 
     .cust_phone2 {
-width: 153%!important;
-margin-left: -92px!important;
+        width: 153% !important;
+        margin-left: -92px !important;
+    }
 }
 
+.left_inner_main_cuttab {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: 10px;
+}
+/* category 17 nov changes */
 
-} .left_inner_main_cuttab
- {
 
-     width:100%;
-     margin:auto;
-     position:relative;
-     top:10px;
- }  /* category 17 nov changes */ 
+@media (min-width: 992px) {
+    .form_name_title {
+        width: 40.666667%;
+        padding-left: 15px;
+        font-size: 12px;
+    }
+
+    .flip_map_container {
+        margin: 0 0 20px !important;
+        width: 26% !important;
+    }
+
+    .form_map_inputbox {
+        width: 73.333333% !important;
+        margin-left: -47px !important;
+    }
+
+    .map_emplayee_number {
+        width: 100% !important;
+    }
+
+    .map_checkbox {
+        width: 48% !important;
+        position: relative;
+        top: 5px;
+    }
+
+    .map_emplayee_active {
+        width: 48% !important;
+        position: relative !important;
+        top: 8px !important;
+        right: 34px;
+    }
+
+    #example {
+        width: 105% !important;
+        font-size: 10px !important;
+        padding: 0px !important;
+    }
+
+    #example1 {
+        width: 105% !important;
+        font-size: 10px !important;
+        padding: 0px !important;
+    }
+
+    .pagination_window {
+        border: 1px solid #808080;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .pagination_window1 {
+        border: 1px solid #808080;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+}

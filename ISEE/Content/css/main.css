@@ -2,9 +2,8 @@ html {
     height: 100%;
 }
 
-.btn
-{
-    color:#000;
+.btn {
+    color: #000;
 }
 
 body {
@@ -113,7 +112,7 @@ label {
     height: 25px;
     padding: 1px;
     font-size: 12px !important;
-    color:#000;
+    color: #000;
     -moz-appearance: none;
 }
 
@@ -502,11 +501,11 @@ font-weight:bold;
 }
 
 .first_tree_rightbar {
-   border-radius: 5px;
+    border-radius: 5px;
     height: auto;
     padding-top: 0px;
     color: #6a6a6a;
-    background: #e6e6e6
+    background: #e6e6e6;
 }
 
 .tree_save_button {
@@ -582,7 +581,7 @@ font-weight:bold;
 }
 
 .tree_scroll_panel {
-    height:auto;
+    height: auto;
     border-radius: 0px 5px 5px;
 }
 
@@ -591,7 +590,7 @@ font-weight:bold;
 }
 
 .tree_demo_company {
-   margin-top: 5px;
+    margin-top: 5px;
     padding: 4px;
     padding-top: 0px;
     border-radius: 5px;
@@ -609,7 +608,7 @@ font-weight:bold;
     margin-top: -5px;
     overflow: auto;
     margin-bottom: 10px;
-    padding:0px;
+    padding: 0px;
 }
 
 .tree_grid_panel {
@@ -1291,7 +1290,7 @@ font-weight:bold;
 
 .btn {
     font-size: 12px !important;
-    border:1px solid #a5a5a5;
+    border: 1px solid #a5a5a5;
 }
 
 
@@ -1625,7 +1624,7 @@ font-weight:bold;
 
 .input-group-addon:last-child {
     border-left: 0;
-    height: 25px;  
+    height: 25px;
     padding: 4px;
 }
 /**Customer Calendar Control Icon Publish*/
@@ -1649,8 +1648,8 @@ span.easytree-drag-source {
 }
 
 .easytree-focused span.easytree-active .easytree-title, .easytree-title:hover {
-    color:black;s
-    border-color: transparent !important;
+    color: black;
+    s border-color: transparent !important;
     background: transparent !important;
 }
 
@@ -1662,38 +1661,35 @@ tr.active {
 
 /*========================== customer section start ====================== */
 
-.main_customer_tab
- {
-    width: 99%!important;
+.main_customer_tab {
+    width: 99% !important;
     margin: auto;
     height: auto;
     border-radius: 8px;
     background: #e6e6e6;
-    padding: 5px!important;
+    padding: 5px !important;
     color: #000;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .customer_input {
-position:relative;
-top:17px;
+    position: relative;
+    top: 17px;
 }
 
-.customer_input1
-{
-    position:relative;
-top:39px;
+.customer_input1 {
+    position: relative;
+    top: 39px;
 }
 
-.customer_check_box
-{
- position:relative;
-top:41px;
+.customer_check_box {
+    position: relative;
+    top: 41px;
 }
 
 .customer_edit_btn {
-position:relative;
-top:32px;
+    position: relative;
+    top: 32px;
 }
 
 
@@ -1706,7 +1702,6 @@ top:32px;
     background: -o-linear-gradient(#dfdfdf, #ffffff 10%);
     background: -moz-linear-gradient(#dfdfdf, #ffffff 10%);
     background: linear-gradient(#dfdfdf, #ffffff 10%);
-
 }
 
 .cutomer_label {
@@ -1722,11 +1717,12 @@ top:32px;
 
 
 .main_cust_area {
-    width: 98%!important;
-    height: 60px;;
-    margin:auto;
+    width: 98% !important;
+    height: 60px;
+    ;
+    margin: auto;
     border: 1px solid #6a6a6a;
-    box-shadow:5px 5px 10px #e6e6e6;
+    box-shadow: 5px 5px 10px #e6e6e6;
 }
 
 
@@ -1740,3 +1736,227 @@ top:32px;
 /*========================== customer section end ====================== */
 
 
+/*========================== customer section end ====================== */
+
+/* map section start */
+
+.employee_map_section {
+    width: 100% !important;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+}
+
+.map_left_asidebar {
+    z-index: 10;
+    padding: 10px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    background-clip: padding-box;
+    opacity: 0.97;
+    filter: alpha(opacity=97);
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: -5px;
+    height: auto;
+}
+
+.employee_flip_window {
+    padding: 0px;
+    padding-top: 10px;
+    border-radius: 8px;
+    height: 580px !important;
+    background: #e2e2e2;
+    position: relative;
+    top: 4px;
+    width: 94%;
+}
+
+.cutomer_map_background {
+    height: 580px !important;
+}
+
+.side {
+    position: absolute;
+    -webkit-transition: -webkit-transform 2s;
+    -moz-transition: -moz-transform 2s;
+    -o-transition: -o-transform 2s;
+    transition: transform 2s;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+    .side.rotated {
+        -webkit-transform: rotateY(360deg);
+        -moz-transform: rotateY(360deg);
+        -ms-transform: rotateY(360deg);
+        -o-transform: rotateY(360deg);
+        transform: rotateY(360deg);
+    }
+
+.customer_flip_window {
+    padding: 0px;
+    padding-top: 10px;
+    border-radius: 8px;
+    height: 580px !important;
+    background: #e2e2e2;
+    position: relative;
+    top: -5px;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.map_left_window {
+    height: auto;
+}
+
+.right_map_window {
+    color: #000;
+    font-size: 12px;
+    font-style: normal;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    background: #b9b9b9;
+    background: -webkit-linear-gradient(#b9b9b9, #e6e6e6 40%);
+    background: -o-linear-gradient(#b9b9b9, #e6e6e6 40%);
+    background: -moz-linear-gradient(#b9b9b9, #e6e6e6 40%);
+    background: linear-gradient(#b9b9b9, #e6e6e6 40%);
+    border-radius: 5px;
+    height: auto;
+}
+
+.map_search_tree {
+    padding: 0px;
+    height: 33px;
+    width: 35px;
+    border: none;
+    background: none;
+    position: relative;
+    top: -25px;
+}
+
+    .map_search_tree:hover {
+        background: #a7a7a7;
+        position: relative;
+        top: -25px;
+    }
+
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #dddddd;
+    border-color: #dddddd;
+    font-size: 10px;
+}
+
+.panel-title > .small, .panel-title > .small > a, .panel-title > a, .panel-title > small, .panel-title > small > a {
+    font-size: 12px;
+}
+
+.map_drag_data {
+    height: 30px;
+    background: #8b8a8a;
+    width: 95%;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.inner_map_drag_item {
+    height: 24px;
+    background: #f7f5e0;
+    width: 94%;
+    margin: auto;
+    border-radius: 4px;
+    position: relative;
+    border: 1px solid #a79c00;
+    top: 3px;
+}
+
+#accordion1 .collapsing, #accordion1 .collapse.in {
+    background-color: #dddddd;
+}
+
+#accordion .collapsing, #accordion .collapse.in {
+    background-color: #dddddd;
+}
+
+.employee_map_grid {
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 23px;
+    width: 20px;
+}
+
+.map_grid_style {
+    margin-bottom: 4px !important;
+    padding: 0px !important;
+    padding-bottom: -4px;
+    margin-top: -11px;
+}
+
+.map_category_tg-wrap {
+    width: 100%;
+    background: #fff;
+    padding: 0px;
+    margin: 0px;
+    height: 200px;
+    border: 1px solid rgba(102,102,102,1);
+    overflow: auto;
+}
+
+.map_category_tg {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.grid_check {
+    position: relative;
+    top: 10px;
+    line-height: normal;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 30px;
+    margin: 0px;
+    border-radius: 4px;
+    background: -webkit-linear-gradient(#b9b9b9, #fefefe 50%);
+    background: -o-linear-gradient(#b9b9b9, #fefefe 50%);
+    background: -moz-linear-gradient(#b9b9b9, #fefefe 50%);
+    background: linear-gradient(#b9b9b9, #fefefe 50%);
+}
+
+    .pagination ul {
+        display: inline-block;
+        margin-left: 0;
+        margin-bottom: 0;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        padding: 0px !important;
+        width: 100%;
+        display: inline-flex;
+    }
+
+    .pagination a {
+        background: -webkit-linear-gradient(#b9b9b9, #fefefe 50%);
+        background: -o-linear-gradient(#b9b9b9, #fefefe 50%);
+        background: -moz-linear-gradient(#b9b9b9, #fefefe 50%);
+        background: linear-gradient(#b9b9b9, #fefefe 50%);
+    }
+
+    .pagination ul li a:hover {
+        background: #feda7b;
+    }
+
+/* map section end */

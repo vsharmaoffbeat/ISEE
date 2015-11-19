@@ -55,7 +55,7 @@ namespace ISEE.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 bool _Active = true;
                 var empData = dataContext.Employees.Where(x => x.Factory == factoryId
                                                          && x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
@@ -70,23 +70,24 @@ namespace ISEE.Controllers
             Common.Common.GetInteger(state);
             using (ISEEEntities context = new ISEEEntities())
             {
-                //int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
-                int factoryId = 2;
+                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 bool _Active = true;
 
-                var custData = dataContext.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").ToList().Where(x => x.Factory == factoryId &&
-                     (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode == Common.Common.GetInteger(state) : x.Building.StateCode == null) &&
-                                                                                                            x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state)) &&
-                                                                                                            x.Building.CityCode == (Common.Common.GetInteger(city) == 0 ? x.Building.CityCode : Common.Common.GetInteger(city)) &&
-                                                                                                            x.Building.StreetCode == (Common.Common.GetInteger(street) == 0 ? x.Building.StreetCode : Common.Common.GetInteger(street)) &&
-                                                                                                            x.Building.Number.Contains(buldingNumber == null ? x.Building.Number : buldingNumber) &&
-                                                                                                            x.CustomerNumber.CompareTo(customerNumber == null ? x.CustomerNumber : customerNumber) == 0 &&
-                                                                                                            x.FirstName.Contains(contactName == null ? x.FirstName : contactName) &&
-                    // (x.LastName == null || x.LastName.Contains(_LN == null ? x.LastName : _LN)) &&
-                    // (x.AreaPhone1 == null || x.AreaPhone1.Contains(_area == null ? x.AreaPhone1 : _area)) &&
-                                                                                                            (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-
-                                                                                                            (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).Select(c => new { c.FirstName, c.CustomerId, c.LastName, c.AreaPhone1, c.Phone1 }).ToList();
+                var custData = dataContext.Customers.Include("Building")
+                    .Include("Building.Street")
+                    .Include("Building.Street.City")
+                    .Include("Building.Street.City.State")
+                    .ToList().Where(x => x.Factory == factoryId
+                       && (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode == Common.Common.GetInteger(state) : true)
+                   && x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state))
+                    && x.Building.CityCode == (Common.Common.GetInteger(city) == 0 ? x.Building.CityCode : Common.Common.GetInteger(city))
+                    && x.Building.StreetCode == (Common.Common.GetInteger(street) == 0 ? x.Building.StreetCode : Common.Common.GetInteger(street))
+                       && x.Building.Number.Contains(string.IsNullOrEmpty(buldingNumber) ? x.Building.Number : buldingNumber)
+                      && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(customerNumber) ? x.CustomerNumber : customerNumber) == 0
+                       && x.FirstName.Contains(string.IsNullOrEmpty(contactName) ? x.FirstName : contactName)
+                       && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(phone1) ? x.Phone1 : phone1))
+                      && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))
+                  ).Select(c => new { FirstName = c.FirstName ?? string.Empty, id = c.CustomerId, LastName = c.LastName ?? string.Empty, AreaPhone1 = c.AreaPhone1 ?? string.Empty, Phone1 = c.Phone1 ?? string.Empty }).ToList();
                 return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -213,6 +214,7 @@ namespace ISEE.Controllers
 
         public ActionResult SaveCustomerForm(CustomerDataModel objCustomerData)
         {
+            string errorMessage = string.Empty;
             try
             {
                 int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
@@ -247,8 +249,9 @@ namespace ISEE.Controllers
             }
             catch (Exception ex)
             {
-                return new JsonResult { Data = new { Message = "Error", ErrorDetails = ex.InnerException }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                errorMessage = ex.InnerException.Message;
             }
+            return new JsonResult { Data = new { Message = "Error", ErrorDetails = errorMessage }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
 
@@ -258,8 +261,6 @@ namespace ISEE.Controllers
 
         public JsonResult getAll(string id)
         {
-
-            SessionManegment.SessionManagement.FactoryID = 1;
             using (ISEEEntities dataContext = new ISEEEntities())
             {
                 if (string.IsNullOrEmpty(id))
@@ -379,8 +380,8 @@ namespace ISEE.Controllers
 
         public ActionResult _AdminTree()
         {
-            SessionManegment.SessionManagement.FactoryID = 1;
-            SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
+            //SessionManegment.SessionManagement.FactoryID = 1;
+            //SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
             List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
             var serializer = new JavaScriptSerializer();

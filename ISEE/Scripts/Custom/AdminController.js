@@ -30,10 +30,12 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     //Admin Tree Tab Methods
     $scope.setVariable = function (gridOption) {
-        if ($scope.choice == "2") {
-            $scope.SelectedAdminTreeCustomer = gridOption.id;
-        } else {
-            $scope.SelectedAdminTreeEmployee = gridOption.id;
+        if (gridOption != undefined) {
+            if ($scope.choice == "2") {
+                $scope.SelectedAdminTreeCustomer = gridOption.id;
+            } else {
+                $scope.SelectedAdminTreeEmployee = gridOption.id;
+            }
         }
     }
 
@@ -364,7 +366,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     // Admin Employee Tab Methods
-    $scope.clearEmployeeDetailsss = function myfunction() {
+    $scope.clearEmployeeDetails = function myfunction() {
         $scope.NewAddedEmployee = null;
         $scope.employeeInfo = {
             Number: '',
@@ -416,7 +418,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                             ContactService.GetEmployeeByEmployeeID($scope.EmployeeID).then(function (responce) {
                                 $scope.NewAddedEmployee = responce.data;
                             })
-                            $scope.employeeInfo = null;
+
                             $scope.ShowMessageBox('Message', ' Employee Saved')
                         }
                     })

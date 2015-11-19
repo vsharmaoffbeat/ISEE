@@ -203,21 +203,21 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" ng-attr-class="{{gridOption.id == SelectedAdminTreeCustomer && 'easytree-draggable active' || 'easytree-draggable' }}" data-type="customer" data-oid=' {{gridoption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' ng-mousedown="setVariable(gridOption)">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" ng-attr-class="{{gridCustOption.id == SelectedAdminTreeCustomer && 'easytree-draggable' || 'easytree-draggable' }}" data-type="customer" data-oid=' {{gridCustOption.id}}' data-name='{{gridCustOption.LastName}} {{gridCustOption.FirstName}}' ng-mousedown="setVariable(gridCustOption)">
 
 
                             <td class="tg-dx8v_category">
                                 <i></i>
-                                <span style="display:none;" id='gridOption.id'>{{gridCustOptions.id}}</span>
+                                <span style="display:none;" id='gridCustOption.id'>{{gridCustOption.id}}</span>
                             </td>
 
 
                             <td class="tg-dx8v_category" style="text-align:left !important;">
 
-                                {{gridCustOptions.LastName}}&nbsp;{{gridCustOptions.FirstName}}
+                                {{gridCustOption.LastName}}&nbsp;{{gridCustOption.FirstName}}
                             </td>
                             <td class="tg-dx8v_category" style="text-align:left !important;">
-                                {{gridCustOptions.AreaPhone1}}-{{gridOption.Phone1}}
+                                {{gridCustOption.AreaPhone1}}-{{gridCustOption.Phone1}}
                             </td>
 
 
@@ -268,6 +268,7 @@
                     targetId = target.attr("id")
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
+                    $('#addNewNode').val('')
                 }
             }
 

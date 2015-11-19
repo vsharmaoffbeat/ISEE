@@ -117,7 +117,7 @@ namespace ISEEREGION.Controllers
                                                                      Mail = x.Mail == null ? "" : x.Mail,
                                                                      FirstName = x.FirstName == null ? "" : x.FirstName,
                                                                      LastName = x.LastName == null ? "" : x.LastName,
-                                                                     StartDay = x.StartDay.Value.ToString("dd/MM/yyyy"),
+                                                                     StartDay = x.StartDay == null ? "" : x.StartDay.Value.ToString("dd/MM/yyyy"),
                                                                      MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
                                                                      MainPhone = x.MainPhone == null ? "" : x.MainPhone,
                                                                      SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
@@ -168,31 +168,33 @@ namespace ISEEREGION.Controllers
             }
         }
 
-        public bool SendMessage(int employeeId, string msg, string phoneNumber)
+        public string SendMessage(int employeeId, string msg, string phoneNumber)
         {
-            //string result = SendSms(msg, phoneNumber, employeeId);
+            string result = string.Empty;
 
             switch (SessionManegment.SessionManagement.SmsProvider)
             {
-                //case 1:
-                //    SenderSMS(employeeId, msg, phoneNumber);
-                //    break;
-                //case 2:
-                //    inv = context.SenderSMSMexico(GuidID, strMsg, strPhone, currGmt);
-                //    break;
-                //case 3:
-                //    strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
-                //    inv = context.SendSMSClickatell(GuidID, strMsg, strPhone, PhoneAreaCode, currGmt);
-                //    break;
+                case 1:
+                    result = SenderSMS(employeeId, msg, phoneNumber);
+                    break;
+                case 2:
+                    result = SenderSMSMexico(employeeId, msg, phoneNumber, SessionManegment.SessionManagement.CurrentGmt);
+                    break;
+                case 3:
+                    //  strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
+                    result = SendSMSClickatell(employeeId, msg, phoneNumber, SessionManegment.SessionManagement.PhoneAreaCode, SessionManegment.SessionManagement.CurrentGmt);
+                    break;
 
             }
 
 
-            return true;
+            return "true";
 
         }
 
-        public string SenderSMS(int EmpID, string _strMsg, string _phone )
+
+
+        public string SenderSMS(int EmpID, string _strMsg, string _phone)
         {
             string UserName = "sparta";
             string Password = "5632455";
@@ -203,7 +205,7 @@ namespace ISEEREGION.Controllers
             //set phone numbers "0545500378;0545500379;"
             string phonesList = _phone;
 
-           
+
             //create XML
             StringBuilder cbXml = new StringBuilder();
             cbXml.Append("<Inforu>");
@@ -252,42 +254,98 @@ namespace ISEEREGION.Controllers
             return result;
         }
 
-      
-        //[Invoke]
-        //public string SenderSMSMexico(Guid EmpGuidID, string _strMsg, string _phone, double CurrentGmt)
-        //{
 
-        //    var empID = this.ObjectContext.Employee.FirstOrDefault(x => x.EmployeeKey == EmpGuidID).EmployeeId;
-        //    // string strXML1 = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=0506447976&Text=Test";
-        //    string strXML = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=" + _phone + "&Text=" + _strMsg;
+        public string SenderSMSMexico(int empID, string _strMsg, string _phone, double CurrentGmt)
+        {
 
-        //    string result = PostDataToURL("http://ign-sms.com/Scripts/mgrqispi.dll?", strXML);
+            // string strXML1 = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=0506447976&Text=Test";
+            string strXML = "Appname=Port2SMS&prgname=HTTP_SimpleSMS1&AccountID=1037&UserID=10130&UserPass=1037&Phone=" + _phone + "&Text=" + _strMsg;
 
-        //    ////one time get result empty(check )!!!!!!
-        //    int Status;
-        //    if (result.Contains("OK"))
-        //        Status = 1;
-        //    else
-        //        Status = -1;
+            string result = PostDataToURL("http://ign-sms.com/Scripts/mgrqispi.dll?", strXML);
 
-        //    //add and save row to DB
-        //    EmployeeSmsSend emp_sms = new EmployeeSmsSend();
-        //    emp_sms.EmployeeId = empID;
-        //    emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
-        //    emp_sms.SmsMsg = _strMsg;
-        //    emp_sms.SmsCount = 1;
-        //    emp_sms.SmsStatus = Convert.ToInt32(Status);
+            ////one time get result empty(check )!!!!!!
+            int Status;
+            if (result.Contains("OK"))
+                Status = 1;
+            else
+                Status = -1;
 
-        //    this.ObjectContext.EmployeeSmsSend.AddObject(emp_sms);
-        //    this.ObjectContext.SaveChanges();
-
-        //    return result;
-        //}
-
+            //add and save row to DB
+            EmployeeSmsSend emp_sms = new EmployeeSmsSend();
+            emp_sms.EmployeeId = empID;
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
+            emp_sms.SmsMsg = _strMsg;
+            emp_sms.SmsCount = 1;
+            emp_sms.SmsStatus = Convert.ToInt32(Status);
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                context.EmployeeSmsSends.Add(emp_sms);
+                context.SaveChanges();
+            }
+            return result;
+        }
 
 
 
 
+        public string SendSMSClickatell(int empID, string _strMsg, string _phone, string _PhoneAreaCode, double CurrentGmt)
+        {
+            string result = "1";
+
+            if (_strMsg.Length < 70) // is limited to 70 characters per message(Clickatell) for unicode
+            {
+                string phone = _PhoneAreaCode + _phone;  //972545500378
+                WebClient client = new WebClient();
+                // Add a user agent header in case the requested URI contains a query.
+                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                client.QueryString.Add("user", "Dshabi");
+                client.QueryString.Add("password", "shabi101827");
+                client.QueryString.Add("api_id", "3349639");
+                client.QueryString.Add("to", phone);
+                client.QueryString.Add("from", "regionSEE");
+                client.QueryString.Add("text", ToUnicode(_strMsg));
+                client.QueryString.Add("unicode", "1");
+                string baseurl = "http://api.clickatell.com/http/sendmsg";
+                Stream data = client.OpenRead(baseurl);
+                StreamReader reader = new StreamReader(data);
+                string s = reader.ReadToEnd();
+                data.Close();
+                reader.Close();
+
+
+            }
+            else
+                result = "-1";
+
+
+            //add and save row to DB
+            EmployeeSmsSend emp_sms = new EmployeeSmsSend();
+            emp_sms.EmployeeId = empID;
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(CurrentGmt);
+            emp_sms.SmsMsg = _strMsg;
+            emp_sms.SmsCount = 1;
+            emp_sms.SmsStatus = Convert.ToInt32(result);
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                context.EmployeeSmsSends.Add(emp_sms);
+                context.SaveChanges();
+            }
+            return (result);
+
+
+        }
+        private string ToUnicode(string val)
+        {
+
+            Encoding enc = Encoding.BigEndianUnicode;
+            byte[] intermediate = enc.GetBytes(val);
+            StringBuilder sb = new StringBuilder(intermediate.Length * 2);
+            foreach (byte b in intermediate)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+        }
 
 
         public string SendSms(string _strMsg, string phoneNumber, int employeeId)
@@ -415,7 +473,7 @@ namespace ISEEREGION.Controllers
             {
                 using (ISEEEntities db = new ISEEEntities())
                 {
-                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == Convert.ToInt16(item.Day)).FirstOrDefault();
+                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == Int32.Parse(item.Day)).FirstOrDefault();
                     factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                     factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                     factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();

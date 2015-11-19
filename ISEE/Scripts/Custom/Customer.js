@@ -1,13 +1,216 @@
-﻿var stateNames = [];
+﻿var _customerId = 0;
+
+var stateNames = [];
 var stateIds = [];
 $(document).ready(function () {
+    $("#datepicker2,#datepicker1,#datepicker3,#datepicker4,#datepicker5,#datepicker6").datepicker({
+        autoclose: true,
+        todayHighlight: true
+    }).datepicker('update', new Date());;
+    $("#datepicker2").datepicker({
+        onSelect: function () {
+            datepicker2 = $(this).datepicker('getDate');
+        }
+    });
+    $("#datepicker1").datepicker({
+        onSelect: function () {
+            datepicker1 = $(this).datepicker('getDate');
+        }
+    });
     $(".right_main_employee :input").prop("disabled", true);
     GetStaresByFactoryID();
+    BindClassificationDdl();
+    $("#datepicker5 input").val('')
 });
 
+//Classification();
+function Classification() {
+
+    $('#secondClassification').empty();
+
+    $("<option value='-1' />").appendTo($('#secondClassification'));
+    if ($('#mainClassificationDdl :selected').val() == "")
+        return false;
+    getSecondaryResults(parseInt($('#mainClassificationDdl :selected').val()), false);
+
+
+}
+function popUpClassification() {
+
+    $('#addSecondary').empty();
+
+    $("<option value='-1' />").appendTo($('#addSecondary'));
+    if ($('#addmanufacture :selected').val() == "")
+        return false;
+    getSecondaryResults(parseInt($('#addmanufacture :selected').val()), true);
+
+}
+
+//data = { id: parseInt($('#mainClassificationDdl :selected').val()) };
+//  $.ajax({
+//      type: "POST",
+//      url: "/Customer/BindSecondClassificationDdl",
+//      data: data,
+//      success: function (response) {
+//          debugger;
+//          if (response != null) {
+
+//              $(response).each(function () {
+//                  $("<option />", {
+//                      val: this.RequestSysIdLevel2,
+//                      text: this.RequestDescCodeLevel2
+//                  }).appendTo($('#secondClassification'));
+//              });
+//          }
+
+//      }
+//  })
+
+//}
+//get secondary results
+function getSecondaryResults(id, isPopup) {
+
+
+    data = { id: id };
+    $.ajax({
+        type: "POST",
+        url: "/Customer/BindSecondClassificationDdl",
+        data: data,
+        success: function (response) {
+            debugger;
+            if (response != null) {
+                if (!isPopup) {
+                    $(response).each(function () {
+                        $("<option />", {
+                            val: this.RequestSysIdLevel2,
+                            text: this.RequestDescCodeLevel2
+                        }).appendTo($('#secondClassification'));
+                    });
+                }
+                else {
+                    $(response).each(function () {
+                        $("<option />", {
+                            val: this.RequestSysIdLevel2,
+                            text: this.RequestDescCodeLevel2
+                        }).appendTo($('#addSecondary'));
+                    });
+                }
+            }
+
+        }
+    })
+}
+
+//Bind Second Classification 
+function BindClassificationDdl() {
+    $('#mainClassificationDdl').empty();
+    $('#addmanufacture').empty();
+    $("<option value='-1' />").appendTo($('#mainClassificationDdl'));
+    $("<option value='-1' />").appendTo($('#addmanufacture'));
+    $.ajax({
+        type: "POST",
+        url: "/Customer/BindClassificationDdl",
+        dataType: "json",
+        success: function (response) {
+            if (response == null)
+                return false;
+            $(response).each(function () {
+                $("<option />", {
+                    val: this.RequestSysIdLevel1,
+                    text: this.RequestDescCodeLevel1
+                }).appendTo($('#mainClassificationDdl'));
+                $("<option />", {
+                    val: this.RequestSysIdLevel1,
+                    text: this.RequestDescCodeLevel1
+                }).appendTo($('#addmanufacture'));
+            });
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+//Search request customer data 
+
+function searchRequestCustData() {
+    if (_customerId <= 0)
+        return false;
+    var main = 0;
+    var second = 0
+    if ($('#mainClassificationDdl :selected').val() != '')
+        main = $('#mainClassificationDdl :selected').val()
+    if ($('#secondClassification :selected').val() != '')
+        second = $('#secondClassification :selected').val()
+
+    data = { customerID: _customerId, fromyear: 0, from: $("#datepicker1 input").val(), to: $("#datepicker2 input").val(), level1: main, level2: second };
 
 
 
+    $.ajax({
+        type: "POST",
+        url: "/Customer/GetRequestCustomerByDate",
+        data: data,
+        success: function (response) {
+            debugger;
+            if (response != null) {
+
+                $(response).each(function () {
+                    $('<tr class="tg-dx8v"> <td class="tg-dx8v"></td><td class="tg-dx8v">' +
+                        this.CreateDate
+                        + '   </td><td class="tg-dx8v">' +
+                        this.RequestSysIdLevel1 +
+                        '</td<td class="tg-dx8v">' +
+                        this.RequestSysIdLevel2 +
+                        '</td><td class="tg-dx8v">'
+                        + this.Request + '</td><td class="tg-dx8v">'
+                        + this.Treatment + '</td><td class="tg-dx8v">'
+                        + this.TreatmentDate
+                        + '</td></tr>').appendTo($('#tblrequest'));
+                });
+            }
+
+        }
+    })
+}
+
+//Get visiting data 
+function GetEmployeesToCustomerFilter() {
+    if (_customerId <= 0)
+        return false;
+    var main = 0;
+    var second = 0
+    if ($('#mainClassificationDdl :selected').val() != '')
+        main = $('#mainClassificationDdl :selected').val()
+    if ($('#secondClassification :selected').val() != '')
+        second = $('#secondClassification :selected').val()
+
+    data = { customerID: _customerId, dtFrom: $("#datepicker3 input").val(), dtTo: $("#datepicker4 input").val(), level1: main, level2: second };
+
+
+
+    $.ajax({
+        type: "POST",
+        url: "/Customer/GetEmployeesToCustomerFilter",
+        data: data,
+        success: function (response) {
+            debugger;
+            if (response != null) {
+
+                $(response).each(function () {
+                    $('<tr class="tg-dx8v"> <td class="tg-dx8v"></td><td class="tg-dx8v">' +
+                        this.CreateDate
+                        + '   </td><td class="tg-dx8v">' +
+                        this.Time +
+                        '</td><td class="tg-dx8v">' +
+                        this.EmployeeNum + '</td><td class="tg-dx8v">' +
+                    this.LastName + ' ' + this.FirstName +
+                        '</td><td class="tg-dx8v">'
+                        + this.InsertStatus + '</td></tr>').appendTo($('#tblVisiting'));
+                });
+            }
+
+        }
+    })
+}
 
 function GetStaresByFactoryID() {
     stateNames = [];
@@ -233,6 +436,7 @@ function selectedEmployee(obj) {
 }
 
 function selectedCustomer(obj) {
+    _customerId = $(obj).attr('CustomerId');
     setInputValues(obj);
 }
 
@@ -244,7 +448,7 @@ function setInputValues(obj) {
     $('#inputCompanyName').val(defaultValues($(obj).attr('lastName')));
     $('#inputContactName').val(defaultValues($(obj).attr('firstName'))); 1
     $('#inputFloor').val(defaultValues($(obj).attr('Floor')));
-    
+
     $('#inputApartment').val(defaultValues($(obj).attr('Apartment')));
     $('#inputMail').val(defaultValues($(obj).attr('inputMail')));
     $('#inputPhoneOne').val(defaultValues($(obj).attr('AreaPhone1')));
@@ -253,15 +457,29 @@ function setInputValues(obj) {
     $('#inputPhone22').val(defaultValues($(obj).attr('Phone2')));
     $('#inputFax').val(defaultValues($(obj).attr('AreaFax')));
     $('#inputFax1').val(defaultValues($(obj).attr('Fax')));
+    $('#customerRemarks1').val(defaultValues($(obj).attr('CustomerRemark1')));
+    $('#customerRemarks2').val(defaultValues($(obj).attr('CustomerRemark1')));
+    $('#stateId').val(defaultValues($(obj).attr('StreetName')));
+    $('#cityId').val(defaultValues($(obj).attr('CityName')));
+    $('#streetID').val(defaultValues($(obj).attr('StreetName')));
+    $('#buildingCode').val(defaultValues($(obj).attr('BuildingNumber')));
+    $('#zipcode').val(defaultValues($(obj).attr('ZipCode')));
+    $('#visitInterval').val(defaultValues($(obj).attr('VisitInterval')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+
+
+
+
+
+
+
     //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
-    //$('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
+    //    $('#').val(defaultValues($(obj).attr('')));
 
 
 
@@ -277,34 +495,26 @@ function setInputValues(obj) {
 
 
 
+    //$('#txtmail').val($(obj).attr('Mail'));
+    //$('#txtfirstname').val($(obj).attr('FirstName'));
 
+    //$('#txtlastname').val($(obj).attr('LastName'));
 
+    //$('#txtphone1').val($(obj).attr('MainAreaPhone'));
+    //$('#txtphone11').val($(obj).attr('MainPhone'));
+    //$('#txtphone2').val($(obj).attr('SecondAreaPhone'));
+    //$('#txtphone22').val($(obj).attr('SecondPhone'));
+    //$('#txtStart').val($(obj).attr('StartDay'));
 
+    //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
+    //// bindDdlphonetype($(obj).attr('PhoneManufactory'));
 
-
-
-
-
-    $('#txtmail').val($(obj).attr('Mail'));
-    $('#txtfirstname').val($(obj).attr('FirstName'));
-
-    $('#txtlastname').val($(obj).attr('LastName'));
-
-    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
-    $('#txtphone11').val($(obj).attr('MainPhone'));
-    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
-    $('#txtphone22').val($(obj).attr('SecondPhone'));
-    $('#txtStart').val($(obj).attr('StartDay'));
-
-    $('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
-    // bindDdlphonetype($(obj).attr('PhoneManufactory'));
-
-    ManufactureTypes(true, $(obj).attr('PhoneType'))
-    //  $('#ddlphonetype').val($(obj).attr('PhoneType'));
-    $('#txtapplication').val($(obj).attr('LastSendApp'));
-    $('#txtend').val($(obj).attr('EndDay'));
-    $('#employoeeDrag').empty();
-    $('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
+    //ManufactureTypes(true, $(obj).attr('PhoneType'))
+    ////  $('#ddlphonetype').val($(obj).attr('PhoneType'));
+    //$('#txtapplication').val($(obj).attr('LastSendApp'));
+    //$('#txtend').val($(obj).attr('EndDay'));
+    //$('#employoeeDrag').empty();
+    //$('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
 }
 
 function defaultValues(val) {
@@ -312,3 +522,32 @@ function defaultValues(val) {
         return '';
     return val;
 }
+
+
+//Get Customer Request Data
+
+//Get sms history and bind grid
+function getCustomerRequestData(id, start, end) {
+    data = { employeeId: id, start: start, end: end }
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetMessageHistory",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            $('#msgHistory tr:gt(0)').remove();
+            if (response == null) {
+                return true;
+            }
+            $(response).each(function () {
+                $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
+            });
+            debugger;
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+//Save Classification
+

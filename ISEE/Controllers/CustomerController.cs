@@ -1,4 +1,5 @@
-﻿using ISEEDataModel.Repository;
+﻿using ISEE.Common;
+using ISEEDataModel.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace ISEE.Controllers
         }
         public ActionResult Customer()
         {
+            ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
             return View();
         }
         public string GetNullableValues(string value)
@@ -29,125 +31,161 @@ namespace ISEE.Controllers
         //{ state: state, city: city, street: street, building: building, custNumber: $('#custNumber').text().trim(), firstName: $('#custName').text().trim(), lastName: $('#custCompany').text().trim(), phone: $('#custPhone').text().trim(), phone1: $('#custPhone1').text().trim(), isActive: $('#isActive').is(':checked') }//
         public JsonResult GetCustomerSarch(int state, int city, int street, string building, string custNumber, string firstName, string lastName, string phone, string phone1, bool isActive)
         {
-
+            state = 1;
             building = GetNullableValues(building);
+
             custNumber = GetNullableValues(custNumber);
             firstName = GetNullableValues(firstName);
             lastName = GetNullableValues(lastName);
             phone = GetNullableValues(phone);
             phone1 = GetNullableValues(phone1);
 
-
-
             using (ISEEEntities context = new ISEEEntities())
             {
-                var sbdhj = context.Customers.Where(x => x.Factory == 1).ToList();
-               
-
-                //var ccccc= (from ss in context.States 
-                var results11 = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
-                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
-     x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
-     x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
-     x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
-     x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
-     x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
-
-
-                && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
-     (x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
-     (x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
-     (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-     (isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
-     {
-         CustomerId = x.CustomerId,
-         CustomerNumber = x.CustomerNumber,
-         FirstName = x.FirstName ?? "!@#$" ,
-         LastName = x.LastName ?? "!@#$",
-         Floor = x.Floor ?? "!@#$",
-         Apartment = x.Apartment ?? "!@#$",
-         AreaPhone1 = x.AreaPhone1 ?? "!@#$",
-         Phone1 = x.Phone1 ?? "!@#$",
-         AreaPhone2 = x.AreaPhone2 ?? "!@#$",
-         Phone2 = x.Phone2 ?? "!@#$",
-         AreaFax = x.AreaFax ?? "!@#$",
-         Fax = x.Fax ?? "!@#$",
-         Mail = x.Mail ?? "!@#$",
-         CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
-         CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
-         VisitInterval = x.VisitInterval ?? 0,
-         NextVisit = x.NextVisit,
-         VisitDate = x.VisitDate,
-         VisitTime = x.VisitTime,
-         EndDate = x.EndDate,
-         Lat = x.Building.Lat,
-         BuildingCode= x.BuildingCode,
-         BuildingNumber = x.Building.Number ?? "!@#$",
-         Long = x.Building.Long,
-         ZipCode = x.Building.ZipCode,
-         StreetName = x.Building.Street.StreetDesc ?? "!@#$",
-         StreetId = x.Building.Street.StateCode,
-         CityId = x.Building.Street.City.CityCode,
-         CityName = x.Building.Street.City.CityDesc ?? "!@#$" ,
-         StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
-         StateId = x.Building.Street.City.State.StateCode
-
-
-
-     }).ToList();
-
-
-
-
-
-
-
                 var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
-                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
-     x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
-     x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
-     x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
-     x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
-     x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
+                    (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
+    x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
+    x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
+    x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
+    x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
+    x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
 
 
-                && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
-     (x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
-     (x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
-     (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-     (isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
-     {
-         CustomerId = x.CustomerId,
-         CustomerNumber = x.CustomerNumber,
-         FirstName = x.FirstName,
-         LastName = x.LastName,
-         Floor = x.Floor,
-         Apartment = x.Apartment,
-         AreaPhone1 = x.AreaPhone1,
-         Phone1 = x.Phone1,
-         AreaPhone2 = x.AreaPhone2,
-         Phone2 = x.Phone2,
-         AreaFax = x.AreaFax,
-         Fax = x.Fax,
-         Mail = x.Mail,
-         CustomerRemark1 = x.CustomerRemark1,
-         CustomerRemark2 = x.CustomerRemark2,
-         VisitInterval = x.VisitInterval,
-         NextVisit = x.NextVisit,
-         VisitDate = x.VisitDate,
-         VisitTime = x.VisitTime,
-         EndDate = x.EndDate,
-         Lat = x.Building.Lat,
-         Long = x.Building.Long,
-         ZipCode = x.Building.ZipCode,
-         StateName = x.Building.StateCode,
+               && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
+    (x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
+    (x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
+    (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
+    (isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
+    {
+        CustomerId = x.CustomerId,
+        CustomerNumber = x.CustomerNumber,
+        FirstName = x.FirstName ?? "!@#$",
+        LastName = x.LastName ?? "!@#$",
+        Floor = x.Floor ?? "!@#$",
+        Apartment = x.Apartment ?? "!@#$",
+        AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+        Phone1 = x.Phone1 ?? "!@#$",
+        AreaPhone2 = x.AreaPhone2 ?? "!@#$",
+        Phone2 = x.Phone2 ?? "!@#$",
+        AreaFax = x.AreaFax ?? "!@#$",
+        Fax = x.Fax ?? "!@#$",
+        Mail = x.Mail ?? "!@#$",
+        CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
+        CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
+        VisitInterval = x.VisitInterval ?? 0,
+        NextVisit = x.NextVisit,
+        VisitDate = x.VisitDate,
+        VisitTime = x.VisitTime,
+        EndDate = x.EndDate,
+        Lat = x.Building.Lat,
+        BuildingCode = x.BuildingCode,
+        BuildingNumber = x.Building.Number ?? "!@#$",
+        Long = x.Building.Long,
+        ZipCode = x.Building.ZipCode,
+        StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+        StreetId = x.Building.Street.StateCode,
+        CityId = x.Building.Street.City.CityCode,
+        CityName = x.Building.Street.City.CityDesc ?? "!@#$",
+        StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+        StateId = x.Building.Street.City.State.StateCode
 
-     }).ToList();
 
-                return new JsonResult { Data = results11, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+    }).ToList();
+
+
+
+
+
+
+
+
+                return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 
 
+        //Bind Main Classsification DDL 
+        public JsonResult BindClassificationDdl()
+        {
+            using (ISEEEntities dataContext = new ISEEEntities())
+            {
+                var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
+                return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //Bind Second Classsification DDL 
+        public JsonResult BindSecondClassificationDdl(int id)
+        {
+            using (ISEEEntities dataContext = new ISEEEntities())
+            {
+                var factoryLevel1list = dataContext.RequsetToFactoryLevel2.Where(d => d.RequestSysIdLevel1 == id).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel2, x.RequestDescCodeLevel2 }).ToList();
+                return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Bind Request Data
+        public JsonResult GetRequestCustomerByDate(int customerID, int fromyear, string from, string to, int level1, int level2)
+        {
+            var fromdate = Convert.ToDateTime(from);
+            var todate = Convert.ToDateTime(to);
+            //var customerID = this.ObjectContext.Customer.FirstOrDefault(x => x.CustomerKey == CustomerGuidID).CustomerId;
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                var customerRequest1 = context.CustomerRequests.Include("RequsetToFactoryLevel2").Include("RequsetToFactoryLevel2.RequsetToFactoryLevel1").Where(x => x.CustomerId == customerID &&
+                                                                                                                                                        x.RequsetToFactoryLevel2.RequestSysIdLevel1 == (level1 == -1 ? x.RequsetToFactoryLevel2.RequestSysIdLevel1 : level1) &&
+                                                                                                                                                       x.RequestSysIdLevel2 == (level2 == -1 ? x.RequestSysIdLevel2 : level2) &&
+                                                                                                                                                      (x.CreateDate >= fromdate && x.CreateDate < todate)).ToList().Select(x => new { CreateDate = x.CreateDate.ToString(), Treatment = x.Treatment, TreatmentDate = x.TreatmentDate.ToString(), Request = x.Request, RequestSysIdLevel1 = x.RequsetToFactoryLevel2.RequestSysIdLevel1, RequestSysIdLevel2 = x.RequsetToFactoryLevel2.RequestSysIdLevel2 }).ToList();
+                return Json(customerRequest1, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        //Save Classificion request
+        public bool SaveClassificationRequestCustomerByDate(int customerID, string requestDate, int level2, string request, string treatment, string treatmentDate)
+        {
+            try
+            {
+
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                CustomerRequest customerRequest = new CustomerRequest();
+                customerRequest.CreateDate = Convert.ToDateTime(requestDate);
+                if(!string.IsNullOrEmpty(treatmentDate))
+                customerRequest.TreatmentDate = Convert.ToDateTime(treatmentDate);
+                    customerRequest.Treatment =treatment; 
+                    customerRequest.Request =request; 
+                    customerRequest.RequestSysIdLevel2 =level2; 
+                    customerRequest.Status =0;
+                    customerRequest.CustomerId = customerID;
+                    context.CustomerRequests.Add(customerRequest);
+                    context.SaveChanges();
+                    return true;
+            }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            } 
+
+        }
+        // Bind Visiting Data
+        public JsonResult GetEmployeesToCustomerFilter(int customerID, string dtFrom, string dtTo)
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                DateTime from = Convert.ToDateTime(dtFrom);
+                DateTime to = Convert.ToDateTime(dtTo);
+                var gpsEmployeeCustomer = context.GpsEmployeeCustomers.Include("Employee").Where(
+                                                                          x => x.CustomerId == customerID &&
+                                                                          x.VisiteDate >= from &&
+                                                                          x.VisiteDate <= to).OrderByDescending(x => x.VisiteDate).ToList().Select(x => new { EmployeeNum = x.Employee.EmployeeNum, CreateDate = x.VisiteDate.ToShortDateString(), Time = x.VisitTime.ToString(), FirstName = x.Employee.FirstName, LastName = x.Employee.LastName, EmployeeId = x.EmployeeId, InsertStatus = x.InsertStatus }).ToList();
+                return Json(gpsEmployeeCustomer, JsonRequestBehavior.AllowGet);
+                //.Select(x => new { x.CreateDate, x.CustomerId, x.Employee.FirstName, x.Employee.LastName, x.InsertStatus, x.Employee.EmployeeId, x.SysId, x.VisitTime, x.VisiteDate })
+            }
+
+
+        }
     }
 }

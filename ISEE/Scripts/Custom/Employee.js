@@ -47,11 +47,11 @@ function setDefaultValues() {
 }
 //Bind Phone Types ddl
 function ManufactureTypes(obj, valMan) {
-    $('#ddlphoneType').empty();
+    $('#ddlphonetype').empty();
 
     if ($('#ddlmanufacture :selected').val() == "")
         return false;
-    $("<option />").appendTo($('#ddlphoneType'));
+    $("<option />").appendTo($('#ddlphonetype'));
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -62,29 +62,52 @@ function ManufactureTypes(obj, valMan) {
                 $("<option />", {
                     val: this.PhoneTypeCode,
                     text: this.PhoneTypeDesc
-                }).appendTo($('#ddlphoneType'));
+                }).appendTo($('#ddlphonetype'));
             });
             if (obj)
-                $('#ddlphonetype :selected').val(valMan);
+                $('#ddlphonetype [value="' + valMan + '"]').attr('selected', true)
+            //$('#ddlphonetype :selected').val(valMan);
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+function ManufactureTypes1() {
+    $('#ddlphoneType').empty();
 
+    if ($('#ddlmanufacture1 :selected').val() == "")
+        return false;
+    $("<option />").appendTo($('#ddlphoneType'));
+    $.ajax({
+        type: "POST",
+        url: "/Admin/GetPhoneTypes",
+        data: { id: parseInt($('#ddlmanufacture1 :selected').val()) },
+        dataType: "json",
+        success: function (response) {
+            $(response).each(function () {
+                $("<option />", {
+                    val: this.PhoneTypeCode,
+                    text: this.PhoneTypeDesc
+                }).appendTo($('#ddlphoneType1'));
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
 //clear input fields
 function clearInputFields() {
     // $("#ddlmanufacture").val('');
-    $('#empLastname').text('');
-    $('#empFirstname').text('');
-    $('#empNumber').text('');
-    $('#ddlphoneType').empty();
+    $('#empLastname').val('');
+    $('#empFirstname').val('');
+    $('#empNumber').val('');
+    $('#ddlmanufacture1 [value=""]').attr('selected', true)
+    $('#ddlphoneType1').empty();
 
 }
 
 //Search function for employee
 function searchEmployeeData() {
     $('#left_employee_window').empty();
-    var data = { manufacture: $("#ddlmanufacture").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType').val(), isActive: $('#isActive').is(':checked') }
+    var data = { manufacture: $("#ddlmanufacture1").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType1').val(), isActive: $('#isActive').is(':checked') }
     $.ajax({
         type: "POST",
         url: "/Data/GetEmployee",
@@ -146,7 +169,7 @@ function searchEmployeeData() {
 }
 function selectedEmployee(obj) {
     var d = new Date();
-     d.setMonth(d.getMonth() - 3);
+    d.setMonth(d.getMonth() - 3);
     $("#datepicker1").datepicker('setDate', d);
     d = new Date();
     $("#datepicker2").datepicker('setDate', d);
@@ -161,7 +184,7 @@ function selectedEmployee(obj) {
     //Set employee data
     setInputValues(obj);
 
-
+    $('#showMap').attr('href', '/map/map');
 
 }
 
@@ -171,6 +194,7 @@ function selectedEmployee(obj) {
 function setInputValues(obj) {
 
     $("#employeeData :input").prop("disabled", false);
+    $("#sendApp").prop("disabled", true);
     $('#txtnumber').val($(obj).attr('EmployeeNum'));
     $('#txtmail').val($(obj).attr('Mail'));
     $('#txtfirstname').val($(obj).attr('FirstName'));
@@ -183,7 +207,8 @@ function setInputValues(obj) {
     $('#txtphone22').val($(obj).attr('SecondPhone'));
     $('#txtStart').val($(obj).attr('StartDay'));
 
-    $('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
+    //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
+    $('#ddlmanufacture [value="' + $(obj).attr('PhoneManufactory') + '"]').attr('selected', true)
     // bindDdlphonetype($(obj).attr('PhoneManufactory'));
 
     ManufactureTypes(true, $(obj).attr('PhoneType'))
@@ -251,14 +276,17 @@ function sendSms() {
         data: data,
         dataType: "json",
         success: function (response) {
-            if (response == null) {
-                return true;
+            if (response) {
+                getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
+                $('#txtArea').val('')
+                alert('Message sent');
             }
-            getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
-            debugger;
-
+            else
+                alert('Failed to sent');
         },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.responseText);
+        }
     });
 }
 //End Sms Tab

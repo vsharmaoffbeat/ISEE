@@ -119,7 +119,15 @@ function searchEmployeeData() {
                 return true;
             }
             debugger;
+            if (response.length<=0)
+            {
+
+
+                $('<div class="row" > <div class="col-md-12 col-xs-12 tab_box">No records found.</div></div>').appendTo($('#left_employee_window'));
+            return false;   
+            }
             var setAttr = ''
+
             $(response).each(function () {
                 //if (this.LastSendApp == null && this.EndDay != null) {
 
@@ -201,10 +209,10 @@ function setInputValues(obj) {
 
     $('#txtlastname').val($(obj).attr('LastName'));
 
-    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
-    $('#txtphone11').val($(obj).attr('MainPhone'));
-    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
-    $('#txtphone22').val($(obj).attr('SecondPhone'));
+    $('#txtphone1').val($(obj).attr('MainPhone'));
+    $('#txtphone11').val($(obj).attr('MainAreaPhone'));
+    $('#txtphone2').val($(obj).attr('SecondPhone'));
+    $('#txtphone22').val($(obj).attr('SecondAreaPhone'));
     $('#txtStart').val($(obj).attr('StartDay'));
 
     //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
@@ -220,22 +228,7 @@ function setInputValues(obj) {
 
 
 
-    //$("#employeeData :input").prop("disabled", false);
-    //$('#txtnumber').val(data[1]);
-    //$('#txtmail').val(data[2]);
-    //$('#txtfirstname').val(data[3]);
-
-    //$('#txtlastname').val(data[4]);
-
-    //$('#txtphone1').val(data[6]);
-    //$('#txtphone11').val(data[7]);
-    //$('#txtphone2').val(data[8]);
-    //$('#txtphone22').val(data[9]);
-    //$('#txtStart').val(getDateFormat(Date(data[5])));
-    //if (data[10] != "")
-    //    $('#txtapplication').val(getDateFormat(Date(data[10])));
-    //if (data[11] != "")
-    //    $('#txtend').val(getDateFormat(Date(data[11])));
+   
 }
 
 //Sms Tab all methods

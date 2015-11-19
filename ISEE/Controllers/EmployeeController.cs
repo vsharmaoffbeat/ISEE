@@ -21,8 +21,8 @@ namespace ISEE.Controllers
         // GET: /Employee/
         public ActionResult Employee()
         {
-            SessionManegment.SessionManagement.FactoryID = 1;
-            SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
+            if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
+                return RedirectToAction("login", "login");
             List<TreeView> data = context.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
 

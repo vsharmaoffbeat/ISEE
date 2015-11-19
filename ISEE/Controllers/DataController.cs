@@ -294,7 +294,8 @@ namespace ISEEREGION.Controllers
 
             if (_strMsg.Length < 70) // is limited to 70 characters per message(Clickatell) for unicode
             {
-                string phone = _PhoneAreaCode + _phone;  //972545500378
+            //    string phone = _PhoneAreaCode + _phone;  //972545500378
+                string phone = _PhoneAreaCode + "505774499";
                 WebClient client = new WebClient();
                 // Add a user agent header in case the requested URI contains a query.
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -469,11 +470,14 @@ namespace ISEEREGION.Controllers
         public bool UpdateEmployee(int employeeId, string number, string mail, string firstName, string lastName, string phone1, string phone11, string phone2, string phone22, string Start, int manufacture, int phoneType, string end, string hourlyData)
         {
             var mainData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ISEEDataModel.Repository.employeeHours>>(hourlyData);
+            int days=0;
             foreach (var item in mainData)
             {
+               days= Int32.Parse(item.Day);
                 using (ISEEEntities db = new ISEEEntities())
                 {
-                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == Int32.Parse(item.Day)).FirstOrDefault();
+
+                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == days).FirstOrDefault();
                     factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                     factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
                     factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();

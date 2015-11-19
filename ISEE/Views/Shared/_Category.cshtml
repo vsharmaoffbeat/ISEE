@@ -68,7 +68,7 @@
                                     <th class="category_tg-z1n2">Active</th>
                                 </tr>
 
-                                <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)">
+                                <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)" >
 
                                     <td class="tg-dx8v_category">
                                         <span ng-hide="contact.editing" ng-dblclick="editItem(contact)">{{ contact.RequestDescCodeLevel1 }}</span>
@@ -133,7 +133,7 @@
                                     <th class="category_tg-z1n2">Active</th>
                                 </tr>
 
-                                <tr ng-repeat="Secondary in Secondarys">
+                                <tr ng-repeat="Secondary in Secondarys" ng-hide="{{hideSecondayRow(Secondary)}}">
                                     <td class="tg-dx8v_category">
                                         <span ng-hide="Secondary.editing" ng-dblclick="editSecondary(Secondary)">  {{ Secondary.RequestDescCodeLevel2 }}</span>
                                         <input focus-on-show ng-show="Secondary.editing" ng-model="contact.RequestDescCodeLevel2" ng-blur="doneEditingSecondary(Secondary)" />

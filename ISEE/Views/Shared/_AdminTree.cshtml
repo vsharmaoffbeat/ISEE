@@ -203,7 +203,7 @@
 
 
                         </tr>
-                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" ng-attr-class="{{gridCustOption.id == SelectedAdminTreeCustomer && 'easytree-draggable' || 'easytree-draggable' }}" data-type="customer" data-oid=' {{gridCustOption.id}}' data-name='{{gridCustOption.LastName}} {{gridCustOption.FirstName}}' ng-mousedown="setVariable(gridCustOption)">
+                        <tr ng-repeat="gridCustOption in gridCustOptions" ng-show="choice==2" ng-attr-class="{{gridCustOption.id == SelectedAdminTreeCustomer && 'easytree-draggable active' || 'easytree-draggable' }}" data-type="customer" data-oid=' {{gridCustOption.id}}' data-id=' {{gridCustOption.id}}' data-name='{{gridCustOption.LastName}} {{gridCustOption.FirstName}}' ng-mousedown="setVariable(gridCustOption)">
 
 
                             <td class="tg-dx8v_category">
@@ -239,11 +239,14 @@
 
 <script type="text/javascript">
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var treeEmployeeJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var treeCustomerJsonData = JSON.parse('@Html.Raw(ViewBag.JsonData)');
     var isCurrentNodeAdded = false;
 
     var newNodeID = -1000;
     var objTree = $('#jstree_demo_div').easytree(
         {
+            data: treeJsonData,
             enableDnd: true,
             canDrop: canDrop,
             dropped: dropped,
@@ -268,6 +271,8 @@
                     targetId = target.attr("id")
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
+                    objEmployeeTree.addNode(sourceNode, targetId);
+                    objCustomerTree.addNode(sourceNode, targetId);
                     $('#addNewNode').val('')
                 }
             }
@@ -300,6 +305,8 @@
                 return
             }
             objTree.removeNode(node.id);
+            objEmployeeTree.removeNode(node.id);
+            objCustomerTree.removeNode(node.id);
 
         } else {
 
@@ -357,7 +364,11 @@
                 } else {
                     node.iconUrl = "/images/img/customer_16.png";
                 }
+               
                 objTree.addNode(node, target.id);
+                objEmployeeTree.addNode(node, target.id);
+                objCustomerTree.addNode(node, target.id);
+
                 objTree.rebuildTree();
                 isCurrentNodeAdded = true;
                 var appElement = document.querySelector('[ng-controller=SearchCtrl]');

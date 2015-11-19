@@ -207,11 +207,11 @@
                         <div class="form-group">
                             <label for="usr">Next Visit</label>
                             @*<div class="input-group datetime datepicker">
-                                <input id="inputNextVisit" ng-model="CustomerInfo.NextVisit" class="form-control make-datepicker isee_input" type="text" name="leaving_time">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-th"></i>
-                                </span>
-                            </div>*@
+                                    <input id="inputNextVisit" ng-model="CustomerInfo.NextVisit" class="form-control make-datepicker isee_input" type="text" name="leaving_time">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-th"></i>
+                                    </span>
+                                </div>*@
                             <div id="datepickerNextVisit" class="input-group date" data-date-format="mm-dd-yyyy">
                                 <input class="form-control isee_input" ng-model="CustomerInfo.NextVisit" type="text" value="" name="leaving_time" />
                                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -353,6 +353,7 @@
 
     var objCustomerTree = $('#jstree_Customer_div').easytree(
        {
+           data: treeCustomerJsonData,
            enableDnd: true,
            canDrop: canDropCustomer,
            dropped: droppedCustomer,
@@ -407,7 +408,11 @@
                 } else {
                     node.iconUrl = "/images/img/customer_16.png";
                 }
+
+                objTree.addNode(node, target.id);
+                objEmployeeTree.addNode(node, target.id);
                 objCustomerTree.addNode(node, target.id);
+
                 isCurrentNodeAdded = true;
             }
         }

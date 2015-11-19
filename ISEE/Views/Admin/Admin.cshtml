@@ -20,10 +20,14 @@
 <script src="~/Scripts/angular.min.js"></script>
 <script src="~/Scripts/Custom/AdminController.js"></script>
 <style>
-    .jstree-themeicon-custom {
-        background-image: url("/Content/themes/default/32px.png") !important;
-        background-position: -260px -4px !important;
+    #easytree-accept, #easytree-reject {
+        z-index: 1001;
     }
+
+        #easytree-accept span.easytree-drag-helper-img, #easytree-reject span.easytree-drag-helper-img {
+            top: 13px;
+            position: relative;
+        }
 </style>
 <div class="container admin_area">
 
@@ -93,16 +97,16 @@
         //objTree.rebuildTree([])
         switch (treeName) {
             case 'tree':
-                objTree.rebuildTree(treeJsonData)
+                objTree.rebuildTree()
                 break;
             case 'employee':
-                objEmployeeTree.rebuildTree(treeJsonData)
+                objEmployeeTree.rebuildTree()
                 break;
             case 'customer':
-                objCustomerTree.rebuildTree(treeJsonData)
+                objCustomerTree.rebuildTree()
                 break;
             default:
-                objTree.rebuildTree(treeJsonData)
+                objTree.rebuildTree()
                 break;
         }
     }
@@ -171,10 +175,14 @@
         //}
     });
     $(function () {
-        $("#datepicker1,#datepicker2,#datepickerNextVisit").datepicker({
+        $("#datepicker1,#datepickerNextVisit").datepicker({
             autoclose: true,
             todayHighlight: true
-        }).datepicker('update', new Date());;
+        }).datepicker('update', new Date());
+        $("#datepicker2").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
         $("#datepicker2").datepicker({
             onSelect: function () {
                 datepicker2 = $(this).datepicker('getDate');
@@ -188,8 +196,8 @@
     });
 
     function showTime(obj) {
-        $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
-        if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
+        $(obj).timepicker({ 'timeFormat': 'h:i A' });
+        if ($(obj).val() == null || $(obj).val() == undefined) {
 
         }
     }

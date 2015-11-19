@@ -155,22 +155,22 @@
                                     <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'Start1')">
                                         <span ng-hide="employeeHour.editingStart1" typeof="time">{{employeeHour.Start1}}</span>
                                         <input type="hidden" ng-model="employeeHour.Start1" />
-                                        <input focus-on-show id='{{employeeHour.Day}}_1' onclick="showTime(this)" ng-show="employeeHour.editingStart1" ng-model="employeeHour.Start1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start1')" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_1' data-showtime="true" onfocus="showTime(this)" ng-show="employeeHour.editingStart1" ng-model="employeeHour.Start1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start1')" />
                                     </td>
                                     <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'End1')">
                                         <span ng-hide="employeeHour.editingEnd1">{{employeeHour.End1}}</span>
                                         <input type="hidden" ng-model="employee.End1" />
-                                        <input focus-on-show id='{{employeeHour.Day}}_2' onclick="showTime(this)" ng-show="employeeHour.editingEnd1" ng-model="employeeHour.End1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End1')" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_2' data-showtime="true" onfocus="showTime(this)" ng-show="employeeHour.editingEnd1" ng-model="employeeHour.End1" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End1')" />
                                     </td>
                                     <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'Start2')">
                                         <span ng-hide="employeeHour.editingStart2">{{employeeHour.Start2}}</span>
                                         <input type="hidden" ng-model="employeeHour.Start2" />
-                                        <input focus-on-show id='{{employeeHour.Day}}_3' onclick="showTime(this)" ng-show="employeeHour.editingStart2" ng-model="employeeHour.Start2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start2')" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_3' data-showtime="true" onfocus="showTime(this)" ng-show="employeeHour.editingStart2" ng-model="employeeHour.Start2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'Start2')" />
                                     </td>
                                     <td class="tg-dx8v" ng-click="editEmployeeHour(employeeHour,'End2')"s>
                                         <span ng-hide="employeeHour.editingEnd2">{{employeeHour.End2}}</span>
                                         <input type="hidden" ng-model="employeeHour.End2" />
-                                        <input focus-on-show id='{{employeeHour.Day}}_4' onclick="showTime(this)" ng-show="employeeHour.editingEnd2" ng-model="employeeHour.End2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End2')" />
+                                        <input focus-on-show id='{{employeeHour.Day}}_4' data-showtime="true" onfocus="showTime(this)" ng-show="employeeHour.editingEnd2" ng-model="employeeHour.End2" style="width:50px !important" ng-blur="doneEditingEmployeeHour(employeeHour,'End2')" />
                                     </td>
                                 </tr>
                             </table>
@@ -224,6 +224,7 @@
 
     var objEmployeeTree = $('#jstree_Employee_div').easytree(
        {
+           data: treeEmployeeJsonData,
            enableDnd: true,
            canDrop: canDropEmployee,
            dropped: droppedEmployee,
@@ -279,7 +280,10 @@
                 } else {
                     node.iconUrl = "/images/img/customer_16.png";
                 }
+         
+                objTree.addNode(node, target.id);
                 objEmployeeTree.addNode(node, target.id);
+                objCustomerTree.addNode(node, target.id);
                 isCurrentNodeAdded = true;
             }
         }

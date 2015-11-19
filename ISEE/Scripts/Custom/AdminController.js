@@ -168,8 +168,8 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $scope.contacts = null;
         ContactService.getList($scope.DDLType.id).then(function (d) {
             $scope.contacts = $.makeArray(d.data);
-            SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
             if ($scope.contacts.length > 0) {
+                SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
                 $scope.BindSecondary($scope.contacts[0]);
             }
         }, function (error) {
@@ -179,8 +179,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     ContactService.getList($scope.DDLType.id).then(function (d) {
         $scope.contacts = $.makeArray(d.data);
-        SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
+
         if ($scope.contacts.length > 0) {
+            SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
             $scope.BindSecondary($scope.contacts[0]);
         }
     }, function (error) {
@@ -202,20 +203,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                 $scope.Secondarys = OverallSecondarys[index];
             }
         });
-        //var result = $.grep(OverallSecondarys, function (e) {
-        //    return
-        //    e.RequestSysIdLevel1 == SysIdLevel1;
-        //});
-        //if (result.length <= 0) {
-        //    $scope.Secondarys = d.data;
-        //    OverallSecondarys.push(d.data);
-        //    //if (OverallSecondarys = null) {
-        //    //    OverallSecondarys.push(d.data);
-        //    //}
-        //    //else {
-        //    //    OverallSecondarys[0].push(d.data);
-        //    //}
-        //}
+
         if (!isVAlExisting) {
             ContactService.getSecondarylist(SysIdLevel1, $scope.DDLType.id).then(function (d) {
                 var array = $.makeArray(d.data);
@@ -353,6 +341,14 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     };
+
+    $scope.hideSecondayRow = function (secondary) {
+        if ($scope.DDLType.id == '') {
+            return falses;
+        } else {
+            return !($scope.DDLType.id == secondary.StatusCode);
+        }
+    }
 
     //Admin Category Tab Methods Ends
 
@@ -532,12 +528,17 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $.ajax({
             type: "POST",
             url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-                if (result.Message == "Success") {
-                    treeJsonData = JSON.parse(result.NewTreeJson)
-                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
-                } else {
-                    $scope.ShowMessageBox("Error", result.ErrorDetails)
-                }
+                $scope.$apply(function () {
+                    if (result.Message == "Success") {
+                        treeJsonData = JSON.parse(result.NewTreeJson)
+                        treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
+                        treeCustomerJsonData = JSON.parse(result.NewTreeJson)
+
+                        $scope.ShowMessageBox("Message", "Tree saved successfully.")
+                    } else {
+                        $scope.ShowMessageBox("Error", result.ErrorDetails)
+                    }
+                });
             }
         });
     }
@@ -689,6 +690,10 @@ module.directive('focusOnShow', function ($timeout) {
                     if (newValue) {
                         $timeout(function () {
                             $element.focus();
+                            if ($element.data("showtime") == true) {
+                                showTime($element)
+                                $element.click()
+                            }
                         }, 0);
                     }
                 })
@@ -698,6 +703,10 @@ module.directive('focusOnShow', function ($timeout) {
                     if (!newValue) {
                         $timeout(function () {
                             $element.focus();
+                            if ($element.data("showtime") == true) {
+                                showTime($element)
+                                $element.click()
+                            }
                         }, 0);
                     }
                 })

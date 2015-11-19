@@ -288,10 +288,10 @@ namespace ISEE.Controllers
             using (ISEEEntities dataContext = new ISEEEntities())
             {
                 var factoryLevel2list = dataContext.RequsetToFactoryLevel2.Where(d => d.RequestSysIdLevel1 == sysIdLevel1).Select(x => new { x.RequestDescCodeLevel2, x.RequsetOrder, x.RequestSysIdLevel1, x.RequestSysIdLevel2, x.StatusCode }).ToList();
-                if (ContactStatus.HasValue)
-                {
-                    factoryLevel2list = factoryLevel2list.Where(c => c.StatusCode == ContactStatus).ToList();
-                }
+                //if (ContactStatus.HasValue)
+                //{
+                //    factoryLevel2list = factoryLevel2list.Where(c => c.StatusCode == ContactStatus).ToList();
+                //}
                 return Json(factoryLevel2list, JsonRequestBehavior.AllowGet);
             }
         }
@@ -446,11 +446,11 @@ namespace ISEE.Controllers
             }
         }
 
-        private void DeleteNodes(List<TreeNodeData> treeNodeList)
+        private void DeleteNodes(List<TreeNodeData> treeNodeList, int factoryId)
         {
             List<long> _idsList = new List<long>();
             GetTreeIds(treeNodeList, ref _idsList);
-            var deleteNodes = dataContext.TreeViews.Where(c => !_idsList.Contains(c.ID) && c.ID > 0).ToList();
+            var deleteNodes = dataContext.TreeViews.Where(c => !_idsList.Contains(c.ID) && c.ID > 0 && c.FactoryID == factoryId).ToList();
             for (int i = deleteNodes.Count; i > 0; i--)
             {
                 dataContext.TreeViews.Remove(deleteNodes[i - 1]);
@@ -475,7 +475,7 @@ namespace ISEE.Controllers
             var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
             try
             {
-                DeleteNodes(treeNodeList);
+                DeleteNodes(treeNodeList, SessionManegment.SessionManagement.FactoryID);
 
                 SaveProcess(treeNodeList, null);
                 dataContext.SaveChanges();

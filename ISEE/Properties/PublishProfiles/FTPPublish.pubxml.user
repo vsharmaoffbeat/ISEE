@@ -14,22 +14,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="bin/de/ISEE.resources.dll">
-      <publishTime>11/18/2015 09:47:32</publishTime>
+      <publishTime>11/19/2015 14:29:08</publishTime>
+    </File>
+    <File Include="bin/DHTMLX.dll">
+      <publishTime>11/18/2015 09:52:11</publishTime>
     </File>
     <File Include="bin/en/ISEE.resources.dll">
-      <publishTime>11/18/2015 09:47:32</publishTime>
+      <publishTime>11/19/2015 14:29:08</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="bin/es-CL/ISEE.resources.dll">
-      <publishTime>11/18/2015 09:47:33</publishTime>
+      <publishTime>11/19/2015 14:29:08</publishTime>
     </File>
     <File Include="bin/es-MX/ISEE.resources.dll">
-      <publishTime>11/18/2015 09:47:33</publishTime>
+      <publishTime>11/19/2015 14:29:08</publishTime>
     </File>
     <File Include="bin/ISEE.dll">
-      <publishTime>11/18/2015 09:47:31</publishTime>
+      <publishTime>11/19/2015 14:29:07</publishTime>
     </File>
     <File Include="bin/ISEEDataModel.dll">
       <publishTime>11/18/2015 09:47:30</publishTime>
@@ -41,7 +44,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="bin/ru/ISEE.resources.dll">
-      <publishTime>11/18/2015 09:47:33</publishTime>
+      <publishTime>11/19/2015 14:29:09</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -80,10 +83,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Content/css/main.css">
-      <publishTime>11/17/2015 09:44:59</publishTime>
+      <publishTime>11/18/2015 15:49:01</publishTime>
     </File>
     <File Include="Content/css/responsive.css">
-      <publishTime>11/13/2015 16:29:19</publishTime>
+      <publishTime>11/18/2015 15:49:01</publishTime>
     </File>
     <File Include="Content/EasyTree/icons.gif">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -92,7 +95,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Content/EasyTree/ui.easytree.css">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/19/2015 11:43:54</publishTime>
     </File>
     <File Include="Content/EasyTree/vista_colors.txt">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -132,6 +135,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/themes/default/Thumbs.db">
       <publishTime>11/07/2015 16:05:01</publishTime>
+    </File>
+    <File Include="dhxscheduler.sample.mvc3.readme.txt">
+      <publishTime>11/18/2015 09:52:21</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -293,7 +299,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/18/2015 09:52:21</publishTime>
     </File>
     <File Include="Scripts/angular-mocks.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -329,13 +335,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2015 13:25:39</publishTime>
     </File>
     <File Include="Scripts/Custom/AdminController.js">
-      <publishTime>11/17/2015 12:48:15</publishTime>
+      <publishTime>11/19/2015 14:45:49</publishTime>
     </File>
     <File Include="Scripts/Custom/angular-route.min.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Scripts/Custom/app.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
+    </File>
+    <File Include="Scripts/Custom/Customer.js">
+      <publishTime>11/18/2015 15:49:01</publishTime>
     </File>
     <File Include="Scripts/Custom/date.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -346,8 +355,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/Custom/EmployeeController.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
+    <File Include="Scripts/Custom/employeeScheduler.js">
+      <publishTime>11/18/2015 15:47:35</publishTime>
+    </File>
     <File Include="Scripts/Custom/jquery.easytree.js">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/19/2015 09:14:00</publishTime>
     </File>
     <File Include="Scripts/Custom/jquery.timepicker.css">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -368,10 +380,544 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Scripts/Custom/LoginController.js">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/19/2015 09:13:55</publishTime>
     </File>
     <File Include="Scripts/Custom/MapTab.js">
       <publishTime>11/13/2015 12:08:02</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler.css">
+      <publishTime>11/18/2015 09:52:20</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler.js">
+      <publishTime>11/18/2015 11:26:55</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler_classic.css">
+      <publishTime>11/18/2015 09:52:20</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler_custom_lightbox.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler_flat.css">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler_glossy.css">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_active_links.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_agenda_view.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_all_timed.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_collision.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_container_autoresize.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_cookie.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_daytimeline.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_drag_between.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_editors.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_expand.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_grid_view.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_html_templates.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_key_nav.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_layer.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_limit.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_live_updates.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_map_view.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_minical.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_monthheight.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_multisection.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_multiselect.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_multisource.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_mvc.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_offline.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_outerdrag.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_pdf.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_quick_info.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_readonly.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_recurring.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_serialize.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_timeline.js">
+      <publishTime>11/18/2015 09:52:19</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_tooltip.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_treetimeline.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_units.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_url.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_week_agenda.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_wp.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_year_view.js">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/buttons.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/but_repeat.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/calendar.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/clock_big.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/clock_small.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/collapse_expand_icon.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/controls.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/databg.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/databg_now.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/export_ical.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/export_pdf.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/icon.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/images.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/loading.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs/resize_dots.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/arrow_left.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/arrow_right.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/but_repeat.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/calendar.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/clock_big.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/clock_small.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/close_icon.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/collapse_expand_icon.gif">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/controls.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/databg.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/databg_now.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/export_ical.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/export_pdf.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/resize_dots.png">
+      <publishTime>11/18/2015 09:52:18</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_dhx_terrace/resizing.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/agenda_bg.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/arrow_left.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/arrow_right.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/but_repeat.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/calendar.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/clock.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/clock_big.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/clock_small.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/close_icon.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/collapse_expand_icon.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/controls.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/databg.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/databg_now.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/export_ical.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/export_pdf.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/resize_dots.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_flat/resizing.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/blue_tab.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/blue_tab_wide.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/buttons.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/but_repeat.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/calendar.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/clock_big.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/clock_small.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/collapse_expand_icon.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/controlls5.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/databg.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/databg_now.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/event-bg.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/export_ical.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/export_pdf.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/icon.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/left-separator.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/left-time-bg.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/lightbox.png">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/loading.gif">
+      <publishTime>11/18/2015 09:52:17</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/move.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/multi-days-bg.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/second-top-days-bg.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/top-days-bg.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/top-separator.gif">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/white_tab.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/imgs_glossy/white_tab_wide.png">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_ar.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_be.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_ca.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_cn.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_cs.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_da.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_de.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_el.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_en.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_es.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_fi.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_fr.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_he.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_hu.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_id.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_it.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_jp.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_nb.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_nl.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_no.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_pl.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_pt.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_ro.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_ru.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_si.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_sk.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_sv.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_tr.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/locale_ua.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_be.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_cn.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_cs.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_da.js">
+      <publishTime>11/18/2015 09:52:16</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_de.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_el.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_en.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_es.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_fi.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_fr.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_it.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_nb.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_nl.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_pl.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_pt.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_ro.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_ru.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_sk.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_sv.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/locale_recurring_ua.js">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_be.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_cn.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_de.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_el.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_en.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_es.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_fr.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_it.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_nl.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_ro.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_ru.html">
+      <publishTime>11/18/2015 09:52:15</publishTime>
+    </File>
+    <File Include="Scripts/dhtmlxScheduler/locale/recurring/repeat_template_sk.html">
+      <publishTime>11/18/2015 09:52:14</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -431,7 +977,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/10/2015 15:53:40</publishTime>
     </File>
     <File Include="Views/Admin/Admin.cshtml">
-      <publishTime>11/17/2015 12:58:23</publishTime>
+      <publishTime>11/19/2015 14:39:34</publishTime>
+    </File>
+    <File Include="Views/Calendar/Index.cshtml">
+      <publishTime>11/18/2015 15:48:24</publishTime>
+    </File>
+    <File Include="Views/Customer/Customer.cshtml">
+      <publishTime>11/18/2015 15:49:01</publishTime>
     </File>
     <File Include="Views/Employee/Employee.cshtml">
       <publishTime>11/14/2015 17:51:25</publishTime>
@@ -458,19 +1010,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Views/Shared/_AdminTree.cshtml">
-      <publishTime>11/17/2015 11:03:24</publishTime>
+      <publishTime>11/19/2015 10:25:44</publishTime>
     </File>
     <File Include="Views/Shared/_Category.cshtml">
-      <publishTime>11/16/2015 11:23:39</publishTime>
+      <publishTime>11/19/2015 14:07:11</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/16/2015 10:04:12</publishTime>
+      <publishTime>11/18/2015 15:49:01</publishTime>
     </File>
     <File Include="Views/Shared/_NewCustomer.cshtml">
-      <publishTime>11/17/2015 12:59:57</publishTime>
+      <publishTime>11/19/2015 12:21:02</publishTime>
     </File>
     <File Include="Views/Shared/_NewEmployee.cshtml">
-      <publishTime>11/17/2015 14:43:22</publishTime>
+      <publishTime>11/19/2015 14:18:58</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -479,7 +1031,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/14/2015 12:37:21</publishTime>
+      <publishTime>11/18/2015 16:08:46</publishTime>
     </File>
   </ItemGroup>
 </Project>

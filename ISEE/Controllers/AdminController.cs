@@ -78,16 +78,22 @@ namespace ISEE.Controllers
                     .Include("Building.Street.City")
                     .Include("Building.Street.City.State")
                     .ToList().Where(x => x.Factory == factoryId
-                       && (Common.Common.GetInteger(state) != 0 ? x.Building.StateCode == Common.Common.GetInteger(state) : true)
-                   && x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state))
+                    && x.Building.StateCode == (Common.Common.GetInteger(state) == 0 ? x.Building.StateCode : Common.Common.GetInteger(state))
                     && x.Building.CityCode == (Common.Common.GetInteger(city) == 0 ? x.Building.CityCode : Common.Common.GetInteger(city))
                     && x.Building.StreetCode == (Common.Common.GetInteger(street) == 0 ? x.Building.StreetCode : Common.Common.GetInteger(street))
-                       && x.Building.Number.Contains(string.IsNullOrEmpty(buldingNumber) ? x.Building.Number : buldingNumber)
-                      && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(customerNumber) ? x.CustomerNumber : customerNumber) == 0
-                       && x.FirstName.Contains(string.IsNullOrEmpty(contactName) ? x.FirstName : contactName)
-                       && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(phone1) ? x.Phone1 : phone1))
-                      && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))
-                  ).Select(c => new { FirstName = c.FirstName ?? string.Empty, id = c.CustomerId, LastName = c.LastName ?? string.Empty, AreaPhone1 = c.AreaPhone1 ?? string.Empty, Phone1 = c.Phone1 ?? string.Empty }).ToList();
+                    && x.Building.Number.Contains(string.IsNullOrEmpty(buldingNumber) ? x.Building.Number : buldingNumber)
+                    && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(customerNumber) ? x.CustomerNumber : customerNumber) == 0
+                    && x.FirstName.Contains(string.IsNullOrEmpty(contactName) ? x.FirstName : contactName)
+                    && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(phone1) ? x.Phone1 : phone1))
+                    && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))
+                  ).Select(c => new
+                  {
+                      FirstName = c.FirstName ?? string.Empty,
+                      id = c.CustomerId,
+                      LastName = c.LastName ?? string.Empty,
+                      AreaPhone1 = c.AreaPhone1 ?? string.Empty,
+                      Phone1 = c.Phone1 ?? string.Empty
+                  }).ToList();
                 return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }

@@ -129,10 +129,22 @@ namespace ISEE.Controllers
                         EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
                         factoryDairyTemplet.DayStatus = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         factoryDairyTemplet.EmployeeId = employeeID;
-                        factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                        factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                        factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
-                        factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                        if(Convert.ToDateTime(item.Start1).ToShortTimeString() != null)
+                        {
+                        factoryDairyTemplet.Start1 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
+                        }
+                        if(Convert.ToDateTime(item.End1).ToShortTimeString() != null )
+                        {
+                        factoryDairyTemplet.Stop1 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
+                        }
+                        if(Convert.ToDateTime(item.Start2).ToShortTimeString() != null)
+                        {
+                        factoryDairyTemplet.Start2 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) ;
+                        }
+                        if(Convert.ToDateTime(item.End2).ToShortTimeString() != null)
+                        {
+                        factoryDairyTemplet.Stop2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) ;
+                        }
                         factoryDairyTemplet.OrderDay = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
                         context.SaveChanges();

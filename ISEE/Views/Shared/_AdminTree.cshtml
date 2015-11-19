@@ -301,12 +301,14 @@
                 $scope.$apply(function () {
                     $scope.ShowMessageBox('Drag and Drop alert', 'Branch can not deleted as it contains data')
                 });
-
                 return
             }
-            objTree.removeNode(node.id);
-            objEmployeeTree.removeNode(node.id);
-            objCustomerTree.removeNode(node.id);
+
+            if (node.objecttype == "branchNode") {
+                objTree.removeNode(node.id);
+                objEmployeeTree.removeNode(node.id);
+                objCustomerTree.removeNode(node.id);
+            }
 
         } else {
 
@@ -364,7 +366,7 @@
                 } else {
                     node.iconUrl = "/images/img/customer_16.png";
                 }
-               
+
                 objTree.addNode(node, target.id);
                 objEmployeeTree.addNode(node, target.id);
                 objCustomerTree.addNode(node, target.id);

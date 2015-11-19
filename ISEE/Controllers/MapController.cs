@@ -48,8 +48,8 @@ namespace ISEE.Controllers
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
-                DateTime date = DateTime.Now.AddYears(-4);
-                Date = date.AddMonths(-4).Date;
+               // DateTime date = DateTime.Now.AddYears(-4);
+              //  Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID
@@ -74,8 +74,8 @@ namespace ISEE.Controllers
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
-                DateTime date = DateTime.Now.AddYears(-4);
-                Date = date.AddMonths(-4).Date;
+              //  DateTime date = DateTime.Now.AddYears(-4);
+              //  Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID
@@ -101,8 +101,8 @@ namespace ISEE.Controllers
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 CultureInfo ci = new CultureInfo("fr-CA");
                 Thread.CurrentThread.CurrentCulture = ci;
-                DateTime date = DateTime.Now.AddYears(-4);
-                Date = date.AddMonths(-4).Date;
+              //  DateTime date = DateTime.Now.AddYears(-4);
+               // Date = date.AddMonths(-4).Date;
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     var result = context.EmployeeGpsPoints.Where(s => s.EmployeeId == EmployeeID

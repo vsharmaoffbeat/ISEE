@@ -129,21 +129,21 @@ namespace ISEE.Controllers
                         EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
                         factoryDairyTemplet.DayStatus = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         factoryDairyTemplet.EmployeeId = employeeID;
-                        if(Convert.ToDateTime(item.Start1).ToShortTimeString() != null)
+                        if (Convert.ToDateTime(item.Start1).ToShortTimeString() != null)
                         {
-                        factoryDairyTemplet.Start1 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
+                            factoryDairyTemplet.Start1 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
                         }
-                        if(Convert.ToDateTime(item.End1).ToShortTimeString() != null )
+                        if (Convert.ToDateTime(item.End1).ToShortTimeString() != null)
                         {
-                        factoryDairyTemplet.Stop1 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
+                            factoryDairyTemplet.Stop1 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
                         }
-                        if(Convert.ToDateTime(item.Start2).ToShortTimeString() != null)
+                        if (Convert.ToDateTime(item.Start2).ToShortTimeString() != null)
                         {
-                        factoryDairyTemplet.Start2 =  (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) ;
+                            factoryDairyTemplet.Start2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
                         }
-                        if(Convert.ToDateTime(item.End2).ToShortTimeString() != null)
+                        if (Convert.ToDateTime(item.End2).ToShortTimeString() != null)
                         {
-                        factoryDairyTemplet.Stop2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) ;
+                            factoryDairyTemplet.Stop2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
                         }
                         factoryDairyTemplet.OrderDay = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
@@ -548,14 +548,14 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                //var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
-
                 int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+                var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+
+                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                //var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
 
 
-                var StateDec = context.States.Where(c => c.CountryCode == FactoryId && c.CountryCode == CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
+                var StateDec = context.States.Where(c => c.CountryCode == CountryID.CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }

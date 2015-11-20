@@ -102,8 +102,7 @@ namespace ISEEREGION.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
-                var empData = context.Employees.ToList().Where(x => x.Factory == factoryId
+                var empData = context.Employees.ToList().Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID
                                                         && (string.IsNullOrEmpty(firstname) || x.FirstName.Contains(firstname))
                     //       x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
                                                         && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))

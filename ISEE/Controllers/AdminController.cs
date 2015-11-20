@@ -550,68 +550,45 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-<<<<<<< HEAD
+
                 var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-                var StateDec =_facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
-=======
-                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
+                var StateDec = _facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
 
-                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                //var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-
-
-                var StateDec = context.States.Where(c => c.CountryCode == CountryID.CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
->>>>>>> b484ac0b2fe4fc8fe5a5c994f1aafb5f66a1a33f
                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        public JsonResult GetCitysByState(int stateID)
+        public JsonResult GetAllCitysByState(int stateID)
         {
-            using (ISEEEntities context = new ISEEEntities())
-            {
+            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+            var Cityes = _facory.GetAllCities(CountryID, stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
+            return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-                var Cityes = context.Cities.Where(p => p.StateCode == stateID).Select(d => new { CityCode = d.CityCode, CityDesc = d.CityDesc }).ToList();
-                return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
-        }
-        public JsonResult GetStreetByCity(int stateID, int cityID)
-        {
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                if (cityID != null)
-                {
-                    var Streets = context.Streets.Where(p => p.CityCode == cityID && p.StateCode == stateID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
-                    return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
         }
 
-        public JsonResult GetBuildingsByCity(int streetID, int stateID, int cityID)
+        public JsonResult GetAllStreetByCity(int cityID)
         {
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                if (streetID != null)
-                {
-                    var Buildings = context.Buildings.Where(p => p.StreetCode == streetID && p.StateCode == stateID && p.CityCode == cityID).Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number }).ToList();
-                    return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
+            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+
+            var Streets = _facory.GetAllStreets(CountryID, cityID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
+            return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+        public JsonResult GetAllBuildingsByCity(int streetID, int cityID)
+        {
+            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+            var Buildings = _facory.GetAllNumbers(CountryID, cityID, streetID).Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number }).ToList();
+            return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
 
         public JsonResult GetEmployeeByEmployeeID(int EmployeeID)
         {
-            if (EmployeeID != null)
+            using (ISEEEntities context = new ISEEEntities())
             {
-                using (ISEEEntities context = new ISEEEntities())
-                {
-                    var result = context.Employees.Where(e => e.EmployeeId == EmployeeID).Select(q => new { employeeID = q.EmployeeId, FirstName = q.FirstName, LastName = q.LastName, MainAreaPhone = q.MainAreaPhone, MainPhone = q.MainPhone }).FirstOrDefault();
-                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
+                var result = context.Employees.Where(e => e.EmployeeId == EmployeeID).Select(q => new { employeeID = q.EmployeeId, FirstName = q.FirstName, LastName = q.LastName, MainAreaPhone = q.MainAreaPhone, MainPhone = q.MainPhone }).FirstOrDefault();
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
 

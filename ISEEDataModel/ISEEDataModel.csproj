@@ -266,6 +266,7 @@
     <Compile Include="Repository\RequsetToFactoryLevel2.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\Services\ISEEFactory.cs" />
     <Compile Include="Repository\Services\UserFactory.cs" />
     <Compile Include="Repository\StarLinkClient.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>

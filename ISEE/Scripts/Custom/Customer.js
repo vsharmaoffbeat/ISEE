@@ -397,7 +397,7 @@ function searchCustomerData() {
 
                            ' VisitDate=' + this.VisitDate + ' VisitTime=' + this.VisitTime + ' ZipCode=' + this.ZipCode +
 
-
+                            ' BuildingCode=' + this.BuildingCode + ' BuildingNumber=' + this.BuildingNumber +
 
                             ' StreetName=' + this.StreetName + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
                            ' CityId=' + this.CityId + ' StateName=' + this.StateName + ' StateId=' + this.StateId +
@@ -462,60 +462,59 @@ function setInputValues(obj) {
     $('#stateId').val(defaultValues($(obj).attr('StreetName')));
     $('#cityId').val(defaultValues($(obj).attr('CityName')));
     $('#streetID').val(defaultValues($(obj).attr('StreetName')));
+    $('#buildingCode').attr('BuildingCode', defaultValues($(obj).attr('BuildingCode')));
     $('#buildingCode').val(defaultValues($(obj).attr('BuildingNumber')));
     $('#zipcode').val(defaultValues($(obj).attr('ZipCode')));
     $('#visitInterval').val(defaultValues($(obj).attr('VisitInterval')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-
-
-
-
-
-
-
-    //$('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-    //    $('#').val(defaultValues($(obj).attr('')));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //$('#txtmail').val($(obj).attr('Mail'));
-    //$('#txtfirstname').val($(obj).attr('FirstName'));
-
-    //$('#txtlastname').val($(obj).attr('LastName'));
-
-    //$('#txtphone1').val($(obj).attr('MainAreaPhone'));
-    //$('#txtphone11').val($(obj).attr('MainPhone'));
-    //$('#txtphone2').val($(obj).attr('SecondAreaPhone'));
-    //$('#txtphone22').val($(obj).attr('SecondPhone'));
-    //$('#txtStart').val($(obj).attr('StartDay'));
-
-    //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
-    //// bindDdlphonetype($(obj).attr('PhoneManufactory'));
-
-    //ManufactureTypes(true, $(obj).attr('PhoneType'))
-    ////  $('#ddlphonetype').val($(obj).attr('PhoneType'));
-    //$('#txtapplication').val($(obj).attr('LastSendApp'));
-    //$('#txtend').val($(obj).attr('EndDay'));
-    //$('#employoeeDrag').empty();
-    //$('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
 }
+
+//clear search fields
+function clearSearchFields() {
+
+    $('.container.main_customer_tab input').val('');
+}
+//Update Customer
+function updateCustomer() {
+    debugger;
+    data = {
+        customerID: _customerId,
+        cNumber: $('#inputCustomerNumber').val(),
+        cCompanyName: $('#inputCompanyName').val(),
+        cContactName: $('#inputContactName').val(),
+        cFloor: $('#inputFloor').val(),
+
+        cApartment: $('#inputApartment').val(),
+        cMail: $('#inputMail').val(),
+        cPhoneOne: $('#inputPhoneOne').val(),
+        cPhone11: $('#inputPhone11').val(),
+        cPhoneTwo: $('#inputPhoneTwo').val(),
+        cPhone22: $('#inputPhone22').val(),
+        cFax: $('#inputFax').val(),
+        cFax1: $('#inputFax1').val(),
+        cRemarks1: $('#customerRemarks1').val(),
+        cRemarks2: $('#customerRemarks2').val(),
+        cbuildingNumber: $('#buildingCode').val(),
+        cbuildingCode: $('#buildingCode').attr('buildingCode'),
+       cZipCode:  $('#zipcode').val(defaultValues($(obj).attr('ZipCode'))),
+       cvisitInterval : $('#visitInterval').val(defaultValues($(obj).attr('VisitInterval')))
+    }
+    $.ajax({
+        type: "POST",
+        url: "/Customer/UpdateCustomer",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            $('#msgHistory tr:gt(0)').remove();
+            if (response)
+                return alert("Customer Updated successfully.");
+            else
+                return alert("Failed to Update.");
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+
+}
+
 
 function defaultValues(val) {
     if (val == '' || val == 'null' || val == '!@#$')

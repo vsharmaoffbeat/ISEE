@@ -283,7 +283,7 @@
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group customer_check_box">
-            <input type="checkbox" class="myClass" value="yes" id="isActive" name="" data-color="green">
+            <input type="checkbox" class="myClass" value="yes" id="isActive" name="" data-color="green" checked="checked">
             <label for="usr">Active</label>
         </div>
 
@@ -291,7 +291,7 @@
 
     <div class="col-md-2 col-xs-12 ">
 
-        <button type="reset" class="btn btn-default customer_edit_btn">
+        <button type="reset" class="btn btn-default customer_edit_btn" onclick="clearSearchFields()">
             <img src="../images/img/edit.png" />
         </button>
 
@@ -325,7 +325,7 @@
             <button type="button" class="btn btn-default pull-right isee_select_button"><img src="../images/img/show_in_map.png" />Show Map</button>
             <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button"><img src="../images/img/edit_details.png" />Set Details</button>
             <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button"><img src="../images/img/cancel.png" /> Cancel</button>
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button"><img src="../images/img/save5.png" /> Save</button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateCustomer()"><img src="../images/img/save5.png" /> Save</button>
 
         </div>
 
@@ -533,7 +533,7 @@
 
                                                 <div class="form-group">
                                                     <label>Building Number</label>
-                                                    <input class="form-control isee_input" id="buildingCode" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" id="buildingCode" maxlength="3" name="" size="3" title="" type="text">
                                                 </div>
 
                                                 <div class="form-group">

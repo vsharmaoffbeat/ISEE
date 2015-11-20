@@ -147,27 +147,27 @@ namespace ISEE.Controllers
             try
             {
 
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                CustomerRequest customerRequest = new CustomerRequest();
-                customerRequest.CreateDate = Convert.ToDateTime(requestDate);
-                if(!string.IsNullOrEmpty(treatmentDate))
-                customerRequest.TreatmentDate = Convert.ToDateTime(treatmentDate);
-                    customerRequest.Treatment =treatment; 
-                    customerRequest.Request =request; 
-                    customerRequest.RequestSysIdLevel2 =level2; 
-                    customerRequest.Status =0;
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    CustomerRequest customerRequest = new CustomerRequest();
+                    customerRequest.CreateDate = Convert.ToDateTime(requestDate);
+                    if (!string.IsNullOrEmpty(treatmentDate))
+                        customerRequest.TreatmentDate = Convert.ToDateTime(treatmentDate);
+                    customerRequest.Treatment = treatment;
+                    customerRequest.Request = request;
+                    customerRequest.RequestSysIdLevel2 = level2;
+                    customerRequest.Status = 0;
                     customerRequest.CustomerId = customerID;
                     context.CustomerRequests.Add(customerRequest);
                     context.SaveChanges();
                     return true;
-            }
+                }
             }
             catch (Exception)
             {
 
                 return false;
-            } 
+            }
 
         }
         // Bind Visiting Data
@@ -185,6 +185,41 @@ namespace ISEE.Controllers
                 //.Select(x => new { x.CreateDate, x.CustomerId, x.Employee.FirstName, x.Employee.LastName, x.InsertStatus, x.Employee.EmployeeId, x.SysId, x.VisitTime, x.VisiteDate })
             }
 
+
+        }
+        public string UpdateCustomer(int customerID, string cNumber, string cCompanyName, string cContactName, string cFloor, string cApartment, string cMail, string cPhoneOne, string cPhone11, string cPhoneTwo, string cPhone22, string cFax, string cFax1, string cRemarks1, string cRemarks2, int cbuildingCode, string cbuildingNumber, string cZipCode,int cvisitInterval)
+        {
+            try
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    Customer customer = context.Customers.Where(x => x.CustomerId == customerID).FirstOrDefault();
+                    customer.BuildingCode  =cbuildingCode  ;
+                    customer.CustomerNumber  =cNumber  ;
+                    customer.LastName  =cCompanyName  ;
+                    customer.FirstName  =cContactName  ;
+                customer.Floor  =  cFloor;
+                    customer.Apartment  =  cApartment;
+                    customer.AreaPhone1  =  cPhoneOne;
+                    customer.Phone1  =cPhone11  ;
+                    customer.AreaPhone2  =  cPhoneTwo;
+                    customer.Phone2  =  cPhone22;
+                    customer.AreaFax  =  cFax;
+                    customer.Fax=  cFax1;
+                    customer.Mail  =cMail  ;
+                    customer.CustomerRemark1  =cRemarks1  ;
+                customer.CustomerRemark2  =cRemarks2  ;
+
+                    customer.VisitInterval  =cvisitInterval  ;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                return "false";
+            }
+            return "";
 
         }
     }

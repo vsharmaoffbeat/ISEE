@@ -136,10 +136,12 @@ namespace ISEEREGION.Controllers
 
         public JsonResult GetMessageHistory(int employeeId, string start, string end)
         {
+           DateTime startD=ConvertDateTime(start);
+            DateTime endD=ConvertDateTime(end);
             using (ISEEEntities context = new ISEEEntities())
             {
-                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= Convert.ToDateTime(start.Replace('-', '/'))
-                        && x.SmsCreatDate <= Convert.ToDateTime(end.Replace('-', '/')))
+                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= startD
+                        && x.SmsCreatDate <= endD)
                         .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
 
                 return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -294,7 +296,7 @@ namespace ISEEREGION.Controllers
 
             if (_strMsg.Length < 70) // is limited to 70 characters per message(Clickatell) for unicode
             {
-            //    string phone = _PhoneAreaCode + _phone;  //972545500378
+                //    string phone = _PhoneAreaCode + _phone;  //972545500378
                 string phone = _PhoneAreaCode + "505774499";
                 WebClient client = new WebClient();
                 // Add a user agent header in case the requested URI contains a query.
@@ -467,45 +469,69 @@ namespace ISEEREGION.Controllers
             }
         }
 
-        public bool UpdateEmployee(int employeeId, string number, string mail, string firstName, string lastName, string phone1, string phone11, string phone2, string phone22, string Start, int manufacture, int phoneType, string end, string hourlyData)
+        public string UpdateEmployee(int employeeId, string number, string mail, string firstName, string lastName, string phone1, string phone11, string phone2, string phone22, string Start, int manufacture, int phoneType, string end, string hourlyData)
         {
             var mainData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ISEEDataModel.Repository.employeeHours>>(hourlyData);
-            int days=0;
-            foreach (var item in mainData)
+            int days = 0;
+            try
             {
-               days= Int32.Parse(item.Day);
+
+
+                foreach (var item in mainData)
+                {
+                    days = Int32.Parse(item.Day);
+                    using (ISEEEntities db = new ISEEEntities())
+                    {
+
+                        ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == days).FirstOrDefault();
+                        if (factoryDairyTemplet != null)
+                        {
+                            factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                            factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                            factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
+                            factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
+                            db.SaveChanges();
+                        }
+                    }
+
+                }
                 using (ISEEEntities db = new ISEEEntities())
                 {
 
-                    ISEEDataModel.Repository.EmployeeDiaryTemplate factoryDairyTemplet = db.EmployeeDiaryTemplates.Where(x => x.EmployeeId == employeeId && x.DayStatus == days).FirstOrDefault();
-                    factoryDairyTemplet.Start1 = Convert.ToDateTime(item.Start1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                    factoryDairyTemplet.Stop1 = Convert.ToDateTime(item.End1).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                    factoryDairyTemplet.Start2 = Convert.ToDateTime(item.Start2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan();
-                    factoryDairyTemplet.Stop2 = Convert.ToDateTime(item.End2).ToShortTimeString() != null ? (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0)) : new TimeSpan(0);
-                    db.SaveChanges();
-                }
+                    Employee employee = db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
+                    if (employee != null)
+                    {
+                        employee.EmployeeNum = number;
+                        employee.Mail = mail;
+                        employee.FirstName = firstName;
+                        employee.LastName = lastName;
+                        employee.MainAreaPhone = phone1;
+                        employee.MainPhone = phone11;
+                        employee.SecondAreaPhone = phone2;
+                        employee.SecondPhone = phone22;
+                        employee.PhoneManufactory = manufacture;
+                        employee.PhoneType = phoneType;
+                        if (!string.IsNullOrEmpty(Start))
+                            employee.StartDay = ConvertDateTime(Start);
+                        if (!string.IsNullOrEmpty(end))
+                            employee.EndDay = ConvertDateTime(end);
+                        db.SaveChanges();
 
+                    }
+                }
             }
-            using (ISEEEntities db = new ISEEEntities())
+            catch (Exception)
             {
 
-                Employee employee = db.Employees.Where(x => x.EmployeeId == employeeId).FirstOrDefault();
-                employee.EmployeeNum = number;
-                employee.Mail = mail;
-                employee.FirstName = firstName;
-                employee.LastName = lastName;
-                employee.MainAreaPhone = phone1;
-                employee.MainPhone = phone11;
-                employee.SecondAreaPhone = phone2;
-                employee.SecondPhone = phone22;
-                employee.PhoneManufactory = manufacture;
-                employee.PhoneType = phoneType;
-                db.SaveChanges();
-
+                return "false";
             }
-            return true;
+            return "true";
         }
         #endregion
+
+        public DateTime ConvertDateTime(string date) {
+            return new DateTime(Convert.ToInt32(date.Split('/')[2]), Convert.ToInt32(date.Split('/')[1]), Convert.ToInt32(date.Split('/')[0]));
+        }
 
         #region Country Data Common Methods
 

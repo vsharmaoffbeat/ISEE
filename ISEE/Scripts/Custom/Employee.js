@@ -119,12 +119,11 @@ function searchEmployeeData() {
                 return true;
             }
             debugger;
-            if (response.length<=0)
-            {
+            if (response.length <= 0) {
 
 
                 $('<div class="row" > <div class="col-md-12 col-xs-12 tab_box">No records found.</div></div>').appendTo($('#left_employee_window'));
-            return false;   
+                return false;
             }
             var setAttr = ''
 
@@ -209,10 +208,10 @@ function setInputValues(obj) {
 
     $('#txtlastname').val($(obj).attr('LastName'));
 
-    $('#txtphone1').val($(obj).attr('MainPhone'));
-    $('#txtphone11').val($(obj).attr('MainAreaPhone'));
-    $('#txtphone2').val($(obj).attr('SecondPhone'));
-    $('#txtphone22').val($(obj).attr('SecondAreaPhone'));
+    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
+    $('#txtphone11').val($(obj).attr('MainPhone'));
+    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
+    $('#txtphone22').val($(obj).attr('SecondPhone'));
     $('#txtStart').val($(obj).attr('StartDay'));
 
     //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
@@ -228,7 +227,7 @@ function setInputValues(obj) {
 
 
 
-   
+
 }
 
 //Sms Tab all methods
@@ -355,7 +354,9 @@ function updateEmployee() {
         var houlyFilled = getHourData();
         d = {
             employeeId: _employeeId,
-            number: $('#txtnumber').val(), mail: $('#txtmail').val(), firstName: $('#txtfirstname').val(),
+            number: $('#txtnumber').val(),
+            mail: $('#txtmail').val(),
+            firstName: $('#txtfirstname').val(),
             lastName: $('#txtlastname').val(),
             phone1: $('#txtphone1').val(),
             phone11: $('#txtphone11').val(),
@@ -378,9 +379,36 @@ function updateEmployee() {
             data: d,
             dataType: "json",
             success: function (response) {
-                alert(response);
+                if (response) {
+                    alert("Updated Employee.");
+                    $('#left_employee_window div').each(function () {
+                        if ($(this).attr('EmployeeId') == _employeeId) {
+                            $(this).attr('EmployeeNum', d.number);
+                            $(this).attr('Mail', d.mail);
+                            $(this).attr('FirstName', d.firstName);
+                            $(this).attr('LastName', d.lastName);
+                            $(this).attr('EndDay', d.end);
+                            $(this).attr('PhoneType', d.phoneType);
+                            $(this).attr('MainPhone', d.phone11);
+                            $(this).attr('MainAreaPhone', d.phone1);
+                            $(this).attr('StartDay', d.Start);
+                            $(this).attr('SecondAreaPhone', d.phone2);
+                            $(this).attr('SecondPhone', d.phone22);
+
+                            $(this).attr('PhoneManufactory', d.manufacture);
+                            $(this).empty();
+                            $('<div class="col-md-12 col-xs-12 tab_box">First Name: ' + d.firstName + ' <p>Last Name: ' + d.lastName + '</p><p>Phone1: ' + d.phone11 + '-' + d.phone1 + '</p></div>').appendTo($(this));
+                        }
+                    })
+                }
+                else
+                    alert("Failed to update.");
             },
-            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+            error: function (xhr, ajaxOptions, thrownError) {
+               
+
+                alert(xhr.responseText);
+            }
         });
 
 

@@ -550,20 +550,15 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-<<<<<<< HEAD
+
                 var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
                 var StateDec =_facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
-=======
-                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
 
                 //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 //var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
 
 
-                var StateDec = context.States.Where(c => c.CountryCode == CountryID.CountryID).Select(x => new { CountryCode = x.StateCode, CountryDescEng = x.StateDesc }).ToList();
->>>>>>> b484ac0b2fe4fc8fe5a5c994f1aafb5f66a1a33f
-                return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
         public JsonResult GetCitysByState(int stateID)

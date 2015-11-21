@@ -1,23 +1,51 @@
 ﻿var _employeeId = 0;
 //var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 $(document).ready(function () {
-    $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
+    $(".disabledClass").prop("disabled", true);
+    $("#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
         autoclose: true,
         todayHighlight: true
     }).datepicker('update', new Date());;
-    $("#datepicker2").datepicker({
-        onSelect: function () {
-            datepicker2 = $(this).datepicker('getDate');
-        }
-    });
-    $("#datepicker1").datepicker({
-        onSelect: function () {
-            datepicker1 = $(this).datepicker('getDate');
-        }
-    });
+    //$("#datepicker2").datepicker({
+    //    onSelect: function () {
+    //        datepicker2 = $(this).datepicker('getDate');
+    //    }
+    //});
+    //$("#datepicker1").datepicker({
+    //    onSelect: function () {
+    //        datepicker1 = $(this).datepicker('getDate');
+    //    }
+    //});
+
+    var minDate1;
+    var minDate2;
+    setDatePicker();
+
+    //$("#datepickerStartDay").datepicker({
+    //    todayBtn: 1,
+    //    autoclose: true,
+    //}).on('changeDate', function (selected) {
+    //    var minDate = new Date(selected.date.valueOf());
+    //    $('#datepickerEndDay').datepicker('setStartDate', minDate);
+    //});
+
+    //$("#datepickerEndDay").datepicker()
+    //    .on('changeDate', function (selected) {
+    //        var minDate = new Date(selected.date.valueOf());
+    //        $('#datepickerStartDay').datepicker('setEndDate', minDate);
+    //    });
+
+
+
+
+
+
+
+
+    $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
     setDefaultValues();
     clearInputFields()
-    debugger;
+    
     var date = new Date,
     years = [],
     year = date.getFullYear();
@@ -29,14 +57,54 @@ $(document).ready(function () {
         }).appendTo($('#ddlYearValue'));
     }
 
-
-
-
-
 });
+function setDatePicker() {
+    $("#datepickerStartDay").datepicker({
+        todayBtn: 1,
+        autoclose: true,
+    }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#datepickerEndDay').datepicker('setStartDate', minDate);
+    });
+
+    $("#datepickerEndDay").datepicker()
+        .on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            //     $('#datepickerStartDay').datepicker('setEndDate', minDate);
+        });
+}
+// check before  redirect to map
+$('#showMap').click(function () {
+    if (parseInt(_employeeId) <= 0)
+        alert("Select Employee");
+})
+//set details click
+function setDeatils() {
+    if (parseInt(_employeeId) > 0) {
+        setDatePicker();
+        $(".disabledClass").prop("disabled", false);
+        $('.employee_save_header').first().hide();
+        $('.employee_save_header').last().show()
+    }
+    else
+        alert("Select Employee");
+}
+//Cancel click
+function removeChange() {
+    if (parseInt(_employeeId) > 0)
+        $('#left_employee_window div').each(function () {
+            if ($(this).attr('EmployeeId') == _employeeId) {
+                setInputValues(this);
+                $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
+                $('.employee_save_header').first().show();
+                $(".disabledClass").prop("disabled", true);
+                $('.employee_save_header').last().hide()
+            }
+        })
+}
 
 function setDefaultValues() {
-    $("#employeeData :input").prop("disabled", true);
+
     $('#datepickerStartDay input').val('');
     $('#datepickerEndDay input').val('');
     $('#datepickerLastApp input').val('');
@@ -72,11 +140,11 @@ function ManufactureTypes(obj, valMan) {
     });
 }
 function ManufactureTypes1() {
-    $('#ddlphoneType').empty();
+    $('#ddlphoneType1').empty();
 
     if ($('#ddlmanufacture1 :selected').val() == "")
         return false;
-    $("<option />").appendTo($('#ddlphoneType'));
+    $("<option />").appendTo($('#ddlphoneType1'));
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -118,7 +186,7 @@ function searchEmployeeData() {
                 $('#left_employee_window').text('No records found.');
                 return true;
             }
-            debugger;
+            
             if (response.length <= 0) {
 
 
@@ -175,13 +243,18 @@ function searchEmployeeData() {
 
 }
 function selectedEmployee(obj) {
+    if (_employeeId == $(obj).attr('EmployeeId'))
+        return false;
+
+    removeChange();
+    _employeeId = $(obj).attr('EmployeeId');
     var d = new Date();
     d.setMonth(d.getMonth() - 3);
     $("#datepicker1").datepicker('setDate', d);
     d = new Date();
     $("#datepicker2").datepicker('setDate', d);
     var data = $(obj).attr('EmployeeId').split('|');
-    _employeeId = $(obj).attr('EmployeeId');
+
     //get messgae history
     getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
     //get Employeefill hours
@@ -200,7 +273,7 @@ function selectedEmployee(obj) {
 
 function setInputValues(obj) {
 
-    $("#employeeData :input").prop("disabled", false);
+    //  $("#employeeData :input").prop("disabled", false);
     $("#sendApp").prop("disabled", true);
     $('#txtnumber').val($(obj).attr('EmployeeNum'));
     $('#txtmail').val($(obj).attr('Mail'));
@@ -232,6 +305,10 @@ function setInputValues(obj) {
 
 //Sms Tab all methods
 function searchMessageHistory() {
+    if (parseInt(_employeeId) <= 0) {
+        alert("Select Employee");
+        return false;
+    }
     getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val())
 }
 
@@ -251,7 +328,7 @@ function getMessageHistory(id, start, end) {
             $(response).each(function () {
                 $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
             });
-            debugger;
+            
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -259,6 +336,8 @@ function getMessageHistory(id, start, end) {
 }
 //Send Sms
 function sendSms() {
+    if (parseInt(_employeeId) <= 0)
+        alert("Select Employee");
     if ($('#txtArea').val().trim() == "" || $('#txtphone1').val().trim() == "" || $('#txtphone11').val().trim() == "")
         return false;
     data = { employeeId: _employeeId, msg: $('#txtArea').val().trim(), phoneNumber: $('#txtphone1').val().trim() + $('#txtphone11').val().trim() }
@@ -310,7 +389,7 @@ function getEmployeeTimeTemplate(id) {
                 maxTime: '23:30',
                 scrollbar: true,
             });
-            debugger;
+            
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -319,8 +398,10 @@ function getEmployeeTimeTemplate(id) {
 
 function getEmployeeTimeHistoryDiary() {
     // ddlMonthname
-    if (_employeeId <= 0)
+    if (parseInt(_employeeId) <= 0) {
+        alert("Select Employee");
         return false;
+    }
     data = { employeeId: _employeeId, month: $('#ddlMonthname :selected').val(), year: $('#ddlYearValue :selected').val() }
     $.ajax({
         type: "POST",
@@ -335,7 +416,7 @@ function getEmployeeTimeHistoryDiary() {
             $(response).each(function () {
                 $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start1) + ' ' + replaceNullWithEmpty(this.End1) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start2) + ' ' + replaceNullWithEmpty(this.End2) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start3) + ' ' + replaceNullWithEmpty(this.End3) + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblEmpDiaryHistory'));;
             });
-            debugger;
+            
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -350,7 +431,7 @@ function replaceNullWithEmpty(obj) {
 
 //Update Employee
 function updateEmployee() {
-    if (_employeeId > 0) {
+    if (parseInt(_employeeId) > 0) {
         var houlyFilled = getHourData();
         d = {
             employeeId: _employeeId,
@@ -397,7 +478,7 @@ function updateEmployee() {
 
                             $(this).attr('PhoneManufactory', d.manufacture);
                             $(this).empty();
-                            $('<div class="col-md-12 col-xs-12 tab_box">First Name: ' + d.firstName + ' <p>Last Name: ' + d.lastName + '</p><p>Phone1: ' + d.phone11 + '-' + d.phone1 + '</p></div>').appendTo($(this));
+                            $('<div class="col-md-12 col-xs-12 tab_box">First Name: ' + d.firstName + ' <p>Last Name: ' + d.lastName + '</p><p>Phone1: ' + d.phone1 + '-' + d.phone11 + '</p></div>').appendTo($(this));
                         }
                     })
                 }
@@ -405,7 +486,7 @@ function updateEmployee() {
                     alert("Failed to update.");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-               
+
 
                 alert(xhr.responseText);
             }

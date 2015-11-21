@@ -222,12 +222,28 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
+                GoogleDomainService objGoogleDomainService = new GoogleDomainService();
+
                 int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                int countryID = 2;
-                var result = context.Buildings.Where(x => x.CountryCode == countryID
-                    && x.StateCode == (stateID == null ? x.StateCode : stateID)
-                    && x.StreetCode == (streetID == null ? x.StreetCode : streetID)
-                    && x.CityCode == (cityID == null ? x.CityCode : cityID)).Select(s => new { CountryName = s.Street.City.State.Country.CountryDesc, StateName = s.Street.City.State.StateDesc, CityName = s.Street.City.CityDesc, StreetName = s.Street.StreetDesc, BuldingNumber = s.Number, Lat = s.Lat, Long = s.Long, Number = s.Number }).ToList();
+                int countryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+
+                var a = new Address
+                {
+                    CountryId = countryID,
+                    Country = ISEE.Common.SessionManegment.SessionManagement.CountryDesc,
+                    State = "",
+                    City = "London",
+                    Street = "Southwark Street",
+                    Building = "190"
+                };
+
+                var result = objGoogleDomainService.GetLocation(a);
+
+
+                //var result = context.Buildings.Where(x => x.CountryCode == countryID
+                //    && x.StateCode == (stateID == null ? x.StateCode : stateID)
+                //    && x.StreetCode == (streetID == null ? x.StreetCode : streetID)
+                //    && x.CityCode == (cityID == null ? x.CityCode : cityID)).Select(s => new { CountryName = s.Street.City.State.Country.CountryDesc, StateName = s.Street.City.State.StateDesc, CityName = s.Street.City.CityDesc, StreetName = s.Street.StreetDesc, BuldingNumber = s.Number, Lat = s.Lat, Long = s.Long, Number = s.Number }).ToList();
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -550,24 +566,12 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-<<<<<<< HEAD
-=======
-
-                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-                var StateDec =_facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
-
-                //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                //var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
->>>>>>> 079cc66c758b3c4e27aa4f424818889e27b1ca9e
-
                 var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
                 var StateDec = _facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
 
-<<<<<<< HEAD
+
                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-=======
-                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
->>>>>>> 079cc66c758b3c4e27aa4f424818889e27b1ca9e
+
             }
         }
         public JsonResult GetAllCitysByState(int stateID)

@@ -1,35 +1,6 @@
 ﻿//Employee Section
-//function SaveEmployeeData() {
-
-
-//    data = {
-//        number: $('#txtNumber').val(), mail: $('#txtmail').val(),
-//        firstName: $('#txtfirstName ').val(),
-//        lastName: $('#txtlastName').val(),
-//        startDay: $('#datepicker1 input').val(),
-//        endDay: $('#datepicker2 input').val(),
-//        phone1: $('#inputPhone').val(),
-//        phone11: $('#inputPhone1').val(),
-//        phone2: $('#inputPhone2').val(),
-//        phone22: $('#inputPhone21').val(),
-//        manufacture: $('#ddlmanufacture').val(),
-//        phoneType: $('#ddlphoneType').val()
-//    };
-//    $.ajax({
-//        type: "POST",
-//        url: "/Admin/SaveEmployeeData",
-//        data: data,
-//        dataType: "json",
-//        success: function (response) { alert(response); },
-//        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-//    });
-
-//    return false;
-//}
-
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
-
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -50,16 +21,26 @@ function ManufactureTypes(obj) {
 
 var stateNames = [];
 var stateIds = [];
-function GetStaresByFactoryID() {
+var availableCityName = [];
+var availableCityIds = [];
+var availableStreetName = [];
+var availableStreetId = [];
+var availableBuildingNumber = [];
+var availableBuildingId = [];
+var availableBuildingLat = [];
+var availableBuildingLong = [];
+
+
+function GetAllStatesByCountry() {
     stateNames = [];
     $.ajax({
         type: "POST",
-        url: "/Admin/GetStaresByFactoryID",
+        url: "/Admin/GetAllStatesByCountry",
         success: function (response) {
             var appElement = document.querySelector('[ng-controller=SearchCtrl]');
             var $scope = angular.element(appElement).scope();
             $scope.$apply(function () {
-                if (response.length > 0) {
+                if (response.length == 1) {
                     $scope.HasStateActive = "false";
                 } else {
                     $scope.HasStateActive = "true";
@@ -67,15 +48,18 @@ function GetStaresByFactoryID() {
             });
             $(response).each(function () {
                 $("<option />", {
-                    val: this.CountryCode,
-                    text: this.CountryDescEng
+                    val: this.StateCode,
+                    text: this.StateDesc
                 }).appendTo($('#inputState'));
-                if (this.CountryDescEng == null) {
-                    $('#inputState').attr('disabled', 'disabled');
-                }
-                stateNames.push(this.CountryDescEng);
-                stateIds.push(this.CountryCode);
+                stateNames.push(this.StateDesc);
+                stateIds.push(this.StateCode);
             });
+
+            if (response.length <= 1) {
+                _selChangeStateCode = response[0].StateCode
+                $("#inputState option[value='" + response[0].StateCode + "']").prop("selected", true);
+                GetAllCitysByState();
+            }
             $("#inputState").autocomplete({
                 source: stateNames,
             });
@@ -84,14 +68,21 @@ function GetStaresByFactoryID() {
     });
 }
 
-var abliableDataForCityesName = [];
-var abliableDataForCityesIds = [];
-function GetCitysByState() {
+
+function GetAllCitysByState() {
+
     if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined)
         return false;
+
+    _selChangeStateCode = 0;
+    _selChangeCityCode = 0;
+    _selChangeStreetCode = 0;
+
+    _selChangeStateCode = $('#inputState').val();
+
     $.ajax({
         type: "POST",
-        url: "/Admin/GetCitysByState",
+        url: "/Admin/GetAllCitysByState",
         data: { stateID: stateIds[stateNames.indexOf($('#inputState').val())] },
         dataType: "json",
         success: function (response) {
@@ -101,27 +92,32 @@ function GetCitysByState() {
                         val: this.CityCode,
                         text: this.CityDesc
                     }).appendTo($('#inputCity'));
-                    abliableDataForCityesName.push(this.CityDesc);
-                    abliableDataForCityesIds.push(this.CityCode);
+                    availableCityName.push(this.CityDesc);
+                    availableCityIds.push(this.CityCode);
                 });
             }
             $("#inputCity").autocomplete({
-                source: abliableDataForCityesName,
+                source: availableCityName,
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var abliableDataForStreetName = [];
-var abliableDataForStreetId = [];
-function GetStreetByCity() {
-    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined)
+
+function GetAllStreetByCity() {
+    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined || availableCityIds[availableCityName.indexOf($('#inputCity').val())] == undefined)
         return false;
+
+    _selChangeStreetCode = 0;
+    _selChangeCityCode = 0;
+
+    _selChangeCityCode = $('#inputCity').val();
+
     $.ajax({
         type: "POST",
-        url: "/Admin/GetStreetByCity",
-        data: { stateID: stateIds[stateNames.indexOf($('#inputState').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] },
+        url: "/Admin/GetAllStreetByCity",
+        data: { cityID: availableCityIds[availableCityName.indexOf($('#inputCity').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -130,31 +126,31 @@ function GetStreetByCity() {
                         val: this.StreetCode,
                         text: this.Streetdesc
                     }).appendTo($('#inputStreet'));
-                    abliableDataForStreetName.push(this.Streetdesc);
-                    abliableDataForStreetId.push(this.StreetCode);
+                    availableStreetName.push(this.Streetdesc);
+                    availableStreetId.push(this.StreetCode);
                 });
             }
             $("#inputStreet").autocomplete({
-                source: abliableDataForStreetName,
+                source: availableStreetName,
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var abliableDataForBuildingNumber = [];
-var abliableDataForBuildingId = [];
-var abliableDataForBuildingLat = [];
-var abliableDataForBuildingLong = [];
 
-function GetBuildingsByCity() {
-    abliableDataForBuilding = [];
-    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())] == undefined || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined)
+
+function GetAllBuildingsByCity() {
+    availableBuilding = [];
+    if (availableStreetId[availableStreetName.indexOf($('#inputStreet').val())] == undefined || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || availableCityIds[availableCityName.indexOf($('#inputCity').val())] == undefined)
         return false;
+
+    _selChangeStreetCode = $('#inputStreet').val();
+
     $.ajax({
         type: "POST",
-        url: "/Admin/GetBuildingsByCity",
-        data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())], stateID: stateIds[stateNames.indexOf($('#inputState').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] },
+        url: "/Admin/GetAllBuildingsByCity",
+        data: { streetID: availableStreetId[availableStreetName.indexOf($('#inputStreet').val())], cityID: availableCityIds[availableCityName.indexOf($('#inputCity').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -163,85 +159,33 @@ function GetBuildingsByCity() {
                         val: this.BuildingCode,
                         text: this.BuildingNumber
                     }).appendTo($('#inputBuldingNumber'));
-                    abliableDataForBuildingNumber.push(this.BuildingNumber);
-                    abliableDataForBuildingId.push(this.BuildingCode);
-                    abliableDataForBuildingLat.push(this.BuildingLat);
-                    abliableDataForBuildingLong.push(this.BuldingLong);
+                    availableBuildingNumber.push(this.BuildingNumber);
+                    availableBuildingId.push(this.BuildingCode);
+                    availableBuildingLat.push(this.BuildingLat);
+                    availableBuildingLong.push(this.BuldingLong);
                 });
             }
             $("#inputBuldingNumber").autocomplete({
-                source: abliableDataForBuildingNumber,
+                source: availableBuildingNumber,
             });
-            $('#inputBuldingNumber').val(abliableDataForBuildingNumber);
+            $('#inputBuldingNumber').val(availableBuildingNumber);
             GetSelectedBuildingLatLong();
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
-
 var buildingLatLong = [];
 function GetSelectedBuildingLatLong() {
-    if (abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined, abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined)
+    if (availableBuildingLat[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined, availableBuildingLong[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined)
         return false;
     buildingLatLong = [];
-    buildingLatLong.push(abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#inputBuldingNumber').val())], abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#inputBuldingNumber').val())]);
+    buildingLatLong.push(availableBuildingLat[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())], availableBuildingLong[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())]);
 }
 
 
 
 //End Employee Section
 
-//Start Customer section
-//$(function () {
-//    //TODO Remove
-//    var header = $('.main_header');
-//    for (var i = 0; i < header.length; i++) {
-//        if (i > 0)
-//            $(header[i]).hide();
-//    }
-
-//    $("#datepicker1,#datepicker2").datepicker({
-//        autoclose: true,
-//        todayHighlight: true
-//    }).datepicker('update', new Date());;
-//    $("#datepicker2").datepicker({
-//        onSelect: function () {
-//            datepicker2 = $(this).datepicker('getDate');
-//        }
-//    });
-//    $("#datepicker1").datepicker({
-//        onSelect: function () {
-//            datepicker1 = $(this).datepicker('getDate');
-//        }
-//    });
-//    $("#popup_div").dialog({ autoOpen: false });
-//    $('.LoadTreeParital').click(function (data) {
-//        $('#bindPartial_AdminTree').show();
-//        $('#bindPartial_Category').hide();
-//        $('#bindPartial_NewEmployee').hide();
-//        $('#bindPartial_NewCustomer').hide();
-//    });
-//    $('.LoadCategoryParital').click(function (data) {
-//        $('#bindPartial_AdminTree').hide();
-//        $('#bindPartial_Category').show();
-//        $('#bindPartial_NewEmployee').hide();
-//        $('#bindPartial_NewCustomer').hide();
-
-//    });
-//    $('.LoadEmployeeParital').click(function (data) {
-//        $('#bindPartial_AdminTree').hide();
-//        $('#bindPartial_Category').hide();
-//        $('#bindPartial_NewEmployee').show();
-//        $('#bindPartial_NewCustomer').hide();
-
-//    });
-//    $('.LoadCustomerParital').click(function (data) {
-//        $('#bindPartial_AdminTree').hide();
-//        $('#bindPartial_Category').hide();
-//        $('#bindPartial_NewEmployee').hide();
-//        $('#bindPartial_NewCustomer').show();
-//    });
-//});
 function initializeStreatview(obj) {
     var fenway = { lat: obj[0].Lat, lng: obj[0].Long };
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
@@ -260,37 +204,52 @@ function initializeStreatview(obj) {
 }
 
 
+var _selChangeStateCode = 0;
+var _selChangeCityCode = 0;
+var _selChangeStreetCode = 0;
 
 function InsertAddress() {
     var stateID, cityID, streetID, buildingNumber, zipCode, visitTime, entry, visitInterval, nextVisit;
-    stateID = stateIds[stateNames.indexOf($('#inputState').val())] == undefined ? "" : stateIds[stateNames.indexOf($('#inputState').val())];
-    cityID = abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())] == undefined ? "" : abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#inputCity').val())];
-    streetID = abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())] == undefined ? "" : abliableDataForStreetId[abliableDataForStreetName.indexOf($('#inputStreet').val())];
     buildingNumber = $('#inputBuldingNumber').val();
     zipCode = $('#inputEntry').val();
     visitTime = $('#inputZipCode').val();
     entry = $('#inputVisitInterval').val();
     visitInterval = $('#inputVisitTime').val();
     nextVisit = $('#inputNextVisit').val();
-    if (cityID == '' && streetID == '' && buildingNumber == '') {
+
+    stateID = $('#inputState').val();
+    cityID = $('#inputCity').val();
+    streetID = $('#inputStreet').val();
+
+
+
+    if (cityID == '' || streetID == '' || buildingNumber == '') {
         var appElement = document.querySelector('[ng-controller=SearchCtrl]');
         var $scope = angular.element(appElement).scope();
         $scope.$apply(function () {
-            $scope.ShowMessageBox('Message','Must select address first.')
+            $scope.ShowMessageBox('Message', 'Must select address first.')
         });
-    } else {
-        $.ajax({
-            url: "/Admin/InsertAddress",
-            data: { stateID: stateID, cityID: cityID, streetID: streetID },
-            success: function (response) {
-                $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
-                for (var i = 0; i < response.length; i++) {
-                    $("#MapHeaderGrid").append("<tr id='" + response[i].Number + "' class='" + response[i].Lat + "' rel='" + response[i].Long + "'><td class='tg-dx8v'>" + response[i].CountryName + "</td><td class='tg-dx8v'>" + response[i].StateName + "</td><td class='tg-dx8v'>" + response[0].CityName + "</td><td class='tg-dx8v'>" + response[0].StreetName + "</td><td class='tg-dx8v'>" + response[0].BuldingNumber + "</td><td class='tg-dx8v'>" + response[i].CountryName + "," + response[i].StateName + "," + response[i].CityName + "," + response[i].StreetName + "," + response[0].BuldingNumber + "</td></tr>");
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-        });
+
+        return false;
     }
+
+    var num;
+
+    if (buildingNumber != undefined && buildingNumber != '')
+        num = buildingNumber.trim();
+
+    $.ajax({
+        url: "/Admin/InsertAddress",
+        data: { stateID: stateID, cityID: cityID, streetID: streetID },
+        success: function (response) {
+            $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
+            for (var i = 0; i < response.length; i++) {
+                $("#MapHeaderGrid").append("<tr id='" + response[i].Number + "' class='" + response[i].Lat + "' rel='" + response[i].Long + "'><td class='tg-dx8v'>" + response[i].CountryName + "</td><td class='tg-dx8v'>" + response[i].StateName + "</td><td class='tg-dx8v'>" + response[0].CityName + "</td><td class='tg-dx8v'>" + response[0].StreetName + "</td><td class='tg-dx8v'>" + response[0].BuldingNumber + "</td><td class='tg-dx8v'>" + response[i].CountryName + "," + response[i].StateName + "," + response[i].CityName + "," + response[i].StreetName + "," + response[0].BuldingNumber + "</td></tr>");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+
     if (stateID != "" || cityID != "" || streetID != "") {
         $("#popup_div").dialog("open");
         if (buildingLatLong[0] == null || buildingLatLong[1] == undefined) {
@@ -364,7 +323,7 @@ function Initialize(obj) {
 //        VisitInterval: $('#inputVisitInterval').val(),
 //        VisitTime: $('#inputVisitTime').val(),
 //        NextVisit: $('#inputNextVisit').val(),
-//        buldingCode: (abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf(buildingNumber)]),
+//        buldingCode: (availableBuildingId[availableBuildingNumber.indexOf(buildingNumber)]),
 //    };
 //    if (buildingNumber != "") {
 //        if ($('#inputCompanyName').val() != '') {
@@ -404,7 +363,7 @@ $(document).ready(function () {
         }
     });
 
-    GetStaresByFactoryID();
+    GetAllStatesByCountry();
 });
 
 

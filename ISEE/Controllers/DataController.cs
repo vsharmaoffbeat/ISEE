@@ -501,13 +501,13 @@ namespace ISEEREGION.Controllers
                     if (employee != null)
                     {
                         employee.EmployeeNum = number;
-                        employee.Mail = mail;
-                        employee.FirstName = firstName;
-                        employee.LastName = lastName;
-                        employee.MainAreaPhone = phone1;
-                        employee.MainPhone = phone11;
-                        employee.SecondAreaPhone = phone2;
-                        employee.SecondPhone = phone22;
+                        employee.Mail = mail.Trim();
+                        employee.FirstName = firstName.Trim();
+                        employee.LastName = lastName.Trim();
+                        employee.MainAreaPhone = phone1.Trim();
+                        employee.MainPhone = phone11.Trim();
+                        employee.SecondAreaPhone = phone2.Trim();
+                        employee.SecondPhone = phone22.Trim();
                         employee.PhoneManufactory = manufacture;
                         employee.PhoneType = phoneType;
                         if (!string.IsNullOrEmpty(Start))

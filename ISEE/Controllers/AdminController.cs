@@ -569,7 +569,6 @@ namespace ISEE.Controllers
                 var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
                 var StateDec = _facory.GetAllStates(CountryID).Select(x => new { StateCode = x.StateCode, StateDesc = x.StateDesc }).ToList();
 
-
                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }
@@ -585,7 +584,6 @@ namespace ISEE.Controllers
         public JsonResult GetAllStreetByCity(int cityID)
         {
             var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-
             var Streets = _facory.GetAllStreets(CountryID, cityID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
             return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

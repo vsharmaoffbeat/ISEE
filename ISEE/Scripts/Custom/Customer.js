@@ -3,7 +3,7 @@
 var stateNames = [];
 var stateIds = [];
 $(document).ready(function () {
-    $("#datepicker2,#datepicker1,#datepicker3,#datepicker4,#datepicker5,#datepicker6").datepicker({
+    $("#datepicker2,#datepickerEndDay,#nextVisitDatePicker,#datepicker3,#datepicker4,#datepicker5,#datepicker6").datepicker({
         autoclose: true,
         todayHighlight: true
     }).datepicker('update', new Date());;
@@ -17,10 +17,14 @@ $(document).ready(function () {
             datepicker1 = $(this).datepicker('getDate');
         }
     });
-    $(".right_main_employee :input").prop("disabled", true);
+    // $(".right_main_employee :input").prop("disabled", true);
     GetStaresByFactoryID();
     BindClassificationDdl();
     $("#datepicker5 input").val('')
+
+    $("#datepickerEndDay,#nextVisitDatePicker").datepicker('remove');
+    $('#datepickerEndDay input').val('');
+    $('#nextVisitDatePicker input').val('');
 });
 
 //Classification();
@@ -174,8 +178,10 @@ function searchRequestCustData() {
 
 //Get visiting data 
 function GetEmployeesToCustomerFilter() {
-    if (_customerId <= 0)
+    if (_customerId <= 0) {
+        alert('Must select customer');
         return false;
+    }
     var main = 0;
     var second = 0
     if ($('#mainClassificationDdl :selected').val() != '')
@@ -401,10 +407,10 @@ function searchCustomerData() {
 
                             ' StreetName=' + this.StreetName + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
                            ' CityId=' + this.CityId + ' StateName=' + this.StateName + ' StateId=' + this.StateId +
-
+                           ' EndDate=' + this.EndDate +
 
                                             '>Company Name: '
-                   + this.FirstName + ' </br>Contact Name: ' + this.LastName + '</br>City: ' + this.CityName + '</br>Street: ' + this.StreetName + ' , ' + this.BuildingNumber + '</br>Phone1: ' + this.AreaPhone1 + '-' + this.Phone1
+                   + this.FirstName + ' </br>Contact Name: ' + stringValidation(this.LastName) + '</br>City: ' + stringValidation(this.CityName) + '</br>Street: ' + stringValidation(this.StreetName) + ' , ' + stringValidation(this.BuildingNumber) + '</br>Phone1: ' + stringValidation(this.AreaPhone1) + '-' + stringValidation(this.Phone1)
                    + '        </div>').appendTo($('#left_employee_window'));
             });
 
@@ -442,30 +448,33 @@ function selectedCustomer(obj) {
 
 function setInputValues(obj) {
 
-    $(".right_main_employee :input").prop("disabled", false);
+    // $(".right_main_employee :input").prop("disabled", false);
 
-    $('#inputCustomerNumber').val(defaultValues($(obj).attr('CustomerNumber')));
-    $('#inputCompanyName').val(defaultValues($(obj).attr('lastName')));
-    $('#inputContactName').val(defaultValues($(obj).attr('firstName'))); 1
-    $('#inputFloor').val(defaultValues($(obj).attr('Floor')));
+    $('#inputCustomerNumber').val(stringValidation($(obj).attr('CustomerNumber')));
+    $('#inputCompanyName').val(stringValidation($(obj).attr('lastName')));
+    $('#inputContactName').val(stringValidation($(obj).attr('firstName'))); 1
+    $('#inputFloor').val(stringValidation($(obj).attr('Floor')));
 
-    $('#inputApartment').val(defaultValues($(obj).attr('Apartment')));
-    $('#inputMail').val(defaultValues($(obj).attr('inputMail')));
-    $('#inputPhoneOne').val(defaultValues($(obj).attr('AreaPhone1')));
-    $('#inputPhone11').val(defaultValues($(obj).attr('Phone1')));
-    $('#inputPhoneTwo').val(defaultValues($(obj).attr('AreaPhone2')));
-    $('#inputPhone22').val(defaultValues($(obj).attr('Phone2')));
-    $('#inputFax').val(defaultValues($(obj).attr('AreaFax')));
-    $('#inputFax1').val(defaultValues($(obj).attr('Fax')));
-    $('#customerRemarks1').val(defaultValues($(obj).attr('CustomerRemark1')));
-    $('#customerRemarks2').val(defaultValues($(obj).attr('CustomerRemark1')));
-    $('#stateId').val(defaultValues($(obj).attr('StreetName')));
-    $('#cityId').val(defaultValues($(obj).attr('CityName')));
-    $('#streetID').val(defaultValues($(obj).attr('StreetName')));
-    $('#buildingCode').attr('BuildingCode', defaultValues($(obj).attr('BuildingCode')));
-    $('#buildingCode').val(defaultValues($(obj).attr('BuildingNumber')));
-    $('#zipcode').val(defaultValues($(obj).attr('ZipCode')));
-    $('#visitInterval').val(defaultValues($(obj).attr('VisitInterval')));
+    $('#inputApartment').val(stringValidation($(obj).attr('Apartment')));
+    $('#inputMail').val(stringValidation($(obj).attr('inputMail')));
+    $('#inputPhoneOne').val(stringValidation($(obj).attr('AreaPhone1')));
+    $('#inputPhone11').val(stringValidation($(obj).attr('Phone1')));
+    $('#inputPhoneTwo').val(stringValidation($(obj).attr('AreaPhone2')));
+    $('#inputPhone22').val(stringValidation($(obj).attr('Phone2')));
+    $('#inputFax').val(stringValidation($(obj).attr('AreaFax')));
+    $('#inputFax1').val(stringValidation($(obj).attr('Fax')));
+    $('#customerRemarks1').val(stringValidation($(obj).attr('CustomerRemark1')));
+    $('#customerRemarks2').val(stringValidation($(obj).attr('CustomerRemark2')));
+    $('#stateId').val(stringValidation($(obj).attr('StreetName')));
+    $('#cityId').val(stringValidation($(obj).attr('CityName')));
+    $('#streetID').val(stringValidation($(obj).attr('StreetName')));
+    $('#buildingCode').attr('BuildingCode', stringValidation($(obj).attr('BuildingCode')));
+    $('#buildingCode').val(stringValidation($(obj).attr('BuildingNumber')));
+    $('#zipcode').val(stringValidation($(obj).attr('ZipCode')));
+    $('#visitInterval').val(stringValidation($(obj).attr('VisitInterval')));
+    $('#datepickerEndDay').val(stringValidation($(obj).attr('EndDate')));
+    $('#visiteTime').val(stringValidation($(obj).attr('VisitTime')));
+    $('#nextVisitDatePicker').val(stringValidation($(obj).attr('NextVisit')));
 }
 
 //clear search fields
@@ -476,6 +485,12 @@ function clearSearchFields() {
 //Update Customer
 function updateCustomer() {
     debugger;
+    var visit = 0;
+    var cvisitInterval = 0;
+    if ($('#visitInterval').val() != '')
+        cvisitInterval = $('#visitInterval').val();
+    if ($('#visitTime').val() != '')
+        visit = $('#visitTime').val();
     data = {
         customerID: _customerId,
         cNumber: $('#inputCustomerNumber').val(),
@@ -493,10 +508,15 @@ function updateCustomer() {
         cFax1: $('#inputFax1').val(),
         cRemarks1: $('#customerRemarks1').val(),
         cRemarks2: $('#customerRemarks2').val(),
-        cbuildingNumber: $('#buildingCode').val(),
         cbuildingCode: $('#buildingCode').attr('buildingCode'),
-       cZipCode:  $('#zipcode').val(defaultValues($(obj).attr('ZipCode'))),
-       cvisitInterval : $('#visitInterval').val(defaultValues($(obj).attr('VisitInterval')))
+        cbuildingNumber: $('#buildingCode').val(),
+
+        cZipCode: $('#zipcode').val(),
+        cvisitInterval: cvisitInterval,
+        cEndDate: $('#datepickerEndDay input').val(),
+        cNextVisit: $('#nextVisitDatePicker input').val(),
+        cvisitTime: visit
+
     }
     $.ajax({
         type: "POST",
@@ -505,8 +525,35 @@ function updateCustomer() {
         dataType: "json",
         success: function (response) {
             $('#msgHistory tr:gt(0)').remove();
-            if (response)
+            if (response) {
                 return alert("Customer Updated successfully.");
+                $('#left_employee_window div').each(function () {
+                    if ($(this).attr('customerid') == _customerId) {
+                        $(this).attr('CustomerId', data.customerID);
+                        $(this).attr('CustomerNumber', data.cNumber);
+                        $(this).attr('FirstName', data.cCompanyName);
+                        $(this).attr('LastName', data.cContactName);
+                        $(this).attr('Floor', data.cFloor);
+                        $(this).attr('Apartment', data.cApartment);
+                        $(this).attr('Mail', data.cMail);
+                        $(this).attr('AreaPhone1', data.cPhoneOne);
+                        $(this).attr('Phone1', data.cPhone11);
+                        $(this).attr('AreaPhone2', data.cPhoneTwo);
+
+                        $(this).attr('Phone2', data.cPhone22);
+                        $(this).attr('AreaFax', data.cFax);
+                        $(this).attr('Fax', data.cFax1);
+                        $(this).attr('CustomerRemark1', data.cRemarks1);
+                        $(this).attr('CustomerRemark2', data.cRemarks2);
+
+                        $(this).attr('Mail', data.cMail);
+
+                        $(this).empty();
+                        $('<div class="col-md-12 col-xs-12 tab_box">Company Name: ' + data.cCompanyName + ' </br>Contact Name: ' + data.cContactName + '</br>City: ' + $(this).attr('CityName') + '</br>Street: ' + $(this).attr('StreetName') + ' , ' + data.cbuildingNumber + '</br>Phone1: ' + data.cPhoneOne + '-' + data.cPhone11 + '  </div>').appendTo($(this));
+                        removeChange();
+                    }
+                })
+            }
             else
                 return alert("Failed to Update.");
         },
@@ -516,11 +563,6 @@ function updateCustomer() {
 }
 
 
-function defaultValues(val) {
-    if (val == '' || val == 'null' || val == '!@#$')
-        return '';
-    return val;
-}
 
 
 //Get Customer Request Data
@@ -550,3 +592,47 @@ function getCustomerRequestData(id, start, end) {
 
 //Save Classification
 
+
+
+//set details click
+function setDetails() {
+    if (parseInt(_customerId) > 0) {
+        setDatePicker();
+        $(".disabledClass").prop("disabled", false);
+        $('.main_employee_save').first().hide();
+        $('.main_employee_save').last().show()
+    }
+    else
+        alert("Select Customer");
+}
+
+//Cancel click
+function removeChange() {
+    if (parseInt(_customerId) > 0)
+        $('#left_employee_window div').each(function () {
+            if ($(this).attr('customerid') == _customerId) {
+                setInputValues(this);
+                //$("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
+                $('.main_employee_save').first().show();
+                $(".disabledClass").prop("disabled", true);
+                $('.main_employee_save').last().hide();
+            }
+        })
+}
+
+//Common Methods TODO in common file
+function stringValidation(val) {
+    if (val == '' || val == 'null' || val == '!@#$')
+        return '';
+    return val;
+}
+
+function setDatePicker() {
+
+    $("#datepickerEndDay").datepicker('add')
+    $("#nextVisitDatePicker").datepicker('add')
+    //.on('changeDate', function (selected) {
+    //    var minDate = new Date(selected.date.valueOf());
+    //    //     $('#datepickerStartDay').datepicker('setEndDate', minDate);
+    //});
+}

@@ -134,8 +134,8 @@ namespace ISEEREGION.Controllers
 
         public JsonResult GetMessageHistory(int employeeId, string start, string end)
         {
-            DateTime startD = ConvertDateTime(start);
-            DateTime endD = ConvertDateTime(end);
+            DateTime? startD = Common.ConvertDateTime(start);
+            DateTime? endD = Common.ConvertDateTime(end);
             using (ISEEEntities context = new ISEEEntities())
             {
                 var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= startD
@@ -510,9 +510,9 @@ namespace ISEEREGION.Controllers
                         employee.PhoneManufactory = manufacture;
                         employee.PhoneType = phoneType;
                         if (!string.IsNullOrEmpty(Start))
-                            employee.StartDay = ConvertDateTime(Start);
+                            employee.StartDay = Common.ConvertDateTime(Start);
                         if (!string.IsNullOrEmpty(end))
-                            employee.EndDay = ConvertDateTime(end);
+                            employee.EndDay = Common.ConvertDateTime(end);
                         else
                             employee.EndDay = null;
                         db.SaveChanges();
@@ -529,10 +529,7 @@ namespace ISEEREGION.Controllers
         }
         #endregion
 
-        public DateTime ConvertDateTime(string date)
-        {
-            return new DateTime(Convert.ToInt32(date.Split('/')[2]), Convert.ToInt32(date.Split('/')[1]), Convert.ToInt32(date.Split('/')[0]));
-        }
+    
 
         #region Country Data Common Methods
 

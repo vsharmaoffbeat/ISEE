@@ -20,28 +20,85 @@ namespace ISEE.Controllers
         {
             return View();
         }
-        public string GetNullableValues(string value)
-        {
-            if (string.IsNullOrEmpty(value.Trim()))
-                return null;
-            return value;
-
-        }
+    
         //{ state: state, city: city, street: street, building: building, custNumber: $('#custNumber').text().trim(), firstName: $('#custName').text().trim(), lastName: $('#custCompany').text().trim(), phone: $('#custPhone').text().trim(), phone1: $('#custPhone1').text().trim(), isActive: $('#isActive').is(':checked') }//
         public JsonResult GetCustomerSarch(int state, int city, int street, string building, string custNumber, string firstName, string lastName, string phone, string phone1, bool isActive)
         {
             state = 1;
-            building = GetNullableValues(building);
+            //        building = GetNullableValues(building);
 
-            custNumber = GetNullableValues(custNumber);
-            firstName = GetNullableValues(firstName);
-            lastName = GetNullableValues(lastName);
-            phone = GetNullableValues(phone);
-            phone1 = GetNullableValues(phone1);
+            //        custNumber = GetNullableValues(custNumber);
+            //        firstName = GetNullableValues(firstName);
+            //        lastName = GetNullableValues(lastName);
+            //        phone = GetNullableValues(phone);
+            //        phone1 = GetNullableValues(phone1);
+
+            //        using (ISEEEntities context = new ISEEEntities())
+            //        {
+            //            var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == SessionManagement.FactoryID &&
+            //                (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
+            //x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
+            //x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
+            //x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
+            //x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
+            //x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
+
+
+            //           && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
+            //(x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
+            //(x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
+            //(x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
+            //(isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
+            //{
+            //    CustomerId = x.CustomerId,
+            //    CustomerNumber = x.CustomerNumber,
+            //    FirstName = x.FirstName ?? "!@#$",
+            //    LastName = x.LastName ?? "!@#$",
+            //    Floor = x.Floor ?? "!@#$",
+            //    Apartment = x.Apartment ?? "!@#$",
+            //    AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+            //    Phone1 = x.Phone1 ?? "!@#$",
+            //    AreaPhone2 = x.AreaPhone2 ?? "!@#$",
+            //    Phone2 = x.Phone2 ?? "!@#$",
+            //    AreaFax = x.AreaFax ?? "!@#$",
+            //    Fax = x.Fax ?? "!@#$",
+            //    Mail = x.Mail ?? "!@#$",
+            //    CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
+            //    CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
+            //    VisitInterval = x.VisitInterval ?? 0,
+            //    NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
+            //    VisitDate = x.VisitDate ?? 0,
+            //    VisitTime = x.VisitTime ?? 0,
+            //    EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
+            //    Lat = x.Building.Lat,
+            //    BuildingCode = x.BuildingCode,
+            //    BuildingNumber = x.Building.Number ?? "!@#$",
+            //    Long = x.Building.Long,
+            //    ZipCode = x.Building.ZipCode,
+            //    StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+            //    StreetId = x.Building.Street.StateCode,
+            //    CityId = x.Building.Street.City.CityCode,
+            //    CityName = x.Building.Street.City.CityDesc ?? "!@#$",
+            //    StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+            //    StateId = x.Building.Street.City.State.StateCode
+
+
+
+            //}).ToList();
+
+
+            state = 1;
+            building =Common.Common.GetNullableValues(building);
+
+            custNumber = Common.Common.GetNullableValues(custNumber);
+            firstName = Common.Common.GetNullableValues(firstName);
+            lastName = Common.Common.GetNullableValues(lastName);
+            phone = Common.Common.GetNullableValues(phone);
+            phone1 = Common.Common.GetNullableValues(phone1);
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == SessionManagement.FactoryID &&
+                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManagement.FactoryID &&
                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
     x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
     x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
@@ -72,10 +129,10 @@ namespace ISEE.Controllers
         CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
         CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
         VisitInterval = x.VisitInterval ?? 0,
-        NextVisit = x.NextVisit,
-        VisitDate = x.VisitDate,
-        VisitTime = x.VisitTime,
-        EndDate = x.EndDate,
+        NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
+        VisitDate = x.VisitDate ?? 0,
+        VisitTime = x.VisitTime ?? 0,
+        EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
         Lat = x.Building.Lat,
         BuildingCode = x.BuildingCode,
         BuildingNumber = x.Building.Number ?? "!@#$",
@@ -89,19 +146,14 @@ namespace ISEE.Controllers
         StateId = x.Building.Street.City.State.StateCode
 
 
-
     }).ToList();
-
-
-
-
-
 
 
 
                 return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
+        //}
 
 
         //Bind Main Classsification DDL 
@@ -186,7 +238,16 @@ namespace ISEE.Controllers
 
 
         }
-        public string UpdateCustomer(int customerID, string cNumber, string cCompanyName, string cContactName, string cFloor, string cApartment, string cMail, string cPhoneOne, string cPhone11, string cPhoneTwo, string cPhone22, string cFax, string cFax1, string cRemarks1, string cRemarks2, int cbuildingCode, string cbuildingNumber, string cZipCode, int cvisitInterval)
+
+
+        public string UpdateCustomer(int customerID, string cNumber,
+            string cCompanyName,
+            string cContactName, string cFloor, string cApartment, string cMail,
+            string cPhoneOne, string cPhone11, string cPhoneTwo, string cPhone22,
+            string cFax, string cFax1, string cRemarks1, string cRemarks2,
+            int cbuildingCode,
+            string cbuildingNumber, string cZipCode, int cvisitInterval,
+            string cEndDate, string cNextVisit, int cvisitTime)
         {
             try
             {
@@ -194,21 +255,23 @@ namespace ISEE.Controllers
                 {
                     Customer customer = context.Customers.Where(x => x.CustomerId == customerID).FirstOrDefault();
                     customer.BuildingCode = cbuildingCode;
-                    customer.CustomerNumber = cNumber;
-                    customer.LastName = cCompanyName;
-                    customer.FirstName = cContactName;
-                    customer.Floor = cFloor;
-                    customer.Apartment = cApartment;
-                    customer.AreaPhone1 = cPhoneOne;
-                    customer.Phone1 = cPhone11;
-                    customer.AreaPhone2 = cPhoneTwo;
-                    customer.Phone2 = cPhone22;
-                    customer.AreaFax = cFax;
-                    customer.Fax = cFax1;
-                    customer.Mail = cMail;
-                    customer.CustomerRemark1 = cRemarks1;
-                    customer.CustomerRemark2 = cRemarks2;
-
+                    customer.CustomerNumber =Common.Common.GetNullableValues(cNumber.Trim());
+                    customer.LastName = Common.Common.GetNullableValues(cCompanyName.Trim());
+                    customer.FirstName = Common.Common.GetNullableValues(cContactName.Trim());
+                    customer.Floor = Common.Common.GetNullableValues(cFloor.Trim());
+                    customer.Apartment = Common.Common.GetNullableValues(cApartment.Trim());
+                    customer.AreaPhone1 = Common.Common.GetNullableValues(cPhoneOne.Trim());
+                    customer.Phone1 = Common.Common.GetNullableValues(cPhone11.Trim());
+                    customer.AreaPhone2 = Common.Common.GetNullableValues(cPhoneTwo.Trim());
+                    customer.Phone2 = Common.Common.GetNullableValues(cPhone22.Trim());
+                    customer.AreaFax = Common.Common.GetNullableValues(cFax.Trim());
+                    customer.Fax = Common.Common.GetNullableValues(cFax1.Trim());
+                    customer.Mail = Common.Common.GetNullableValues(cMail.Trim());
+                    customer.CustomerRemark1 = Common.Common.GetNullableValues(cRemarks1.Trim());
+                    customer.CustomerRemark2 = Common.Common.GetNullableValues(cRemarks2.Trim());
+                    customer.EndDate = Common.Common.ConvertDateTime(cEndDate);
+                    customer.NextVisit = Common.Common.ConvertDateTime(cNextVisit);
+                    customer.VisitTime = cvisitTime;
                     customer.VisitInterval = cvisitInterval;
                     context.SaveChanges();
                 }
@@ -218,7 +281,7 @@ namespace ISEE.Controllers
 
                 return "false";
             }
-            return "";
+            return "true";
 
         }
     }

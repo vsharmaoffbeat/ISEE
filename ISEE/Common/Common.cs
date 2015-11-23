@@ -19,6 +19,19 @@ namespace ISEE.Common
             //    return output;
             return output;
         }
+        public static string GetNullableValues(string value)
+        {
+            if (string.IsNullOrEmpty(value.Trim()))
+                return null;
+            return value;
+
+        }
+        public static DateTime? ConvertDateTime(string date)
+        {
+            if (string.IsNullOrEmpty(date.Trim()))
+                return null;
+            return new DateTime(Convert.ToInt32(date.Split('/')[2]), Convert.ToInt32(date.Split('/')[1]), Convert.ToInt32(date.Split('/')[0]));
+        }
 
         public static  List<TreeNodeData> CreateJsonTree(List<TreeView> data)
         {

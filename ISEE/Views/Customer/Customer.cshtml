@@ -244,7 +244,7 @@
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group">
             <label for="usr">Customer Number</label>
-            <input class="form-control isee_input_shadow" id="custNumber" name="" type="tel" value="">
+            <input class="form-control isee_input_shadow" id="custNumber" name="" type="tel" value="" placeholder="0">
         </div>
     </div>
 
@@ -322,25 +322,30 @@
         <div class="col-md-12 col-xs-12 main_employee_save">
             <label for="text" class="cutomer_label">This is dummy content</label>
 
-            <button type="button" class="btn btn-default pull-right isee_select_button"><img src="../images/img/show_in_map.png" />Show Map</button>
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button"><img src="../images/img/edit_details.png" />Set Details</button>
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button"><img src="../images/img/cancel.png" /> Cancel</button>
+            <button type="button" class="btn btn-default pull-right isee_select_button" "><img src="../images/img/show_in_map.png" />Show Map</button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="setDetails()"><img src="../images/img/edit_details.png" />Set Details</button>
+           
+        </div>
+
+        <div class="col-md-12 col-xs-12 main_employee_save" style="display:none;">
+            <label for="text" class="cutomer_label">This is dummy content</label>
+
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="removeChange()"><img src="../images/img/cancel.png" /> Cancel</button>
             <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateCustomer()"><img src="../images/img/save5.png" /> Save</button>
 
         </div>
-
 
         <div class="col-lg-12 col-xs-12 left_inner_main_cuttab">
             <h4 class="customer_title">Customer Info</h4>
             <div class="col-md-4 col-xs-12">
                 <div class="form-group">
                     <label for="usr">Customer Number</label>
-                    <input id="inputCustomerNumber" type="tel" class="form-control isee_input_shadow">
+                    <input id="inputCustomerNumber" type="tel" class="form-control isee_input_shadow disabledClass" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="usr">Floor</label>
-                    <input id="inputFloor" type="tel" class="form-control isee_input_shadow">
+                    <input id="inputFloor" type="tel" class="form-control isee_input_shadow disabledClass" disabled>
                 </div>
 
                 <div class="row">
@@ -348,14 +353,14 @@
 
                         <label>Phone1</label>
                         <div class="form-group">
-                            <input class="form-control isee_input cust_phone" id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
+                            <input class="form-control isee_input cust_phone disabledClass" disabled id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
                         </div>
                     </div>
 
                     <div class="col-xs-7">
                         <label></label>
                         <div class="form-group phone_no">
-                            <input class="form-control isee_input cust_phone2" id="inputPhone11" maxlength="10" name="" value="" size="3" title="" type="text">
+                            <input class="form-control isee_input cust_phone2 disabledClass" disabled id="inputPhone11" maxlength="10" name="" value="" size="3" title="" type="text">
                         </div>
                     </div>
                 </div>
@@ -365,26 +370,26 @@
             <div class="col-md-4 col-xs-12">
                 <div class="form-group">
                     <label for="usr">Company Name</label>
-                    <input id="inputCompanyName" type="text" class="form-control isee_input" required>
+                    <input id="inputCompanyName" type="text" class="form-control isee_input disabledClass" disabled required>
                 </div>
 
                 <div class="form-group">
                     <label for="usr">Apartment</label>
-                    <input id="inputApartment" type="text" class="form-control isee_input">
+                    <input id="inputApartment" type="text" class="form-control isee_input disabledClass" disabled>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-5">
                         <div class="form-group">
                             <label for="usr">Phone2</label>
-                            <input id="inputPhoneTwo" type="tel" class="form-control isee_input cust_phone">
+                            <input id="inputPhoneTwo" type="tel" class="form-control isee_input cust_phone disabledClass" disabled>
                         </div>
                     </div>
 
                     <div class="col-xs-7">
                         <label></label>
                         <div class="form-group phone_no">
-                            <input class="form-control isee_input cust_phone2" id="inputPhone22" maxlength="10" name="phone" size="3" title="" type="tel">
+                            <input class="form-control isee_input cust_phone2 disabledClass" disabled id="inputPhone22" maxlength="10" name="phone" size="3" title="" type="tel">
                         </div>
                     </div>
 
@@ -398,15 +403,15 @@
                     <div class="col-xs-6">
                         <div class="form-group">
                             <label for="usr">Contact Name</label>
-                            <input id="inputContactName" type="text" class="form-control isee_input">
+                            <input id="inputContactName" disabled type="text" class="form-control isee_input disabledClass">
                         </div>
                     </div>
 
 
                     <div class="col-xs-6">
                         <label for="usr">End Date</label>
-                        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                            <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
+                        <div id="datepickerEndDay" class="input-group date" data-date-format="dd/mm/yyyy">
+                            <input class="form-control isee_input  disabledClass" type="text" id="" title="enddate" value="" disabled />
                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
                         </div>
 
@@ -416,7 +421,7 @@
 
                 <div class="form-group">
                     <label for="">Mail</label>
-                    <input id="inputMail" type="email" class="form-control isee_input">
+                    <input id="inputMail" type="email" class="form-control isee_input  disabledClass" disabled>
                 </div>
 
                 <div class="row">
@@ -427,14 +432,14 @@
 
                                 <div class="form-group">
                                     <label>Mobile</label>
-                                    <input class="form-control isee_input" id="inputMobile" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputMobile" maxlength="3" name="" size="3" title="" type="tel" value="">
                                 </div>
                             </div>
 
                             <div class="col-xs-7">
                                 <label></label>
                                 <div class="form-group phone_no">
-                                    <input class="form-control isee_input" id="inputMobile1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputMobile1" maxlength="20" name="" size="3" title="" type="tel" value="">
                                 </div>
                             </div>
                         </div>
@@ -448,14 +453,14 @@
 
                                 <div class="form-group">
                                     <label>Fax</label>
-                                    <input class="form-control isee_input" id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
                                 </div>
                             </div>
 
                             <div class="col-xs-7">
                                 <label></label>
                                 <div class="form-group phone_no">
-                                    <input class="form-control isee_input" id="inputFax1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputFax1" maxlength="20" name="" size="3" title="" type="tel" value="">
                                 </div>
                             </div>
                         </div>
@@ -496,13 +501,13 @@
                                             <p>Customer Note</p>
                                             <div class="col-md-12 left_content_area">
 
-                                                <textarea class="col-md-12 main_cust_area" id="customerRemarks1" name="" type="" value="" />
+                                                <textarea class="col-md-12 main_cust_area  disabledClass" id="customerRemarks1" disabled name="" type="" value="" />
                                                 </textarea>
 
                                                 <p></p>
                                                 <p>Secondary Customer Note</p>
 
-                                                <textarea class="col-md-12 main_cust_area" id="customerRemarks2" name="" type="" value="" />
+                                                <textarea class="col-md-12 main_cust_area  disabledClass" id="customerRemarks2" disabled name="" type="" value="" />
                                                 </textarea>
 
                                             </div>
@@ -516,34 +521,34 @@
 
                                                 <div class="form-group">
                                                     <label>State</label>
-                                                    <input class="form-control isee_input" id="stateId" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" disabled id="stateId" maxlength="3" name="" size="3" title="" type="text" value="">
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label>City</label>
-                                                    <input class="form-control isee_input" id="cityId" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" disabled id="cityId" maxlength="3" name="" size="3" title="" type="text" value="">
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label>Street</label>
-                                                    <input class="form-control isee_input" id="streetID" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" disabled id="streetID" maxlength="3" name="" size="3" title="" type="text" value="">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label>Building Number</label>
-                                                    <input class="form-control isee_input" id="buildingCode" maxlength="3" name="" size="3" title="" type="text">
+                                                    <input class="form-control isee_input" disabled id="buildingCode" maxlength="3" name="" size="3" title="" type="text">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label>Entry</label>
-                                                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" disabled id="" maxlength="3" name="" size="3" title="" type="text" value="">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label>Zip code</label>
-                                                    <input class="form-control isee_input" id="zipcode" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                    <input class="form-control isee_input" disabled id="zipcode" maxlength="3" name="" size="3" title="" type="text" value="">
                                                 </div>
 
 
@@ -553,8 +558,8 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Visite Interval</label>
-                                                        <input class="form-control isee_input" id="visitInterval" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                        <label>Visit Interval</label>
+                                                        <input class="form-control isee_input" id="visitInterval"  name=""  title="" type="number" value="">
                                                     </div>
 
                                                 </div>
@@ -563,8 +568,8 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Visite Time</label>
-                                                        <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                                                        <label>Visit Time</label>
+                                                        <input class="form-control isee_input" id="visitTime" title="" type="number" value="">
                                                     </div>
 
                                                 </div>
@@ -575,9 +580,9 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="usr">Next Visit</label>
-                                                        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                                            <input class="form-control isee_input" type="text" id="" name="startday" value="" />
-                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
+                                                        <div id="nextVisitDatePicker" class="input-group date" data-date-format="dd/mm/yyyy">
+                                                            <input class="form-control isee_input disabledClass" type="text" id="" name="startday" value="" />
+                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
                                                         </div>
                                                     </div>
 

@@ -2,6 +2,7 @@
 //var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 $(document).ready(function () {
     $(".disabledClass").prop("disabled", true);
+
     $("#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
         autoclose: true,
         todayHighlight: true
@@ -69,7 +70,7 @@ $(document).ready(function () {
     var d = new Date();
     d.setMonth(d.getMonth() - 3);
     $("#datepicker1").datepicker('setDate', d);
-   
+
 
 });
 function setDatePicker() {
@@ -93,9 +94,10 @@ $('#showMap').click(function () {
         alert("Select Employee");
 })
 //set details click
-function setDeatils() {
+function setDetails() {
     if (parseInt(_employeeId) > 0) {
         setDatePicker();
+        $('#tblemployeeHours input').attr('disabled', false);
         $(".disabledClass").prop("disabled", false);
         $('.employee_save_header').first().hide();
         $('.employee_save_header').last().show()
@@ -112,7 +114,8 @@ function removeChange() {
                 $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
                 $('.employee_save_header').first().show();
                 $(".disabledClass").prop("disabled", true);
-                $('.employee_save_header').last().hide()
+                $('.employee_save_header').last().hide();
+               
             }
         })
 }
@@ -232,9 +235,8 @@ function searchEmployeeData() {
 function selectedEmployee(obj) {
     if (_employeeId == $(obj).attr('EmployeeId'))
         return false;
-
-    removeChange();
     _employeeId = $(obj).attr('EmployeeId');
+    removeChange();
 
 
 
@@ -245,7 +247,7 @@ function selectedEmployee(obj) {
     //get Employee history template
     getEmployeeTimeHistoryDiary();
     //Set employee data
-    setInputValues(obj);
+    // setInputValues(obj);
 
     $('#showMap').attr('href', '/map/map');
 
@@ -371,7 +373,7 @@ function getEmployeeTimeTemplate(id) {
                 scrollbar: true,
             });
 
-
+            $('#tblemployeeHours input').attr('disabled', true);
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -462,6 +464,7 @@ function updateEmployee() {
                             $('<div class="col-md-12 col-xs-12 tab_box">First Name: ' + d.firstName + ' <p>Last Name: ' + d.lastName + '</p><p>Phone1: ' + d.phone1 + '-' + d.phone11 + '</p></div>').appendTo($(this));
                         }
                     })
+                    removeChange();
                 }
                 else
                     alert("Failed to update.");

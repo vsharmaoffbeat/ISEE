@@ -57,7 +57,7 @@ namespace ISEE.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                int factoryId = SessionManagement.FactoryID;
                 bool _Active = true;
                 var empData = dataContext.Employees.Where(x => x.Factory == factoryId
                                                          && x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
@@ -72,7 +72,7 @@ namespace ISEE.Controllers
             Common.Common.GetInteger(state);
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                int factoryId = SessionManagement.FactoryID;
                 bool _Active = true;
 
                 var custData = dataContext.Customers.Include("Building")
@@ -110,7 +110,7 @@ namespace ISEE.Controllers
         }
         public JsonResult GetEmployeeHours()
         {
-            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            int factoryId = SessionManagement.FactoryID;
             using (ISEEEntities context = new ISEEEntities())
             {
                 var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("hh:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("hh:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("hh:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("hh:mm tt") : null }).ToList();
@@ -119,7 +119,7 @@ namespace ISEE.Controllers
         }
         public bool SaveEmployeeHours(string objhours, int employeeID)
         {
-            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            int factoryId = SessionManagement.FactoryID;
             var mainData = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ISEEDataModel.Repository.employeeHours>>(objhours);
             if (employeeID > 0)
             {
@@ -160,7 +160,7 @@ namespace ISEE.Controllers
 
         public int SaveEmployeeData(string number, string firstName, string lastName, string startDay, string enddate, string phone1, string phone11, string phone2, string phone22, string ManufactureChoice, string phoneTypeChoice)
         {
-            int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            int factoryId = SessionManagement.FactoryID;
             int EmployeeID = 0;
             using (ISEEEntities context = new ISEEEntities())
             {
@@ -206,7 +206,7 @@ namespace ISEE.Controllers
 
         public JsonResult GetCurrentLogedUserCountery()
         {
-            int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            int FactoryId = SessionManagement.FactoryID;
             if (FactoryId > 0)
             {
                 using (ISEEEntities context = new ISEEEntities())
@@ -223,32 +223,32 @@ namespace ISEE.Controllers
             try
             {
 
-           
-            int countryID = ISEE.Common.SessionManegment.SessionManagement.Country;
 
-            var objBuilding = _facory.GetChangeBuildingCode1(countryID, stateID, cityID, streetID, buildingNumber, entry, zipCode);
+                int countryID = SessionManagement.Country;
 
-            if (objBuilding == null)//not found building code
-            {
-                GoogleDomainService objGoogleDomainService = new GoogleDomainService();
-                var objAddress = new Address
+                var objBuilding = _facory.GetChangeBuildingCode1(countryID, stateID, cityID, streetID, buildingNumber, entry, zipCode);
+
+                if (objBuilding == null)//not found building code
                 {
-                    CountryId = countryID,
-                    Country = ISEE.Common.SessionManegment.SessionManagement.CountryDesc,
-                    State = state,
-                    City = city,
-                    Street = street,
-                    Building = buildingNumber
-                };
+                    GoogleDomainService objGoogleDomainService = new GoogleDomainService();
+                    var objAddress = new Address
+                    {
+                        CountryId = countryID,
+                        Country = SessionManagement.CountryDesc,
+                        State = state,
+                        City = city,
+                        Street = street,
+                        Building = buildingNumber
+                    };
 
-                var result = objGoogleDomainService.GetLocation(objAddress);
-                return new JsonResult { Data = new { IsSuccess=true,  IsOpenMap = true, Result = result }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    var result = objGoogleDomainService.GetLocation(objAddress);
+                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = true, Result = result }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            }
-            else
-            {
-                return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = false, BuildingCode = objBuilding.BuildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
+                }
+                else
+                {
+                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = false, BuildingCode = objBuilding.BuildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
 
             }
             catch (Exception ex)
@@ -280,7 +280,7 @@ namespace ISEE.Controllers
             //    && x.StateCode == (stateID == null ? x.StateCode : stateID)
             //    && x.StreetCode == (streetID == null ? x.StreetCode : streetID)
             //    && x.CityCode == (cityID == null ? x.CityCode : cityID)).Select(s => new { CountryName = s.Street.City.State.Country.CountryDesc, StateName = s.Street.City.State.StateDesc, CityName = s.Street.City.CityDesc, StreetName = s.Street.StreetDesc, BuldingNumber = s.Number, Lat = s.Lat, Long = s.Long, Number = s.Number }).ToList();
-            
+
         }
 
 
@@ -289,7 +289,7 @@ namespace ISEE.Controllers
             string errorMessage = string.Empty;
             try
             {
-                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+                int FactoryId = SessionManagement.FactoryID;
                 var CustomerData = objCustomerData;
 
                 using (ISEEEntities context = new ISEEEntities())
@@ -337,12 +337,12 @@ namespace ISEE.Controllers
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
                     return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID && d.StatusCode == Common.Common.GetInteger(id)).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
+                    var factoryLevel1list = dataContext.RequsetToFactoryLevel1.ToList().Where(d => d.Factory == SessionManagement.FactoryID && d.StatusCode == Common.Common.GetInteger(id)).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
                     return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -454,7 +454,7 @@ namespace ISEE.Controllers
         {
             //SessionManegment.SessionManagement.FactoryID = 1;
             //SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
-            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
+            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
@@ -467,7 +467,7 @@ namespace ISEE.Controllers
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
             }
             TreeNodeData parentTreeNode = new TreeNodeData();
             CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
@@ -541,12 +541,12 @@ namespace ISEE.Controllers
             var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
             try
             {
-                DeleteNodes(treeNodeList, SessionManegment.SessionManagement.FactoryID);
+                DeleteNodes(treeNodeList, SessionManagement.FactoryID);
 
                 SaveProcess(treeNodeList, null);
                 dataContext.SaveChanges();
 
-                List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
+                List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
                 var serializer = new JavaScriptSerializer();
                 var jsonString = serializer.Serialize(CreateJsonTree(data));
@@ -572,7 +572,7 @@ namespace ISEE.Controllers
                 {
                     objNode = new TreeView();
                     objNode.Description = objTreeNode.text;
-                    objNode.FactoryID = SessionManegment.SessionManagement.FactoryID;
+                    objNode.FactoryID = SessionManagement.FactoryID;
                     if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "employee" && objTreeNode.objectid != null)
                         objNode.EmployeeID = objTreeNode.objectid;
                     else if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "customer" && objTreeNode.objectid != null)
@@ -602,7 +602,7 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities context = new ISEEEntities())
             {
-                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+                var CountryID = SessionManagement.Country;
                 var StateDec = _facory.GetAllStates(CountryID).ToList()
                     .Select(x => new { StateCode = x.StateCode.ToString().Trim(), StateDesc = (x.StateDesc ?? string.Empty).ToString().Trim() })
                     .Distinct()
@@ -614,7 +614,7 @@ namespace ISEE.Controllers
         }
         public JsonResult GetAllCitysByState(int stateID)
         {
-            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+            var CountryID = SessionManagement.Country;
             var Cityes = _facory.GetAllCities(CountryID, stateID).ToList()
                 .Select(d => new { CityCode = d.CityCode.ToString().Trim(), CityDesc = d.CityDesc.ToString().Trim() })
                 .Distinct()
@@ -625,7 +625,7 @@ namespace ISEE.Controllers
 
         public JsonResult GetAllStreetByCity(int cityID)
         {
-            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+            var CountryID = SessionManagement.Country;
 
             var Streets = _facory.GetAllStreets(CountryID, cityID).ToList().Select(d => new { StreetCode = d.StreetCode.ToString().Trim(), Streetdesc = d.StreetDesc.ToString().Trim() })
                 .Distinct()
@@ -636,7 +636,7 @@ namespace ISEE.Controllers
 
         public JsonResult GetAllBuildingsByCity(int streetID, int cityID)
         {
-            var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+            var CountryID = SessionManagement.Country;
             var Buildings = _facory.GetAllNumbers(CountryID, cityID, streetID).ToList().Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number.Trim() })
                 .Distinct()
                 .ToList();
@@ -656,7 +656,7 @@ namespace ISEE.Controllers
 
         public JsonResult GetAddressBuildingCode(int state, string citydesc, int city, int street, string streetdesc, string number, double Lat, double Long, string entry, string zipcode)
         {
-            int country = ISEE.Common.SessionManegment.SessionManagement.Country;
+            int country = SessionManagement.Country;
             var buildingCode = _facory.GetAddressBuildingCode(country, state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode);
             return new JsonResult { Data = new { BuildingCode = buildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

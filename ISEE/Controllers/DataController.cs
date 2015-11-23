@@ -66,15 +66,14 @@ namespace ISEEREGION.Controllers
 
 
                 var loginData = query.ToList()[0];
-                SessionManegment.SessionManagement.FactoryID = loginData.FactoryID;
-
-                SessionManegment.SessionManagement.FactoryDesc = loginData.FactoryDesc;
-                SessionManegment.SessionManagement.CountryDesc = loginData.CountryDesc;
-                SessionManegment.SessionManagement.FactoryID = loginData.FactoryID;
-                SessionManegment.SessionManagement.Country = loginData.Country;
-                SessionManegment.SessionManagement.CurrentGmt = loginData.CurrentGmt;
-                SessionManegment.SessionManagement.SmsProvider = loginData.SmsProvider;
-                SessionManegment.SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
+                SessionManagement.FactoryID = loginData.FactoryID;
+                SessionManagement.FactoryDesc = loginData.FactoryDesc;
+                SessionManagement.CountryDesc = loginData.CountryDesc;
+                SessionManagement.FactoryID = loginData.FactoryID;
+                SessionManagement.Country = loginData.Country;
+                SessionManagement.CurrentGmt = loginData.CurrentGmt;
+                SessionManagement.SmsProvider = loginData.SmsProvider;
+                SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
                 //SessionManegment.SessionManagement. = loginData.;
@@ -102,7 +101,7 @@ namespace ISEEREGION.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                var empData = context.Employees.ToList().Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID
+                var empData = context.Employees.ToList().Where(x => x.Factory == SessionManagement.FactoryID
                                                         && (string.IsNullOrEmpty(firstname) || x.FirstName.Contains(firstname))
                     //       x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
                                                         && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))
@@ -173,17 +172,17 @@ namespace ISEEREGION.Controllers
         {
             string result = string.Empty;
 
-            switch (SessionManegment.SessionManagement.SmsProvider)
+            switch (SessionManagement.SmsProvider)
             {
                 case 1:
                     result = SenderSMS(employeeId, msg, phoneNumber);
                     break;
                 case 2:
-                    result = SenderSMSMexico(employeeId, msg, phoneNumber, SessionManegment.SessionManagement.CurrentGmt);
+                    result = SenderSMSMexico(employeeId, msg, phoneNumber, SessionManagement.CurrentGmt);
                     break;
                 case 3:
                     //  strPhone = vm_emp.SelectedEmployee.MainAreaPhone.TrimStart('0').Trim() + vm_emp.SelectedEmployee.MainPhone.Trim();
-                    result = SendSMSClickatell(employeeId, msg, phoneNumber, SessionManegment.SessionManagement.PhoneAreaCode, SessionManegment.SessionManagement.CurrentGmt);
+                    result = SendSMSClickatell(employeeId, msg, phoneNumber, SessionManagement.PhoneAreaCode, SessionManagement.CurrentGmt);
                     break;
 
             }
@@ -244,7 +243,7 @@ namespace ISEEREGION.Controllers
             //add and save row to DB
             EmployeeSmsSend emp_sms = new EmployeeSmsSend();
             emp_sms.EmployeeId = EmpID;
-            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManegment.SessionManagement.CurrentGmt);
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManagement.CurrentGmt);
             emp_sms.SmsMsg = _strMsg;
             emp_sms.SmsCount = 1;
             emp_sms.SmsStatus = Convert.ToInt32(Status);
@@ -353,7 +352,7 @@ namespace ISEEREGION.Controllers
         public string SendSms(string _strMsg, string phoneNumber, int employeeId)
         {
 
-            string sss = SessionManegment.SessionManagement.PhoneAreaCode;
+            string sss = SessionManagement.PhoneAreaCode;
 
             //  string _strMsg = "";
             string UserName = "sparta";
@@ -363,7 +362,7 @@ namespace ISEEREGION.Controllers
             string senderNumber = "5632455";
 
             //set phone numbers "0545500378;0545500379;"
-            string phonesList = SessionManegment.SessionManagement.PhoneAreaCode + "0505774499";
+            string phonesList = SessionManagement.PhoneAreaCode + "0505774499";
 
 
             //create XML
@@ -403,7 +402,7 @@ namespace ISEEREGION.Controllers
             //add and save row to DB
             EmployeeSmsSend emp_sms = new EmployeeSmsSend();
             emp_sms.EmployeeId = employeeId;
-            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManegment.SessionManagement.CurrentGmt);
+            emp_sms.SmsCreatDate = DateTime.Now.AddHours(SessionManagement.CurrentGmt);
             emp_sms.SmsMsg = _strMsg;
             emp_sms.SmsCount = 1;
             emp_sms.SmsStatus = Convert.ToInt32(Status);
@@ -515,7 +514,7 @@ namespace ISEEREGION.Controllers
                         if (!string.IsNullOrEmpty(end))
                             employee.EndDay = ConvertDateTime(end);
                         else
-                        employee.EndDay = null;
+                            employee.EndDay = null;
                         db.SaveChanges();
 
                     }
@@ -544,8 +543,8 @@ namespace ISEEREGION.Controllers
                 //int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
                 //var CountryID = context.FactoryParms.Where(F => F.FactoryId == FactoryId).Select(s => new { CountryID = s.Country }).FirstOrDefault();
 
-                int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
-                var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+                int FactoryId = SessionManagement.FactoryID;
+                var CountryID = SessionManagement.Country;
                 if (CountryID != null)
                 {
 

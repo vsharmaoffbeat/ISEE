@@ -1,4 +1,5 @@
-﻿using SampleApplicationISEE;
+﻿using ISEE.Common;
+using SampleApplicationISEE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace ISEE
                 languageSession = Request.UserLanguages[0];
                 HttpContext context = HttpContext.Current;
                 if (context != null && context.Session != null)
-                    languageSession = ISEE.Common.SessionManegment.SessionManagement.Language;
+                    languageSession = SessionManagement.Language;
 
                 Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(languageSession);
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(languageSession);

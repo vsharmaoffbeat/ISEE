@@ -18,7 +18,6 @@ namespace ISEE.Controllers
         }
         public ActionResult Customer()
         {
-            ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
             return View();
         }
         public string GetNullableValues(string value)
@@ -42,7 +41,7 @@ namespace ISEE.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
+                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == SessionManagement.FactoryID &&
                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
     x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
     x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
@@ -110,7 +109,7 @@ namespace ISEE.Controllers
         {
             using (ISEEEntities dataContext = new ISEEEntities())
             {
-                var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManegment.SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
+                var factoryLevel1list = dataContext.RequsetToFactoryLevel1.Where(d => d.Factory == SessionManagement.FactoryID).OrderBy(c => c.RequsetOrder).Select(x => new { x.RequestSysIdLevel1, x.RequestDescCodeLevel1, x.RequsetOrder, x.StatusCode, x.Factory }).ToList();
                 return Json(factoryLevel1list, JsonRequestBehavior.AllowGet);
             }
         }
@@ -187,30 +186,30 @@ namespace ISEE.Controllers
 
 
         }
-        public string UpdateCustomer(int customerID, string cNumber, string cCompanyName, string cContactName, string cFloor, string cApartment, string cMail, string cPhoneOne, string cPhone11, string cPhoneTwo, string cPhone22, string cFax, string cFax1, string cRemarks1, string cRemarks2, int cbuildingCode, string cbuildingNumber, string cZipCode,int cvisitInterval)
+        public string UpdateCustomer(int customerID, string cNumber, string cCompanyName, string cContactName, string cFloor, string cApartment, string cMail, string cPhoneOne, string cPhone11, string cPhoneTwo, string cPhone22, string cFax, string cFax1, string cRemarks1, string cRemarks2, int cbuildingCode, string cbuildingNumber, string cZipCode, int cvisitInterval)
         {
             try
             {
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     Customer customer = context.Customers.Where(x => x.CustomerId == customerID).FirstOrDefault();
-                    customer.BuildingCode  =cbuildingCode  ;
-                    customer.CustomerNumber  =cNumber  ;
-                    customer.LastName  =cCompanyName  ;
-                    customer.FirstName  =cContactName  ;
-                customer.Floor  =  cFloor;
-                    customer.Apartment  =  cApartment;
-                    customer.AreaPhone1  =  cPhoneOne;
-                    customer.Phone1  =cPhone11  ;
-                    customer.AreaPhone2  =  cPhoneTwo;
-                    customer.Phone2  =  cPhone22;
-                    customer.AreaFax  =  cFax;
-                    customer.Fax=  cFax1;
-                    customer.Mail  =cMail  ;
-                    customer.CustomerRemark1  =cRemarks1  ;
-                customer.CustomerRemark2  =cRemarks2  ;
+                    customer.BuildingCode = cbuildingCode;
+                    customer.CustomerNumber = cNumber;
+                    customer.LastName = cCompanyName;
+                    customer.FirstName = cContactName;
+                    customer.Floor = cFloor;
+                    customer.Apartment = cApartment;
+                    customer.AreaPhone1 = cPhoneOne;
+                    customer.Phone1 = cPhone11;
+                    customer.AreaPhone2 = cPhoneTwo;
+                    customer.Phone2 = cPhone22;
+                    customer.AreaFax = cFax;
+                    customer.Fax = cFax1;
+                    customer.Mail = cMail;
+                    customer.CustomerRemark1 = cRemarks1;
+                    customer.CustomerRemark2 = cRemarks2;
 
-                    customer.VisitInterval  =cvisitInterval  ;
+                    customer.VisitInterval = cvisitInterval;
                     context.SaveChanges();
                 }
             }

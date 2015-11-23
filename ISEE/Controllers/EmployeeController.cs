@@ -21,9 +21,9 @@ namespace ISEE.Controllers
         // GET: /Employee/
         public ActionResult Employee()
         {
-            if (ISEE.Common.SessionManegment.SessionManagement.FactoryID == 0)
+            if (SessionManagement.FactoryID == 0)
                 return RedirectToAction("login", "login");
-            List<TreeView> data = context.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
+            List<TreeView> data = context.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
             
             var serializer = new JavaScriptSerializer();

@@ -65,7 +65,7 @@ namespace ISEE.Controllers
             DateTime dt2 = to;
             TimeSpan from1 = from.TimeOfDay;
             TimeSpan to1 = to.TimeOfDay;
-            var employeeStopPoints = GetStopPoints(SessionManegment.SessionManagement.FactoryID, ID, dt1, dt2, from1, to1);
+            var employeeStopPoints = GetStopPoints(SessionManagement.FactoryID, ID, dt1, dt2, from1, to1);
 
             var employeeCustomerPoints = GetGpsEmployeeCustomerPoints(ID, dt1, dt2, from1, to1);
 

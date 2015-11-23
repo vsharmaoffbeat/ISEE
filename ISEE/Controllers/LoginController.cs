@@ -1,4 +1,5 @@
-﻿using ISEEDataModel.Repository;
+﻿using ISEE.Common;
+using ISEEDataModel.Repository;
 using ISEEDataModel.Repository.Services;
 using ISEEREGION.Models;
 using System;
@@ -79,9 +80,9 @@ namespace ISEEREGION.Controllers
 
         public ActionResult SetSelectedCountry(string lang)
         {
-            ISEE.Common.SessionManegment.SessionManagement.Language = lang;
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(ISEE.Common.SessionManegment.SessionManagement.Language);
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(ISEE.Common.SessionManegment.SessionManagement.Language);
+            SessionManagement.Language = lang;
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(SessionManagement.Language);
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(SessionManagement.Language);
 
             //ViewBag.language = lang;
 
@@ -96,9 +97,9 @@ namespace ISEEREGION.Controllers
             using (ISEEEntities context = new ISEEEntities())
             {
                 var ret = context.LanguageLists.Select(d => d.LanguageNickname).Distinct().ToList();
-                var selectedImageUrl = string.Format("/images/img/{0}.png", ISEE.Common.SessionManegment.SessionManagement.Language.Trim().ToLower());
+                var selectedImageUrl = string.Format("/images/img/{0}.png", SessionManagement.Language.Trim().ToLower());
                 var result = ret.Select(c => new { LanguageNickname = c.Trim(), ImageUrl = string.Format("/images/img/{0}.png", c.Trim().ToLower()) }).ToList();
-                return Json(new { CountryList = result, SelectedCountry = ISEE.Common.SessionManegment.SessionManagement.Language, SelectedCountryImageUrl = selectedImageUrl }, JsonRequestBehavior.AllowGet);
+                return Json(new { CountryList = result, SelectedCountry = SessionManagement.Language, SelectedCountryImageUrl = selectedImageUrl }, JsonRequestBehavior.AllowGet);
             }
         }
 

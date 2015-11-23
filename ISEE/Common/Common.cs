@@ -25,7 +25,7 @@ namespace ISEE.Common
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)
             {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManegment.SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
+                treeList.Add(new TreeNodeData() { id = -100, text = SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
             }
             TreeNodeData parentTreeNode = new TreeNodeData();
             CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);

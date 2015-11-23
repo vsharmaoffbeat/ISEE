@@ -1,4 +1,5 @@
-﻿using ISEEDataModel.Repository;
+﻿using ISEE.Common;
+using ISEEDataModel.Repository;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -31,7 +32,7 @@ namespace ISEE.Controllers
 
             using (ISEEEntities context = new ISEEEntities())
             {
-                int factoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID = 1;
+                int factoryId = SessionManagement.FactoryID;
                 var empData = context.Employees.ToList().Where(x => x.Factory == factoryId
                                                        && (string.IsNullOrEmpty(firstName) || x.FirstName.Contains(firstName))
                                                        && (string.IsNullOrEmpty(LastName) || x.LastName.Contains(LastName))
@@ -159,7 +160,7 @@ namespace ISEE.Controllers
             customerNumber = GetNullableValues(customerNumber);
             using (ISEEEntities context = new ISEEEntities())
             {
-                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID &&
+                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == SessionManagement.FactoryID &&
                     (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
                      x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
                      x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
@@ -224,7 +225,7 @@ namespace ISEE.Controllers
             using (ISEEEntities context = new ISEEEntities())
             {
 
-                var result = context.Customers.Where(s => s.Factory == ISEE.Common.SessionManegment.SessionManagement.FactoryID).Select(x => new
+                var result = context.Customers.Where(s => s.Factory == SessionManagement.FactoryID).Select(x => new
                 {
                     CustomerId = x.CustomerId,
                     CustomerNumber = x.CustomerNumber,

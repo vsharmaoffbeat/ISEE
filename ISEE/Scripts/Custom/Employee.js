@@ -115,6 +115,7 @@ function removeChange() {
                 $('.employee_save_header').first().show();
                 $(".disabledClass").prop("disabled", true);
                 $('.employee_save_header').last().hide();
+                $('#tblemployeeHours input').attr('disabled', true);
                
             }
         })

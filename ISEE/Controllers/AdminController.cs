@@ -114,22 +114,10 @@ namespace ISEE.Controllers
                         EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
                         factoryDairyTemplet.DayStatus = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         factoryDairyTemplet.EmployeeId = employeeID;
-                        if (Convert.ToDateTime(item.Start1).ToShortTimeString() != null)
-                        {
-                            factoryDairyTemplet.Start1 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
-                        }
-                        if (Convert.ToDateTime(item.End1).ToShortTimeString() != null)
-                        {
-                            factoryDairyTemplet.Stop1 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End1).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
-                        }
-                        if (Convert.ToDateTime(item.Start2).ToShortTimeString() != null)
-                        {
-                            factoryDairyTemplet.Start2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.Start2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
-                        }
-                        if (Convert.ToDateTime(item.End2).ToShortTimeString() != null)
-                        {
-                            factoryDairyTemplet.Stop2 = (new TimeSpan(Int32.Parse(Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[0]), Int32.Parse((Convert.ToDateTime(item.End2).ToShortTimeString().Split(':')[1]).Split(' ')[0]), 0));
-                        }
+                            factoryDairyTemplet.Start1 = Common.Common.GetTimeSpan(item.Start1);
+                            factoryDairyTemplet.Stop1 = Common.Common.GetTimeSpan(item.End1)  ;
+                            factoryDairyTemplet.Start2 = Common.Common.GetTimeSpan(item.Start2) ;
+                            factoryDairyTemplet.Stop2 = Common.Common.GetTimeSpan(item.End2)  ;
                         factoryDairyTemplet.OrderDay = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
                         context.SaveChanges();
@@ -141,7 +129,7 @@ namespace ISEE.Controllers
             return false;
         }
 
-        public int SaveEmployeeData(string number, string firstName, string lastName, string startDay, string enddate, string phone1, string phone11, string phone2, string phone22, string ManufactureChoice, string phoneTypeChoice)
+        public int SaveEmployeeData(string number, string firstName, string lastName, string startDay, string enddate, string phone1, string phone11, string phone2, string phone22, string ManufactureChoice, string phoneTypeChoice, string mail)
         {
             int factoryId = SessionManagement.FactoryID;
             int EmployeeID = 0;
@@ -150,19 +138,23 @@ namespace ISEE.Controllers
                 try
                 {
                     Employee emp = new Employee();
-                    emp.FirstName = firstName;
-                    emp.LastName = lastName;
-                    emp.EmployeeNum = number;
+                    emp.FirstName =Common.Common.GetNullableValues(firstName);
+                    emp.LastName = Common.Common.GetNullableValues(lastName);
+                    emp.EmployeeNum =Common.Common.GetNullableValues( number);
                     emp.SysCreatDate = DateTime.Now;
                     emp.Factory = factoryId;
+                    if (string.IsNullOrEmpty(startDay))
+                        emp.StartDay = DateTime.Now;
+                    else
                     emp.StartDay = startDay != "" ? Convert.ToDateTime(startDay).Date : emp.StartDay;
                     emp.EndDay = enddate != "" ? Convert.ToDateTime(enddate).Date : emp.EndDay;
                     emp.PhoneManufactory = Convert.ToInt32(ManufactureChoice);
                     emp.PhoneType = Convert.ToInt32(phoneTypeChoice != "" ? phoneTypeChoice : "1");
-                    emp.SecondPhone = phone2;
-                    emp.SecondAreaPhone = phone22;
-                    emp.MainAreaPhone = phone11;
-                    emp.MainPhone = phone1;
+                    emp.SecondPhone = Common.Common.GetNullableValues(phone22);
+                    emp.SecondAreaPhone = Common.Common.GetNullableValues(phone2);
+                    emp.MainAreaPhone = Common.Common.GetNullableValues(phone1);
+                    emp.Mail = Common.Common.GetNullableValues(mail);
+                    emp.MainPhone = Common.Common.GetNullableValues(phone11);
                     emp.EmployeeKey = Guid.NewGuid();
                     context.Employees.Add(emp);
                     context.SaveChanges();

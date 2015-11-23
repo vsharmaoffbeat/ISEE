@@ -404,6 +404,11 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.EmployeeID = 0;
     $scope.SaveAllEmployeeData = function () {
+        var msg = validateEmployee($scope.employeeInfo);
+        if (msg.trim() != '') {
+            $scope.ShowMessageBox('Message', msg);
+            return false;
+        }
         if ($scope.EmployeeID == 0) {
             ContactService.saveEmployee($scope.employeeInfo).then(function (d) {
                 if (d.data != "0") {
@@ -752,3 +757,33 @@ function timeParseExact(time) {
 
 }
 
+function validateEmployee(d) {
+    var _msg = "Must select"
+    var isvalid = false;
+    if (d.firstname.trim() == '') {
+        _msg += ' first name';
+        isvalid = true;
+    }
+    else if (d.lastname.trim() == '') {
+        _msg += ' last name';
+        isvalid = true;
+    }
+
+    else if (d.phone1.trim() == '' || d.phone11.trim() == '') {
+        _msg += ' phone 1';
+        isvalid = true;
+    }
+
+    else if (d.ManufactureChoice.trim() == '') {
+        _msg += ' Manufacture';
+        isvalid = true;
+    }
+    //else if (d.phoneTypeChoice.trim() == '') {
+    //    _msg += ' phone type';
+    //     isvalid = true;
+    //}
+    if (isvalid)
+        return _msg;
+    return '';
+
+}

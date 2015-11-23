@@ -26,6 +26,13 @@ namespace ISEE.Common
             return value;
 
         }
+        public static TimeSpan? GetTimeSpan(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return null;
+            return Convert.ToDateTime(value) - Convert.ToDateTime("0:00");
+
+        }
         public static DateTime? ConvertDateTime(string date)
         {
             if (string.IsNullOrEmpty(date.Trim()))

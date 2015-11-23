@@ -1,6 +1,7 @@
 ﻿//Employee Section
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
+  //  $("<option value=''/>");
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",

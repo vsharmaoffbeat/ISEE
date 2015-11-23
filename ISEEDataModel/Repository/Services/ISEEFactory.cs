@@ -17,30 +17,32 @@ namespace ISEEDataModel.Repository.Services
             _context = new ISEEEntities();
         }
 
-        public IQueryable<State> GetAllStates(int county)
+        #region "Customers"
+
+
+        public int GetChangeBuildingCodeNew(int country, int state, int city, int street, string number)
         {
-            return _context.States.Where(x => x.CountryCode == county).OrderBy(x => x.StateDesc);
+            var q = _context.Buildings.Where(x => x.CountryCode == country && x.StateCode == state && x.CityCode == city && x.StreetCode == street && x.Number.CompareTo(number == null ? x.Number : number) == 0);
+            if (q.Any())
+            {
+                var firstOrDefault = q.FirstOrDefault();
+                if (firstOrDefault != null) return firstOrDefault.BuildingCode;
+            }
+
+            return -1;
         }
 
-        public IQueryable<City> GetAllCities(int county, int state)
+
+        public Building GetNewBuildingCode(int country, int state, int city, int street, string number)
         {
-            return _context.Cities.Where(x => x.CountryCode == county && x.StateCode == state).OrderBy(x => x.CityDesc);
+            return _context.Buildings.FirstOrDefault(x => x.CountryCode == country &&
+                                                                    x.StateCode == state &&
+                                                                    x.CityCode == city &&
+                                                                    x.StreetCode == street &&
+                                                                    x.Number.CompareTo(number == null ? x.Number : number) == 0);
+
         }
 
-        public IQueryable<City> GetAllCitys(int county)
-        {
-            return _context.Cities.Where(x => x.CountryCode == county).OrderBy(x => x.CityDesc);
-        }
-
-        public IQueryable<Street> GetAllStreets(int county, int city)
-        {
-            return _context.Streets.Where(x => x.CountryCode == county && x.CityCode == city).OrderBy(x => x.StreetDesc);
-        }
-
-        public IQueryable<Building> GetAllNumbers(int county, int city, int street)
-        {
-            return _context.Buildings.Where(x => x.CountryCode == county && x.CityCode == city && x.StreetCode == street);
-        }
 
         public int GetAddressBuildingCode(int country, int state, string citydesc, int city, int street, string streetdesc, string number, double Lat, double Long, string entry, string zipcode)
         {
@@ -210,6 +212,72 @@ namespace ISEEDataModel.Repository.Services
             return null;
         }
 
+        public int GetChangeBuildingCode(int _Country, int _City, int _Street, string _Number, string _Entry, string _ZipCode)
+        {
+            int BuildingCode = 0;
+
+            var q = _context.Buildings.Where(x => x.CountryCode == _Country && x.CityCode == _City && x.StreetCode == _Street && x.Number.CompareTo(_Number == null ? x.Number : _Number) == 0).ToList();
+
+            //get BuildingCode for City,Street,Number 
+            if (q != null && q.ToList().Count > 0)
+            {
+                foreach (Building e in q)
+                    if (Equals(e.Entry, _Entry) && Equals(e.ZipCode, _ZipCode))
+                    //  if ( e.Entry.CompareTo(_Entry) == 0 && e.ZipCode.CompareTo(_ZipCode) == 0)
+                    {
+                        BuildingCode = e.BuildingCode;
+                        if (e.Lat == null || e.Long == null)
+                        {
+                            e.StatusCode = 1;
+                            _context.SaveChanges();
+
+                        }
+                        return BuildingCode;
+                    }
+
+                if (BuildingCode == 0) BuildingCode = q.FirstOrDefault().BuildingCode;
+            }
+
+             // add new row
+            else if (q != null && q.ToList().Count == 0)
+            {
+                Building b = new Building();
+                b.CreateDate = DateTime.Now;
+                b.StatusCode = 1;
+                b.CountryCode = _Country;
+                b.StateCode = 0;
+                b.CityCode = _City;
+                b.StreetCode = _Street;
+                b.Entry = _Entry;
+                b.ZipCode = _ZipCode;
+                b.Lat = null;
+                b.Long = null;
+                b.BuildingComment = null;
+                b.Number = _Number;
+
+                try
+                {
+                    _context.Buildings.Add(b);
+                    _context.SaveChanges();
+                    BuildingCode = b.BuildingCode;
+                }
+                catch (Exception)
+                {
+                    //throw;
+                }
+
+
+
+
+            }
+
+            return BuildingCode;
+        }
+
+        public IQueryable<Customer> GetCurrentCustomer(int factoryId, int customerID)
+        {
+            return _context.Customers.Where(x => x.Factory == factoryId && x.CustomerId == customerID);
+        }
 
         public IQueryable<Customer> GetCustomersNew(int factoryId, int _state, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone, bool _Active)
         {
@@ -244,9 +312,29 @@ namespace ISEEDataModel.Repository.Services
 
         }
 
-        public IQueryable<Customer> GetCurrentCustomer(int factoryId, int customerID)
+        public IQueryable<State> GetAllStates(int county)
         {
-            return _context.Customers.Where(x => x.Factory == factoryId && x.CustomerId == customerID);
+            return _context.States.Where(x => x.CountryCode == county).OrderBy(x => x.StateDesc);
+        }
+
+        public IQueryable<City> GetAllCities(int county, int state)
+        {
+            return _context.Cities.Where(x => x.CountryCode == county && x.StateCode == state).OrderBy(x => x.CityDesc);
+        }
+
+        public IQueryable<City> GetAllCitys(int county)
+        {
+            return _context.Cities.Where(x => x.CountryCode == county).OrderBy(x => x.CityDesc);
+        }
+
+        public IQueryable<Street> GetAllStreets(int county, int city)
+        {
+            return _context.Streets.Where(x => x.CountryCode == county && x.CityCode == city).OrderBy(x => x.StreetDesc);
+        }
+
+        public IQueryable<Building> GetAllNumbers(int county, int city, int street)
+        {
+            return _context.Buildings.Where(x => x.CountryCode == county && x.CityCode == city && x.StreetCode == street);
         }
 
         public IQueryable<CustomerRequest> GetRequestCustomer(int customerID, int l1)
@@ -277,6 +365,52 @@ namespace ISEEDataModel.Repository.Services
             return _context.RequsetToFactoryLevel1.Where(x => x.Factory == factoryId).OrderBy(x => x.RequsetOrder);
         }
 
+        public IQueryable<GpsEmployeeCustomer> GetEmployeesToCustomer(int customerID)
+        {
+            return _context.GpsEmployeeCustomers.Where(x => x.CustomerId == customerID).OrderBy(x => x.CreateDate);
+        }
+        public IQueryable<GpsEmployeeCustomer> GetEmployeesToCustomerFilter(int customerID, DateTime dtFrom, DateTime dtTo)
+        {
+            return _context.GpsEmployeeCustomers.Where(
+                                                         x => x.CustomerId == customerID &&
+                                                         x.VisiteDate >= dtFrom &&
+                                                         x.VisiteDate <= dtTo)
+                                                         .OrderByDescending(x => x.VisiteDate).ThenByDescending(y => y.VisitTime);
+        }
+
+
+        public IQueryable<clsEmployeeCustomerContact> GetEmployeeContact(int customerID)
+        {
+
+            // return this.ObjectContext.CustomerEmployeeContact.Include("Employee").Where(x => x.CustomerId == cusID).OrderBy(x => x.CreateDate);
+             var query = from c in _context.CustomerEmployeeContacts
+                        where c.CustomerId == customerID
+                        select new clsEmployeeCustomerContact
+                        {
+                            CreateDate = c.CreateDate,
+                            LastName = c == null ? String.Empty : c.Employee.LastName,
+                            FirstName = c == null ? String.Empty : c.Employee.FirstName,
+                            EmpNumber = c == null ? "-1" : c.Employee.EmployeeNum,
+                            EmpID = c == null ? -1 : c.Employee.EmployeeId
+                        };
+
+            var q1 = query.ToList();
+
+            int i = 0;
+            q1.ForEach(x => x.ID = ++i);
+            return q1.AsQueryable();
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
 
         #region "Map"
 
@@ -287,10 +421,10 @@ namespace ISEEDataModel.Repository.Services
 
         public IQueryable<Employee> GetAllEmployee(int factoryId)
         {
-              return _context.Employees.Where(x => x.Factory == factoryId);
+            return _context.Employees.Where(x => x.Factory == factoryId);
         }
 
-         public string TestTimeMap(int[] keywords, DateTime dt, TimeSpan from, TimeSpan to, int status)
+        public string TestTimeMap(int[] keywords, DateTime dt, TimeSpan from, TimeSpan to, int status)
         {
 
             return "2   " + dt.Date.ToShortDateString() + " : " + from.ToString() + " : " + to.ToString();
@@ -315,7 +449,7 @@ namespace ISEEDataModel.Repository.Services
                 ++i;
             });
 
-                   var empList = (from emp in _context.EmployeeGpsPoints
+            var empList = (from emp in _context.EmployeeGpsPoints
                            where
                               keysid.Contains(emp.EmployeeId.Value) &&
                                emp.GpsDate == dtFilter &&
@@ -324,7 +458,7 @@ namespace ISEEDataModel.Repository.Services
                                 emp.Lat != 0 && emp.Long != 0 &&
                                (status != -1 || (emp.PointStatus == 2 || emp.PointStatus == 3))
                            select emp)
-                           .OrderBy(x => x.EmployeeId);
+                    .OrderBy(x => x.EmployeeId);
 
 
             return empList.AsQueryable();

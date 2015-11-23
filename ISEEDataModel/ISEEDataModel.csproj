@@ -100,6 +100,7 @@
     <Compile Include="Repository\ClientWatchdogKillLog.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\clsEmployeeCustomerContact.cs" />
     <Compile Include="Repository\Country.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>

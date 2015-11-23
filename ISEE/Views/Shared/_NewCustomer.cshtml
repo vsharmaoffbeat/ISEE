@@ -293,7 +293,7 @@
 
     var objCustomerTree = $('#jstree_Customer_div').easytree(
        {
-           data: treeCustomerJsonData,
+           data: treeJsonData,
            enableDnd: true,
            canDrop: canDropCustomer,
            dropped: droppedCustomer,
@@ -349,8 +349,8 @@
                     node.iconUrl = "/images/img/customer_16.png";
                 }
 
-                objTree.addNode(node, target.id);
-                objEmployeeTree.addNode(node, target.id);
+            //    objTree.addNode(node, target.id);
+              //  objEmployeeTree.addNode(node, target.id);
                 objCustomerTree.addNode(node, target.id);
 
                 isCurrentNodeAdded = true;

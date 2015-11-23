@@ -271,8 +271,8 @@
                     targetId = target.attr("id")
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
-                    objEmployeeTree.addNode(sourceNode, targetId);
-                    objCustomerTree.addNode(sourceNode, targetId);
+                   // objEmployeeTree.addNode(sourceNode, targetId);
+                  //s  objCustomerTree.addNode(sourceNode, targetId);
                     $('#addNewNode').val('')
                 }
             }
@@ -306,8 +306,8 @@
 
             if (node.objecttype == "branchNode") {
                 objTree.removeNode(node.id);
-                objEmployeeTree.removeNode(node.id);
-                objCustomerTree.removeNode(node.id);
+                //objEmployeeTree.removeNode(node.id);
+               // objCustomerTree.removeNode(node.id);
             }
 
         } else {
@@ -368,8 +368,8 @@
                 }
 
                 objTree.addNode(node, target.id);
-                objEmployeeTree.addNode(node, target.id);
-                objCustomerTree.addNode(node, target.id);
+            //    objEmployeeTree.addNode(node, target.id);
+            //    objCustomerTree.addNode(node, target.id);
 
                 objTree.rebuildTree();
                 isCurrentNodeAdded = true;

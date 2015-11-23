@@ -144,7 +144,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">State *</label>
-                            <input id="inputState" ng-model="CustomerInfo.State" ng-readonly="{{HasStateActive}}" onchange="GetAllCitysByState()" type="text" class="form-control isee_input" required>
+                            <input id="inputState" ng-model="CustomerInfo.State" ng-disabled="{{HasStateActive}}"  type="text" class="form-control isee_input" required>
                         </div>
                     </div>
 
@@ -152,7 +152,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">City *</label>
-                            <input id="inputCity" ng-model="CustomerInfo.City" onchange="GetAllStreetByCity()" type="text" class="form-control isee_input" required>
+                            <input id="inputCity" ng-model="CustomerInfo.City"  type="text" class="form-control isee_input" required>
                         </div>
                     </div>
 
@@ -160,7 +160,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="usr">Street *</label>
-                            <input id="inputStreet" ng-model="CustomerInfo.Street" type="text" onchange="GetAllBuildingsByCity()" class="form-control isee_input" required>
+                            <input id="inputStreet" ng-model="CustomerInfo.Street" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input" required>
                         </div>
                     </div>
 
@@ -274,76 +274,16 @@
                         <th class="tg-z1n2">Building Number</th>
                         <th class="tg-z1n2">Full Address</th>
                     </tr>
-                    @*<tr>
-                            <td class="tg-dx8v">country name</td>
-                            <td class="tg-dx8v">state name</td>
-                            <td class="tg-dx8v">city name</td>
-                            <td class="tg-dx8v">street name</td>
-                            <td class="tg-dx8v">building name</td>
-                            <td class="tg-dx8v">full address</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-dx8v">country name</td>
-                            <td class="tg-dx8v">state name</td>
-                            <td class="tg-dx8v">city name</td>
-                            <td class="tg-dx8v">street name</td>
-                            <td class="tg-dx8v">building name</td>
-                            <td class="tg-dx8v">full address</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-dx8v">country name</td>
-                            <td class="tg-dx8v">state name</td>
-                            <td class="tg-dx8v">city name</td>
-                            <td class="tg-dx8v">street name</td>
-                            <td class="tg-dx8v">building name</td>
-                            <td class="tg-dx8v">full address</td>
-                        </tr>
-                        <tr>
-                            <td class="tg-dx8v">country name</td>
-                            <td class="tg-dx8v">state name</td>
-                            <td class="tg-dx8v">city name</td>
-                            <td class="tg-dx8v">street name</td>
-                            <td class="tg-dx8v">building name</td>
-                            <td class="tg-dx8v">full address</td>
-                        </tr>*@
+                  
 
                 </table>
             </div>
             <div id="map_canvas" style="min-height: 350px;min-width:450px !important"></div>
-            @*<div class="container">
-                            <div class="col-md-3 col-xs-12"></div>
-                            <div class="col-md-3 col-xs-12"></div>
-                            <div class="col-md-6 col-xs-12 main_map_window">
-                                <div class="col-md-12 col-xs-12 top_header_close isee_button_color">
-                                    <a href="/Home/login"><i class="fa fa-close pull-right"></i></a>
-                                </div>
-                                <div class="col-md-12 col-xs-12">
-                                    <div class="map_tg-wrap">
-                                        <table class="map_tg">
-                                            <tr>
-                                                <th class="map_tg-z1n2"></th>
-                                                <th class="map_tg-z1n2">Country</th>
-                                                <th class="map_tg-z1n2">State</th>
-                                                <th class="map_tg-z1n2">City</th>
-                                                <th class="map_tg-z1n2">Street</th>
-                                                <th class="map_tg-z1n2">Building Number</th>
-                                                <th class="map_tg-z1n2">Full Address</th>
-                                                <th class="map_tg-z1n2"></th>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-xs-12">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13727.852614738673!2d76.7375863!3d30.66316605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1446544817898" width="100%" height="400" frameborder="0" style="border:1px solid #808080" allowfullscreen></iframe>
-                    </div>
-                    <div class="col-md-4 col-xs-12"></div>
-                    <div class="col-md-4 col-xs-12"></div>
-                    <div class="col-md-4 col-xs-12" style="padding-bottom:5px;">
-                        <button type="submit" class="btn btn-default pull-left map_ok isee_button">OK</button>
-                        <button type="submit" class="btn btn-default pull-right map_cancel isee_button">Cancel</button>
-                    </div>
-                </div>
-                </div>*@
+            <div>
+                <button type="button" onclick="OnInsertAddressOkClick();">Ok</button>
+                <button type="button" onclick="closeDialog()">Cancel</button>
+            </div>
+       
         </div>
     </div>
     <!-- Customer right panel end---->

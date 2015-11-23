@@ -428,7 +428,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
 
     // Admin Customer Tab Methods
-    $scope.HasStateActive = "false";
+    $scope.HasStateActive = "true";
     $scope.clearCustomerDetails = function myfunction() {
         $scope.NewCustomerDetails = null;
         $scope.CustomerInfo = {
@@ -488,7 +488,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     };
     $scope.CustomerID = 0
     $scope.SaveCustomerForm = function () {
-        $scope.CustomerInfo.BuldingCode = (abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($scope.CustomerInfo.BuildingNumber)])
+        $scope.CustomerInfo.BuldingCode = buildingCode;
 
         if ($scope.CustomerID == 0) {
             if ($scope.CustomerInfo.BuldingCode > 0) {
@@ -516,9 +516,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                     return false;
                 }
             } else {
-               
-                    $scope.ShowMessageBox('Message', 'Must select address first.')
-               
+
+                $scope.ShowMessageBox('Message', 'Must select address first.')
+
             }
         } else {
             $scope.saveTree();

@@ -18,6 +18,12 @@ function ManufactureTypes(obj) {
     });
 }
 
+var statesArray = []
+var cityArray = []
+var streetArray = []
+var buildingArray = []
+var buildinCode = 0;
+
 
 var stateNames = [];
 var stateIds = [];
@@ -30,6 +36,24 @@ var availableBuildingId = [];
 var availableBuildingLat = [];
 var availableBuildingLong = [];
 
+//Will work on arrary of type [{id:1,name:abc},{id:2,name:abtc}]
+function GetIdByName(arr, name) {
+    var item = $.grep(arr, function (v) { return v.name === name; })
+    if (item.length > 0) {
+        return item[0].id;
+    } else {
+        return 0;
+    }
+}
+
+function GetNameById(arr, id) {
+    var item = $.grep(arr, function (v) { return v.id === id; });
+    if (item.length > 0) {
+        return item[0].name;
+    } else {
+        return 0;
+    }
+}
 
 function GetAllStatesByCountry() {
     stateNames = [];
@@ -40,28 +64,30 @@ function GetAllStatesByCountry() {
             var appElement = document.querySelector('[ng-controller=SearchCtrl]');
             var $scope = angular.element(appElement).scope();
             $scope.$apply(function () {
-                if (response.length == 1) {
-                    $scope.HasStateActive = "false";
-                } else {
+                if (response.length <= 1) {
                     $scope.HasStateActive = "true";
+                    $('#inputState').prop("disabled", true)
+                } else {
+                    $scope.HasStateActive = "false";
+                    $('#inputState').prop("disabled", false)
                 }
             });
             $(response).each(function () {
-                $("<option />", {
-                    val: this.StateCode,
-                    text: this.StateDesc
-                }).appendTo($('#inputState'));
                 stateNames.push(this.StateDesc);
                 stateIds.push(this.StateCode);
+                statesArray.push({ id: this.StateCode, name: this.StateDesc })
             });
 
             if (response.length <= 1) {
-                _selChangeStateCode = response[0].StateCode
-                $("#inputState option[value='" + response[0].StateCode + "']").prop("selected", true);
-                GetAllCitysByState();
+                GetAllCitysByState(response[0].StateDesc);
             }
             $("#inputState").autocomplete({
                 source: stateNames,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    GetAllCitysByState(ui.item.label);
+                }
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -69,35 +95,40 @@ function GetAllStatesByCountry() {
 }
 
 
-function GetAllCitysByState() {
+function GetAllCitysByState(state) {
+    if (state == undefined) {
+        state = '';
+    }
+    if (GetIdByName(statesArray, state) == 0) {
+        $('#inputCity').val('');
+        $('#inputStreet').val('');
+        $('#inputBuldingNumber').val('');
 
-    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined)
         return false;
-
-    _selChangeStateCode = 0;
-    _selChangeCityCode = 0;
-    _selChangeStreetCode = 0;
-
-    _selChangeStateCode = $('#inputState').val();
+    }
 
     $.ajax({
         type: "POST",
         url: "/Admin/GetAllCitysByState",
-        data: { stateID: stateIds[stateNames.indexOf($('#inputState').val())] },
+        data: { stateID: GetIdByName(statesArray, state) },
         dataType: "json",
         success: function (response) {
             if (response != null) {
+                cityArray = [];
+
                 $(response).each(function () {
-                    $("<option />", {
-                        val: this.CityCode,
-                        text: this.CityDesc
-                    }).appendTo($('#inputCity'));
                     availableCityName.push(this.CityDesc);
                     availableCityIds.push(this.CityCode);
+                    cityArray.push({ id: this.CityCode, name: this.CityDesc })
                 });
             }
             $("#inputCity").autocomplete({
                 source: availableCityName,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    GetAllStreetByCity(ui.item.label);
+                }
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -105,33 +136,36 @@ function GetAllCitysByState() {
 }
 
 
-function GetAllStreetByCity() {
-    if (stateIds[stateNames.indexOf($('#inputState').val())] == undefined || availableCityIds[availableCityName.indexOf($('#inputCity').val())] == undefined)
+function GetAllStreetByCity(city) {
+    if (GetIdByName(cityArray, city) == 0) {
+
+        streetArray = [];
+        $('#inputStreet').val('');
+        $('#inputBuldingNumber').val('');
+
         return false;
-
-    _selChangeStreetCode = 0;
-    _selChangeCityCode = 0;
-
-    _selChangeCityCode = $('#inputCity').val();
+    }
 
     $.ajax({
         type: "POST",
         url: "/Admin/GetAllStreetByCity",
-        data: { cityID: availableCityIds[availableCityName.indexOf($('#inputCity').val())] },
+        data: { cityID: GetIdByName(cityArray, city) },
         dataType: "json",
         success: function (response) {
             if (response != null) {
                 $(response).each(function () {
-                    $("<option />", {
-                        val: this.StreetCode,
-                        text: this.Streetdesc
-                    }).appendTo($('#inputStreet'));
                     availableStreetName.push(this.Streetdesc);
                     availableStreetId.push(this.StreetCode);
+                    streetArray.push({ id: this.StreetCode, name: this.Streetdesc })
                 });
             }
             $("#inputStreet").autocomplete({
                 source: availableStreetName,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    GetAllBuildingsByCity(ui.item.label, $('#inputCity').val());
+                }
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -140,26 +174,26 @@ function GetAllStreetByCity() {
 
 
 
-function GetAllBuildingsByCity() {
+function GetAllBuildingsByCity(street, city) {
     availableBuilding = [];
-    if (availableStreetId[availableStreetName.indexOf($('#inputStreet').val())] == undefined || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || availableCityIds[availableCityName.indexOf($('#inputCity').val())] == undefined)
+    //if ( || stateIds[stateNames.indexOf($('#inputState').val())] == undefined || availableCityIds[availableCityName.indexOf($('#inputCity').val())] == undefined)
+    //    return false;
+    if (GetIdByName(streetArray, street) == 0 || GetIdByName(cityArray, city) == 0) {
         return false;
-
-    _selChangeStreetCode = $('#inputStreet').val();
+    }
 
     $.ajax({
         type: "POST",
         url: "/Admin/GetAllBuildingsByCity",
-        data: { streetID: availableStreetId[availableStreetName.indexOf($('#inputStreet').val())], cityID: availableCityIds[availableCityName.indexOf($('#inputCity').val())] },
+        data: { streetID: GetIdByName(streetArray, street), cityID: GetIdByName(cityArray, city) },
         dataType: "json",
         success: function (response) {
             if (response != null) {
                 $(response).each(function () {
-                    $("<option />", {
-                        val: this.BuildingCode,
-                        text: this.BuildingNumber
-                    }).appendTo($('#inputBuldingNumber'));
-                    availableBuildingNumber.push(this.BuildingNumber);
+                    buildingArray.push({ id: this.BuildingCode, name: this.BuildingNumber, lat: this.BuildingLat, long: this.BuldingLong })
+                    if (availableBuildingNumber.indexOf(this.BuildingNumber.trim()) == -1) {
+                        availableBuildingNumber.push(this.BuildingNumber.trim());
+                    }
                     availableBuildingId.push(this.BuildingCode);
                     availableBuildingLat.push(this.BuildingLat);
                     availableBuildingLong.push(this.BuldingLong);
@@ -168,12 +202,14 @@ function GetAllBuildingsByCity() {
             $("#inputBuldingNumber").autocomplete({
                 source: availableBuildingNumber,
             });
-            $('#inputBuldingNumber').val(availableBuildingNumber);
-            GetSelectedBuildingLatLong();
+            //  GetSelectedBuildingLatLong();
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+
+
+//Unused Method
 var buildingLatLong = [];
 function GetSelectedBuildingLatLong() {
     if (availableBuildingLat[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined, availableBuildingLong[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined)
@@ -209,23 +245,35 @@ var _selChangeCityCode = 0;
 var _selChangeStreetCode = 0;
 
 function InsertAddress() {
-    var stateID, cityID, streetID, buildingNumber, zipCode, visitTime, entry, visitInterval, nextVisit;
-    buildingNumber = $('#inputBuldingNumber').val();
-    zipCode = $('#inputEntry').val();
+    buildinCode = 0;
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+
+    var visitTime, visitInterval, nextVisit;
+
+
     visitTime = $('#inputZipCode').val();
-    entry = $('#inputVisitInterval').val();
+
     visitInterval = $('#inputVisitTime').val();
     nextVisit = $('#inputNextVisit').val();
 
-    stateID = $('#inputState').val();
-    cityID = $('#inputCity').val();
-    streetID = $('#inputStreet').val();
 
+    //Address Data
+    var stateId = GetIdByName(statesArray, $('#inputState').val());
+    var cityId = GetIdByName(cityArray, $('#inputCity').val());
+    var streetId = GetIdByName(streetArray, $('#inputStreet').val());
 
+    var state = $('#inputState').val();
+    var city = $('#inputCity').val();
+    var street = $('#inputStreet').val();
 
-    if (cityID == '' || streetID == '' || buildingNumber == '') {
-        var appElement = document.querySelector('[ng-controller=SearchCtrl]');
-        var $scope = angular.element(appElement).scope();
+    var buildingNumber = $('#inputBuldingNumber').val();
+    var zipCode = $('#inputEntry').val();
+    var entry = $('#inputVisitInterval').val();
+    //Address Data End
+
+    if (stateId == 0 || buildingNumber == '' || street == '' || city == '') {
         $scope.$apply(function () {
             $scope.ShowMessageBox('Message', 'Must select address first.')
         });
@@ -240,27 +288,110 @@ function InsertAddress() {
 
     $.ajax({
         url: "/Admin/InsertAddress",
-        data: { stateID: stateID, cityID: cityID, streetID: streetID },
+        data: { stateID: stateId, cityID: cityId, streetID: streetId, buildingNumber: buildingNumber, entry: entry, zipCode: zipCode, state: state, city: city, street: street },
         success: function (response) {
-            $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
-            for (var i = 0; i < response.length; i++) {
-                $("#MapHeaderGrid").append("<tr id='" + response[i].Number + "' class='" + response[i].Lat + "' rel='" + response[i].Long + "'><td class='tg-dx8v'>" + response[i].CountryName + "</td><td class='tg-dx8v'>" + response[i].StateName + "</td><td class='tg-dx8v'>" + response[0].CityName + "</td><td class='tg-dx8v'>" + response[0].StreetName + "</td><td class='tg-dx8v'>" + response[0].BuldingNumber + "</td><td class='tg-dx8v'>" + response[i].CountryName + "," + response[i].StateName + "," + response[i].CityName + "," + response[i].StreetName + "," + response[0].BuldingNumber + "</td></tr>");
+            if (response.IsSuccess == true) {
+                if (response.IsOpenMap == true) {
+                    $("#MapHeaderGrid").html("<tr><th class='tg-z1n2'>Country</th><th class='tg-z1n2'>State</th> <th class='tg-z1n2'>City</th>  <th class='tg-z1n2'>Street</th> <th class='tg-z1n2'>Building Number</th><th class='tg-z1n2'>Full Address</th></tr>");
+                    for (var i = 0; i < response.Result.ServiceResponseAddresses.length; i++) {
+                        var currentAddress = response.Result.ServiceResponseAddresses[i];
+                        $("#MapHeaderGrid").append("<tr data-state='" + currentAddress.State + "' data-streetdesc='" + currentAddress.Street + "'  data-citydesc='" + currentAddress.City + "'  data-building='" + currentAddress.Building + "' data-latitude='" + currentAddress.Latitude + "' data-longitude='" + currentAddress.Longitude + "'><td class='tg-dx8v'>" + currentAddress.Country + "</td><td class='tg-dx8v'>" + currentAddress.State + "</td><td class='tg-dx8v'>" + currentAddress.City + "</td><td class='tg-dx8v'>" + currentAddress.Street + "</td><td class='tg-dx8v'>" + currentAddress.Building + "</td><td class='tg-dx8v'>" + currentAddress.Country + "," + currentAddress.State + "," + currentAddress.City + "," + currentAddress.Street + "," + currentAddress.Building + "</td></tr>");
+                    }
+                    $("#popup_div").dialog("open");
+                    LoadMapByFactoryID();
+                } else {
+                    buildingCode = response.BuildingCode;
+                    $scope.$apply(function () {
+                        $scope.ShowMessageBox('Message', 'Address change was successful.Save customer information to comlete the update.')
+                    });
+                }
+            } else {
+                $scope.$apply(function () {
+                    $scope.ShowMessageBox('Message',response.ErrorMessage)
+                });
             }
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 
-    if (stateID != "" || cityID != "" || streetID != "") {
-        $("#popup_div").dialog("open");
-        if (buildingLatLong[0] == null || buildingLatLong[1] == undefined) {
-            LoadMapByFactoryID();
-        }
-        else {
-            Initialize(buildingLatLong);
-        }
-    }
+    // if (IsOpenMap) {
+    //if (stateID != "" || cityID != "" || streetID != "") {
+    //    $("#popup_div").dialog("open");
+    //    if (buildingLatLong[0] == null || buildingLatLong[1] == undefined) {
+    //  LoadMapByFactoryID();
+    //}
+    //else {
+    //    Initialize(buildingLatLong);
+    //}
+    //}
 }
 
+function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode) {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+    var buildingCode = 0;
+    $.ajax({
+        url: "/Admin/GetAddressBuildingCode",
+        data: { state: state, citydesc: citydesc, city: city, street: street, streetdesc: streetdesc, number: number, Lat: Lat, Long: Long, entry: entry, zipcode: zipcode },
+        success: function (response) {
+            if (parseInt(response.BuildingCode) > 0) {
+                //Set Address Values
+                $scope.$apply(function () {
+                    $scope.ShowMessageBox('Message', 'Address change was successful.Save customer information to comlete the update')
+                });
+                buildingCode = parseInt(response.BuildingCode);
+            } else if (parseInt(response.BuildingCode) == -1) {
+                $scope.$apply(function () {
+                    $scope.ShowMessageBox('Message', 'Error in the change of the address')
+                });
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+
+    return buildingCode;
+}
+
+function OnInsertAddressOkClick() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+    var selectedRow = $('#MapHeaderGrid tr.active')
+    if (selectedRow.length > 0) {
+        var statedesc = selectedRow.data('state');
+        var state = GetIdByName(statesArray, statedesc);
+        var citydesc = selectedRow.data('citydesc');
+        var city = GetIdByName(cityArray, citydesc);
+        var streetdesc = selectedRow.data('streetdesc');
+        var street = GetIdByName(streetArray, streetdesc);
+        var number = selectedRow.data('building')
+        var Lat = selectedRow.data('latitude')
+        var Long = selectedRow.data('longitude')
+        var zipcode = $('#inputEntry').val();
+        var entry = $('#inputVisitInterval').val();
+
+        if (streetdesc == '' || citydesc == '' || number == '') {
+            $scope.$apply(function () {
+                $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
+            });
+            return false;
+        }
+
+        //Get Building Code 
+        buildingCode = GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode)
+        closeDialog();
+
+    } else {
+        $scope.$apply(function () {
+            $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
+        });
+    }
+
+}
+
+function closeDialog() {
+    $("#popup_div").dialog("close");
+}
 
 function LoadMapByFactoryID() {
     $.ajax({
@@ -293,57 +424,6 @@ function Initialize(obj) {
 };
 
 
-
-//function SaveCustomerForm() {
-//    var buildingNumber = $('#inputBuldingNumber').val();
-//    debugger;
-
-
-//    var data = {
-//        //inputCompanyName: $('#inputCompanyName').val(),                                     
-
-//        //inputMobile: $('#inputMobile').val(),                     
-//        //state: $('#inputState').val(),
-//        //city: $('#inputCity').val(),
-//        //street: $('#inputStreet').val(),                       
-//        //zipCode: $('#inputZipCode').val(),
-//        //visitTime: $('#inputVisitTime').val(),
-//        //entry: $('#inputEntry').val(),
-
-//        ContactName: $('#inputContactName').val(),
-//        inputApartment: $('#inputApartment').val(),
-//        Phone2: $('#inputPhone22').val(),
-//        Mail: $('#inputMail').val(),
-//        Fax: $('#inputFax').val(),
-//        CustomerNumber: $('#inputCustomerNumber').val(),
-//        Floor: $('#inputFloor').val(),
-//        Phone1: $('#inputPhone11').val(),
-//        inputPhoneArea1: $('#inputPhoneOne').val(),
-//        inputPhoneArea2: $('#inputPhoneTwo').val(),
-//        VisitInterval: $('#inputVisitInterval').val(),
-//        VisitTime: $('#inputVisitTime').val(),
-//        NextVisit: $('#inputNextVisit').val(),
-//        buldingCode: (availableBuildingId[availableBuildingNumber.indexOf(buildingNumber)]),
-//    };
-//    if (buildingNumber != "") {
-//        if ($('#inputCompanyName').val() != '') {
-//            debugger;
-//            $.ajax({
-//                url: "/Admin/SaveCustomerForm",
-//                type: "post",
-//                contentType: "application/json",
-//                data: JSON.stringify({ objCustomerData: data }),
-//                dataType: "json",
-//                success: function (result) {
-//                    debugger;
-//                }
-//            });
-//            return false;
-//        }
-//    }
-//}
-//End Customer section
-
 //Start Tree View Section
 
 //this will hold reference to the tr we have dragged and its helper
@@ -357,14 +437,16 @@ $(document).ready(function () {
             debugger;
             $("#MapHeaderGrid tr").removeClass('active');
             $(this).addClass('active');
-            tableClickedLatLong.push(($(this).attr('class').split(' ')[0]), ($(this).attr('rel')));
+            tableClickedLatLong.push(($(this).data('latitude')), ($(this).data('longitude')));
             Initialize(tableClickedLatLong);
-            $('#inputBuldingNumber').val(($(this).attr('id')));
+            $('#inputBuldingNumber').val(($(this).data('building')));
         }
     });
 
     GetAllStatesByCountry();
 });
+
+
 
 
 

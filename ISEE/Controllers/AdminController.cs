@@ -626,14 +626,10 @@ namespace ISEE.Controllers
         public JsonResult GetAllStreetByCity(int cityID)
         {
             var CountryID = ISEE.Common.SessionManegment.SessionManagement.Country;
-<<<<<<< HEAD
 
             var Streets = _facory.GetAllStreets(CountryID, cityID).ToList().Select(d => new { StreetCode = d.StreetCode.ToString().Trim(), Streetdesc = d.StreetDesc.ToString().Trim() })
                 .Distinct()
                 .ToList();
-=======
-            var Streets = _facory.GetAllStreets(CountryID, cityID).Select(d => new { StreetCode = d.StreetCode, Streetdesc = d.StreetDesc }).ToList();
->>>>>>> 97a2f5b4cb30f7b4a3e292060abbb5752e7764cd
             return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }

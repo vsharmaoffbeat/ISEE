@@ -300,6 +300,19 @@
            dropping: droppingCustomer
        });
 
+    function IsNodeExist(NodeChildrenArray,source)
+    {
+        var item = $.grep(NodeChildrenArray, function (v) {
+            return v.objectid === $(source).data("id");
+        })
+        if (item.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     function canDropCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
         if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
             return source.href ? true : false;
@@ -315,6 +328,9 @@
                 return false;
             }
             if (target.objecttype == undefined) {
+                return false;
+            }
+            if (target.children != null && IsNodeExist(target.children,source)) {
                 return false;
             }
             isCurrentNodeAdded = false;

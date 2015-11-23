@@ -249,6 +249,10 @@
                 return false;
             }
 
+            if (target.children != null && IsNodeExist(target.children, source)) {
+                return false;
+            }
+
             isCurrentNodeAdded = false;
             return true;
         }

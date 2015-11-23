@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -208,5 +209,227 @@ namespace ISEEDataModel.Repository.Services
             }
             return null;
         }
+
+
+        public IQueryable<Customer> GetCustomersNew(int factoryId, int _state, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone, bool _Active)
+        {
+            return _context.Customers.Where(x => x.Factory == factoryId
+                //  (_state != 0 ? x.Building.StateCode == _state : x.Building.StateCode == null) &&
+             && x.Building.StateCode == (_state == 0 ? x.Building.StateCode : _state) && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
+             && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
+             && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
+             && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
+             && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
+             && (string.IsNullOrEmpty(x.LastName) || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
+             && (string.IsNullOrEmpty(x.AreaPhone1) || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
+             && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone))
+             && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now)));
+            //  (_Active == true ? x.EndDate == null : x.EndDate !=null));
+
+
+        }
+
+        public IQueryable<Customer> GetCustomers(int factoryId, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone)
+        {
+            return _context.Customers.Where(x => x.Factory == factoryId
+                && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
+                && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
+                && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
+                && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
+                && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
+                && (x.LastName == null || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
+                && (x.AreaPhone1 == null || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
+                && (x.Phone1 == null || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone)));
+            //.OrderBy(x => x.CustomerNumber); //&&
+
+        }
+
+        public IQueryable<Customer> GetCurrentCustomer(int factoryId, int customerID)
+        {
+            return _context.Customers.Where(x => x.Factory == factoryId && x.CustomerId == customerID);
+        }
+
+        public IQueryable<CustomerRequest> GetRequestCustomer(int customerID, int l1)
+        {
+            return _context.CustomerRequests.Where(x => x.CustomerId == customerID
+                && x.RequsetToFactoryLevel2.RequestSysIdLevel1 == (l1 == -1 ? x.RequsetToFactoryLevel2.RequestSysIdLevel1 : l1)).OrderByDescending(x => x.CreateDate);
+
+        }
+
+        public IQueryable<CustomerRequest> GetRequestCustomerById(int id)
+        {
+            return _context.CustomerRequests.Where(x => x.SysId == id);
+        }
+
+        public IQueryable<CustomerRequest> GetRequestCustomerByDate(int customerID, int fromyear, int frommonth, int fromday, int toyear, int tomonth, int today, int level1, int level2)
+        {
+            var fromdate = new DateTime(fromyear, frommonth, fromday);
+            var todate = new DateTime(toyear, tomonth, today).AddDays(1);
+            return _context.CustomerRequests.Where(x => x.CustomerId == customerID
+                && x.RequsetToFactoryLevel2.RequestSysIdLevel1 == (level1 == -1 ? x.RequsetToFactoryLevel2.RequestSysIdLevel1 : level1)
+                && x.RequestSysIdLevel2 == (level2 == -1 ? x.RequestSysIdLevel2 : level2)
+                && x.CreateDate >= fromdate && x.CreateDate < todate).OrderByDescending(x => x.CreateDate);
+
+        }
+
+        public IQueryable<RequsetToFactoryLevel1> GetRequsetLevel1(int factoryId)
+        {
+            return _context.RequsetToFactoryLevel1.Where(x => x.Factory == factoryId).OrderBy(x => x.RequsetOrder);
+        }
+
+
+        #region "Map"
+
+        public IQueryable<EmployeeGroup> GetAllGroupsMap(int factoryId)
+        {
+            return _context.EmployeeGroups.Where(x => x.FactoryId == factoryId);
+        }
+
+        public IQueryable<Employee> GetAllEmployee(int factoryId)
+        {
+              return _context.Employees.Where(x => x.Factory == factoryId);
+        }
+
+         public string TestTimeMap(int[] keywords, DateTime dt, TimeSpan from, TimeSpan to, int status)
+        {
+
+            return "2   " + dt.Date.ToShortDateString() + " : " + from.ToString() + " : " + to.ToString();
+        }
+
+        public IQueryable<EmployeeGpsPoint> GetEmployeesGPSStatusItay(Guid[] keywords, DateTime dt, int Year, int Month, int Day, TimeSpan from, TimeSpan to, int status)
+        {
+            DateTime dtFilter = new DateTime(Year, Month, Day);
+
+            TimeSpan frompar = new TimeSpan(from.Hours, from.Minutes, from.Seconds);
+            TimeSpan topar = new TimeSpan(to.Hours, to.Minutes, to.Seconds);
+
+            var q = from p in _context.Employees
+                    where keywords.Contains(p.EmployeeKey.Value)
+                    select p.EmployeeId;
+
+            int[] keysid = new int[q.ToList().Count];
+            int i = 0;
+            q.ToList().ForEach(x =>
+            {
+                keysid[i] = x;
+                ++i;
+            });
+
+                   var empList = (from emp in _context.EmployeeGpsPoints
+                           where
+                              keysid.Contains(emp.EmployeeId.Value) &&
+                               emp.GpsDate == dtFilter &&
+                               (emp.GpsTime.HasValue && frompar <= emp.GpsTime.Value) &&
+                               (emp.GpsTime.HasValue && topar >= emp.GpsTime.Value) &&
+                                emp.Lat != 0 && emp.Long != 0 &&
+                               (status != -1 || (emp.PointStatus == 2 || emp.PointStatus == 3))
+                           select emp)
+                           .OrderBy(x => x.EmployeeId);
+
+
+            return empList.AsQueryable();
+        }
+
+
+        public IQueryable<EmployeeGpsPoint> GetEmployeesGPSStatus(Guid[] keywords, DateTime dt, TimeSpan from, TimeSpan to, int status)
+        {
+
+            var predicate = PredicateBuilder.False<EmployeeGpsPoint>();
+
+            var q = from p in _context.Employees
+                    where keywords.Contains(p.EmployeeKey.Value)
+                    select p.EmployeeId;
+
+            int[] keysid = new int[q.ToList().Count];
+            int i = 0;
+            q.ToList().ForEach(x =>
+            {
+                keysid[i] = x;
+                ++i;
+            });
+
+            foreach (int keyword in keysid)
+            {
+                int temp = keyword;
+                predicate = predicate.Or(p => p.EmployeeId == temp);
+            }
+            DateTime par = new DateTime(dt.Year, dt.Month, dt.Day);
+            predicate = predicate.And(x => x.GpsDate == par);
+
+            TimeSpan frompar = new TimeSpan(from.Hours, from.Minutes, from.Seconds);
+            predicate = predicate.And(y => y.GpsTime >= frompar);
+
+            TimeSpan topar = new TimeSpan(to.Hours, to.Minutes, to.Seconds);
+            predicate = predicate.And(y => y.GpsTime <= topar);
+
+            predicate = predicate.And(y => !y.Lat.Equals(0));
+            predicate = predicate.And(y => !y.Long.Equals(0));
+
+            // if status=-1 get points stops
+            if (status == -1)
+                predicate = predicate.And(p => p.PointStatus == 2 || p.PointStatus == 3);
+
+
+            //List<EmployeeGpsPoints> Data = this.ObjectContext.EmployeeGpsPoints.ToList();
+            //var empList = from emp in Data.AsQueryable().Where(predicate).OrderBy(x => x.EmployeeId) select emp;
+            var empList = _context.EmployeeGpsPoints.ToList().AsQueryable().Where(e => e.Lat != 0 && e.Long != 0).OrderBy(x => x.EmployeeId);
+            // var list = empList.ToList();
+            return empList.AsQueryable();
+
+
+
+        }
+
+        public IQueryable<EmployeeGpsPoint> GetEmployeesGPSLastPointStatus(Guid[] keywords, DateTime dt, int Year, int Month, int Day, TimeSpan from, TimeSpan to)
+        {
+
+            var q = from p in _context.Employees
+                    where keywords.Contains(p.EmployeeKey.Value)
+                    select p.EmployeeId;
+
+            int[] keysid = new int[q.ToList().Count];
+            int i = 0;
+            q.ToList().ForEach(x =>
+            {
+                keysid[i] = x;
+                ++i;
+            });
+
+
+            var dtFilter = new DateTime(Year, Month, Day);
+
+            var frompar = new TimeSpan(from.Hours, from.Minutes, from.Seconds);
+            var topar = new TimeSpan(to.Hours, to.Minutes, to.Seconds);
+            var empList = (from emp in _context.EmployeeGpsPoints
+                           where
+                              keysid.Contains(emp.EmployeeId.Value) &&
+                                 emp.GpsDate == dtFilter &&
+                                 (emp.GpsTime != null ? frompar <= emp.GpsTime.Value : false) &&
+                                 (emp.GpsTime != null ? topar >= emp.GpsTime.Value : false) &&
+                                 emp.Lat != 0 && emp.Long != 0
+
+                           select emp);
+
+
+            // empList.GroupBy(x=>x.EmployeeId).GroupBy()
+            var empList1 = from p in empList
+                           group p by p.EmployeeId into grp
+                           select grp.OrderByDescending(g => g.GpsTime).FirstOrDefault();
+
+            return empList1.AsQueryable();
+
+        }
+
+        private double GetDistance(double pointLat, double pointLong, double centerRegionLat, double centerRegionLong)
+        {
+            var sCoord = new GeoCoordinate(pointLat, pointLong);
+            var eCoord = new GeoCoordinate(centerRegionLat, centerRegionLong);
+            return sCoord.GetDistanceTo(eCoord);
+
+        }
+
+
+        #endregion
+
     }
 }

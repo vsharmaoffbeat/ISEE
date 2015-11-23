@@ -5,87 +5,90 @@
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
+<script src="~/Scripts/Custom/jquery.easytree.js"></script>
+<link href="~/Content/EasyTree/ui.easytree.css" rel="stylesheet" />
+<link href="~/Content/themes/default/style.css" rel="stylesheet" />
 @*<form role="form" method="post" action="">
-    *@
-    <style>
-        .inputClass {
-            max-width: 60px !important;
-            border: 0px !important;
-        }
-    </style>
-    <div class="container top_employee_tab" style="background: #edecec;">
+*@
+<style>
+    .inputClass {
+        max-width: 60px !important;
+        border: 0px !important;
+    }
+</style>
+<div class="container top_employee_tab" style="background: #edecec;">
 
-        <!---- top header start----->
+    <!---- top header start----->
 
-        <div class="col-md-2 col-xs-12 ">
-            <div class="form-group">
-                <label for="usr">Last Name</label>
-                <input class="form-control isee_input_shadow" id="empLastname" name="lastname" type="text" value="">
-            </div>
+    <div class="col-md-2 col-xs-12 ">
+        <div class="form-group">
+            <label for="usr">Last Name</label>
+            <input class="form-control isee_input_shadow" id="empLastname" name="lastname" type="text" value="">
         </div>
+    </div>
 
-        <div class="col-md-2 col-xs-12">
-            <div class="form-group">
-                <label for="usr">First Name</label>
-                <input class="form-control isee_input_shadow" id="empFirstname" name="firstname" type="text" value="">
-            </div>
+    <div class="col-md-2 col-xs-12">
+        <div class="form-group">
+            <label for="usr">First Name</label>
+            <input class="form-control isee_input_shadow" id="empFirstname" name="firstname" type="text" value="">
         </div>
+    </div>
 
-        <div class="col-md-2 col-xs-12">
-            <div class="form-group">
-                <label for="usr">Number</label>
-                <input class="form-control isee_input_shadow" id="empNumber" type="text" value="">
-            </div>
+    <div class="col-md-2 col-xs-12">
+        <div class="form-group">
+            <label for="usr">Number</label>
+            <input class="form-control isee_input_shadow" id="empNumber" type="text" value="">
         </div>
+    </div>
 
-        <div class="col-md-2 col-xs-12">
-            <div class="form-group">
-                <label for="usr">Manufacture</label>
-                <select id="ddlmanufacture1" onchange="ManufactureTypes1(this)" class="form-control isee_select_option ">
-                    <option value=""></option>
-                    <option value="1">Nokia</option>
-                    <option value="2">Samsung</option>
-                    <option value="3">Motorola</option>
-                    <option value="4">BlackBerry</option>
-                    <option value="5">LG</option>
-                    <option value="6">Appel</option>
-                </select>
-            </div>
+    <div class="col-md-2 col-xs-12">
+        <div class="form-group">
+            <label for="usr">Manufacture</label>
+            <select id="ddlmanufacture1" onchange="ManufactureTypes1(this)" class="form-control isee_select_option ">
+                <option value=""></option>
+                <option value="1">Nokia</option>
+                <option value="2">Samsung</option>
+                <option value="3">Motorola</option>
+                <option value="4">BlackBerry</option>
+                <option value="5">LG</option>
+                <option value="6">Appel</option>
+            </select>
         </div>
+    </div>
 
-        <div class="col-md-2 col-xs-12">
-            <div class="form-group">
-                <label for="usr">Phone Type</label>
+    <div class="col-md-2 col-xs-12">
+        <div class="form-group">
+            <label for="usr">Phone Type</label>
 
-                <select id="ddlphoneType1" class="form-control select_color"></select>
-
-            </div>
-        </div>
-
-        <div class="col-md-2 col-xs-12">
-            <div class="form-group e_chkbox">
-                <input type="checkbox" class="myClass" id="isActive" name="answer" data-color="green" checked="checked">
-                <label for="usr">Active</label>
-            </div>
-            <button type="button" class="btn btn-default pull-right e_pencil isee_button_color" onclick="clearInputFields()"><i class="fa fa-pencil"></i></button>
-            <button type="button" class="btn btn-default pull-right e_search isee_button_color" onclick="searchEmployeeData()"><i class="fa fa-search"></i></button>
+            <select id="ddlphoneType1" class="form-control select_color"></select>
 
         </div>
+    </div>
 
-
-        <!---- top header end----->
+    <div class="col-md-2 col-xs-12">
+        <div class="form-group e_chkbox">
+            <input type="checkbox" class="myClass" id="isActive" name="answer" data-color="green" checked="checked">
+            <label for="usr">Active</label>
+        </div>
+        <button type="button" class="btn btn-default pull-right e_pencil isee_button_color" onclick="clearInputFields()"><i class="fa fa-pencil"></i></button>
+        <button type="button" class="btn btn-default pull-right e_search isee_button_color" onclick="searchEmployeeData()"><i class="fa fa-search"></i></button>
 
     </div>
 
 
-    <div class="container second_employee_window">
+    <!---- top header end----->
+
+</div>
 
 
-        <div class="col-md-3 col-xs-12 tree_left_asidebar emptabs_left_window">
+<div class="container second_employee_window">
 
-            <div class="col-md-12 scroll_window">
-                <div class="left_employee_window" id="left_employee_window">
-                    @*<div class="row">
+
+    <div class="col-md-3 col-xs-12 tree_left_asidebar emptabs_left_window">
+
+        <div class="col-md-12 scroll_window">
+            <div class="left_employee_window" id="left_employee_window">
+                @*<div class="row">
                         <div class="col-md-12 col-xs-12 tab_box"></div>
                     </div>
 
@@ -128,359 +131,276 @@
                     <div class="row">
                         <div class="col-md-12 col-xs-12 tab_box"></div>
                     </div>
-                    *@
+                *@
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-9 col-xs-12 employee_right_asidebar">
+
+        <form role="form" method="post" action="">
+
+            <div class="row employee_top_rightbar ">
+
+                <div class="col-md-12 col-xs-12 employee_save_header">
+                    @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
+
+                    <a href="#" id="showMap">
+                        <button type="button" class="btn btn-default pull-right isee_button_color"><i class="fa fa-globe">Show Map</i></button>
+                    </a>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="setDeatils()"><i class="fa fa-calendar">Set Details</i></button>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" disabled><i class="fa fa-calendar">Scheduler</i></button>
+
+
+
+                </div>
+                <div class="col-md-12 col-xs-12 employee_save_header" style="display: none;">
+                    @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
+
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="removeChange()"><i class="fa fa-close">Cancel</i></button>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="updateEmployee()"><i class="fa fa-save">Save</i></button>
+
 
                 </div>
 
-            </div>
-        </div>
-
-        <div class="col-md-9 col-xs-12 employee_right_asidebar">
-
-            <form role="form" method="post" action="">
-
-                <div class="row employee_top_rightbar ">
-
-                    <div class="col-md-12 col-xs-12 employee_save_header">
-                        @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
-
-                    <a href="#" id="showMap">
-                        <button type="button" class="btn btn-default pull-right isee_button_color"><i class="fa fa-globe">Show Map</i></button></a>
-                        <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color"><i class="fa fa-calendar" onclick="setDeatils()">Set Details</i></button>
-                        <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" disabled><i class="fa fa-calendar">Scheduler</i></button>
-
-
-
-                    </div>
-                    <div class="col-md-12 col-xs-12 employee_save_header" style="display: none;">
-                        @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
-
-                      <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="removeChange()"><i class="fa fa-close">Cancel</i></button>
-                        <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" onclick="updateEmployee()"><i class="fa fa-save">Save</i></button>
-
-
-                    </div>
-
-                    <div class="col-md-12 col-xs-12 employee_info_panel" id="employeeData">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12 employee_left_form">
-                                <div class="col-md-12 col-xs-12 left_inner_emptab">
-                                    <h4 class="customer_title">Employee Info</h4>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="usr">Number</label>
-                                            <input class="form-control isee_input disabledClass" id="txtnumber" maxlength="50" name="Number" placeholder="0" name="number" type="tel" value="">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="usr">First Name</label>
-                                            <input class="form-control isee_input disabledClass" id="txtfirstname" name="firstname" type="text" value="" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="usr">Start Day</label>
-                                            <div id="startDatePic">
-                                                <div id="datepickerStartDay" class="input-group date" data-date-format="dd/mm/yyyy">
-                                                    <input class="form-control isee_input" type="text" id="txtStart" name="startday" value="" />
-                                                    <span class="input-group-addon" aria-disabled="true"><i class="fa fa-th" aria-disabled="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                <div class="col-md-12 col-xs-12 employee_info_panel" id="employeeData">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12 employee_left_form">
+                            <div class="col-md-12 col-xs-12 left_inner_emptab">
+                                <h4 class="customer_title">Employee Info</h4>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="usr">Number</label>
+                                        <input class="form-control isee_input disabledClass" id="txtnumber" maxlength="50" name="Number" placeholder="0" name="number" type="tel" value="">
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="usr">Mail</label>
-                                            <input class="form-control isee_input disabledClass" id="txtmail" name="mail" type="email" value="">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="usr">First Name</label>
+                                        <input class="form-control isee_input disabledClass" id="txtfirstname" name="firstname" type="text" value="" required>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="usr">Last Name</label>
-                                            <input class="form-control isee_input disabledClass" id="txtlastname" name="lastname" type="text" value="" required>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="usr">End Date</label>
-                                            <div id="datepickerEndDay" class="input-group date" data-date-format="dd/mm/yyyy">
-                                                <input class="form-control isee_input" type="text" id="txtend" title="enddate" value="" />
-                                                <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
+                                    <div class="form-group">
+                                        <label for="usr">Start Day</label>
+                                        <div id="startDatePic">
+                                            <div id="datepickerStartDay" class="input-group date disabledClass" data-date-format="dd/mm/yyyy">
+                                                <input class="form-control isee_input" type="text" id="txtStart" name="startday" value="" disabled />
+                                                <span class="input-group-addon" aria-disabled="true"><i class="fa fa-th" aria-disabled="true"></i></span>
                                             </div>
                                         </div>
+                                    </div>
 
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="usr">Mail</label>
+                                        <input class="form-control isee_input disabledClass" id="txtmail" name="mail" type="email" value="">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="usr">Last Name</label>
+                                        <input class="form-control isee_input disabledClass" id="txtlastname" name="lastname" type="text" value="" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="usr">End Date</label>
+                                        <div id="datepickerEndDay" class="input-group date" data-date-format="dd/mm/yyyy">
+                                            <input class="form-control isee_input disabledClass" type="text" id="txtend" title="enddate" value="" disabled />
+                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
-
-                            <div class="col-md-6 col-xs-12 employee_right_window">
-                                <h4 class="customer_title">Add An info</h4>
-                                <div class="col-md-12 col-xs-12 right_inner_window">
-
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-xs-5">
-
-                                                <div class="form-group">
-                                                    <label>Phone1</label>
-                                                    <input class="form-control isee_input disabledClass" id="txtphone1" maxlength="10" name="phone1" type="tel" value="" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-7">
-                                                <label></label>
-                                                <div class="form-group phone_no">
-                                                    <input class="form-control isee_input disabledClass" id="txtphone11" maxlength="50" name="phone" type="tel" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="usr">Manufacture</label>
-                                            <select class="form-control tree_select_option isee_button_color disabledClass" id="ddlmanufacture" onchange="ManufactureTypes(this, false)">
-                                                <option value=""></option>
-                                                <option value="2">Samsung</option>
-                                                <option value="5">LG</option>
-                                                <option value="4">BlackBerry</option>
-                                                <option value="6">Apple</option>
-                                                <option value="3">Motorola</option>
-                                                <option value="1">Nokia</option>
-                                            </select>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="row">
-                                            <div class="col-xs-5">
-                                                <div class="form-group">
-                                                    <label>Phone2 </label>
-                                                    <input class="form-control isee_input disabledClass" id="txtphone2" maxlength="10" name="phone1" required="required" type="tel" value="" />
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7">
-                                                <label></label>
-                                                <div class="form-group phone_no">
-                                                    <input class="form-control isee_input disabledClass" id="txtphone22" maxlength="50" name="phone" type="tel" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="usr">Phone Type </label>
-                                            <select class="form-control tree_select_option isee_button_color disabledClass" id="ddlphonetype" name="phonetype">
-                                                <option></option>
-                                                <option></option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-                                            <label for="usr">Last application</label>
-                                            <div id="datepickerLastApp" class="input-group date" data-date-format="dd/mm/yyyy">
-                                                <input class="form-control isee_input" type="text" id="txtapplication" name="startday" value="" disabled/>
-                                                <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-default pull-right send_application isee_button_color" id="sendApp"><i class="fa fa-envelope">Send Application</i></button>
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
 
-                        <!----- ================End======================-->
+                        <div class="col-md-6 col-xs-12 employee_right_window">
+                            <h4 class="customer_title">Add An info</h4>
+                            <div class="col-md-12 col-xs-12 right_inner_window">
 
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-5">
 
-
-                        <div class="container employee_navtab_window">
-
-                            <div class="span12">
-                                <ul class="nav nav-tabs">
-                                    <li class="active menu_tabs" id="divSms"><a href="#employeeSms" data-toggle="tab"><i class="fa fa-mobile">SMS</i></a></li>
-                                    <li class="menu_tabs" id="divTime"><a href="#employeeHours" data-toggle="tab"><i class="fa fa-clock-o">Time</i></a></li>
-                                    <li class="menu_tabs" id="divTree"><a href="#employeeTree" data-toggle="tab"><i class="fa fa-group">Tree</i></a></li>
-
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="employeeHours">
-                                        <div class="container sms_tabs">
-                                            <div class="col-md-6">
-                                                <h4 class="customer_title">Fill Employee Hours</h4>
-                                                <div class="tg-wrap_content_tabs">
-                                                    <table class="tg" id="tblemployeeHours">
-                                                        <tr>
-                                                            <th class="tg-z1n2"></th>
-                                                            <th class="tg-z1n2">Day Status</th>
-                                                            <th class="tg-z1n2">Start Time</th>
-                                                            <th class="tg-z1n2">End Time</th>
-                                                            <th class="tg-z1n2">Start Time</th>
-                                                            <th class="tg-z1n2">End Time</th>
-                                                            <th class="tg-z1n2"></th>
-                                                        </tr>
-                                                    </table>
-
-                                                </div>
+                                            <div class="form-group">
+                                                <label>Phone1</label>
+                                                <input class="form-control isee_input disabledClass" id="txtphone1" maxlength="10" name="phone1" type="tel" value="" />
                                             </div>
+                                        </div>
 
-                                            <div class="col-md-6">
-
-                                                <div class="right_content_tabs_window">
-                                                    <h4 class="customer_title">Select</h4>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="usr">Month</label>
-                                                                <select class="form-control tree_select_option isee_button_color" id="ddlMonthname" maxlength="50" name="manufacture" value="" required>
-                                                                    <option value="1">January</option>
-                                                                    <option value="2">Feburary</option>
-                                                                    <option value="3">March</option>
-                                                                    <option value="4">April</option>
-                                                                    <option value="5">May</option>
-                                                                    <option value="6">June</option>
-                                                                    <option value="7">July</option>
-                                                                    <option value="8">August</option>
-                                                                    <option value="9">September</option>
-                                                                    <option value="10">October</option>
-                                                                    <option value="11">November</option>
-                                                                    <option value="12">December</option>
-
-                                                                </select>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-sm-6">
-
-                                                            <div class="form-group">
-                                                                <label for="usr">Year</label>
-                                                                <select class="form-control tree_select_option isee_button_color" id="ddlYearValue" maxlength="50" name="manufacture"></select>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-3 col-xs-3">
-                                                        </div>
-
-                                                        <div class="col-md-9 col-xs-9">
-                                                            <button type="button" class="btn btn-default pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">Show Below</button>
-
-                                                            <button type="button" class="btn btn-default full_screen pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">View Full Screen</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="row">
-
-                                                        <div class="col-md-12">
-                                                            <div class="tg-wrap_content_tabs">
-                                                                <table class="tg" id="tblEmpDiaryHistory">
-                                                                    <tr>
-                                                                        <th class="tg-z1n2"></th>
-                                                                        <th class="tg-z1n2">Date</th>
-                                                                        <th class="tg-z1n2">Input/ Output</th>
-                                                                        <th class="tg-z1n2">Input/ Output</th>
-                                                                        <th class="tg-z1n2">Input/ Output</th>
-                                                                        <th class="tg-z1n2"></th>
-
-                                                                    </tr>
-
-
-
-                                                                </table>
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
+                                        <div class="col-xs-7">
+                                            <label></label>
+                                            <div class="form-group phone_no">
+                                                <input class="form-control isee_input disabledClass" id="txtphone11" maxlength="50" name="phone" type="tel" value="" />
                                             </div>
-
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane active" id="employeeSms">
-                                        <div class="container sms_tabs">
-                                            <div class="col-md-6">
-                                                <h4 class="customer_title">Message</h4>
-                                                <div class="col-md-12 left_content_area">
+                                    <div class="form-group">
+                                        <label for="usr">Manufacture</label>
+                                        <select class="form-control tree_select_option isee_button_color disabledClass" id="ddlmanufacture" onchange="ManufactureTypes(this, false)">
+                                            <option value=""></option>
+                                            <option value="2">Samsung</option>
+                                            <option value="5">LG</option>
+                                            <option value="4">BlackBerry</option>
+                                            <option value="6">Apple</option>
+                                            <option value="3">Motorola</option>
+                                            <option value="1">Nokia</option>
+                                        </select>
+                                    </div>
 
-                                                    <div class="col-md-12 ">
-                                                        <textarea id="txtArea" class="main_content_area"></textarea>
 
-                                                    </div>
+                                </div>
 
-                                                    <button type="button" class="btn btn-default pull-right send_application isee_button_color" onclick="sendSms();"><i class="fa fa-mobile">Send SMS</i></button>
-                                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <div class="form-group">
+                                                <label>Phone2 </label>
+                                                <input class="form-control isee_input disabledClass" id="txtphone2" maxlength="10" name="phone1" required="required" type="tel" value="" />
                                             </div>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <label></label>
+                                            <div class="form-group phone_no">
+                                                <input class="form-control isee_input disabledClass" id="txtphone22" maxlength="50" name="phone" type="tel" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="usr">Phone Type </label>
+                                        <select class="form-control tree_select_option isee_button_color disabledClass" id="ddlphonetype" name="phonetype">
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
 
-                                            <div class="col-md-6">
+                                </div>
 
-                                                <div class="container right_content_tabs_window"></div>
+                                <div class="col-md-6">
 
-                                                <div class="col-md-4">
-                                                    <h4 class="customer_title">Message History</h4>
-                                                </div>
+                                    <div class="form-group">
+                                        <label for="usr">Last application</label>
+                                        <div id="datepickerLastApp" class="input-group date" data-date-format="dd/mm/yyyy">
+                                            <input class="form-control isee_input" type="text" id="txtapplication" name="startday" value="" disabled />
+                                            <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-default pull-right send_application isee_button_color" id="sendApp"><i class="fa fa-envelope">Send Application</i></button>
+                                </div>
 
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-sm-5">
-                                                            <div class="form-group">
-                                                                <label for="usr">From</label>
-                                                                <div id="datepicker1" class="input-group date" data-date-format="dd/mm/yyyy">
-                                                                    <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
-                                                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                                                </div>
-                                                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!----- ================End======================-->
+
+
+
+                    <div class="container employee_navtab_window">
+
+                        <div class="span12">
+                            <ul class="nav nav-tabs">
+                                <li class="active menu_tabs" id="divSms"><a href="#employeeSms" data-toggle="tab"><i class="fa fa-mobile">SMS</i></a></li>
+                                <li class="menu_tabs" id="divTime"><a href="#employeeHours" data-toggle="tab"><i class="fa fa-clock-o">Time</i></a></li>
+                                <li class="menu_tabs" id="divTree"><a href="#employeeTree" data-toggle="tab"><i class="fa fa-group">Tree</i></a></li>
+
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="employeeHours">
+                                    <div class="container sms_tabs">
+                                        <div class="col-md-6">
+                                            <h4 class="customer_title">Fill Employee Hours</h4>
+                                            <div class="tg-wrap_content_tabs">
+                                                <table class="tg" id="tblemployeeHours">
+                                                    <tr>
+                                                        <th class="tg-z1n2"></th>
+                                                        <th class="tg-z1n2">Day Status</th>
+                                                        <th class="tg-z1n2">Start Time</th>
+                                                        <th class="tg-z1n2">End Time</th>
+                                                        <th class="tg-z1n2">Start Time</th>
+                                                        <th class="tg-z1n2">End Time</th>
+                                                        <th class="tg-z1n2"></th>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="right_content_tabs_window">
+                                                <h4 class="customer_title">Select</h4>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="usr">Month</label>
+                                                            <select class="form-control tree_select_option isee_button_color" id="ddlMonthname" maxlength="50" name="manufacture" value="" required>
+                                                                <option value="1">January</option>
+                                                                <option value="2">Feburary</option>
+                                                                <option value="3">March</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">May</option>
+                                                                <option value="6">June</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">August</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+
+                                                            </select>
                                                         </div>
 
-                                                        <div class="col-sm-5">
-
-                                                            <div class="form-group">
-                                                                <label for="usr">To</label>
-                                                                <div id="datepicker2" class="input-group date" data-date-format="dd/mm/yyyy">
-                                                                    <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
-                                                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-sm-2">
-                                                            <button type="button" class="btn btn-default pull-right send_application isee_button_color" onclick="searchMessageHistory();"><i class="fa fa-search"></i></button>
-                                                        </div>
                                                     </div>
+
+                                                    <div class="col-sm-6">
+
+                                                        <div class="form-group">
+                                                            <label for="usr">Year</label>
+                                                            <select class="form-control tree_select_option isee_button_color" id="ddlYearValue" maxlength="50" name="manufacture"></select>
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-3 col-xs-3">
+                                                    </div>
+
+                                                    <div class="col-md-9 col-xs-9">
+                                                        <button type="button" class="btn btn-default pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">Show Below</button>
+
+                                                        <button type="button" class="btn btn-default full_screen pull-right isee_button_color" onclick="getEmployeeTimeHistoryDiary();">View Full Screen</button>
+                                                    </div>
+
+                                                </div>
+
                                                 <div class="row">
 
                                                     <div class="col-md-12">
                                                         <div class="tg-wrap_content_tabs">
-                                                            <table class="tg" id="msgHistory">
+                                                            <table class="tg" id="tblEmpDiaryHistory">
                                                                 <tr>
                                                                     <th class="tg-z1n2"></th>
                                                                     <th class="tg-z1n2">Date</th>
-                                                                    <th class="tg-z1n2">Status</th>
-                                                                    <th class="tg-z1n2">SMS Description</th>
-                                                                    <th class="tg-z1n2">Sent</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
+                                                                    <th class="tg-z1n2">Input/ Output</th>
                                                                     <th class="tg-z1n2"></th>
 
                                                                 </tr>
+
 
 
                                                             </table>
@@ -489,37 +409,120 @@
 
                                                     </div>
                                                 </div>
+
+
                                             </div>
+
                                         </div>
+
                                     </div>
+                                </div>
 
+                                <div class="tab-pane active" id="employeeSms">
+                                    <div class="container sms_tabs">
+                                        <div class="col-md-6">
+                                            <h4 class="customer_title">Message</h4>
+                                            <div class="col-md-12 left_content_area">
 
-                                    <div class="tab-pane" id="employeeTree">
-                                        <div class="container sms_tabs">
-                                            <div class="col-md-6">
-                                                <p class="text-left">Demo</p>
-                                            </div>
+                                                <div class="col-md-12 ">
+                                                    <textarea id="txtArea" class="main_content_area"></textarea>
 
-                                            <div class="col-md-6">
-
-                                                <div class="container right_content_tabs_window" id="employoeeDrag">
-                                                    @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
                                                 </div>
 
+                                                <button type="button" class="btn btn-default pull-right send_application isee_button_color" onclick="sendSms();"><i class="fa fa-mobile">Send SMS</i></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="container right_content_tabs_window"></div>
+
+                                            <div class="col-md-4">
+                                                <h4 class="customer_title">Message History</h4>
+                                            </div>
+
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group">
+                                                            <label for="usr">From</label>
+                                                            <div id="datepicker1" class="input-group date" data-date-format="dd/mm/yyyy">
+                                                                <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
+                                                                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-5">
+
+                                                        <div class="form-group">
+                                                            <label for="usr">To</label>
+                                                            <div id="datepicker2" class="input-group date" data-date-format="dd/mm/yyyy">
+                                                                <input class="form-control isee_input" type="text" id="" title="enddate" value="" />
+                                                                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        <button type="button" class="btn btn-default pull-right send_application isee_button_color" onclick="searchMessageHistory();"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <div class="tg-wrap_content_tabs">
+                                                        <table class="tg" id="msgHistory">
+                                                            <tr>
+                                                                <th class="tg-z1n2"></th>
+                                                                <th class="tg-z1n2">Date</th>
+                                                                <th class="tg-z1n2">Status</th>
+                                                                <th class="tg-z1n2">SMS Description</th>
+                                                                <th class="tg-z1n2">Sent</th>
+                                                                <th class="tg-z1n2"></th>
+
+                                                            </tr>
+
+
+                                                        </table>
+
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <!--.tab-content -->
+
+
+                                <div class="tab-pane" id="employeeTree">
+                                    <div class="container sms_tabs">
+                                        <div class="col-md-6">
+                                            <div id="jstree_demo_div"></div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="container right_content_tabs_window" id="employoeeDrag">
+                                                @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
-                            <!--.span12 -->
+                            <!--.tab-content -->
 
                         </div>
-                        <!--.container -->
-                        <!------------------=====================================------>
-                        @*<div class="row">
+                        <!--.span12 -->
+
+                    </div>
+                    <!--.container -->
+                    <!------------------=====================================------>
+                    @*<div class="row">
                             <div class="col-md-6 col-xs-12 employee_hours">
                                 <div class="col-md-12 col-xs-12 employee_fill_left">
                                     <!--- change col-md-6 into col-md-12-->
@@ -624,17 +627,17 @@
 
                             </div>
                         </div>
-                        *@
+                    *@
 
-                    </div>
                 </div>
-                <!-- Customer right panel end---->
-            </form>
-
-        </div>
-
+            </div>
+            <!-- Customer right panel end---->
+        </form>
 
     </div>
+
+
+</div>
 
 </form>
 
@@ -643,6 +646,7 @@
 
 <script type="text/javascript">
     var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
 </script>
 
 

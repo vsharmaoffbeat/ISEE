@@ -5,7 +5,19 @@ $(document).ready(function () {
     $("#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
         autoclose: true,
         todayHighlight: true
-    }).datepicker('update', new Date());;
+    }).datepicker('update', new Date());
+
+    //tree create
+    var objTree = $('#jstree_demo_div').easytree(
+    {
+        data: treeJsonData,
+        enableDnd: true,
+        canDrop: canDrop,
+        dropped: dropped,
+        dropping: dropping
+    });
+
+
     //$("#datepicker2").datepicker({
     //    onSelect: function () {
     //        datepicker2 = $(this).datepicker('getDate');
@@ -17,9 +29,6 @@ $(document).ready(function () {
     //    }
     //});
 
-    var minDate1;
-    var minDate2;
-    setDatePicker();
 
     //$("#datepickerStartDay").datepicker({
     //    todayBtn: 1,
@@ -45,7 +54,7 @@ $(document).ready(function () {
     $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
     setDefaultValues();
     clearInputFields()
-    
+
     var date = new Date,
     years = [],
     year = date.getFullYear();
@@ -56,6 +65,11 @@ $(document).ready(function () {
             text: i
         }).appendTo($('#ddlYearValue'));
     }
+
+    var d = new Date();
+    d.setMonth(d.getMonth() - 3);
+    $("#datepicker1").datepicker('setDate', d);
+   
 
 });
 function setDatePicker() {
@@ -108,8 +122,8 @@ function setDefaultValues() {
     $('#datepickerStartDay input').val('');
     $('#datepickerEndDay input').val('');
     $('#datepickerLastApp input').val('');
-    $('#datepicker1 input').val('');
-    $('#datepicker2 input').val('');
+    //$('#datepicker1 input').val('');
+    //$('#datepicker2 input').val('');
     // $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp,#datepicker1,#datepicker2")
 
 }
@@ -186,7 +200,7 @@ function searchEmployeeData() {
                 $('#left_employee_window').text('No records found.');
                 return true;
             }
-            
+
             if (response.length <= 0) {
 
 
@@ -196,33 +210,6 @@ function searchEmployeeData() {
             var setAttr = ''
 
             $(response).each(function () {
-                //if (this.LastSendApp == null && this.EndDay != null) {
-
-                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                //     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                //     + this.SecondPhone + '||' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1')
-
-                //}
-                //else if (this.LastSendApp != null && this.EndDay == null) {
-
-                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                //     + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                //     + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1')
-                //    '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') + '||';
-
-                //}
-                //else if (this.LastSendApp == null && this.EndDay == null)
-                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                //       + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                //       + this.SecondPhone + '|||';
-
-                //else
-                //    setAttr = this.EmployeeId + '|' + this.EmployeeNum + '|' + this.Mail + '|' + this.FirstName + '|' + this.LastName + '|'
-                //   + this.StartDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|' + this.MainAreaPhone + '|' + this.MainPhone + '|' + this.SecondAreaPhone + '|'
-                //   + this.SecondPhone + '|' + this.LastSendApp.replace(/\/Date\((-?\d+)\)\//, '$1') +
-                //'|' + this.EndDay.replace(/\/Date\((-?\d+)\)\//, '$1') + '|';
-
-
                 $('<div class="row" onclick="selectedEmployee(this)" EmployeeId="' + this.EmployeeId + '" EmployeeNum="' + this.EmployeeNum +
                     '" Mail="' + this.Mail + '" FirstName="' + this.FirstName + '" LastName="' + this.LastName +
                     '" LastSendApp="' + this.LastSendApp + '" EndDay="' + this.EndDay + '" PhoneManufactory="' + this.PhoneManufactory +
@@ -248,12 +235,8 @@ function selectedEmployee(obj) {
 
     removeChange();
     _employeeId = $(obj).attr('EmployeeId');
-    var d = new Date();
-    d.setMonth(d.getMonth() - 3);
-    $("#datepicker1").datepicker('setDate', d);
-    d = new Date();
-    $("#datepicker2").datepicker('setDate', d);
-    var data = $(obj).attr('EmployeeId').split('|');
+
+
 
     //get messgae history
     getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
@@ -267,8 +250,6 @@ function selectedEmployee(obj) {
     $('#showMap').attr('href', '/map/map');
 
 }
-
-
 
 
 function setInputValues(obj) {
@@ -328,7 +309,7 @@ function getMessageHistory(id, start, end) {
             $(response).each(function () {
                 $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.SmsCreatDate + '</td><td class="tg-dx8v">' + this.SmsStatus + '</td><td class="tg-dx8v">' + this.SmsMsg + '</td><td class="tg-dx8v">' + this.SmsCount + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#msgHistory'));;
             });
-            
+
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -389,7 +370,7 @@ function getEmployeeTimeTemplate(id) {
                 maxTime: '23:30',
                 scrollbar: true,
             });
-            
+
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -416,7 +397,7 @@ function getEmployeeTimeHistoryDiary() {
             $(response).each(function () {
                 $('<tr><td class="tg-dx8v"></td><td class="tg-dx8v">' + this.Day + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start1) + ' ' + replaceNullWithEmpty(this.End1) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start2) + ' ' + replaceNullWithEmpty(this.End2) + '</td><td class="tg-dx8v">' + replaceNullWithEmpty(this.Start3) + ' ' + replaceNullWithEmpty(this.End3) + '</td><td class="tg-dx8v"></td></tr>').appendTo($('#tblEmpDiaryHistory'));;
             });
-            
+
 
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
@@ -542,3 +523,66 @@ function getHourData() {
 }
 
 
+//tree methods
+function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
+    if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+        return source.href ? true : false;
+    }
+    if (isTargetNode) {
+        if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+            return false;
+        }
+        if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+            return false;
+        }
+        if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+            return false;
+        }
+        if (target.objecttype == undefined) {
+            return false;
+        }
+        isCurrentNodeAdded = false;
+        return true;
+    }
+}
+function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+    if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+        //  alertMessage("Dropping node rejected '" + source.text + "'");
+    }
+}
+function dropped(event, nodes, isSourceNode, source, isTargetNode, target) {
+    // internal to external drop
+    if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+        //  alertMessage("Dropped node accepted '" + source.text + "'");
+    }
+    if (isSourceNode && isTargetNode) { // internal to internal drop
+        // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+    }
+    if (isTargetNode && !isSourceNode) { // external to internal drop
+        if (!isCurrentNodeAdded) {
+            var node = {};
+            node.text = $(source).data("name");
+            node.id = newNodeID;
+            newNodeID = newNodeID - 1;
+            node.objectid = $(source).data("id");
+            node.objecttype = $(source).data("type");
+            if (node.objecttype == "employee") {
+                node.iconUrl = "/images/img/employee_16.png";
+            } else {
+                node.iconUrl = "/images/img/customer_16.png";
+            }
+
+            objTree.addNode(node, target.id);
+            objEmployeeTree.addNode(node, target.id);
+            objCustomerTree.addNode(node, target.id);
+
+            objTree.rebuildTree();
+            isCurrentNodeAdded = true;
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            if ($scope.choiceType == '2') {
+                $('#employeeGrid tr[data-id="' + node.objectid + '"]').remove();
+            }
+        }
+    }
+}

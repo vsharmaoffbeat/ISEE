@@ -25,10 +25,10 @@ namespace ISEE.Controllers
                 return RedirectToAction("login", "login");
             List<TreeView> data = context.TreeViews.Where(tt => tt.FactoryID == SessionManegment.SessionManagement.FactoryID && tt.ParentID == null).ToList();
 
-
+            
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(context.PhoneManufactures.Select(pm => new { pm.PhoneManufacturId, pm.PhoneManufacture1 }).ToList());
-            ViewBag.TreeJsonData = serializer.Serialize(AdminController.CreateJsonTree(data));
+            ViewBag.TreeJsonData = serializer.Serialize(Common.Common.CreateJsonTree(data));
             return View();
         }
 

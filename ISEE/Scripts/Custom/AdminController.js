@@ -63,6 +63,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                 customerNumber: '',
                 contactName: '',
                 companyName: '',
+                phoneArea: '',
                 phone1: ''
             };
         }
@@ -125,6 +126,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         customerNumber: '',
         contactName: '',
         companyName: '',
+        phoneArea: '',
         phone1: ''
     };
 

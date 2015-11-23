@@ -118,7 +118,8 @@
 
             <div class="form-group">
                 <label for="usr">Phone1</label>
-                <input type="text" class="form-control fields isee_input" ng-model="CustomerSearchData.phone1" />
+                <input type="text" style="width: 20%;display: inline-block;" class="form-control fields isee_input" ng-model="CustomerSearchData.phoneArea" />
+                <input type="text" style="width: 75%;margin-left: 1%; display: inline-block;" class="form-control fields isee_input" ng-model="CustomerSearchData.phone1" />
 
             </div>
         </div>
@@ -271,8 +272,8 @@
                     targetId = target.attr("id")
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
-                   // objEmployeeTree.addNode(sourceNode, targetId);
-                  //s  objCustomerTree.addNode(sourceNode, targetId);
+                    // objEmployeeTree.addNode(sourceNode, targetId);
+                    //s  objCustomerTree.addNode(sourceNode, targetId);
                     $('#addNewNode').val('')
                 }
             }
@@ -307,7 +308,7 @@
             if (node.objecttype == "branchNode") {
                 objTree.removeNode(node.id);
                 //objEmployeeTree.removeNode(node.id);
-               // objCustomerTree.removeNode(node.id);
+                // objCustomerTree.removeNode(node.id);
             }
 
         } else {
@@ -371,8 +372,8 @@
                 }
 
                 objTree.addNode(node, target.id);
-            //    objEmployeeTree.addNode(node, target.id);
-            //    objCustomerTree.addNode(node, target.id);
+                //    objEmployeeTree.addNode(node, target.id);
+                //    objCustomerTree.addNode(node, target.id);
 
                 objTree.rebuildTree();
                 isCurrentNodeAdded = true;

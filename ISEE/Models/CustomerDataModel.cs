@@ -21,5 +21,6 @@ namespace ISEE.Models
         public DateTime NextVisit { get; set; }
         public int BuldingCode { get; set; }
         public string ContactName { get; set; }
+        public string CompanyName { get; set; }
     }
 }

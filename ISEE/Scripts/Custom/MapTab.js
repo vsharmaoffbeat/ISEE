@@ -28,7 +28,7 @@ var CustTitle = '';
 
 function LoadMapByFactoryID() {
     $.ajax({
-        url: "/Admin/GetCurrentLogedUserCountery", success: function (result) {
+        url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
             google.maps.visualRefresh = true;
             var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
             var mapOptions = {
@@ -259,7 +259,7 @@ function GetStatesByFactoryID() {
     stateNames = [];
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllStatesByCountry",
+        url: "/Data/GetAllStatesByCountry",
         success: function (response) {
             $(response).each(function () {
                 $("<option />", {
@@ -287,7 +287,7 @@ function GetCitysByState() {
         return false;
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllCitysByState",
+        url: "/Data/GetAllCitysByState",
         data: { stateID: stateIds[stateNames.indexOf($('#StateInputCustomer').val())] },
         dataType: "json",
         success: function (response) {
@@ -316,7 +316,7 @@ function GetStreetByCity() {
         return false;
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllStreetByCity",
+        url: "/Data/GetAllStreetByCity",
         data: { cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] },
         dataType: "json",
         success: function (response) {
@@ -352,7 +352,7 @@ function GetBuildingsByCity() {
         return false;
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllBuildingsByCity",
+        url: "/Data/GetAllBuildingsByCity",
         data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#StreetInputCustomer').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] },
         dataType: "json",
         success: function (response) {

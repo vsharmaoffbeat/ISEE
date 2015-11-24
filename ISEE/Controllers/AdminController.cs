@@ -574,51 +574,7 @@ namespace ISEE.Controllers
 
         #endregion
         //Customer Tab
-        public JsonResult GetAllStatesByCountry()
-        {
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                var CountryID = SessionManagement.Country;
-                var StateDec = _facory.GetAllStates(CountryID).ToList()
-                    .Select(x => new { StateCode = x.StateCode.ToString().Trim(), StateDesc = (x.StateDesc ?? string.Empty).ToString().Trim() })
-                    .Distinct()
-                    .ToList();
-
-                return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-            }
-        }
-        public JsonResult GetAllCitysByState(int stateID)
-        {
-            var CountryID = SessionManagement.Country;
-            var Cityes = _facory.GetAllCities(CountryID, stateID).ToList()
-                .Select(d => new { CityCode = d.CityCode.ToString().Trim(), CityDesc = d.CityDesc.ToString().Trim() })
-                .Distinct()
-                .ToList();
-            return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-        }
-
-        public JsonResult GetAllStreetByCity(int cityID)
-        {
-            var CountryID = SessionManagement.Country;
-
-            var Streets = _facory.GetAllStreets(CountryID, cityID).ToList().Select(d => new { StreetCode = d.StreetCode.ToString().Trim(), Streetdesc = d.StreetDesc.ToString().Trim() })
-                .Distinct()
-                .ToList();
-            return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-        }
-
-        public JsonResult GetAllBuildingsByCity(int streetID, int cityID)
-        {
-            var CountryID = SessionManagement.Country;
-            var Buildings = _facory.GetAllNumbers(CountryID, cityID, streetID).ToList().Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number.Trim() })
-                .Distinct()
-                .ToList();
-            return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-        }
+    
 
         public JsonResult GetEmployeeByEmployeeID(int EmployeeID)
         {

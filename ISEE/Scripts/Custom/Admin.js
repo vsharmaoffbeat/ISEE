@@ -60,7 +60,7 @@ function GetAllStatesByCountry() {
     stateNames = [];
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllStatesByCountry",
+        url: "/Data/GetAllStatesByCountry",
         success: function (response) {
             var appElement = document.querySelector('[ng-controller=SearchCtrl]');
             var $scope = angular.element(appElement).scope();
@@ -110,7 +110,7 @@ function GetAllCitysByState(state) {
 
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllCitysByState",
+        url: "/Data/GetAllCitysByState",
         data: { stateID: GetIdByName(statesArray, state) },
         dataType: "json",
         success: function (response) {
@@ -149,7 +149,7 @@ function GetAllStreetByCity(city) {
 
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllStreetByCity",
+        url: "/Data/GetAllStreetByCity",
         data: { cityID: GetIdByName(cityArray, city) },
         dataType: "json",
         success: function (response) {
@@ -185,7 +185,7 @@ function GetAllBuildingsByCity(street, city) {
 
     $.ajax({
         type: "POST",
-        url: "/Admin/GetAllBuildingsByCity",
+        url: "/Data/GetAllBuildingsByCity",
         data: { streetID: GetIdByName(streetArray, street), cityID: GetIdByName(cityArray, city) },
         dataType: "json",
         success: function (response) {

@@ -205,11 +205,12 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        public JsonResult GetCustomerForMapByCustomerID(int CustomerID)
+        public JsonResult GetCustomerForMapByCustomerID(string CheckedCustomers)
         {
+            var numbers = CheckedCustomers.TrimEnd(',').Split(',').Select(Int32.Parse).ToList();
             using (ISEEEntities context = new ISEEEntities())
             {
-                var result = context.Customers.Where(s => s.CustomerId == CustomerID).Select(p => new { Lat = p.Building.Lat, Long = p.Building.Long, BuildingCode = p.BuildingCode, FirstName = p.FirstName, LastName = p.LastName }).ToList();
+                var result = context.Customers.Where(s => numbers.Contains(s.CustomerId)).Select(p => new { Lat = p.Building.Lat, Long = p.Building.Long, BuildingCode = p.BuildingCode, FirstName = p.FirstName, LastName = p.LastName }).ToList();
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }

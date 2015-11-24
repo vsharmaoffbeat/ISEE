@@ -16,17 +16,16 @@
 <script src="~/Scripts/js/bootstrap-paginator.js"></script>
 
 
-
 <div class="row">
-    <div class="col-md-3" id="searchdiv" style="background-color: white; height: 500px; width: 300px; display: block; left: 25px">
-        First Name<input id="firstName" type="text" style="width:190px" />
-        Last Name<input id="lastName" type="text" style="width:190px" />
-        Number<input id="number" type="number" style="width:212px" />
-        <input id="Active" type="checkbox" checked /> &nbsp;Active
+    <div class="col-md-3" id="searchDiv" style="background-color: white; height: 500px; width: 300px; display: block; left: 25px">
+        First Name<input id="txtfirstName" type="text" style="width:190px" />
+        Last Name<input id="txtlastName" type="text" style="width:190px" />
+        Number<input id="txtnumber" type="number" style="width:212px" />
+        <input id="chkActive" type="checkbox" checked /> &nbsp;Active
         <br />
-        <button type="button" onclick="SearchEmployee()" id="btnSearch">search</button>
-        <div id="searchedDiv" style="height:100px;overflow:auto;border:1px solid black">
-            <table id="mapSearchGrid" class="tg">
+        <button type="button" onclick="SearchEmployee()" id="btnsearchEmployee">search</button>
+        <div style="height:100px;overflow:auto;border:1px solid black">
+            <table id="tblmapsearchgridEmployee" class="tg">
                 <tr>
                     <th class="tg-z1n2"></th>
                     <th class="tg-z1n2">Last Name</th>
@@ -36,33 +35,33 @@
             </table>
         </div>
         <br />
-        <table id="selectedEmployee" style="height:20px;border:1px solid black;background-color:yellow;display:none;width:200px"></table>
-        Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="Date" type="text" style="width:210px" />
-        From Time<input id="FromTime" onfocus="showTime(this)" style="width:75px" />
-        End Time&nbsp;&nbsp;<input id="EndTime" onfocus="showTime(this)" style="width:75px" />
+        <table id="selectedemployeeDiv" style="height:20px;border:1px solid black;background-color:yellow;display:none;width:200px"></table>
+        Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="dpDate" type="text" style="width:210px" />
+        From Time<input id="txtfromTime" onfocus="showTime(this)" style="width:75px" />
+        End Time&nbsp;&nbsp;<input id="txtendTime" onfocus="showTime(this)" style="width:75px" />
         <br /><br />
-        <input id="showWithCustomer" type="checkbox" />Show With Customer<br />
-        <input class="abc" type="radio" id="RunWayShowRadio" name="sex" value="RunWayShow"> Run Way Show
+        <input id="chkshowwithCustomer" type="checkbox" />Show With Customer<br />
+        <input type="radio" name="choices" value="RunWayShow"> Run Way Show
         <br>
-        <input class="abc" type="radio" id="StopPointRadio" name="sex" value="StopPoint">  Stop Point
+        <input type="radio" name="choices" value="StopPoint">  Stop Point
         <br />
-        <input class="abc" type="radio" id="LastPointRadio" name="sex" value="LastPoint" checked> Last Point
+        <input type="radio" name="choices" value="LastPoint" checked> Last Point
         <br />
         <button type="button" onclick="ShowDataOnMap()">Show</button>
         <button type="button" onclick="ShowCustomer()">Customer</button>
     </div>
 
     <div class="col-md-3" id="searchdivCustomer" style="background-color:white;height:500px;width:300px;display:none;left:25px;">
-        State<input id="StateInputCustomer" onblur="GetCitysByState()" type="text" style="width:190px" /><br />
-        City<input id="CityInputCustomer" onblur="GetStreetByCity()" type="text" style="width:190px" /><br />
-        Street<input id="StreetInputCustomer" onblur="GetBuildingsByCity()" type="text" style="width:190px" /><br />
-        Building No<input id="BuildingInputCustomer" onblur="GetSelectedBuildingLatLong()" type="text" width:190px" /><br />
-        Company N<input id="CompanyNameInput" type="text" style="width:190px" /><br />
-        Customer No<input id="CustomerNoInput" type="number" style="width:190px" /><br />
-        Search <button type="button" onclick="SearchCustomers()" id="btnSearch">search</button>
+        State<input id="ddlstateinputcustomer" onblur="GetCitysByState()" type="text" style="width:190px" /><br />
+        City<input id="ddlcityinputCustomer" onblur="GetStreetByCity()" type="text" style="width:190px" /><br />
+        Street<input id="ddlstreetinputCustomer" onblur="GetBuildingsByCity()" type="text" style="width:190px" /><br />
+        Building No<input id="ddlbuildinginputCustomer" onblur="GetSelectedBuildingLatLong()" type="text" width:190px" /><br />
+        Company N<input id="txtcompanynameInputCustomer" type="text" style="width:190px" /><br />
+        Customer No<input id="txtcustomernoInput" type="number" style="width:190px" /><br />
+        Search <button type="button" onclick="SearchCustomers()" id="btnsearchCustomer">search</button>
         <br />
         <div style="height:100px;overflow:auto;border:1px solid black">
-            <table id="mapSearchGridCustomer" class="tg">
+            <table id="tblmapsearchgridCustomer" class="tg">
                 <tr>
                     <td class="tg-z1n2"></td>
                     <th class="tg-z1n2">First Name</th>
@@ -71,13 +70,13 @@
             </table>
         </div>
         <br />
-        <table id="selectedCustomer" style="height:20px;border:1px solid black;background-color:yellow;display:none;width:200px"></table>
+        <table id="selectedCustomer" style="height:auto;border:1px solid black;background-color:yellow;display:none;width:200px"></table>
         <br /><br />
         <button type="button" onclick="ShowCustomerDataOnMap()">Show</button>
         <button type="button" onclick="ShowEmployee()">Employee</button>
     </div>
 
-    <div class="col-md-9" id="MapMainDiv" style="min-width:350px;height:500px;float:left;left:32px;">
+    <div class="col-md-9" id="mapmainDiv" style="min-width:350px;height:500px;float:left;left:32px;">
     </div>
 </div>
 

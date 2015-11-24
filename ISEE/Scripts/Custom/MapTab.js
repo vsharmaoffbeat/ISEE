@@ -1,19 +1,23 @@
 ﻿$(document).ready(function () {
     LoadMapByFactoryID();
-    $(document).on('click', '#mapSearchGrid tr', function () {
-
-        $("#mapSearchGrid tr").removeClass('active');
+    $(document).on('click', '#tblmapsearchgridEmployee tr', function () {
+        $("#tblmapsearchgridEmployee tr").removeClass('active');
         $(this).addClass('active');
         addToSelectedEmployeeDiv($(this));
     });
-    $(document).on('click', '#mapSearchGridCustomer tr', function () {
-        $("#mapSearchGridCustomer tr").removeClass('active');
-        $(this).addClass('active');
-        addToSelectedCustomerDiv($(this));
-    });
-    GetStatesByFactoryID();
 
-    var $datepicker = $("#Date");
+    $(document).on('click', '#tblmapsearchgridCustomer tr td', function () {
+        if ($(this).find('.chk').val() == undefined) {
+            $("#tblmapsearchgridCustomer tr").removeClass('active');
+            $(this).closest('.customerRow').addClass('active');
+            $("#tblmapsearchgridCustomer tr").find('.chk').prop('checked', '');
+            $(this).closest('.customerRow').find('.chk').prop('checked', 'true');
+            addToSelectedCustomerDiv($(this).closest('.customerRow'));
+        }
+    });
+    GetAllStatesByCountry();
+
+    var $datepicker = $("#dpDate");
     $datepicker.datepicker();
     $datepicker.datepicker('setDate', new Date());
 });
@@ -24,28 +28,28 @@ var Custmarkers = [];
 var map;
 var CustomerPositionArrayWithEmployee = [];
 var CustTitle = '';
-
+var Liverpool = '';
 
 function LoadMapByFactoryID() {
     $.ajax({
         url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
             google.maps.visualRefresh = true;
-            var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
+            Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
             var mapOptions = {
-                zoom: 6,
+                zoom: result[0].Zoom,
                 center: Liverpool,
                 mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
             };
-            map = new google.maps.Map(document.getElementById("MapMainDiv"), mapOptions);
+            map = new google.maps.Map(document.getElementById("mapmainDiv"), mapOptions);
         }
     });
 }
 
 function SearchEmployee() {
-    var firstName = $('#firstName').val();
-    var LastName = $('#lastName').val();
-    var Active = $('#Active:checked').val() != "on" ? "1" : "0";
-    var Number = $('#number').val();
+    var firstName = $('#txtfirstName').val();
+    var LastName = $('#txtlastName').val();
+    var Active = $('#chkActive:checked').val() != "on" ? "1" : "0";
+    var Number = $('#txtnumber').val();
 
     $.ajax({
         type: "POST",
@@ -53,10 +57,10 @@ function SearchEmployee() {
         data: { firstName: firstName, LastName: LastName, Active: Active, Number: Number },
         dataType: "json",
         success: function (response) {
-            $("#mapSearchGrid").html('');
+            $("#tblmapsearchgridEmployee").html('');
             if (response != null) {
                 for (var i = 0; i < response.length; i++) {
-                    $("#mapSearchGrid").append("<tr rel='" + response[i].LastName + "' id='" + response[i].EmployeeID + "'><td class='tg-dx8v'>" + response[i].Number + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].FirstName + "</td></tr>");
+                    $("#tblmapsearchgridEmployee").append("<tr rel='" + response[i].LastName + "' id='" + response[i].EmployeeID + "'><td class='tg-dx8v'>" + response[i].Number + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].FirstName + "</td></tr>");
                 }
             }
         },
@@ -67,11 +71,11 @@ function SearchEmployee() {
 
 var PolyLineArray = [];
 function ShowDataOnMap() {
-    var EmployeeID = $('#mapSearchGrid .active').attr('id');
-    var Date = $('#Date').val();
-    var FromTime = timeParseExact($('#FromTime').val());
-    var EndTime = timeParseExact($('#EndTime').val());
-    var selectedOpation = $('.abc:checked').val() != undefined ? $('.abc:checked').val().toLowerCase() : false;
+    var EmployeeID = $('#tblmapsearchgridEmployee .active').attr('id');
+    var Date = $('#dpDate').val();
+    var FromTime = timeParseExact($('#txtfromTime').val());
+    var EndTime = timeParseExact($('#txtendTime').val());
+    var selectedOpation = $("input:radio[name='choices']:checked").val().toLowerCase();
     if (EmployeeID != "" && EmployeeID != undefined) {
         if (selectedOpation == 'runwayshow') {
             $.ajax({
@@ -81,7 +85,7 @@ function ShowDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-                        map = new google.maps.Map(document.getElementById('MapMainDiv'), {
+                        map = new google.maps.Map(document.getElementById('mapmainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
@@ -97,14 +101,16 @@ function ShowDataOnMap() {
                             strokeWeight: 2
                         });
                         flightPath.setMap(map);
-                        if ($("#showWithCustomer").prop('checked') == true) {
-                            var Custmarker = new google.maps.Marker({
-                                position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[0], CustomerPositionArrayWithEmployee[1]),
-                                map: map,
-                                icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                title: CustTitle
-                            });
-                            Custmarkers.push(Custmarker);
+                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
+                                var Custmarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
+                                    map: map,
+                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
+                                    title: CustomerPositionArrayWithEmployee[i].title
+                                });
+                                Custmarkers.push(Custmarker);
+                            }
                         }
 
                     }
@@ -128,7 +134,7 @@ function ShowDataOnMap() {
                 success: function (response) {
                     if (response.length > 0) {
 
-                        map = new google.maps.Map(document.getElementById('MapMainDiv'), {
+                        map = new google.maps.Map(document.getElementById('mapmainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
@@ -143,14 +149,16 @@ function ShowDataOnMap() {
                             });
                             markers.push(marker);
                         }
-                        if ($("#showWithCustomer").prop('checked') == true) {
-                            var Custmarker = new google.maps.Marker({
-                                position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[0], CustomerPositionArrayWithEmployee[1]),
-                                map: map,
-                                icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                title: CustTitle
-                            });
-                            Custmarkers.push(Custmarker);
+                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
+                                var Custmarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
+                                    map: map,
+                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
+                                    title: CustomerPositionArrayWithEmployee[i].title
+                                });
+                                Custmarkers.push(Custmarker);
+                            }
                         }
                     }
                     else {
@@ -179,7 +187,7 @@ function ShowDataOnMap() {
                             center: Liverpool,
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         };
-                        map = new google.maps.Map(document.getElementById("MapMainDiv"), mapOptions);
+                        map = new google.maps.Map(document.getElementById("mapmainDiv"), mapOptions);
                         var marker = new google.maps.Marker({
                             position: Liverpool,
                             map: map,
@@ -187,14 +195,16 @@ function ShowDataOnMap() {
                             title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes
                         });
                         markers.push(marker);
-                        if ($("#showWithCustomer").prop('checked') == true) {
-                            var Custmarker = new google.maps.Marker({
-                                position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[0], CustomerPositionArrayWithEmployee[1]),
-                                map: map,
-                                icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                title: CustTitle
-                            });
-                            Custmarkers.push(Custmarker);
+                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
+                                var Custmarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
+                                    map: map,
+                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
+                                    title: CustomerPositionArrayWithEmployee[i].title
+                                });
+                                Custmarkers.push(Custmarker);
+                            }
                         }
 
                     } else {
@@ -241,21 +251,21 @@ function timeParseExact(time) {
 }
 
 function ShowCustomer() {
-    $('#searchdiv').css('display', 'none');
+    $('#searchDiv').css('display', 'none');
     $('#searchdivCustomer').css('display', 'block');
 }
 
 
 function ShowEmployee() {
     $('#searchdivCustomer').css('display', 'none');
-    $('#searchdiv').css('display', 'block');
+    $('#searchDiv').css('display', 'block');
 }
 //----------------------------------------------------------------------------------------------------------------------
 
 
 var stateNames = [];
 var stateIds = [];
-function GetStatesByFactoryID() {
+function GetAllStatesByCountry() {
     stateNames = [];
     $.ajax({
         type: "POST",
@@ -265,14 +275,14 @@ function GetStatesByFactoryID() {
                 $("<option />", {
                     val: this.StateCode,
                     text: this.StateDesc
-                }).appendTo($('#StateInputCustomer'));
-                if (this.StateDesc == null) {
-                    $('#StateInputCustomer').attr('disabled', 'disabled');
+                }).appendTo($('#ddlstateinputcustomer'));
+                if (this.StateDesc == "") {
+                    $('#ddlstateinputcustomer').attr('disabled', 'disabled');
                 }
                 stateNames.push(this.StateDesc);
                 stateIds.push(this.StateCode);
             });
-            $("#StateInputCustomer").autocomplete({
+            $("#ddlstateinputcustomer").autocomplete({
                 source: stateNames,
             });
         },
@@ -283,12 +293,12 @@ function GetStatesByFactoryID() {
 var abliableDataForCityesName = [];
 var abliableDataForCityesIds = [];
 function GetCitysByState() {
-    if (stateIds[stateNames.indexOf($('#StateInputCustomer').val())] == undefined)
+    if (stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllCitysByState",
-        data: { stateID: stateIds[stateNames.indexOf($('#StateInputCustomer').val())] },
+        data: { stateID: stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -296,12 +306,15 @@ function GetCitysByState() {
                     $("<option />", {
                         val: this.CityCode,
                         text: this.CityDesc
-                    }).appendTo($('#CityInputCustomer'));
+                    }).appendTo($('#ddlcityinputCustomer'));
+                    if (this.CityDesc == "") {
+                        $('#ddlcityinputCustomer').attr('disabled', 'disabled');
+                    }
                     abliableDataForCityesName.push(this.CityDesc);
                     abliableDataForCityesIds.push(this.CityCode);
                 });
             }
-            $("#CityInputCustomer").autocomplete({
+            $("#ddlcityinputCustomer").autocomplete({
                 source: abliableDataForCityesName,
             });
         },
@@ -312,12 +325,12 @@ function GetCitysByState() {
 var abliableDataForStreetName = [];
 var abliableDataForStreetId = [];
 function GetStreetByCity() {
-    if (abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] == undefined)
+    if (abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllStreetByCity",
-        data: { cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] },
+        data: { cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -327,12 +340,12 @@ function GetStreetByCity() {
                     $("<option />", {
                         val: this.StreetCode,
                         text: this.Streetdesc
-                    }).appendTo($('#StreetInputCustomer'));
+                    }).appendTo($('#ddlstreetinputCustomer'));
                     abliableDataForStreetName.push(this.Streetdesc);
                     abliableDataForStreetId.push(this.StreetCode);
                 });
             }
-            $("#StreetInputCustomer").autocomplete({
+            $("#ddlstreetinputCustomer").autocomplete({
                 source: abliableDataForStreetName,
             });
         },
@@ -348,12 +361,12 @@ var abliableDataForBuildingLong = [];
 function GetBuildingsByCity() {
 
     abliableDataForBuilding = [];
-    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#StreetInputCustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] == undefined)
+    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllBuildingsByCity",
-        data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#StreetInputCustomer').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] },
+        data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -366,16 +379,16 @@ function GetBuildingsByCity() {
                     $("<option />", {
                         val: this.BuildingCode,
                         text: this.BuildingNumber
-                    }).appendTo($('#BuildingInputCustomer'));
+                    }).appendTo($('#ddlbuildinginputCustomer'));
                     abliableDataForBuildingNumber.push(this.BuildingNumber);
                     abliableDataForBuildingId.push(this.BuildingCode);
                     abliableDataForBuildingLat.push(this.BuildingLat);
                     abliableDataForBuildingLong.push(this.BuldingLong);
                 });
-                $("#BuildingInputCustomer").autocomplete({
+                $("#ddlbuildinginputCustomer").autocomplete({
                     source: abliableDataForBuildingNumber,
                 });
-                $('#BuildingInputCustomer').val(abliableDataForBuildingNumber);
+                $('#ddlbuildinginputCustomer').val(abliableDataForBuildingNumber);
                 GetSelectedBuildingLatLong();
             }
         },
@@ -385,30 +398,30 @@ function GetBuildingsByCity() {
 
 var buildingLatLong = [];
 function GetSelectedBuildingLatLong() {
-    if (abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#BuildingInputCustomer').val())] == undefined, abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#BuildingInputCustomer').val())] == undefined)
+    if (abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined, abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined)
         return false;
     buildingLatLong = [];
-    buildingLatLong.push(abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#BuildingInputCustomer').val())], abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#BuildingInputCustomer').val())]);
+    buildingLatLong.push(abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())], abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())]);
 }
 
 
 function SearchCustomers() {
     var state, city, street, building, customerNumber, companyName;
-    customerNumber = $('#CustomerNoInput').val();
-    companyName = $('#CompanyNameInput').val();
-    buildingNumber = $('#BuildingInputCustomer').val();
+    customerNumber = $('#txtcustomernoInput').val();
+    companyName = $('#txtcompanynameInputCustomer').val();
+    buildingNumber = $('#ddlbuildinginputCustomer').val();
 
-    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#StreetInputCustomer').val())] == undefined || stateIds[stateNames.indexOf($('#StateInputCustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())] == undefined || abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($('#BuildingInputCustomer').val())] == undefined) {
+    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined || abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined) {
         $.ajax({
             type: "POST",
             url: "/Map/GetAllCustomers",
             dataType: "json",
             success: function (response) {
                 if (response.length > 0) {
-                    $("#mapSearchGridCustomer").html('');
+                    $("#tblmapsearchgridCustomer").html('');
                     if (response != null) {
                         for (var i = 0; i < response.length; i++) {
-                            $("#mapSearchGridCustomer").append("<tr id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                         }
                     }
                 }
@@ -419,21 +432,21 @@ function SearchCustomers() {
         $.ajax({
             type: "POST",
             url: "/Map/GetCustomersForMap",
-            data: { state: stateIds[stateNames.indexOf($('#StateInputCustomer').val())], city: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#CityInputCustomer').val())], street: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#StreetInputCustomer').val())], BuildingNumber: buildingNumber, customerNumber: customerNumber, companyName: companyName },
+            data: { state: stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())], city: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())], street: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], BuildingNumber: buildingNumber, customerNumber: customerNumber, companyName: companyName },
             dataType: "json",
             success: function (response) {
                 if (response.length > 0) {
-                    $("#mapSearchGridCustomer").html('');
+                    $("#tblmapsearchgridCustomer").html('');
                     if (response != null) {
 
                         for (var i = 0; i < response.length; i++) {
-                            $("#mapSearchGridCustomer").append("<tr id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                         }
                     }
                 }
                 else {
                     alert("No Location Data");
-                    $("#mapSearchGridCustomer").html('');
+                    $("#tblmapsearchgridCustomer").html('');
                     $('#selectedCustomer').html('');
                     $('#selectedCustomer').css('display', 'none');
                 }
@@ -442,36 +455,44 @@ function SearchCustomers() {
     }
 };
 
+
+
+var checkedCustomersforMap = '';
+
 function ShowCustomerDataOnMap() {
-    var CustomerID = $('#mapSearchGridCustomer .active').attr('id');
-    if (CustomerID != undefined && CustomerID != null) {
+    checkedCustomersforMap = '';
+    GetSelectedCustomersIdsForMap();
+    if (checkedCustomersforMap != '') {
         $.ajax({
             type: "POST",
             url: "/Map/GetCustomerForMapByCustomerID",
-            data: { CustomerID: CustomerID },
+            data: { CheckedCustomers: checkedCustomersforMap },
             dataType: "json",
             success: function (response) {
                 if (response != null || response[0].Lat != null) {
                     CustomerPositionArrayWithEmployee = [];
-                    CustomerPositionArrayWithEmployee.push(response[0].Lat, response[0].Long);
-                    var map = new google.maps.Map(document.getElementById('MapMainDiv'), {
+                    var map = new google.maps.Map(document.getElementById('mapmainDiv'), {
                         zoom: 10,
-                        center: new google.maps.LatLng(response[0].Lat, response[0].Long),
+                        center: Liverpool,
                         mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                     });
                     var Custmarker, i;
                     for (i = 0; i < response.length; i++) {
                         CustTitle = response[i].FirstName + " " + response[i].LastName;
-                        Custmarker = new google.maps.Marker({
-                            position: new google.maps.LatLng(response[i].Lat, response[i].Long),
-                            map: map,
-                            icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                            title: response[i].FirstName + " " + response[i].LastName
-                        });
+                        if (response[i].Lat != null && response[i].Long != null) {
+                            CustomerPositionArrayWithEmployee.push({ lat: response[i].Lat, long: response[i].Long, title: response[i].FirstName + " " + response[i].LastName });
+                            Custmarker = new google.maps.Marker({
+                                position: new google.maps.LatLng(response[i].Lat, response[i].Long),
+                                map: map,
+                                icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
+                                title: CustTitle
+                            });
+                        }
                         Custmarkers.push(Custmarker);
                     }
                 }
             }
+
         })
     }
     else {
@@ -483,15 +504,38 @@ function ShowCustomerDataOnMap() {
 }
 
 function addToSelectedEmployeeDiv(obj) {
-    $("#selectedEmployee").html('');
-    $("#selectedEmployee").append("<tr><td>" + obj.attr('id') + " </td><td>" + obj.attr('rel') + " </td></tr>");
-    $("#selectedEmployee").css('display', 'block');
+    $("#selectedemployeeDiv").html('');
+    $("#selectedemployeeDiv").append("<tr><td>" + obj.attr('id') + " </td><td>" + obj.attr('rel') + " </td></tr>");
+    $("#selectedemployeeDiv").css('display', 'block');
 
 }
 
 function addToSelectedCustomerDiv(obj) {
     $("#selectedCustomer").html('');
-    $("#selectedCustomer").append("<tr><td>" + obj.attr('id') + " </td><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td></tr>");
+    $("#selectedCustomer").append("<tr id=" + obj.attr('id') + "><td>" + obj.attr('id') + " </td><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td></tr>");
     $("#selectedCustomer").css('display', 'block');
+}
 
+
+function chkcustomerChange(obj) {
+    var selectedRow = obj.closest('.customerRow');
+    if (obj.checked == true) {
+        var firstName = selectedRow.attributes.firstName != null ? selectedRow.attributes.firstName.value : "";
+        var rel = selectedRow.attributes.rel != null ? selectedRow.attributes.rel.value : "";
+        $("#selectedCustomer").append("<tr id=" + selectedRow.attributes.id.value + "><td>" + selectedRow.attributes.id.value + " </td><td>" + firstName + " </td><td>" + rel + " </td></tr>");
+        $("#selectedCustomer").css('display', 'block');
+    }
+    else {
+        $("#selectedCustomer #" + selectedRow.attributes.id.value).remove();
+    }
+    return false;
+}
+
+
+function GetSelectedCustomersIdsForMap() {
+    if ($('#selectedCustomer tr').length > 0) {
+        for (var i = 0, l = $('#selectedCustomer tr').length; i < l; i++) {
+            checkedCustomersforMap += $('#selectedCustomer tr')[i].id + ",";
+        }
+    }
 }

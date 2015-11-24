@@ -662,6 +662,13 @@ namespace ISEEREGION.Controllers
 
         }
 
+        public JsonResult GetAddressBuildingCode(int state, string citydesc, int city, int street, string streetdesc, string number, double Lat, double Long, string entry, string zipcode)
+        {
+            int country = SessionManagement.Country;
+            var buildingCode = _facory.GetAddressBuildingCode(country, state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode);
+            return new JsonResult { Data = new { BuildingCode = buildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         #endregion
     }
 }

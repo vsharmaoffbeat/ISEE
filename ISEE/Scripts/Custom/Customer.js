@@ -50,27 +50,7 @@ function popUpClassification() {
 
 }
 
-//data = { id: parseInt($('#mainClassificationDdl :selected').val()) };
-//  $.ajax({
-//      type: "POST",
-//      url: "/Customer/BindSecondClassificationDdl",
-//      data: data,
-//      success: function (response) {
-//          debugger;
-//          if (response != null) {
 
-//              $(response).each(function () {
-//                  $("<option />", {
-//                      val: this.RequestSysIdLevel2,
-//                      text: this.RequestDescCodeLevel2
-//                  }).appendTo($('#secondClassification'));
-//              });
-//          }
-
-//      }
-//  })
-
-//}
 //get secondary results
 function getSecondaryResults(id, isPopup) {
 

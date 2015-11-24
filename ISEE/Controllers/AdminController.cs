@@ -507,7 +507,7 @@ namespace ISEE.Controllers
             }
         }
 
-
+        //To do Data
         public JsonResult GetAddressBuildingCode(int state, string citydesc, int city, int street, string streetdesc, string number, double Lat, double Long, string entry, string zipcode)
         {
             int country = SessionManagement.Country;

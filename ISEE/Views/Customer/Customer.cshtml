@@ -891,15 +891,15 @@
 
                 <div class="form-group">
                     <label>Entry</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                    <input class="form-control isee_input" id="inputEntry" type="text" value="">
                 </div>
 
                 <div class="form-group">
                     <label>Zip code</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="tel" value="">
+                    <input class="form-control isee_input" id="inputZipCode" type="tel" value="">
                 </div>
 
-                <button type="button" id="btnShowSimple" class="btn btn-default pull-right send_application isee_select_button">Update Address</button>
+                <button type="button" id="btnupdateAddress" class="btn btn-default pull-right send_application isee_select_button"  onclick="InsertAddress()">Update Address</button>
 
             </div>
 
@@ -937,7 +937,7 @@
                 <div class="col-md-9"></div>
 
                 <div class="col-md-3">
-                    <button type="button" id="" class="btn btn-default isee_select_button">OK</button>
+                    <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">OK</button>
                     <button type="button" id="btnCancel" class="btn btn-default isee_select_button">Cancel</button>
                 </div>
 
@@ -1100,6 +1100,7 @@
         });
         $("#btnShowSimple").click(function (e) {
             GetAllStatesByCountry();
+            bindTableRowClick();
             ShowDialog(false);
             e.preventDefault();
         });

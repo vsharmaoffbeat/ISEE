@@ -16,7 +16,7 @@
         }
     });
     GetAllStatesByCountry();
-
+    showEmployeeById();
     var $datepicker = $("#dpDate");
     $datepicker.datepicker();
     $datepicker.datepicker('setDate', new Date());
@@ -172,7 +172,6 @@ function ShowDataOnMap() {
 
         }
         else if (selectedOpation == 'lastpoint') {
-
             $.ajax({
                 type: "POST",
                 url: "/Map/GetLastPointForEmployee",
@@ -412,6 +411,9 @@ function SearchCustomers() {
     buildingNumber = $('#ddlbuildinginputCustomer').val();
 
     if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined || abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined) {
+        $('#ddlcityinputCustomer').val('');
+        $('#ddlstreetinputCustomer').val('');
+        $('#ddlbuildinginputCustomer').val('');
         $.ajax({
             type: "POST",
             url: "/Map/GetAllCustomers",
@@ -539,3 +541,43 @@ function GetSelectedCustomersIdsForMap() {
         }
     }
 }
+
+
+
+function showEmployeeById() {
+    $.ajax({
+        type: "POST",
+        url: "/Map/GetEmployeeByIdOnLoad",
+        dataType: "json",
+        success: function (response) {
+            $("#tblmapsearchgridEmployee").html('');
+            if (response != null) {
+                for (var i = 0; i < response.length; i++) {
+                    $("#tblmapsearchgridEmployee").append("<tr rel='" + response[i].LastName + "' id='" + response[i].EmployeeID + "' class='active'><td class='tg-dx8v'>" + response[i].Number + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].FirstName + "</td></tr>");
+                }
+            }
+        },
+
+    });
+}
+
+//function showCustomerById() {
+//    $.ajax({
+//        type: "POST",
+//        url: "/Map/GetCustomerByIdOnLoad",
+//        dataType: "json",
+//        success: function (response) {
+//            if (response.length > 0) {
+//                $("#tblmapsearchgridCustomer").html('');
+//                if (response != null) {
+//                    for (var i = 0; i < response.length; i++) {
+//                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow active' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+//                    }
+//                    chkcustomerChange();
+//                    ShowCustomerDataOnMap();
+//                }
+//            }
+//        }
+//    })
+//}
+

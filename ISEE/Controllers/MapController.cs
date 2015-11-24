@@ -20,6 +20,8 @@ namespace ISEE.Controllers
         }
         public ActionResult Map()
         {
+            ViewBag.Empoyeeid = 1;
+            ViewBag.CustomerID = 1;
             return View();
         }
 
@@ -264,7 +266,69 @@ namespace ISEE.Controllers
             }
         }
 
-
+        public JsonResult GetEmployeeByIdOnLoad()
+        {
+            int EmployeeID = 2;
+            if (EmployeeID > 0)
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    int factoryId = SessionManagement.FactoryID;
+                    var empData = context.Employees.ToList().Where(x => x.Factory == factoryId
+                        && x.EmployeeId == EmployeeID).Select(x => new
+                        {
+                            EmployeeID = x.EmployeeId,
+                            Number = x.EmployeeNum,
+                            Mail = x.Mail == null ? "" : x.Mail,
+                            FirstName = x.FirstName == null ? "" : x.FirstName,
+                            LastName = x.LastName == null ? "" : x.LastName,
+                            StartDay = x.StartDay == null ? "" : x.StartDay.Value.ToString("dd/MM/yyyy"),
+                            MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
+                            MainPhone = x.MainPhone == null ? "" : x.MainPhone,
+                            SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
+                            SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
+                            LastSendApp = x.LastSendApp == null ? "" : x.LastSendApp.Value.ToString("dd/MM/yyyy"),
+                            EndDay = x.EndDay == null ? "" : x.EndDay.Value.ToString("dd/MM/yyyy"),
+                            PhoneManufactory = x.PhoneManufactory,
+                            PhoneType = x.PhoneType
+                        }).ToList();
+                    return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        //public JsonResult GetCustomerByIdOnLoad()
+        //{
+        //    int customerID = 692;
+        //    if (customerID > 0)
+        //    {
+        //        using (ISEEEntities context = new ISEEEntities())
+        //        {
+        //            var result = context.Customers.Where(s => s.CustomerId == customerID).Select(x => new
+        //            {
+        //                CustomerId = x.CustomerId,
+        //                CustomerNumber = x.CustomerNumber,
+        //                FirstName = x.FirstName,
+        //                LastName = x.LastName,
+        //                AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+        //                Phone1 = x.Phone1 ?? "!@#$",
+        //                Lat = x.Building.Lat,
+        //                BuildingCode = x.BuildingCode,
+        //                BuildingNumber = x.Building.Number ?? "!@#$",
+        //                Long = x.Building.Long,
+        //                ZipCode = x.Building.ZipCode,
+        //                StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+        //                StreetId = x.Building.Street.StateCode,
+        //                CityId = x.Building.Street.City.CityCode,
+        //                CityName = x.Building.Street.City.CityDesc ?? "!@#$",
+        //                StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+        //                StateId = x.Building.Street.City.State.StateCode
+        //            }).ToList(); ;
+        //            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //        }
+        //    }
+        //    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //}
 
     }
 }

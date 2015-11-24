@@ -137,7 +137,7 @@ function ManufactureTypes(obj, valMan) {
 
     if ($('#ddlmanufacture :selected').val() == "")
         return false;
-    $("<option />").appendTo($('#ddlphonetype'));
+  
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",

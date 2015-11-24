@@ -48,7 +48,7 @@ namespace ISEEDataModel.Repository.Services
         }
         public IQueryable<EmployeeDiaryTemplate> GetEmpDiaryTemplate(int empID)
         {
-            return _context.EmployeeDiaryTemplate.Where(x => x.EmployeeId == empID).OrderBy(x => x.OrderDay);
+            return _context.EmployeeDiaryTemplates.Where(x => x.EmployeeId == empID).OrderBy(x => x.OrderDay);
         }
 
         public IQueryable<FactoryDairyTemplet> GetFactoryDairyTemp(int factoryId)

@@ -249,7 +249,8 @@ function OnInsertAddressOkClick() {
 
         //Get Building Code 
         buildingCode = GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode)
-        closeDialog();
+        $("#btnClose").click();
+        //  closeDialog();
 
     } else {
         $scope.$apply(function () {
@@ -258,17 +259,27 @@ function OnInsertAddressOkClick() {
     }
 
 }
-
+var updatedAddress = {};
 function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode) {
     //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     //var $scope = angular.element(appElement).scope();
+    updatedAddress = {};
+    var data = { state: state, citydesc: citydesc, city: city, street: street, streetdesc: streetdesc, number: number, Lat: Lat, Long: Long, entry: entry, zipcode: zipcode };
     var buildingCode = 0;
     $.ajax({
         url: "/Data/GetAddressBuildingCode",
-        data: { state: state, citydesc: citydesc, city: city, street: street, streetdesc: streetdesc, number: number, Lat: Lat, Long: Long, entry: entry, zipcode: zipcode },
+        data: data,
         success: function (response) {
             if (parseInt(response.BuildingCode) > 0) {
                 //Set Address Values
+                updatedAddress = data;
+                updatedAddress.BuildingCode = response.BuildingCode;
+                $('#buildingCode').attr('buildingCode', response.BuildingCode);
+                $('#cityId').val(data.citydesc);
+                $('#streetID').val(data.streetdesc);
+                $('#buildingCode').val(response.BuildingCode);
+                $('#stateId').val(r$('#inputState').val());
+                // $('#cityId').val(data.citydesc)
                 alert('Address change was successful.Save customer information to comlete the update');
                 //$scope.$apply(function () {
                 //    $scope.ShowMessageBox('Message', 'Address change was successful.Save customer information to comlete the update')

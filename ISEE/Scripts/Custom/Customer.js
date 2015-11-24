@@ -223,7 +223,7 @@ function GetStaresByFactoryID() {
     stateIds = [];
     $.ajax({
         type: "POST",
-        url: "/Data/GetStatesByFactoryID",
+        url: "/Data/GetAllStatesByCountry",
         success: function (response) {
             if (response.length == 1 && response[0].CountryDescEng == null) {
 
@@ -636,3 +636,6 @@ function setDatePicker() {
     //    //     $('#datepickerStartDay').datepicker('setEndDate', minDate);
     //});
 }
+
+
+// Map snippets

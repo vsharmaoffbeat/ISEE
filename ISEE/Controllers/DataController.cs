@@ -582,7 +582,85 @@ namespace ISEEREGION.Controllers
 
         }
 
+        public JsonResult GetCurrentLogedUserCountery()
+        {
+            int FactoryId = SessionManagement.FactoryID;
+            if (FactoryId > 0)
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom }).Where(x => x.FactoryId == FactoryId).ToList();
+                    return new JsonResult { Data = CountryDetail, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+        }
+
+        public JsonResult insertAddress(int stateID, int cityID, int streetID, string buildingNumber, string entry, string zipCode, string state, string city, string street)
+        {
+            try
+            {
+
+
+                int countryID = SessionManagement.Country;
+
+                var objBuilding = _facory.GetChangeBuildingCode1(countryID, stateID, cityID, streetID, buildingNumber, entry, zipCode);
+
+                if (objBuilding == null)//not found building code
+                {
+                    GoogleDomainService objGoogleDomainService = new GoogleDomainService();
+                    var objAddress = new Address
+                    {
+                        CountryId = countryID,
+                        Country = SessionManagement.CountryDesc,
+                        State = state,
+                        City = city,
+                        Street = street,
+                        Building = buildingNumber
+                    };
+
+                    var result = objGoogleDomainService.GetLocation(objAddress);
+                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = true, Result = result }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                }
+                else
+                {
+                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = false, BuildingCode = objBuilding.BuildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return new JsonResult { Data = new { IsSuccess = false, IsOpenMap = false, ErrorMessage = ex.Message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            //using (ISEEEntities context = new ISEEEntities())
+            //{
+            //    GoogleDomainService objGoogleDomainService = new GoogleDomainService();
+
+            //    int FactoryId = ISEE.Common.SessionManegment.SessionManagement.FactoryID;
+            //    int countryID = ISEE.Common.SessionManegment.SessionManagement.Country;
+
+            //    var a = new Address
+            //    {
+            //        CountryId = countryID,
+            //        Country = ISEE.Common.SessionManegment.SessionManagement.CountryDesc,
+            //        State = stateID,
+            //        City = cityID,
+            //        Street = streetID,
+            //        Building = buildingNumber
+            //    };
+
+            //    var result = objGoogleDomainService.GetLocation(a);
+
+
+            //var result = context.Buildings.Where(x => x.CountryCode == countryID
+            //    && x.StateCode == (stateID == null ? x.StateCode : stateID)
+            //    && x.StreetCode == (streetID == null ? x.StreetCode : streetID)
+            //    && x.CityCode == (cityID == null ? x.CityCode : cityID)).Select(s => new { CountryName = s.Street.City.State.Country.CountryDesc, StateName = s.Street.City.State.StateDesc, CityName = s.Street.City.CityDesc, StreetName = s.Street.StreetDesc, BuldingNumber = s.Number, Lat = s.Lat, Long = s.Long, Number = s.Number }).ToList();
+
+        }
 
         #endregion
     }

@@ -288,7 +288,7 @@ function InsertAddress() {
         num = buildingNumber.trim();
 
     $.ajax({
-        url: "/Admin/InsertAddress",
+        url: "/Data/InsertAddress",
         data: { stateID: stateId, cityID: cityId, streetID: streetId, buildingNumber: buildingNumber, entry: entry, zipCode: zipCode, state: state, city: city, street: street },
         success: function (response) {
             if (response.IsSuccess == true) {
@@ -396,7 +396,7 @@ function closeDialog() {
 
 function LoadMapByFactoryID() {
     $.ajax({
-        url: "/Admin/GetCurrentLogedUserCountery", success: function (result) {
+        url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
             google.maps.visualRefresh = true;
             var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
             var mapOptions = {

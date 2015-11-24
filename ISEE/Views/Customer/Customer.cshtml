@@ -7,7 +7,9 @@
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
+<link href="~/Content/themes/default/style.css" rel="stylesheet" />
+<script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+<script src="~/Scripts/Custom/Common.js"></script>
 <script src="~/Scripts/Custom/Customer.js"></script>
 <style>
     /* add css for customer change address popup window */
@@ -209,6 +211,10 @@
         margin: auto;
         border: 1px solid #6a6a6a;
         box-shadow: 5px 5px 10px #e6e6e6;
+    }
+
+    .ui-front {
+        z-index: 9999;
     }
 </style>
 <div class="container main_customer_tab">
@@ -626,13 +632,7 @@
 
 
                                         <div class="col-md-2">
-                                            @*<div class="form-group">
-                                                    <label>To</label>
-                                                    <input class="form-control isee_input"  id="" maxlength="3" name="" size="3" title="" type="text" value="">
-                                                </div*@
-
-
-                                            <div class="form-group">
+                                           <div class="form-group">
                                                 <label for="usr">To</label>
                                                 <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
                                                     <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
@@ -869,24 +869,24 @@
 
                 <div class="form-group">
                     <label>State</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                    <input id="inputState"  type="text" class="form-control isee_input" >
                 </div>
 
 
                 <div class="form-group">
                     <label>City</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                    <input id="inputCity"  type="text" class="form-control isee_input" >
                 </div>
 
 
                 <div class="form-group">
                     <label>Street</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">
+                     <input id="inputStreet" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input">
                 </div>
 
                 <div class="form-group">
                     <label>Building Number</label>
-                    <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="tel" value="">
+                   <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input" >
                 </div>
 
                 <div class="form-group">
@@ -908,72 +908,25 @@
         <div class="col-sm-6 right_popup">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="Change_Address_grid">
-                        <table class="Change_Address_tg">
-                            <tr>
+                <div style="overflow:auto;height:100px">
+                <table id="MapHeaderGrid" class="tg">
+                    <tr>
+                        <th class="tg-z1n2">Country</th>
+                        <th class="tg-z1n2">State</th>
+                        <th class="tg-z1n2">City</th>
+                        <th class="tg-z1n2">Street</th>
+                        <th class="tg-z1n2">Building Number</th>
+                        <th class="tg-z1n2">Full Address</th>
+                    </tr>
+                  
 
-                                <th class="Change_Address_tg-z1n2">Country</th>
-                                <th class="Change_Address_tg-z1n2">State</th>
-                                <th class="Change_Address_tg-z1n2">City</th>
-                                <th class="Change_Address_tg-z1n2">Street</th>
-                                <th class="Change_Address_tg-z1n2">Building Number</th>
-                                <th class="Change_Address_tg-z1n2">Full Address</th>
-
-                            </tr>
-                            <tr class="Change_Address-dx8v ">
-
-                                <td class="Change_Address-dx8v ">
-                                    <input type="text" class="msg_grid_input" value="" name="" />
-                                </td>
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-                            </tr>
-                            <tr class="Change_Address-dx8v ">
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-                            </tr>
-
-                            <tr class="Change_Address-dx8v ">
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-
-                                <td class="Change_Address-dx8v "><input type="text" class="msg_grid_input" value="" name="" /></td>
-                            </tr>
-
-                        </table>
-
-                    </div>
-                </div>
+                </table>
+            </div> </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d54891.42287220298!2d76.69738045!3d30.698324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1447739293971" width="100%" height="300" frameborder="0" style="border:1px solid #808080" allowfullscreen></iframe>
+                   <div id="map_canvas" style="min-height: 250px;min-width:450px !important"></div>
                 </div>
             </div>
 
@@ -1000,8 +953,6 @@
 <!------------Classification PopUp--------------->
 
 <form id="form1" runat="server">
-
-
 
     <div id="Rqstab" class="Request_tab_popup"></div>
 
@@ -1111,37 +1062,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!------------END--------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1178,6 +1099,7 @@
 
         });
         $("#btnShowSimple").click(function (e) {
+            GetAllStatesByCountry();
             ShowDialog(false);
             e.preventDefault();
         });
@@ -1252,13 +1174,4 @@
         $("#Rqstab").hide();
         $("#Dialogtab").fadeOut(300);
     }
-
-
-
-
-
-
-
-
-
 </script>

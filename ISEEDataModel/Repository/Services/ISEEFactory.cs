@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,203 @@ namespace ISEEDataModel.Repository.Services
         {
             _context = new ISEEEntities();
         }
+
+
+        #region "Employees"
+
+
+        public IQueryable<Employee> GetEmployees(int factoryId, string _LN, string _FN, string _Num, int _Manuf, int _Phonetype, bool _Active)
+        {
+            return _context.Employees.Where(x => x.Factory == factoryId
+                                                         && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
+                                                         && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
+                                                         && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
+                                                         && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
+                                                         && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
+                                                         && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
+
+
+        }
+
+        public IQueryable<EmployeeSmsSend> GetSMS(int empID)
+        {
+            return _context.EmployeeSmsSends.Where(x => x.EmployeeId == empID).OrderByDescending(x => x.SmsCreatDate);
+        }
+        public IQueryable<EmployeeSmsSend> GetSMSFilter(int empID, DateTime dtFrom, DateTime dtTo)
+        {
+            return _context.EmployeeSmsSends.Where(x => x.EmployeeId == empID &&
+                                                          x.SmsCreatDate >= dtFrom &&
+                                                          x.SmsCreatDate <= dtTo).OrderByDescending(x => x.SmsCreatDate);
+        }
+        public IQueryable<EmployeeDiaryTemplate> GetEmpDiaryTemplate(int empID)
+        {
+            return _context.EmployeeDiaryTemplate.Where(x => x.EmployeeId == empID).OrderBy(x => x.OrderDay);
+        }
+
+        public IQueryable<FactoryDairyTemplet> GetFactoryDairyTemp(int factoryId)
+        {
+            return _context.FactoryDairyTemplets.Where(x => x.Factory == factoryId).OrderBy(x => x.OrderDay);
+        }
+
+
+        public IQueryable<EmployeeDiaryTime> GetEmployeeDiaryMonth(int empID, int _month, int _year)
+        {
+            return _context.EmployeeDiaryTimes.Where(x => x.EmployeeId == empID &&
+                                                              x.Day.Year == _year &&
+                                                              x.Day.Month == _month).OrderBy(x => x.Day);
+        }
+
+
+
+
+        //public IQueryable<EmployeeCalendar> GetEmployeeCalendar(Guid EmpGuidID, int year, int month)
+        //{
+
+        //    var empID = this.ObjectContext.Employee.FirstOrDefault(x => x.EmployeeKey == EmpGuidID).EmployeeId;
+        //    int i = 0;
+        //    var q = Enumerable.Range(1, DateTime.DaysInMonth(year, month))  // Days: 1, 2 ... 31 etc. 
+        //            .Select(day => new EmployeeCalendar
+        //            {
+        //                id = ++i,
+        //                CurrentDate = new DateTime(year, month, day),
+        //                StatusDay = (int)(new DateTime(year, month, day)).DayOfWeek + 1,
+        //                HolidayDay = 1,
+        //                PresentDayStart1 = null,
+        //                PresentDayStop1 = null,
+        //                PresentDayStart2 = null,
+        //                PresentDayStop2 = null,
+        //                PresentDayStart3 = null,
+        //                PresentDayStop3 = null,
+        //            });
+
+        //    /* group by day and get only first row */
+        //    var groupDay =
+        //        from gr in
+        //            ObjectContext.EmployeeDiaryTime.Where(
+        //                x => x.EmployeeId == empID && (x.Day.Year == year && x.Day.Month == month))
+        //        group gr by gr.Day
+        //            into grp
+        //            select grp.FirstOrDefault();
+
+        //    /* left join*/
+        //    var query = from f in q
+        //                join fp in groupDay
+        //                on f.CurrentDate equals fp.Day
+        //                into JoinedEmpPresence
+        //                from fp in JoinedEmpPresence.DefaultIfEmpty()
+        //                select new EmployeeCalendar
+        //                {
+        //                    id = f.id,
+        //                    CurrentDate = f.CurrentDate,
+        //                    StatusDay = f.StatusDay,
+        //                    HolidayDay = f.HolidayDay,
+        //                    PresentDayStart1 = fp != null ? fp.Start1 : null,
+        //                    PresentDayStop1 = fp != null ? fp.Stop1 : null,
+        //                    PresentDayStart2 = fp != null ? fp.Start2 : null,
+        //                    PresentDayStop2 = fp != null ? fp.Stop2 : null,
+        //                    PresentDayStart3 = fp != null ? fp.Start3 : null,
+        //                    PresentDayStop3 = fp != null ? fp.Stop3 : null,
+        //                };
+
+
+
+        //    return query.AsQueryable();
+
+        //}
+
+
+
+        static string PostDataToURL(string szUrl, string szData)
+        {
+            //Setup web request
+            string szResult = string.Empty;
+            WebRequest Request = WebRequest.Create(szUrl);
+            Request.Timeout = 3000;
+            Request.Method = "POST";
+            Request.ContentType = "application/x-www-form-urlencoded";
+
+            //Set the POST data in a buffer
+            byte[] PostBuffer;
+            try
+            {
+                //replacing " " with "+" according to Http post RPC
+                szData = szData.Replace(" ", "+");
+
+                //Specify the length of the buffer
+                PostBuffer = Encoding.UTF8.GetBytes(szData);
+                Request.ContentLength = PostBuffer.Length;
+
+                //Open up a request stream
+                Stream RequestStream = Request.GetRequestStream();
+
+                //Write the POST data
+                RequestStream.Write(PostBuffer, 0, PostBuffer.Length);
+
+                //Close the stream
+                RequestStream.Close();
+                //Create the response object
+                WebResponse Response;
+                Response = Request.GetResponse();
+
+                //Create the reader for the response
+                StreamReader sr = new StreamReader(Response.GetResponseStream(), Encoding.UTF8);
+
+                //Read the response
+                szResult = sr.ReadToEnd();
+
+                //Close the reader and response
+                sr.Close();
+                Response.Close();
+
+                return szResult;
+            }
+            catch (Exception ex)
+            {
+                return szResult;
+            }
+        }
+
+        public IQueryable<GpsEmployeeCustomer> GetCustomerToEmployees(int empID, int _Year, int _Month)
+        {
+            return _context.GpsEmployeeCustomers.Where(x => x.EmployeeId == empID && x.VisiteDate.Year == _Year && x.VisiteDate.Month == _Month).OrderBy(x => x.CreateDate);
+
+        }
+
+        public IQueryable<EmployeeGpsPoint> GetSchedulerEmployee(int empID, DateTime _From, DateTime _To)
+        {
+            return _context.EmployeeGpsPoints.Where(x => x.EmployeeId == empID && x.GpsDate >= _From.Date && x.GpsDate < _To.Date && x.PointStatus == 2);
+        }
+
+        public IQueryable<EmployeeToGroup> GetEmployeeToGroups(int empID)
+        {
+            return _context.EmployeeToGroups.Where(x => x.EmployeeId == empID && x.Status != -1);
+        }
+
+        public IQueryable<EmployeeGroup> GetGroups(int factoryId, int empID)
+        {
+            var query = from c in _context.EmployeeGroups
+                        where !(from o in _context.EmployeeToGroups
+                                where o.EmployeeId == empID && o.Status != -1
+                                select o.EmployeeGroupId).Contains(c.EmployeeGroupId) && c.FactoryId == factoryId
+                        select c;
+            return query.AsQueryable();
+
+
+        }
+
+        public IQueryable<EmployeeGroup> GetAllGroups(int factoryId)
+        {
+            return _context.EmployeeGroups.Where(x => x.FactoryId == factoryId);
+        }
+
+        public IQueryable<CustomerEmployeeContact> GetCustomerContact(int empID)
+        {
+            return _context.CustomerEmployeeContacts.Where(x => x.EmployeeId == empID).OrderBy(x => x.CreateDate);
+
+        }
+
+
+        #endregion
 
         #region "Customers"
 
@@ -383,7 +582,7 @@ namespace ISEEDataModel.Repository.Services
         {
 
             // return this.ObjectContext.CustomerEmployeeContact.Include("Employee").Where(x => x.CustomerId == cusID).OrderBy(x => x.CreateDate);
-             var query = from c in _context.CustomerEmployeeContacts
+            var query = from c in _context.CustomerEmployeeContacts
                         where c.CustomerId == customerID
                         select new clsEmployeeCustomerContact
                         {

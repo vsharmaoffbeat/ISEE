@@ -27,10 +27,10 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Custom/employeeScheduler.js"></script>
-<div ng-app="Scheduler" ng-controller="SchedulerController" class="container">
+<div ng-app="Scheduler" ng-controller="SchedulerController" class="container" style="    padding-top: 40px;">
     <div style="width:30%;float:left">
         <div>
-            <button type="button">Save</button>
+            <button type="button" ng-click="SaveCalendarEventsToDatabase();">Save</button>
             <div>
                 <label for="usr">From</label>
                 <input id="timePickerFrom" class="form-control isee_input" onclick="showTime(this)" type="text" value="" />
@@ -107,17 +107,19 @@
     scheduler.config.details_on_dblclick = true;
     scheduler.config.prevent_cache = true;
 
-    scheduler.config.first_hour = 8;
-    scheduler.config.last_hour = 17;
+    //scheduler.config.first_hour = 8;
+    //scheduler.config.last_hour = 17;
     scheduler.config.start_on_monday = true;
     scheduler.config.dblclick_create = false; //false to create new event on double click
+    scheduler.config.details_on_dblclick = false;
+    scheduler.config.readonly = true;
     scheduler.config.drag_create = false;//false to create new event on drag
     scheduler.init('scheduler_here', new Date(todayDate));
     dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
     dp.init(scheduler);
     dp.setTransactionMode("POST", false);
 
-    var getEventsUrl = "/Calendar/Data?ID=2"
+    var getEventsUrl = "/Calendar/Data?ID=1"
     scheduler.setLoadMode("month");
     scheduler.load(getEventsUrl, "json");
 
@@ -127,6 +129,12 @@
         if (parseInt(selectedEventID) > 0 && selectedEventID !== id) {
             scheduler.load(getEventsUrl, "json");
         }
+        var appElement = document.querySelector('[ng-controller=SchedulerController]');
+        var $scope = angular.element(appElement).scope();
+        $scope.$apply(function () {
+            $scope.SelectedEventDate = scheduler.getEvent(id).start_date.toLocaleDateString("en-US") + ' ' + scheduler.getEvent(id).start_date.toLocaleTimeString("en-US") + '-' + scheduler.getEvent(id).end_date.toLocaleTimeString("en-US")
+        });
+
         selectedEventID = id;
         return false;
     });

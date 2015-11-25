@@ -78,12 +78,12 @@ namespace ISEE.Controllers
                         Dist = Utility.distance((double)model.Lat, (double)model.Long, (double)objEmployeeGpsPoint.Lat, (double)objEmployeeGpsPoint.Long, 'K');
                 }
 
-                return new JsonResult { Data = new { IsSuccess = true, color = (Dist > 250 ? Category.Orange : Category.Yellow) }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = new { IsSuccess = true, color = (Dist > 250 ? Category.Orange.ToString() : Category.Yellow.ToString()) }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }
             catch (Exception)
             {
-                return new JsonResult { Data = new { IsSuccess = false, color = (Dist > 250 ? Category.Orange : Category.Yellow) }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = new { IsSuccess = false, color = (Dist > 250 ? Category.Orange.ToString() : Category.Yellow.ToString()) }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
 

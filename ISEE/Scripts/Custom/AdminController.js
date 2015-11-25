@@ -630,7 +630,7 @@ module.service('ContactService', function ($http) {
     contacts.GetCustomersData = function (d) {
 
         return $http({
-            url: '/Admin/GetCustomers',
+            url: '/Admin/GetCustomersNew',
             method: 'POST',
             //data: JSON.stringify(main),
             data: d,

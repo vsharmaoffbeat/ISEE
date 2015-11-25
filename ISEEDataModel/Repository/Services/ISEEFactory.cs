@@ -298,23 +298,25 @@ namespace ISEEDataModel.Repository.Services
                 gpsPointId = Convert.ToInt32(objEvent.uniqueid);
                 objCustomerId = Convert.ToInt32(objEvent.customerId);
                 Dist = 0;
-                if (objEvent.color == Category.Red.ToString())//stop point-can update on status 3 or 4 (distination > from parametr)
+
+                var objEmployeeGpsPoint = _context.EmployeeGpsPoints.Where(x => x.SysId == gpsPointId).FirstOrDefault();
+                GpsEmployeeCustomer item = _context.GpsEmployeeCustomers.Where(x => x.GpsPointId == gpsPointId).FirstOrDefault();
+                if (objEmployeeGpsPoint != null)
                 {
+                    var myEventCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == objCustomerId);
+                    //distination - Lat, Long from customer; Lat, Long from stop point
+                    if (myEventCustomer.Building.Lat != null && myEventCustomer.Building.Long != null)
+                        Dist = Utility.distance((double)myEventCustomer.Building.Lat, (double)myEventCustomer.Building.Long, (double)objEmployeeGpsPoint.Lat, (double)objEmployeeGpsPoint.Long, 'K');
 
-                    var q = _context.EmployeeGpsPoints.Where(x => x.SysId == gpsPointId).FirstOrDefault();
-                    if (q != null)
+                    Dist = Dist * 1000; //distanse -meters
+                    if (item == null)
                     {
-                        var myEventCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == objCustomerId);
-                        //distination - Lat, Long from customer; Lat, Long from stop point
-                        if (myEventCustomer.Building.Lat != null && myEventCustomer.Building.Long != null)
-                            Dist = Utility.distance((double)myEventCustomer.Building.Lat, (double)myEventCustomer.Building.Long, (double)q.Lat, (double)q.Long, 'K');
 
-                        Dist = Dist * 1000; //distanse -meters
 
-                        GpsEmployeeCustomer item = new GpsEmployeeCustomer();
+                        item = new GpsEmployeeCustomer();
                         item.CreateDate = DateTime.Now;
-                        item.VisiteDate = q.GpsDate;
-                        item.VisitTime = (TimeSpan)q.GpsTime;
+                        item.VisiteDate = objEmployeeGpsPoint.GpsDate;
+                        item.VisitTime = (TimeSpan)objEmployeeGpsPoint.GpsTime;
                         item.GpsPointId = (int)gpsPointId;
                         item.CustomerId = objCustomerId;
                         item.EmployeeId = Convert.ToInt32(objEvent.employeeId);
@@ -323,31 +325,15 @@ namespace ISEEDataModel.Repository.Services
 
                         _context.GpsEmployeeCustomers.Add(item);
                     }
-                }
-
-                else if (objEvent.color == Category.Orange.ToString() || objEvent.color == Category.Yellow.ToString())
-                {
-                    var q = _context.GpsEmployeeCustomers.Where(x => x.GpsPointId == gpsPointId).FirstOrDefault();
-
-                    if (q != null)
+                    else
                     {
-                        var myEventCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == objCustomerId);
-
-                        if (myEventCustomer.Building.Lat != null && myEventCustomer.Building.Long != null)
-                            //distination - Lat, Long from customer; Lat, Long from stop point
-                            Dist = Utility.distance((double)myEventCustomer.Building.Lat, (double)myEventCustomer.Building.Long, (double)q.EmployeeGpsPoint.Lat, (double)q.EmployeeGpsPoint.Long, 'K');
-
-                        Dist = Dist * 1000; //distanse -meters
-
-                        //if distance > 75 status of point = 4 else 3.
-                        int Status = Dist > 250 ? 4 : 3;
-
-                        q.InsertStatus = Status;
-                        q.CustomerId = objCustomerId;
-
+                        item.InsertStatus = Dist > 250 ? 4 : 3;
+                        item.CustomerId = objCustomerId;
                     }
                 }
             }
+
+
 
             _context.SaveChanges();
         }

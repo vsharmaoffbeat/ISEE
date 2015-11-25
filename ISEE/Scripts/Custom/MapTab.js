@@ -481,7 +481,6 @@ function SearchCustomers() {
     }
 };
 
-
 // To show selected customers on map 
 function ShowCustomerDataOnMap() {
     _checkedCustomersforMap = '';

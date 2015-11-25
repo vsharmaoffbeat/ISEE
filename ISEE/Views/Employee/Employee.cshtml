@@ -4,12 +4,13 @@
 }
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
 <script src="~/Scripts/Custom/jquery.easytree.js"></script>
 <link href="~/Content/EasyTree/ui.easytree.css" rel="stylesheet" />
 <link href="~/Content/themes/default/style.css" rel="stylesheet" />
-@*<form role="form" method="post" action="">
-*@
+
 <style>
     .inputClass {
         max-width: 60px !important;
@@ -89,48 +90,48 @@
         <div class="col-md-12 scroll_window">
             <div class="left_employee_window" id="left_employee_window">
                 @*<div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_xox"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_xox"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 tab_box"></div>
-                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 tab_box"></div>
+                </div>
                 *@
 
             </div>
@@ -148,11 +149,13 @@
                     @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
 
                     <a href="#" id="showMap">
-                        <button type="button" class="btn btn-default pull-right isee_select_button"><img src="../images/img/show_in_map.png" />Show Map</button> 
+                        <button type="button" class="btn btn-default pull-right isee_select_button">
+                            <img src="../images/img/show_in_map.png" />Show Map</button>
                     </a>
-                  
-                 
-                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="setDetails()"><img src="../images/img/edit_details.png" />Set Details</button>
+
+
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="setDetails()">
+                        <img src="../images/img/edit_details.png" />Set Details</button>
                     <button type="button" class="btn btn-default pull-right floppy-icon isee_button_color" disabled><i class="fa fa-calendar">Scheduler</i></button>
 
                 </div>
@@ -160,8 +163,12 @@
                     @*<span style="font-size: 14px; padding: 10px; margin-top: 20px; font-weight: bold; color: #000;">This is dummy content</span>*@
 
                   
-                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="removeChange()"><img src="../images/img/cancel.png" /> Cancel</button>
-                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateEmployee()"><img src="../images/img/save5.png" /> Save</button>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="removeChange()">
+                        <img src="../images/img/cancel.png" />
+                        Cancel</button>
+                    <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateEmployee()">
+                        <img src="../images/img/save5.png" />
+                        Save</button>
 
                 </div>
 
@@ -499,12 +506,32 @@
                                 <div class="tab-pane" id="employeeTree">
                                     <div class="container sms_tabs">
                                         <div class="col-md-6">
-                                            <div id="jstree_demo_div"></div>
+                                            <div id="jstree_Employee_div"></div>
                                         </div>
 
                                         <div class="col-md-6">
 
                                             <div class="container right_content_tabs_window" id="employoeeDrag">
+                                                <div class="tree_tg-wrap" style="width:33% !important;">
+                                                    <table class="tree_tg" id="newemployeeGrid">
+                                                            
+                                                        <tr data-oid='' data-id='' data-name='' data-type="employee" class="easytree-draggable">
+                                                            <td class="tg-dx8v_category">
+                                                                <i></i>
+                                                                @*<span style="display: none;" id='{gridOption.employeeID}'>{{NewAddedEmployee.employeeID}}</span>*@
+                                                                <span style="display: none;" id=''></span>
+                                                            </td>
+                                                            @*<td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
+                                                            </td>
+                                                            <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
+                                                            </td>
+                                                            *@
+                                                            <td class="tg-dx8v_category" style="text-align: left !important;"></td>
+                                                            <td class="tg-dx8v_category" style="text-align: left !important;"></td>
+                                                        </tr>  
+                                                    </table>
+                                                </div>
+
                                                 @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
                                             </div>
 
@@ -522,110 +549,110 @@
                     <!--.container -->
                     <!------------------=====================================------>
                     @*<div class="row">
-                            <div class="col-md-6 col-xs-12 employee_hours">
-                                <div class="col-md-12 col-xs-12 employee_fill_left">
-                                    <!--- change col-md-6 into col-md-12-->
-                                    <h4 class="customer_title">Fill Employee Hours</h4>
+                        <div class="col-md-6 col-xs-12 employee_hours">
+                            <div class="col-md-12 col-xs-12 employee_fill_left">
+                                <!--- change col-md-6 into col-md-12-->
+                                <h4 class="customer_title">Fill Employee Hours</h4>
 
-                                    <div class="tg-wrap">
-                                        <table class="tg">
-                                            <tr>
+                                <div class="tg-wrap">
+                                    <table class="tg">
+                                        <tr>
 
-                                                <th class="tg-z1n2">Day Status</th>
-                                                <th class="tg-z1n2">Start Time</th>
-                                                <th class="tg-z1n2">End Time</th>
-                                                <th class="tg-z1n2">Start Time</th>
-                                                <th class="tg-z1n2">End Time</th>
+                                            <th class="tg-z1n2">Day Status</th>
+                                            <th class="tg-z1n2">Start Time</th>
+                                            <th class="tg-z1n2">End Time</th>
+                                            <th class="tg-z1n2">Start Time</th>
+                                            <th class="tg-z1n2">End Time</th>
 
-                                            </tr>
+                                        </tr>
 
-                                            <tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Sun</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Sun</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Mon</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Mon</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Tue</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Tue</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Wed</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Wed</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Thu</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Thu</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Fri</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Fri</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Sat</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Sat</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
+                                        </tr>
 
-                                        </table>
-                                    </div>
-                                    <h4 class="customer_title">Drag Item To Tree</h4>
-                                    <div class="col-md-12 col-xs-12">
-                                        <input class="form-control isee_input" id="" name="item" value="">
-                                    </div>
-                                    <!--- add new  col-md-12 for drag item -->
-
+                                    </table>
                                 </div>
-                            </div>
-
-
-                            <div class="col-md-6 col-xs-12 employee_inner_demo">
-                                <div class="col-md-12 col-xs-12 employee_inner_demo_first">
-                                    <!--- 3 nov change col-md-6 into col-md-12-->
-
-                                    <div class="col-md-6 col-xs-12 employee_inner_demo_second">
-                                        <p>Demo Company</p>
-                                    </div>
+                                <h4 class="customer_title">Drag Item To Tree</h4>
+                                <div class="col-md-12 col-xs-12">
+                                    <input class="form-control isee_input" id="" name="item" value="">
                                 </div>
+                                <!--- add new  col-md-12 for drag item -->
 
                             </div>
                         </div>
+
+
+                        <div class="col-md-6 col-xs-12 employee_inner_demo">
+                            <div class="col-md-12 col-xs-12 employee_inner_demo_first">
+                                <!--- 3 nov change col-md-6 into col-md-12-->
+
+                                <div class="col-md-6 col-xs-12 employee_inner_demo_second">
+                                    <p>Demo Company</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     *@
 
                 </div>
@@ -646,6 +673,77 @@
 <script type="text/javascript">
     var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
+
+    //var objEmployeeTree = $('#jstree_Employee_div').easytree(
+    //     {
+    //         data: treeJsonData,
+    //         enableDnd: true,
+    //         canDrop: canDropEmployee,
+    //         dropped: droppedEmployee,
+    //         dropping: droppingEmployee
+    //     });
+
+    function canDropEmployee(event, nodes, isSourceNode, source, isTargetNode, target) {
+        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+            return source.href ? true : false;
+        }
+        if (isTargetNode) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                return false;
+            }
+            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+                return false;
+            }
+            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                return false;
+            }
+            if (target.objecttype == undefined) {
+                return false;
+            }
+
+            if (target.children != null && IsNodeExist(target.children, source)) {
+                return false;
+            }
+
+            isCurrentNodeAdded = false;
+            return true;
+        }
+    }
+    function droppingEmployee(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropping node rejected '" + source.text + "'");
+        }
+    }
+
+    function droppedEmployee(event, nodes, isSourceNode, source, isTargetNode, target) {
+        // internal to external drop
+        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropped node accepted '" + source.text + "'");
+        }
+        if (isSourceNode && isTargetNode) { // internal to internal drop
+            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+        }
+        if (isTargetNode && !isSourceNode) { // external to internal drop
+            if (!isCurrentNodeAdded) {
+                var node = {};
+                node.text = $(source).data("name");
+                node.id = newNodeID;
+                newNodeID = newNodeID - 1;
+                node.objectid = $(source).data("id");
+                node.objecttype = $(source).data("type");
+                if (node.objecttype == "employee") {
+                    node.iconUrl = "/images/img/employee_16.png";
+                } else {
+                    node.iconUrl = "/images/img/customer_16.png";
+                }
+
+                //  objTree.addNode(node, target.id);
+                objEmployeeTree.addNode(node, target.id);
+                //  objCustomerTree.addNode(node, target.id);
+                isCurrentNodeAdded = true;
+            }
+        }
+    }
 </script>
 
 

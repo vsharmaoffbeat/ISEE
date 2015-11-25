@@ -37,7 +37,13 @@
                         alert("Please check Your user name and password");
                         $scope.Message = "Logged in fail."
                     }
-                });
+                },
+                 function (error) {
+                     debugger;
+                     $scope.ShowMessageBox('Error', 'An Error has been occured ....');
+                 });
+
+
             }
         }
     }
@@ -64,11 +70,15 @@
         $scope.selectedCountryCode = d.data.SelectedCountry
         $scope.selectedImageUrl = d.data.SelectedCountryImageUrl;
         $scope.CountryCodeList = d.data.CountryList;
-    });
+    },
+                 function (error) {
+                     debugger;
+                     $scope.ShowMessageBox('Error', 'An Error has been occured ....');
+                 });
 
     $scope.selectedCountryCode;
     $scope.selectedImageUrl;
-    $scope.dropboxitemselected = function (countrycode,imageUrl) {
+    $scope.dropboxitemselected = function (countrycode, imageUrl) {
 
         $scope.selectedCountryCode = countrycode;
         $scope.selectedImageUrl = imageUrl;

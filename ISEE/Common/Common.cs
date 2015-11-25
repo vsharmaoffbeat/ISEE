@@ -9,7 +9,7 @@ namespace ISEE.Common
     public class Common
     {
         static ISEEEntities dataContext = new ISEEEntities();
-       
+
         public static int GetInteger(string val)
         {
 
@@ -21,7 +21,7 @@ namespace ISEE.Common
         }
         public static string GetNullableValues(string value)
         {
-            if (string.IsNullOrEmpty(value.Trim()))
+            if (string.IsNullOrEmpty(value))
                 return null;
             return value;
 
@@ -35,12 +35,15 @@ namespace ISEE.Common
         }
         public static DateTime? ConvertDateTime(string date)
         {
-            if (string.IsNullOrEmpty(date.Trim()))
+            if (string.IsNullOrEmpty(date))
                 return null;
             return new DateTime(Convert.ToInt32(date.Split('/')[2]), Convert.ToInt32(date.Split('/')[1]), Convert.ToInt32(date.Split('/')[0]));
         }
-
-        public static  List<TreeNodeData> CreateJsonTree(List<TreeView> data)
+        public static DateTime ConvertDateTimeN(string date)
+        {
+            return new DateTime(Convert.ToInt32(date.Split('/')[2]), Convert.ToInt32(date.Split('/')[1]), Convert.ToInt32(date.Split('/')[0]));
+        }
+        public static List<TreeNodeData> CreateJsonTree(List<TreeView> data)
         {
             List<TreeNodeData> treeList = new List<TreeNodeData>();
             if (data.Count == 0)

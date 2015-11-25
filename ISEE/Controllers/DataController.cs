@@ -25,66 +25,75 @@ namespace ISEEREGION.Controllers
         }
         public JsonResult UserLogin(LoginViewModel data)
         {
-            using (ISEEEntities context = new ISEEEntities())
+            try
             {
-                var query = from f in context.Factories.ToList()
-                            join fp in context.FactoryParms on
-                             f.FactoryId equals fp.FactoryId
-                            join fd in context.FactoryDistances on
-                            f.FactoryId equals fd.FactoryId
-                            join country in context.Countries on
-                            fp.Country equals country.CountryCode
-
-                            where (String.Compare(f.UserName, data.UserName, StringComparison.OrdinalIgnoreCase) == 0) &&
-                            (String.CompareOrdinal(f.Password, data.Password) == 0)
-
-                            select new
-                            {
-                                FactoryGuid = (Guid)f.FactoryKey,
-                                FactoryDesc = f.FactoryDesc,
-                                FactoryID = f.FactoryId,
-                                Country = fp.Country,
-                                CountryDesc = country.CountryDesc,
-                                StopEmployeeTime = (int)fp.StopEmployeeTime,
-                                SlipTime = fp.SplitTime,
-                                Lat = (double)fp.Lat,
-                                Long = (double)fp.Long,
-                                Zoom = (int)fp.Zoom,
-                                MapProvider = (int)fp.MapProvider,
-                                SmsProvider = (int)fp.SmsProvider,
-                                PhoneAreaCode = fp.PhoneAreaCode,
-                                CompanyLogo = fp.CompanyLogo,
-                                CurrentGmt = country.CurrentGmt,
-                                MapSearchModule = fd.MapSearchModule,
-                                RadiusSearch = fd.RadiusSearch,
-                                TopEmployeeSearch = fd.TopEmployeeSearch,
-                                ZoomSearchLevel = fd.ZoomSearchLevel,
-                                CalendarShowRadius = fd.CalendarShowRadius,
-                                CalenderShowZoomLevel = fd.CalenderShowZoomLevel,
-                            };
 
 
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    var query = from f in context.Factories.ToList()
+                                join fp in context.FactoryParms on
+                                 f.FactoryId equals fp.FactoryId
+                                join fd in context.FactoryDistances on
+                                f.FactoryId equals fd.FactoryId
+                                join country in context.Countries on
+                                fp.Country equals country.CountryCode
+
+                                where (String.Compare(f.UserName, data.UserName, StringComparison.OrdinalIgnoreCase) == 0) &&
+                                (String.CompareOrdinal(f.Password, data.Password) == 0)
+
+                                select new
+                                {
+                                    FactoryGuid = (Guid)f.FactoryKey,
+                                    FactoryDesc = f.FactoryDesc,
+                                    FactoryID = f.FactoryId,
+                                    Country = fp.Country,
+                                    CountryDesc = country.CountryDesc,
+                                    StopEmployeeTime = (int)fp.StopEmployeeTime,
+                                    SlipTime = fp.SplitTime,
+                                    Lat = (double)fp.Lat,
+                                    Long = (double)fp.Long,
+                                    Zoom = (int)fp.Zoom,
+                                    MapProvider = (int)fp.MapProvider,
+                                    SmsProvider = (int)fp.SmsProvider,
+                                    PhoneAreaCode = fp.PhoneAreaCode,
+                                    CompanyLogo = fp.CompanyLogo,
+                                    CurrentGmt = country.CurrentGmt,
+                                    MapSearchModule = fd.MapSearchModule,
+                                    RadiusSearch = fd.RadiusSearch,
+                                    TopEmployeeSearch = fd.TopEmployeeSearch,
+                                    ZoomSearchLevel = fd.ZoomSearchLevel,
+                                    CalendarShowRadius = fd.CalendarShowRadius,
+                                    CalenderShowZoomLevel = fd.CalenderShowZoomLevel,
+                                };
 
 
 
-                var loginData = query.ToList()[0];
-                SessionManagement.FactoryID = loginData.FactoryID;
-                SessionManagement.FactoryDesc = loginData.FactoryDesc;
-                SessionManagement.CountryDesc = loginData.CountryDesc;
-                SessionManagement.FactoryID = loginData.FactoryID;
-                SessionManagement.Country = loginData.Country;
-                SessionManagement.CurrentGmt = loginData.CurrentGmt;
-                SessionManagement.SmsProvider = loginData.SmsProvider;
-                SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
-                //SessionManegment.SessionManagement. = loginData.;
-                //SessionManegment.SessionManagement. = loginData.;
-                //SessionManegment.SessionManagement. = loginData.;
-                //SessionManegment.SessionManagement. = loginData.;
-                //SessionManegment.SessionManagement. = loginData.;
 
 
+                    var loginData = query.ToList()[0];
+                    SessionManagement.FactoryID = loginData.FactoryID;
+                    SessionManagement.FactoryDesc = loginData.FactoryDesc;
+                    SessionManagement.CountryDesc = loginData.CountryDesc;
+                    SessionManagement.FactoryID = loginData.FactoryID;
+                    SessionManagement.Country = loginData.Country;
+                    SessionManagement.CurrentGmt = loginData.CurrentGmt;
+                    SessionManagement.SmsProvider = loginData.SmsProvider;
+                    SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
+                    //SessionManegment.SessionManagement. = loginData.;
+                    //SessionManegment.SessionManagement. = loginData.;
+                    //SessionManegment.SessionManagement. = loginData.;
+                    //SessionManegment.SessionManagement. = loginData.;
+                    //SessionManegment.SessionManagement. = loginData.;
+
+
+                }
             }
+            catch (Exception)
+            {
 
+                throw;
+            }
 
             //using (ISEEEntities context = new ISEEEntities())
             //{
@@ -97,76 +106,83 @@ namespace ISEEREGION.Controllers
         #region Search for Employee
         public JsonResult GetEmployee(string manufacture, string lastname, string firstname, string empNumber, string phoneType, bool isActive)
         {
-            firstname = string.IsNullOrEmpty(firstname) ? null : firstname;
-            lastname = string.IsNullOrEmpty(lastname) ? null : lastname;
-            empNumber = string.IsNullOrEmpty(empNumber) ? null : empNumber;
+           try{
+                var empData = _facory.GetEmployees(SessionManagement.FactoryID, Common.GetNullableValues(lastname), Common.GetNullableValues(firstname), Common.GetNullableValues(empNumber), Common.GetInteger(manufacture), Common.GetInteger(phoneType), isActive).ToList().Select(x => new
+                {
+                    EmployeeId = x.EmployeeId,
+                    EmployeeNum = x.EmployeeNum,
+                    Mail = x.Mail == null ? "" : x.Mail,
+                    FirstName = x.FirstName == null ? "" : x.FirstName,
+                    LastName = x.LastName == null ? "" : x.LastName,
+                    StartDay = x.StartDay == null ? "" : x.StartDay.Value.ToString("dd/MM/yyyy"),
+                    MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
+                    MainPhone = x.MainPhone == null ? "" : x.MainPhone,
+                    SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
+                    SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
+                    LastSendApp = x.LastSendApp == null ? "" : x.LastSendApp.Value.ToString("dd/MM/yyyy"),
+                    EndDay = x.EndDay == null ? "" : x.EndDay.Value.ToString("dd/MM/yyyy"),
+                    PhoneManufactory = x.PhoneManufactory,
+                    PhoneType = x.PhoneType
 
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                var empData = context.Employees.ToList().Where(x => x.Factory == SessionManagement.FactoryID
-                                                        && (string.IsNullOrEmpty(firstname) || x.FirstName.Contains(firstname))
-                    //       x.FirstName.Contains(firstname == null ? x.FirstName : firstname)
-                                                        && (string.IsNullOrEmpty(lastname) || x.LastName.Contains(lastname))
-                                                          && (string.IsNullOrEmpty(empNumber) || x.EmployeeNum.Contains(empNumber))
-                                                        && x.PhoneManufactory == (Common.GetInteger(manufacture) == 0 ? x.PhoneManufactory : Common.GetInteger(manufacture))
-                                                                 && x.PhoneType == (Common.GetInteger(phoneType) == 0 ? x.PhoneType : Common.GetInteger(phoneType))
-                                                                 && (isActive == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).ToList().OrderBy(x => x.EmployeeNum).Select(x => new
-                                                                 {
-                                                                     EmployeeId = x.EmployeeId,
-                                                                     EmployeeNum = x.EmployeeNum,
-                                                                     Mail = x.Mail == null ? "" : x.Mail,
-                                                                     FirstName = x.FirstName == null ? "" : x.FirstName,
-                                                                     LastName = x.LastName == null ? "" : x.LastName,
-                                                                     StartDay = x.StartDay == null ? "" : x.StartDay.Value.ToString("dd/MM/yyyy"),
-                                                                     MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
-                                                                     MainPhone = x.MainPhone == null ? "" : x.MainPhone,
-                                                                     SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
-                                                                     SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
-                                                                     LastSendApp = x.LastSendApp == null ? "" : x.LastSendApp.Value.ToString("dd/MM/yyyy"),
-                                                                     EndDay = x.EndDay == null ? "" : x.EndDay.Value.ToString("dd/MM/yyyy"),
-                                                                     PhoneManufactory = x.PhoneManufactory,
-                                                                     PhoneType = x.PhoneType
+                }).ToList();
 
-                                                                 }).ToList();
-
-
+               
                 return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
+           }
+           catch (Exception ex)
+           {
+
+               throw ex;
+           }
         }
 
         public JsonResult GetMessageHistory(int employeeId, string start, string end)
         {
-            DateTime? startD = Common.ConvertDateTime(start);
-            DateTime? endD = Common.ConvertDateTime(end);
-            using (ISEEEntities context = new ISEEEntities())
+            try
             {
-                var msgHistory = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= startD
-                        && x.SmsCreatDate <= endD)
-                        .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
-
-                return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                var msgHistory = _facory.GetSMSFilter(employeeId, Common.ConvertDateTimeN(start), Common.ConvertDateTimeN(end)).ToList()
+                    .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
+                //var msgHistory1 = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= startD
+                //        && x.SmsCreatDate <= endD)
+                //        .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
 
         public JsonResult GetEmployeeDiaryTemplate(int employeeId)
         {
-
-            using (ISEEEntities context = new ISEEEntities())
+            try
             {
-                var EmpHours = context.EmployeeDiaryTemplates.Where(s => s.EmployeeId == employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
+
+
+                var EmpHours = _facory.GetEmpDiaryTemplate(employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
 
                 //     var EmpHour = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public JsonResult GetEmployeeTimeHistoryDiary(int employeeId, int month, int year)
         {
-            var start = new DateTime(year, month, 1);
-            var end = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            using (ISEEEntities context = new ISEEEntities())
+            try
             {
-                var EmpHours = context.EmployeeDiaryTimes.Where(s => s.EmployeeId == employeeId && s.Day >= start && s.Day <= end).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
+                var EmpHours = _facory.GetEmployeeDiaryMonth(employeeId, month, year).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 
@@ -532,7 +548,7 @@ namespace ISEEREGION.Controllers
         }
         #endregion
 
-    
+
 
         #region Country Data Common Methods
 

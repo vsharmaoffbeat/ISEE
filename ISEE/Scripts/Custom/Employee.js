@@ -59,6 +59,17 @@ function setDatePicker() {
 $('#showMap').click(function () {
     if (parseInt(_employeeId) <= 0)
         alert("Select Employee");
+    data = { empId: _employeeId ,cusId:0}
+    $.ajax({
+        type: "POST",
+        url: "/Data/SetViewBagProperty",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+           
+        },
+        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
 })
 //set details click
 function setDetails() {

@@ -23,8 +23,18 @@ namespace ISEE.Controllers
         }
         public ActionResult Map()
         {
-            ViewBag.Empoyeeid = 1;
-            ViewBag.CustomerID = 1;
+            if (TempData["empId"] != null)
+            {
+                ViewBag.Empoyeeid = TempData["empId"];
+                ViewBag.CustomerID = null;
+                TempData["empId"] = null;
+            }
+            else if (TempData["cusId"] != null)
+            {
+                ViewBag.Empoyeeid = null;
+                ViewBag.CustomerID = 1;
+                TempData["cusId"] = null;
+            }
             return View();
         }
 

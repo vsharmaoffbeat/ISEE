@@ -147,13 +147,9 @@ namespace ISEEREGION.Controllers
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
-
         }
-
         public JsonResult GetEmployeeDiaryTemplate(int employeeId)
         {
             try
@@ -208,8 +204,6 @@ namespace ISEEREGION.Controllers
             return "true";
 
         }
-
-
 
         public string SenderSMS(int EmpID, string _strMsg, string _phone)
         {
@@ -546,7 +540,16 @@ namespace ISEEREGION.Controllers
             return "true";
         }
         #endregion
-
+        public int SetViewBagProperty(int empId, int cusId)
+        {
+            TempData["empId"] = null;
+            TempData["cusId"] = null;
+            if (empId > 0)
+                TempData["empId"] = empId;
+            else if (cusId > 0)
+                TempData["cusId"] = cusId;
+            return empId;
+        }
 
 
         #region Country Data Common Methods

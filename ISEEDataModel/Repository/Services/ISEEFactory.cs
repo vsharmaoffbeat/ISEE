@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISEEDataModel.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Device.Location;
 using System.IO;
@@ -213,6 +214,143 @@ namespace ISEEDataModel.Repository.Services
 
         }
 
+
+        #endregion
+
+        #region "SchedulerEmployees"
+        /// <summary>
+        /// Get EmployeeGpsPoint by SysID
+        /// </summary>
+        /// <param name="sysId"></param>
+        /// <returns></returns>
+        public EmployeeGpsPoint GetEmployeeGpsPointBySysId(int sysId)
+        {
+            return _context.EmployeeGpsPoints.FirstOrDefault(model => model.SysId == sysId);
+        }
+
+
+        /// <summary>
+        ///  To get Employee Appointment where Customer not schduled
+        /// </summary>
+        /// <param name="factoryId">Factory ID</param>
+        /// <param name="ID">Employee ID</param>
+        /// <param name="dt1">Start Date</param>
+        /// <param name="dt2">End Date</param>
+        /// <param name="from_time">Start Time</param>
+        /// <param name="to_time">End Time</param>
+        /// <returns></returns>
+        public IQueryable<EmployeeGpsPoint> GetStopPoints(int factoryId, int ID, DateTime dt1, DateTime dt2, TimeSpan from_time, TimeSpan to_time)
+        {
+
+            var factory = _context.FactoryParms.FirstOrDefault(x => x.FactoryId == factoryId);
+
+            if (factory != null)
+            {
+                if (factory.StopEmployeeTime != null)
+                {
+                    var stopTime = (int)factory.StopEmployeeTime;
+
+                    var query = from c in _context.EmployeeGpsPoints
+                                where !(from o in _context.GpsEmployeeCustomers
+                                        where o.EmployeeId == ID &&
+                                              (o.EmployeeGpsPoint.GpsDate >= dt1 &&
+                                               o.EmployeeGpsPoint.GpsDate <= dt2) &&
+                                              (o.EmployeeGpsPoint.GpsTime >= from_time &&
+                                               o.EmployeeGpsPoint.GpsTime <= to_time)
+                                        select o.GpsPointId).Contains((int)c.SysId) && (c.GpsDate >= dt1 && c.GpsDate <= dt2) && (c.GpsTime >= from_time && c.GpsTime <= to_time) && c.EmployeeId == ID && (c.PointStatus == 2 || c.PointStatus == 3)
+                                select c;
+
+
+
+                    var q1 = from x in query.ToList()
+                             where x.StopTime.HasValue && x.StopTime.Value.TotalMinutes >= stopTime
+                             select x;
+
+
+                    return q1.AsQueryable();
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Get Employee Appointments where customer assigned
+        /// </summary>
+        /// <param name="ID">Employee Id</param>
+        /// <param name="dt1">Start Date</param>
+        /// <param name="dt2">End Date</param>
+        /// <param name="from1">Start Time</param>
+        /// <param name="to1">End Time</param>
+        /// <returns></returns>
+        public IQueryable<GpsEmployeeCustomer> GetGpsEmployeeCustomerPoints(int ID, DateTime dt1, DateTime dt2, TimeSpan from1, TimeSpan to1)
+        {
+            return _context.GpsEmployeeCustomers.Where(c => c.EmployeeId == ID && (c.EmployeeGpsPoint.GpsDate >= dt1 && c.EmployeeGpsPoint.GpsDate <= dt2) && (c.EmployeeGpsPoint.GpsTime >= from1 && c.EmployeeGpsPoint.GpsTime <= to1));
+        }
+
+
+        public void SaveUpdateEvents(List<CalendarEvent> listEvents)
+        {
+            int gpsPointId;
+            int objCustomerId;
+            double Dist = 0;
+            foreach (var objEvent in listEvents)
+            {
+                gpsPointId = Convert.ToInt32(objEvent.uniqueid);
+                objCustomerId = Convert.ToInt32(objEvent.customerId);
+                Dist = 0;
+                if (objEvent.color == Category.Red.ToString())//stop point-can update on status 3 or 4 (distination > from parametr)
+                {
+
+                    var q = _context.EmployeeGpsPoints.Where(x => x.SysId == gpsPointId).FirstOrDefault();
+                    if (q != null)
+                    {
+                        var myEventCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == objCustomerId);
+                        //distination - Lat, Long from customer; Lat, Long from stop point
+                        if (myEventCustomer.Building.Lat != null && myEventCustomer.Building.Long != null)
+                            Dist = Utility.distance((double)myEventCustomer.Building.Lat, (double)myEventCustomer.Building.Long, (double)q.Lat, (double)q.Long, 'K');
+
+                        Dist = Dist * 1000; //distanse -meters
+
+                        GpsEmployeeCustomer item = new GpsEmployeeCustomer();
+                        item.CreateDate = DateTime.Now;
+                        item.VisiteDate = q.GpsDate;
+                        item.VisitTime = (TimeSpan)q.GpsTime;
+                        item.GpsPointId = (int)gpsPointId;
+                        item.CustomerId = objCustomerId;
+                        item.EmployeeId = Convert.ToInt32(objEvent.employeeId);
+                        //if distance > 250 status of point = 4 else 3.
+                        item.InsertStatus = Dist > 250 ? 4 : 3;
+
+                        _context.GpsEmployeeCustomers.Add(item);
+                    }
+                }
+
+                else if (objEvent.color == Category.Orange.ToString() || objEvent.color == Category.Yellow.ToString())
+                {
+                    var q = _context.GpsEmployeeCustomers.Where(x => x.GpsPointId == gpsPointId).FirstOrDefault();
+
+                    if (q != null)
+                    {
+                        var myEventCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == objCustomerId);
+
+                        if (myEventCustomer.Building.Lat != null && myEventCustomer.Building.Long != null)
+                            //distination - Lat, Long from customer; Lat, Long from stop point
+                            Dist = Utility.distance((double)myEventCustomer.Building.Lat, (double)myEventCustomer.Building.Long, (double)q.EmployeeGpsPoint.Lat, (double)q.EmployeeGpsPoint.Long, 'K');
+
+                        Dist = Dist * 1000; //distanse -meters
+
+                        //if distance > 75 status of point = 4 else 3.
+                        int Status = Dist > 250 ? 4 : 3;
+
+                        q.InsertStatus = Status;
+                        q.CustomerId = objCustomerId;
+
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+        }
 
         #endregion
 

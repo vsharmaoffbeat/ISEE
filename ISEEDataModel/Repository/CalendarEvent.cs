@@ -1,6 +1,10 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ISEE.Models
+namespace ISEEDataModel.Repository
 {
     public class CalendarEvent
     {

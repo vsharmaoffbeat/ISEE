@@ -76,6 +76,7 @@
     <Compile Include="Repository\Calendar.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\CalendarEvent.cs" />
     <Compile Include="Repository\CalendarStatusDay.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
@@ -110,6 +111,7 @@
     <Compile Include="Repository\CustomerEmployeeContact.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\CustomerModel.cs" />
     <Compile Include="Repository\CustomerRequest.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
@@ -304,6 +306,7 @@
     <Compile Include="Repository\UserLogEntry.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Repository\ISEEDataModel.edmx">

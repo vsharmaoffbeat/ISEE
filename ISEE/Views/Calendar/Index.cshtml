@@ -1,38 +1,33 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DHXScheduler initialization sample</title>
-    <style>
-        html, body {
-            margin: 0px;
-            padding: 0px;
-            height: 100%;
-            overflow: hidden;
-        }
+<style>
+    html, body {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        overflow: hidden;
+    }
 
-        body {
-            background-color: #eee;
-        }
+    body {
+        background-color: #eee;
+    }
 
-        .red div {
-            background-color: red;
-        }
-    </style>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    .red div {
+        background-color: red;
+    }
+</style>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
-    <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
-    <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
-    <script src="~/Scripts/Custom/date.js"></script>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="~/Scripts/Custom/employeeScheduler.js"></script>
-</head>
-<body>
+<script src="~/Scripts/Custom/jquery.timepicker.js"></script>
+<link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/Scripts/Custom/date.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Custom/employeeScheduler.js"></script>
+<div ng-app="Scheduler" ng-controller="SchedulerController" class="container">
     <div style="width:30%;float:left">
         <div>
             <button type="button">Save</button>
@@ -45,27 +40,36 @@
             </div>
             <div>
                 <input id="chkMap" class="form-control isee_input" type="checkbox" value="" />
+                <br />
+                {{SelectedEventDate}}
             </div>
         </div>
         <div>
             <div title="search">
                 <label for="usr">State</label>
-                <input id="txtState" class="form-control isee_input" type="text" value="" />
+                <input id="txtState" class="form-control isee_input" ng-model="CustomerSearchData.State" type="text" value="" />
                 <label for="usr">City</label>
-                <input id="txtCity" class="form-control isee_input" type="text" value="" />
+                <input id="txtCity" class="form-control isee_input" ng-model="CustomerSearchData.City" type="text" value="" />
                 <label for="usr">Street</label>
-                <input id="txtStreet" class="form-control isee_input" type="text" value="" />
+                <input id="txtStreet" class="form-control isee_input" ng-model="CustomerSearchData.Street" type="text" value="" />
                 <label for="usr">Building Number</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" type="text" value="" />
+                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.BuildingNumber" type="text" value="" />
                 <label for="usr">Contact Name</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" type="text" value="" />
+                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.ContactName" type="text" value="" />
                 <label for="usr">Customer Number</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" type="text" value="" />
+                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.CustomerNumber" type="text" value="" />
 
-                <input id="btnSearch" class="form-control isee_input" type="button" value="Search" />
+                <input id="btnSearch" class="form-control isee_input" type="button" ng-click="GetCustomersNew()" value="Search" />
             </div>
             <div title="searchResult">
+                <div id="left_employee_window" class="col-sm-12 scroll_window">
+                    <div ng-repeat="objCustomer in Customers" class="col-sm-12 col-xs-12 tab_box" ng-click="updatecalendarEvent(objCustomer)">
+                        Company Name: 5675 <br>Contact Name: {{objCustomer.LastName}} {{objCustomer.FirstName}}
+                        <br>City: {{objCustomer.CityDesc}}<br>Street: {{objCustomer.StreetDesc}}
+                        <br>Phone1: {{objCustomer.AreaPhone1}} {{objCustomer.Phone1}}
+                    </div>
 
+                </div>
             </div>
         </div>
 
@@ -91,75 +95,77 @@
         </div>
 
     </div>
-    <script>
-        $('#datepickerSchdulerFrom')
+</div>
+<script>
+    $('#datepickerSchdulerFrom')
 
 
 
-        var todayDate = '@DateTime.Now.ToShortDateString()'
-        scheduler.config.serverLists = {};
-        scheduler.config.details_on_create = true;
-        scheduler.config.details_on_dblclick = true;
-        scheduler.config.prevent_cache = true;
+    var todayDate = '@DateTime.Now.ToShortDateString()'
+    scheduler.config.serverLists = {};
+    scheduler.config.details_on_create = true;
+    scheduler.config.details_on_dblclick = true;
+    scheduler.config.prevent_cache = true;
 
-        scheduler.config.first_hour = 8;
-        scheduler.config.last_hour = 17;
-        scheduler.config.start_on_monday = true;
-        scheduler.config.dblclick_create = false; //false to create new event on double click
-        scheduler.config.drag_create = false;//false to create new event on drag
-        scheduler.init('scheduler_here', new Date(todayDate));
-        dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
-        dp.init(scheduler);
-        dp.setTransactionMode("POST", false);
+    scheduler.config.first_hour = 8;
+    scheduler.config.last_hour = 17;
+    scheduler.config.start_on_monday = true;
+    scheduler.config.dblclick_create = false; //false to create new event on double click
+    scheduler.config.drag_create = false;//false to create new event on drag
+    scheduler.init('scheduler_here', new Date(todayDate));
+    dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
+    dp.init(scheduler);
+    dp.setTransactionMode("POST", false);
 
-        var getEventsUrl = "/Calendar/Data?ID=2"
-        scheduler.setLoadMode("month");
-        scheduler.load(getEventsUrl, "json");
+    var getEventsUrl = "/Calendar/Data?ID=2"
+    scheduler.setLoadMode("month");
+    scheduler.load(getEventsUrl, "json");
 
-        /*Click of Event Rendered on Schdulerd*/
-        scheduler.attachEvent("onClick", function (id, e) {
-            //any custom logic here
-
-            return false;
-        });
-
-
-
-        function UpdateEvent(eventId) {
-            scheduler.getEvent(eventId).text = "Conference"; //changes event's data
-            scheduler.updateEvent(eventId); // renders the updated event
+    /*Click of Event Rendered on Schdulerd*/
+    scheduler.attachEvent("onClick", function (id, e) {
+        //any custom logic here
+        if (parseInt(selectedEventID) > 0 && selectedEventID !== id) {
+            scheduler.load(getEventsUrl, "json");
         }
-        function showTime(obj) {
-            $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
+        selectedEventID = id;
+        return false;
+    });
 
-            if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
-                debugger;
+
+
+    function UpdateEvent(eventId, color, objCustomer) {
+        scheduler.getEvent(eventId).text = objCustomer.LastName + ' ' + objCustomer.FirstName; //changes event's data
+        scheduler.getEvent(eventId).color = color
+        scheduler.getEvent(eventId).customerId = objCustomer.id;
+        scheduler.updateEvent(eventId); // renders the updated event
+    }
+    function showTime(obj) {
+        $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
+
+        if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
+            debugger;
+        }
+    }
+
+    function timeParseExact(time) {
+        var hhmm = time.split(' ')[0];
+        var tt = time.split(' ')[1].toLowerCase();
+        var hh = hhmm.split(':')[0];
+        var mm = hhmm.split(':')[1];
+        if (tt == "pm") {
+            if (hh == "12") {
+                hh = "0";
             }
+            return parseFloat(hh + "." + mm) + 12;
+        }
+        else {
+            if (hh == "12") {
+                hh = "0";
+            }
+            return parseFloat(hh + "." + mm);
         }
 
-        function timeParseExact(time) {
-            var hhmm = time.split(' ')[0];
-            var tt = time.split(' ')[1].toLowerCase();
-            var hh = hhmm.split(':')[0];
-            var mm = hhmm.split(':')[1];
-            if (tt == "pm") {
-                if (hh == "12") {
-                    hh = "0";
-                }
-                return parseFloat(hh + "." + mm) + 12;
-            }
-            else {
-                if (hh == "12") {
-                    hh = "0";
-                }
-                return parseFloat(hh + "." + mm);
-            }
 
+    }
+</script>
 
-        }
-    </script>
-
-
-</body>
-
-</html>

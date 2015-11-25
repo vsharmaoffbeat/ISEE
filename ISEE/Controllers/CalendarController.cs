@@ -13,6 +13,8 @@ using DHTMLX.Scheduler.Controls;
 using ISEE.Models;
 using ISEEDataModel.Repository;
 using ISEE.Common;
+using ISEEDataModel.Repository.Services;
+using ISEEDataModel.Utilities;
 namespace ISEE.Controllers
 {
     public class CalendarController : Controller
@@ -23,6 +25,8 @@ namespace ISEE.Controllers
         const string Status_3 = "Close Customer";
         const string Status_4 = "Far Customer";
         const string StopPoint = "Stop Point";
+
+        ISEEFactory _factory = new ISEEFactory();
 
         static ISEEEntities datacontext = new ISEEEntities();
         #region DXHTML Schduler Methods
@@ -65,9 +69,9 @@ namespace ISEE.Controllers
             DateTime dt2 = to;
             TimeSpan from1 = from.TimeOfDay;
             TimeSpan to1 = to.TimeOfDay;
-            var employeeStopPoints = GetStopPoints(SessionManagement.FactoryID, ID, dt1, dt2, from1, to1);
+            var employeeStopPoints = _factory.GetStopPoints(SessionManagement.FactoryID, ID, dt1, dt2, from1, to1);
 
-            var employeeCustomerPoints = GetGpsEmployeeCustomerPoints(ID, dt1, dt2, from1, to1);
+            var employeeCustomerPoints = _factory.GetGpsEmployeeCustomerPoints(ID, dt1, dt2, from1, to1);
 
 
             bool blnFlag;
@@ -78,7 +82,7 @@ namespace ISEE.Controllers
                 if (p.StopStartTime != null && p.StopTime != null)
                 {
                     TimeSpan timestop = (TimeSpan)p.StopTime;
-                    CalendarEvent stop = new CalendarEvent { id = p.EmployeeId ?? 0, text = Status_stop, uniqueid = p.SysId.ToString(), start_date = (DateTime)p.StopStartTime, end_date = Convert.ToDateTime(p.StopStartTime).AddMinutes(timestop.TotalMinutes), color = Category.Red.ToString() };
+                    CalendarEvent stop = new CalendarEvent { id = p.EmployeeId ?? 0, text = Status_stop, uniqueid = p.SysId.ToString(), start_date = (DateTime)p.StopStartTime, end_date = Convert.ToDateTime(p.StopStartTime).AddMinutes(timestop.TotalMinutes), color = Category.Red.ToString()};
 
                     foreach (CalendarEvent p1 in listCalendarEvent)
                         if (p1.uniqueid == stop.uniqueid)
@@ -199,77 +203,9 @@ namespace ISEE.Controllers
         #endregion
 
 
-        #region "SchedulerEmployees"
-
-        /// <summary>
-        ///  To get Employee Appointment where Customer not schduled
-        /// </summary>
-        /// <param name="factoryId">Factory ID</param>
-        /// <param name="ID">Employee ID</param>
-        /// <param name="dt1">Start Date</param>
-        /// <param name="dt2">End Date</param>
-        /// <param name="from_time">Start Time</param>
-        /// <param name="to_time">End Time</param>
-        /// <returns></returns>
-        public IQueryable<EmployeeGpsPoint> GetStopPoints(int factoryId, int ID, DateTime dt1, DateTime dt2, TimeSpan from_time, TimeSpan to_time)
-        {
-
-            var factory = datacontext.FactoryParms.FirstOrDefault(x => x.FactoryId == factoryId);
-
-            if (factory != null)
-            {
-                if (factory.StopEmployeeTime != null)
-                {
-                    var stopTime = (int)factory.StopEmployeeTime;
-
-                    var query = from c in datacontext.EmployeeGpsPoints
-                                where !(from o in datacontext.GpsEmployeeCustomers
-                                        where o.EmployeeId == ID &&
-                                              (o.EmployeeGpsPoint.GpsDate >= dt1 &&
-                                               o.EmployeeGpsPoint.GpsDate <= dt2) &&
-                                              (o.EmployeeGpsPoint.GpsTime >= from_time &&
-                                               o.EmployeeGpsPoint.GpsTime <= to_time)
-                                        select o.GpsPointId).Contains((int)c.SysId) && (c.GpsDate >= dt1 && c.GpsDate <= dt2) && (c.GpsTime >= from_time && c.GpsTime <= to_time) && c.EmployeeId == ID && (c.PointStatus == 2 || c.PointStatus == 3)
-                                select c;
-
-
-
-                    var q1 = from x in query.ToList()
-                             where x.StopTime.HasValue && x.StopTime.Value.TotalMinutes >= stopTime
-                             select x;
-
-
-                    return q1.AsQueryable();
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Get Employee Appointments where customer assigned
-        /// </summary>
-        /// <param name="ID">Employee Id</param>
-        /// <param name="dt1">Start Date</param>
-        /// <param name="dt2">End Date</param>
-        /// <param name="from1">Start Time</param>
-        /// <param name="to1">End Time</param>
-        /// <returns></returns>
-        public IQueryable<GpsEmployeeCustomer> GetGpsEmployeeCustomerPoints(int ID, DateTime dt1, DateTime dt2, TimeSpan from1, TimeSpan to1)
-        {
-            return datacontext.GpsEmployeeCustomers.Include("EmployeeGpsPoint").Include("Customer").Include("Customer.Building").Include("Customer.Building.Street").Include("Customer.Building.Street.City").Where(c => c.EmployeeId == ID && (c.EmployeeGpsPoint.GpsDate >= dt1 && c.EmployeeGpsPoint.GpsDate <= dt2) && (c.EmployeeGpsPoint.GpsTime >= from1 && c.EmployeeGpsPoint.GpsTime <= to1));
-        }
-
-        #endregion
+        
     }
 
-    public enum Category
-    {
-        Green,
-        Blue,
-        Custom,
-        Yellow,
-        Orange,
-        Red
-    }
+   
 }
 

@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="~/Scripts/angular.js"></script>
 <script src="~/Scripts/Custom/employeeScheduler.js"></script>
+<script src="~/Scripts/Custom/jquery.flip.min.js"></script>
 <div ng-app="Scheduler" ng-controller="SchedulerController" class="container" style="    padding-top: 40px;">
     <div style="width:30%;float:left">
         <div>
@@ -44,35 +45,40 @@
                 {{SelectedEventDate}}
             </div>
         </div>
-        <div>
-            <div title="search">
-                <label for="usr">State</label>
-                <input id="txtState" class="form-control isee_input" ng-model="CustomerSearchData.State" type="text" value="" />
-                <label for="usr">City</label>
-                <input id="txtCity" class="form-control isee_input" ng-model="CustomerSearchData.City" type="text" value="" />
-                <label for="usr">Street</label>
-                <input id="txtStreet" class="form-control isee_input" ng-model="CustomerSearchData.Street" type="text" value="" />
-                <label for="usr">Building Number</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.BuildingNumber" type="text" value="" />
-                <label for="usr">Contact Name</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.ContactName" type="text" value="" />
-                <label for="usr">Customer Number</label>
-                <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.CustomerNumber" type="text" value="" />
+        <div id="searchSection">
+            <div class="back">
+                <div title="search">
+                    <label for="usr">State</label>
+                    <input id="txtState" class="form-control isee_input" ng-model="CustomerSearchData.State" type="text" value="" />
+                    <label for="usr">City</label>
+                    <input id="txtCity" class="form-control isee_input" ng-model="CustomerSearchData.City" type="text" value="" />
+                    <label for="usr">Street</label>
+                    <input id="txtStreet" class="form-control isee_input" ng-model="CustomerSearchData.Street" type="text" value="" />
+                    <label for="usr">Building Number</label>
+                    <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.BuildingNumber" type="text" value="" />
+                    <label for="usr">Contact Name</label>
+                    <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.ContactName" type="text" value="" />
+                    <label for="usr">Customer Number</label>
+                    <input id="txtBuildingNumber" class="form-control isee_input" ng-model="CustomerSearchData.CustomerNumber" type="text" value="" />
 
-                <input id="btnSearch" class="form-control isee_input" type="button" ng-click="GetCustomersNew()" value="Search" />
-            </div>
-            <div title="searchResult">
-                <div id="left_employee_window" class="col-sm-12 scroll_window">
-                    <div ng-repeat="objCustomer in Customers" class="col-sm-12 col-xs-12 tab_box" ng-click="updatecalendarEvent(objCustomer)">
-                        Company Name: 5675 <br>Contact Name: {{objCustomer.LastName}} {{objCustomer.FirstName}}
-                        <br>City: {{objCustomer.CityDesc}}<br>Street: {{objCustomer.StreetDesc}}
-                        <br>Phone1: {{objCustomer.AreaPhone1}} {{objCustomer.Phone1}}
+                    <input id="btnSearch" class="form-control isee_input" type="button" ng-click="GetCustomersNew()" value="Search" />
+                </div>
+                <div title="searchResult">
+                    <div id="left_employee_window" class="col-sm-12 scroll_window">
+                        <div ng-repeat="objCustomer in Customers" class="col-sm-12 col-xs-12 tab_box" ng-click="updatecalendarEvent(objCustomer)">
+                            Company Name: 5675 <br>Contact Name: {{objCustomer.LastName}} {{objCustomer.FirstName}}
+                            <br>City: {{objCustomer.CityDesc}}<br>Street: {{objCustomer.StreetDesc}}
+                            <br>Phone1: {{objCustomer.AreaPhone1}} {{objCustomer.Phone1}}
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
+            <div class="front">
+                flip
+            </div>
 
+        </div>
     </div>
     <div style="width: 70%; float: left">
         <div style="height:700px;width:900px;margin:0 auto">
@@ -99,7 +105,7 @@
 <script>
     $('#datepickerSchdulerFrom')
 
-
+    $("#searchSection").flip();
 
     var todayDate = '@DateTime.Now.ToShortDateString()'
     scheduler.config.serverLists = {};
@@ -122,10 +128,11 @@
     var getEventsUrl = "/Calendar/Data?ID=1"
     scheduler.setLoadMode("month");
     scheduler.load(getEventsUrl, "json");
-
+   
     /*Click of Event Rendered on Schdulerd*/
     scheduler.attachEvent("onClick", function (id, e) {
         //any custom logic here
+        $("#searchSection").flip('toggle');
         if (parseInt(selectedEventID) > 0 && selectedEventID !== id) {
             scheduler.load(getEventsUrl, "json");
         }

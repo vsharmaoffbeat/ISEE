@@ -1,14 +1,13 @@
 ﻿var _employeeId = 0;
-//var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
 $(document).ready(function () {
     $(".disabledClass").prop("disabled", true);
-
+    //bind date pickers
     $("#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
         autoclose: true,
         todayHighlight: true
     }).datepicker('update', new Date());
 
-    //tree create
+    //create tree
     var objEmployeeTree = $('#jstree_Employee_div').easytree(
     {
         data: treeJsonData,
@@ -19,36 +18,8 @@ $(document).ready(function () {
     });
 
 
-    //$("#datepicker2").datepicker({
-    //    onSelect: function () {
-    //        datepicker2 = $(this).datepicker('getDate');
-    //    }
-    //});
-    //$("#datepicker1").datepicker({
-    //    onSelect: function () {
-    //        datepicker1 = $(this).datepicker('getDate');
-    //    }
-    //});
-
-
-    //$("#datepickerStartDay").datepicker({
-    //    todayBtn: 1,
-    //    autoclose: true,
-    //}).on('changeDate', function (selected) {
-    //    var minDate = new Date(selected.date.valueOf());
-    //    $('#datepickerEndDay').datepicker('setStartDate', minDate);
-    //});
-
-    //$("#datepickerEndDay").datepicker()
-    //    .on('changeDate', function (selected) {
-    //        var minDate = new Date(selected.date.valueOf());
-    //        $('#datepickerStartDay').datepicker('setEndDate', minDate);
-    //    });
-
-
-
-
     $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
+
     setDefaultValues();
     clearInputFields()
 
@@ -112,29 +83,26 @@ function removeChange() {
                 $(".disabledClass").prop("disabled", true);
                 $('.employee_save_header').last().hide();
                 $('#tblemployeeHours input').attr('disabled', true);
-               
+
             }
         })
 }
 
+//Set input fields default values
 function setDefaultValues() {
-
     $('#datepickerStartDay input').val('');
     $('#datepickerEndDay input').val('');
     $('#datepickerLastApp input').val('');
     $('#newemployeeGrid').hide();
-    //$('#datepicker1 input').val('');
-    //$('#datepicker2 input').val('');
-    // $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp,#datepicker1,#datepicker2")
-
 }
-//Bind Phone Types ddl
+
+//Bind Phone Types drop-down
 function ManufactureTypes(obj, valMan) {
     $('#ddlphonetype').empty();
 
     if ($('#ddlmanufacture :selected').val() == "")
         return false;
-  
+
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -154,6 +122,7 @@ function ManufactureTypes(obj, valMan) {
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+//Bind Phone Types drop-down for filter
 function ManufactureTypes1() {
     $('#ddlphoneType1').empty();
 
@@ -187,7 +156,7 @@ function clearInputFields() {
 
 }
 
-//Search function for employee
+//Search for employee's based on filters
 function searchEmployeeData() {
     $('#left_employee_window').empty();
     var data = { manufacture: $("#ddlmanufacture1").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType1').val(), isActive: $('#isActive').is(':checked') }
@@ -230,13 +199,14 @@ function searchEmployeeData() {
     });
 
 }
+
+//Set input fields based on selecetd employee
 function selectedEmployee(obj) {
     if (_employeeId == $(obj).attr('EmployeeId'))
         return false;
+
     _employeeId = $(obj).attr('EmployeeId');
     removeChange();
-
-  
 
     //get messgae history
     getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
@@ -245,19 +215,18 @@ function selectedEmployee(obj) {
     //get Employee history template
     getEmployeeTimeHistoryDiary();
     //Set employee data
-    // setInputValues(obj);
     $('#newemployeeGrid').show();
     $('#showMap').attr('href', '/map/map');
 
 }
 
-
+//Set input fields data
 function setInputValues(obj) {
 
     $('#newemployeeGrid').show();
     $('#newemployeeGrid').html('')
     $('<tr data-oid=' + _employeeId + ' data-id=' + _employeeId + ' data-name=' + $(obj).attr('LastName') + ' ' + $(obj).attr('FirstName') + ' data-type="employee" class="easytree-draggable"><td class="tg-dx8v_category"><i></i><span style="display:none;" id=' + _employeeId + '>' + _employeeId + '</span> </td><td class="tg-dx8v_category" style="text-align:left !important;">' + $(obj).attr('LastName') + ' ' + $(obj).attr('FirstName') + '</td><td class="tg-dx8v_category" style="text-align:left !important;">' + $(obj).attr('MainAreaPhone') + '-' + $(obj).attr('MainPhone') + '</td></tr>').appendTo($('#newemployeeGrid'));
-                                                        
+
     //  $("#employeeData :input").prop("disabled", false);
     $("#sendApp").prop("disabled", true);
     $('#txtnumber').val($(obj).attr('EmployeeNum'));
@@ -288,7 +257,7 @@ function setInputValues(obj) {
 
 }
 
-//Sms Tab all methods
+//message history data
 function searchMessageHistory() {
     if (parseInt(_employeeId) <= 0) {
         alert("Select Employee");
@@ -348,6 +317,7 @@ function sendSms() {
 //End Sms Tab
 
 //Start Time tab
+// data for Employee Time Template
 function getEmployeeTimeTemplate(id) {
     data = { employeeId: id }
     $.ajax({
@@ -381,6 +351,7 @@ function getEmployeeTimeTemplate(id) {
     });
 }
 
+//data for Employee Time History Diary
 function getEmployeeTimeHistoryDiary() {
     // ddlMonthname
     if (parseInt(_employeeId) <= 0) {
@@ -407,6 +378,7 @@ function getEmployeeTimeHistoryDiary() {
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+//validation methods
 function replaceNullWithEmpty(obj) {
     if (obj == null)
         return "";
@@ -483,6 +455,7 @@ function updateEmployee() {
     }
 }
 
+//get hours grid data
 function getHourData() {
     //var data = { day: '', start1: '', start2: '', end1: '', end2: '' };
     var dataList = [];
@@ -526,68 +499,3 @@ function getHourData() {
     })
     return JSON.stringify(dataList);
 }
-
-
-//tree methods
-//function canDrop(event, nodes, isSourceNode, source, isTargetNode, target) {
-//    if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
-//        return source.href ? true : false;
-//    }
-//    if (isTargetNode) {
-//        if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
-//            return false;
-//        }
-//        if (($(source).data("type") == "customer") && target.objecttype == "employee") {
-//            return false;
-//        }
-//        if (($(source).data("type") == "employee") && target.objecttype == "customer") {
-//            return false;
-//        }
-//        if (target.objecttype == undefined) {
-//            return false;
-//        }
-//        isCurrentNodeAdded = false;
-//        return true;
-//    }
-//}
-//function dropping(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
-//    if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
-//        //  alertMessage("Dropping node rejected '" + source.text + "'");
-//    }
-//}
-//function dropped(event, nodes, isSourceNode, source, isTargetNode, target) {
-//    // internal to external drop
-//    if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
-//        //  alertMessage("Dropped node accepted '" + source.text + "'");
-//    }
-//    if (isSourceNode && isTargetNode) { // internal to internal drop
-//        // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
-//    }
-//    if (isTargetNode && !isSourceNode) { // external to internal drop
-//        if (!isCurrentNodeAdded) {
-//            var node = {};
-//            node.text = $(source).data("name");
-//            node.id = newNodeID;
-//            newNodeID = newNodeID - 1;
-//            node.objectid = $(source).data("id");
-//            node.objecttype = $(source).data("type");
-//            if (node.objecttype == "employee") {
-//                node.iconUrl = "/images/img/employee_16.png";
-//            } else {
-//                node.iconUrl = "/images/img/customer_16.png";
-//            }
-
-//            objTree.addNode(node, target.id);
-//            objEmployeeTree.addNode(node, target.id);
-//            objCustomerTree.addNode(node, target.id);
-
-//            objTree.rebuildTree();
-//            isCurrentNodeAdded = true;
-//            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
-//            var $scope = angular.element(appElement).scope();
-//            if ($scope.choiceType == '2') {
-//                $('#employeeGrid tr[data-id="' + node.objectid + '"]').remove();
-//            }
-//        }
-//    }
-//}

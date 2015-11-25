@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    LoadMapByFactoryID();
+    LoadMapByCurrentLogedUser();
     $(document).on('click', '#tblmapsearchgridEmployee tr', function () {
         $("#tblmapsearchgridEmployee tr").removeClass('active');
         $(this).addClass('active');
@@ -16,45 +16,62 @@
         }
     });
     GetAllStatesByCountry();
-    showEmployeeById();
+    ShowEmployeeById();
     var $datepicker = $("#dpDate");
     $datepicker.datepicker();
     $datepicker.datepicker('setDate', new Date());
+    $('#ddlbuildinginputCustomer').attr('disabled', 'disabled');
+    $('#ddlstreetinputCustomer').attr('disabled', 'disabled');
 });
 
 
-var markers = [];
-var Custmarkers = [];
-var map;
-var CustomerPositionArrayWithEmployee = [];
-var CustTitle = '';
-var Liverpool = '';
+var _markers = [];
+var _custMarkers = [];
+var _map;
+var _customerPositionArrayWithEmployee = [];
+var _custTitle = '';
+var _liverpool = '';
+var _polyLineArray = [];
+var _stateNames = [];
+var _stateIds = [];
+var _abliableDataForCityesName = [];
+var _abliableDataForCityesIds = [];
+var _abliableDataForStreetName = [];
+var _abliableDataForStreetId = [];
+var _abliableDataForBuildingNumber = [];
+var _abliableDataForBuildingId = [];
+var _abliableDataForBuildingLat = [];
+var _abliableDataForBuildingLong = [];
+var _buildingLatLong = [];
+var _checkedCustomersforMap = '';
 
-function LoadMapByFactoryID() {
+// To load the map on current loged user country.
+function LoadMapByCurrentLogedUser() {
     $.ajax({
         url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
             google.maps.visualRefresh = true;
-            Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
+            _liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
             var mapOptions = {
                 zoom: result[0].Zoom,
-                center: Liverpool,
+                center: _liverpool,
                 mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
             };
-            map = new google.maps.Map(document.getElementById("mapmainDiv"), mapOptions);
+            _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
         }
     });
 }
 
+// To search employees by first name, last name,active and customer number
 function SearchEmployee() {
     var firstName = $('#txtfirstName').val();
-    var LastName = $('#txtlastName').val();
-    var Active = $('#chkActive:checked').val() != "on" ? "1" : "0";
-    var Number = $('#txtnumber').val();
+    var lastName = $('#txtlastName').val();
+    var active = $('#chkActive:checked').val() != "on" ? "1" : "0";
+    var number = $('#txtnumber').val();
 
     $.ajax({
         type: "POST",
         url: "/Map/GetEmployeeForMap",
-        data: { firstName: firstName, LastName: LastName, Active: Active, Number: Number },
+        data: { firstname: firstName, lastname: lastName, active: active, number: number },
         dataType: "json",
         success: function (response) {
             $("#tblmapsearchgridEmployee").html('');
@@ -64,60 +81,62 @@ function SearchEmployee() {
                 }
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
 
-var PolyLineArray = [];
-function ShowDataOnMap() {
-    var EmployeeID = $('#tblmapsearchgridEmployee .active').attr('id');
-    var Date = $('#dpDate').val();
-    var FromTime = timeParseExact($('#txtfromTime').val());
-    var EndTime = timeParseExact($('#txtendTime').val());
+// To show selected employee on map with selected opations(runwayshow,stoppoint,lastpoint).
+function ShowEmployeeDataOnMap() {
+    var employeeID = $('#tblmapsearchgridEmployee .active').attr('id');
+    var date = $('#dpDate').val();
+    var fromTime = timeParseExact($('#txtfromTime').val());
+    var endTime = timeParseExact($('#txtendTime').val());
     var selectedOpation = $("input:radio[name='choices']:checked").val().toLowerCase();
-    if (EmployeeID != "" && EmployeeID != undefined) {
+    if (employeeID != "" && employeeID != undefined) {
         if (selectedOpation == 'runwayshow') {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetEmployeeGpsPointsByEmployeeID",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime, Date: Date },
+                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-                        map = new google.maps.Map(document.getElementById('mapmainDiv'), {
+                        _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
                         for (var i = 0; i < response.length; i++) {
-                            PolyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
+                            _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
 
                         }
                         var flightPath = new google.maps.Polyline({
-                            path: PolyLineArray,
+                            path: _polyLineArray,
                             strokeColor: "#0000FF",
                             strokeOpacity: 0.8,
                             strokeWeight: 2
                         });
-                        flightPath.setMap(map);
+                        flightPath.setMap(_map);
                         if ($("#chkshowwithCustomer").prop('checked') == true) {
-                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
-                                var Custmarker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
-                                    map: map,
-                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                    title: CustomerPositionArrayWithEmployee[i].title
+                            for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
+                                var custMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
+                                    map: _map,
+                                    icon: "/images/img/Home-321.png",
+                                    title: _customerPositionArrayWithEmployee[i].title
                                 });
-                                Custmarkers.push(Custmarker);
+                                _custMarkers.push(custMarker);
                             }
                         }
 
                     }
                     else {
                         alert("No Location Data");
-                        for (var i = 0; i < markers.length; i++) {
-                            markers[i].setMap(null);
+                        for (var i = 0; i < _markers.length; i++) {
+                            _markers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _custMarkers.length; i++) {
+                            _custMarkers[i].setMap(null);
                         }
                     }
                 }
@@ -129,12 +148,12 @@ function ShowDataOnMap() {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetStopPointsForEmployee",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime, Date: Date },
+                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
 
-                        map = new google.maps.Map(document.getElementById('mapmainDiv'), {
+                        _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
@@ -143,28 +162,31 @@ function ShowDataOnMap() {
                         for (i = 0; i < response.length; i++) {
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
-                                map: map,
-                                icon: "https://www.mapsmarker.com/wp-content/plugins/leaflet-maps-marker-pro/leaflet-dist/images/marker.png",
+                                map: _map,
+                                icon: "/images/img/employee_1_stop.png",
                                 title: response[i].LastName + " " + response[i].GpsTime.Hours + ":" + response[i].GpsTime.Minutes + "  " + response[i].StopTime.Hours + ":" + response[i].StopTime.Minutes
                             });
-                            markers.push(marker);
+                            _markers.push(marker);
                         }
                         if ($("#chkshowwithCustomer").prop('checked') == true) {
-                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
-                                var Custmarker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
-                                    map: map,
-                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                    title: CustomerPositionArrayWithEmployee[i].title
+                            for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
+                                var custMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
+                                    map: _map,
+                                    icon: "/images/img/Home-321.png",
+                                    title: _customerPositionArrayWithEmployee[i].title
                                 });
-                                Custmarkers.push(Custmarker);
+                                _custMarkers.push(custMarker);
                             }
                         }
                     }
                     else {
                         alert("No Location Data");
-                        for (var i = 0; i < markers.length; i++) {
-                            markers[i].setMap(null);
+                        for (var i = 0; i < _markers.length; i++) {
+                            _markers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _custMarkers.length; i++) {
+                            _custMarkers[i].setMap(null);
                         }
                     }
                 }
@@ -175,41 +197,42 @@ function ShowDataOnMap() {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetLastPointForEmployee",
-                data: { EmployeeID: EmployeeID, FromTime: FromTime, EndTime: EndTime, Date: Date },
+                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
-
                     if (response != false) {
-                        var Liverpool = new google.maps.LatLng(response.Lat, response.Long);
                         var mapOptions = {
                             zoom: 14,
-                            center: Liverpool,
+                            center: new google.maps.LatLng(response.Lat, response.Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         };
-                        map = new google.maps.Map(document.getElementById("mapmainDiv"), mapOptions);
+                        _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
                         var marker = new google.maps.Marker({
-                            position: Liverpool,
-                            map: map,
-                            icon: "https://www.mapsmarker.com/wp-content/plugins/leaflet-maps-marker-pro/leaflet-dist/images/marker.png",
+                            position: new google.maps.LatLng(response.Lat, response.Long),
+                            map: _map,
+                            icon: "/images/img/employee_1_stop.png",
                             title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes
                         });
-                        markers.push(marker);
+                        _markers.push(marker);
                         if ($("#chkshowwithCustomer").prop('checked') == true) {
-                            for (var i = 0; i < CustomerPositionArrayWithEmployee.length; i++) {
-                                var Custmarker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(CustomerPositionArrayWithEmployee[i].lat, CustomerPositionArrayWithEmployee[i].long),
-                                    map: map,
-                                    icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                    title: CustomerPositionArrayWithEmployee[i].title
+                            for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
+                                var custMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
+                                    map: _map,
+                                    icon: "/images/img/Home-321.png",
+                                    title: _customerPositionArrayWithEmployee[i].title
                                 });
-                                Custmarkers.push(Custmarker);
+                                _custMarkers.push(custMarker);
                             }
                         }
 
                     } else {
                         alert("No Location Data");
-                        for (var i = 0; i < markers.length; i++) {
-                            markers[i].setMap(null);
+                        for (var i = 0; i < _markers.length; i++) {
+                            _markers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _custMarkers.length; i++) {
+                            _custMarkers[i].setMap(null);
                         }
                     }
                 }
@@ -219,6 +242,8 @@ function ShowDataOnMap() {
         alert("Must select a employee");
     }
 }
+
+// To show only time when focus on from time and end time textboxes.
 function showTime(obj) {
     $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
 
@@ -227,6 +252,7 @@ function showTime(obj) {
     }
 }
 
+// To convert time in 24 hours formet
 function timeParseExact(time) {
     if (time != undefined && time != "") {
         var hhmm = time.split(' ')[0];
@@ -249,23 +275,22 @@ function timeParseExact(time) {
 
 }
 
+// To flip the div and show customer tab 
 function ShowCustomer() {
     $('#searchDiv').css('display', 'none');
     $('#searchdivCustomer').css('display', 'block');
 }
 
-
+// To flip the div and show employee tab 
 function ShowEmployee() {
     $('#searchdivCustomer').css('display', 'none');
     $('#searchDiv').css('display', 'block');
 }
-//----------------------------------------------------------------------------------------------------------------------
 
 
-var stateNames = [];
-var stateIds = [];
+// To getting all the states that are in the logged user country 
 function GetAllStatesByCountry() {
-    stateNames = [];
+    _stateNames = [];
     $.ajax({
         type: "POST",
         url: "/Data/GetAllStatesByCountry",
@@ -278,26 +303,24 @@ function GetAllStatesByCountry() {
                 if (this.StateDesc == "") {
                     $('#ddlstateinputcustomer').attr('disabled', 'disabled');
                 }
-                stateNames.push(this.StateDesc);
-                stateIds.push(this.StateCode);
+                _stateNames.push(this.StateDesc);
+                _stateIds.push(this.StateCode);
             });
             $("#ddlstateinputcustomer").autocomplete({
-                source: stateNames,
+                source: _stateNames,
             });
         },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var abliableDataForCityesName = [];
-var abliableDataForCityesIds = [];
+// To getting all the citys by selected state.
 function GetCitysByState() {
-    if (stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined)
+    if (_stateIds[_stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllCitysByState",
-        data: { stateID: stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] },
+        data: { stateID: _stateIds[_stateNames.indexOf($('#ddlstateinputcustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
@@ -309,108 +332,103 @@ function GetCitysByState() {
                     if (this.CityDesc == "") {
                         $('#ddlcityinputCustomer').attr('disabled', 'disabled');
                     }
-                    abliableDataForCityesName.push(this.CityDesc);
-                    abliableDataForCityesIds.push(this.CityCode);
+                    _abliableDataForCityesName.push(this.CityDesc);
+                    _abliableDataForCityesIds.push(this.CityCode);
                 });
             }
             $("#ddlcityinputCustomer").autocomplete({
-                source: abliableDataForCityesName,
+                source: _abliableDataForCityesName,
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var abliableDataForStreetName = [];
-var abliableDataForStreetId = [];
+// To getting streets by selected city
 function GetStreetByCity() {
-    if (abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
+    if (_abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllStreetByCity",
-        data: { cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
+        data: { cityID: _abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
-                abliableDataForStreetName = [];
-                abliableDataForStreetId = [];
+                _abliableDataForStreetName = [];
+                _abliableDataForStreetId = [];
                 $(response).each(function () {
                     $("<option />", {
                         val: this.StreetCode,
                         text: this.Streetdesc
                     }).appendTo($('#ddlstreetinputCustomer'));
-                    abliableDataForStreetName.push(this.Streetdesc);
-                    abliableDataForStreetId.push(this.StreetCode);
+                    _abliableDataForStreetName.push(this.Streetdesc);
+                    _abliableDataForStreetId.push(this.StreetCode);
                 });
+                $('#ddlstreetinputCustomer').removeAttr("disabled");
             }
             $("#ddlstreetinputCustomer").autocomplete({
-                source: abliableDataForStreetName,
+                source: _abliableDataForStreetName,
             });
         },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var abliableDataForBuildingNumber = [];
-var abliableDataForBuildingId = [];
-var abliableDataForBuildingLat = [];
-var abliableDataForBuildingLong = [];
-
+// To getting all buildings by selected city
 function GetBuildingsByCity() {
-
     abliableDataForBuilding = [];
-    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
+    if (_abliableDataForStreetId[_abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || _abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined)
         return false;
     $.ajax({
         type: "POST",
         url: "/Data/GetAllBuildingsByCity",
-        data: { streetID: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], cityID: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
+        data: { streetID: _abliableDataForStreetId[_abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], cityID: _abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] },
         dataType: "json",
         success: function (response) {
             if (response != null) {
 
                 $(response).each(function () {
-                    abliableDataForBuildingNumber = [];
-                    abliableDataForBuildingId = [];
-                    abliableDataForBuildingLat = [];
-                    abliableDataForBuildingLong = [];
+                    _abliableDataForBuildingNumber = [];
+                    _abliableDataForBuildingId = [];
+                    _abliableDataForBuildingLat = [];
+                    _abliableDataForBuildingLong = [];
                     $("<option />", {
                         val: this.BuildingCode,
                         text: this.BuildingNumber
                     }).appendTo($('#ddlbuildinginputCustomer'));
-                    abliableDataForBuildingNumber.push(this.BuildingNumber);
-                    abliableDataForBuildingId.push(this.BuildingCode);
-                    abliableDataForBuildingLat.push(this.BuildingLat);
-                    abliableDataForBuildingLong.push(this.BuldingLong);
+                    _abliableDataForBuildingNumber.push(this.BuildingNumber);
+                    _abliableDataForBuildingId.push(this.BuildingCode);
+                    _abliableDataForBuildingLat.push(this.BuildingLat);
+                    _abliableDataForBuildingLong.push(this.BuldingLong);
                 });
+                $('#ddlbuildinginputCustomer').removeAttr("disabled");
                 $("#ddlbuildinginputCustomer").autocomplete({
-                    source: abliableDataForBuildingNumber,
+                    source: _abliableDataForBuildingNumber,
                 });
-                $('#ddlbuildinginputCustomer').val(abliableDataForBuildingNumber);
+                $('#ddlbuildinginputCustomer').val(_abliableDataForBuildingNumber);
                 GetSelectedBuildingLatLong();
             }
         },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
 
-var buildingLatLong = [];
+// To getting latittude and longitude of selected building 
 function GetSelectedBuildingLatLong() {
-    if (abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined, abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined)
+    if (_abliableDataForBuildingLat[_abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined, _abliableDataForBuildingLong[_abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined)
         return false;
-    buildingLatLong = [];
-    buildingLatLong.push(abliableDataForBuildingLat[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())], abliableDataForBuildingLong[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())]);
+    _buildingLatLong = [];
+    _buildingLatLong.push(_abliableDataForBuildingLat[_abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())], _abliableDataForBuildingLong[_abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())]);
 }
 
 
+// To search customers by selected state,city,street,building,customernumber and companyname.
 function SearchCustomers() {
     var state, city, street, building, customerNumber, companyName;
     customerNumber = $('#txtcustomernoInput').val();
     companyName = $('#txtcompanynameInputCustomer').val();
     buildingNumber = $('#ddlbuildinginputCustomer').val();
 
-    if (abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] == undefined || stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())] == undefined || abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] == undefined || abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] == undefined) {
+    if ($('#ddlcityinputCustomer').val() == "") {
         $('#ddlcityinputCustomer').val('');
         $('#ddlstreetinputCustomer').val('');
         $('#ddlbuildinginputCustomer').val('');
@@ -431,66 +449,79 @@ function SearchCustomers() {
         })
     }
     else {
-        $.ajax({
-            type: "POST",
-            url: "/Map/GetCustomersForMap",
-            data: { state: stateIds[stateNames.indexOf($('#ddlstateinputcustomer').val())], city: abliableDataForCityesIds[abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())], street: abliableDataForStreetId[abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], BuildingNumber: buildingNumber, customerNumber: customerNumber, companyName: companyName },
-            dataType: "json",
-            success: function (response) {
-                if (response.length > 0) {
+        if (_abliableDataForStreetId[_abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())] != undefined && _stateIds[_stateNames.indexOf($('#ddlstateinputcustomer').val())] != undefined && _abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())] != undefined && _abliableDataForBuildingId[_abliableDataForBuildingNumber.indexOf($('#ddlbuildinginputCustomer').val())] != undefined) {
+            $.ajax({
+                type: "POST",
+                url: "/Map/GetCustomersForMap",
+                data: { state: _stateIds[_stateNames.indexOf($('#ddlstateinputcustomer').val())], city: _abliableDataForCityesIds[_abliableDataForCityesName.indexOf($('#ddlcityinputCustomer').val())], street: _abliableDataForStreetId[_abliableDataForStreetName.indexOf($('#ddlstreetinputCustomer').val())], buildingNumber: buildingNumber, customerNumber: customerNumber, companyName: companyName },
+                dataType: "json",
+                success: function (response) {
                     $("#tblmapsearchgridCustomer").html('');
-                    if (response != null) {
-
-                        for (var i = 0; i < response.length; i++) {
-                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                    if (response.length > 0) {
+                        if (response != null) {
+                            for (var i = 0; i < response.length; i++) {
+                                $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                            }
                         }
                     }
+                    else {
+                        alert("No Location Data");
+                        $("#tblmapsearchgridCustomer").html('');
+                        $('#selectedCustomer').html('');
+                        $('#selectedCustomer').css('display', 'none');
+                    }
                 }
-                else {
-                    alert("No Location Data");
-                    $("#tblmapsearchgridCustomer").html('');
-                    $('#selectedCustomer').html('');
-                    $('#selectedCustomer').css('display', 'none');
-                }
-            }
-        })
+            })
+        }
+        else {
+            $("#tblmapsearchgridCustomer").html('');
+            $("#selectedCustomer").html('');
+            alert('No Records Founded');
+        }
     }
 };
 
 
-
-var checkedCustomersforMap = '';
-
+// To show selected customers on map 
 function ShowCustomerDataOnMap() {
-    checkedCustomersforMap = '';
+    _checkedCustomersforMap = '';
     GetSelectedCustomersIdsForMap();
-    if (checkedCustomersforMap != '') {
+    if (_checkedCustomersforMap != '') {
         $.ajax({
             type: "POST",
             url: "/Map/GetCustomerForMapByCustomerID",
-            data: { CheckedCustomers: checkedCustomersforMap },
+            data: { checkedcustomers: _checkedCustomersforMap },
             dataType: "json",
             success: function (response) {
                 if (response != null || response[0].Lat != null) {
-                    CustomerPositionArrayWithEmployee = [];
-                    var map = new google.maps.Map(document.getElementById('mapmainDiv'), {
-                        zoom: 10,
-                        center: Liverpool,
-                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                    });
-                    var Custmarker, i;
+                    _customerPositionArrayWithEmployee = [];
+                    if (response[0].Lat != null && response[0].Lat != null) {
+                        var map = new google.maps.Map(document.getElementById('mapMainDiv'), {
+                            zoom: 8,
+                            center: new google.maps.LatLng(response[0].Lat, response[0].Long),
+                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                        });
+                    }
+                    else {
+                        var map = new google.maps.Map(document.getElementById('mapMainDiv'), {
+                            zoom: 8,
+                            center: _liverpool,
+                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                        });
+                    }
+                    var custMarker, i;
                     for (i = 0; i < response.length; i++) {
-                        CustTitle = response[i].FirstName + " " + response[i].LastName;
+                        _custTitle = response[i].FirstName + " " + response[i].LastName;
                         if (response[i].Lat != null && response[i].Long != null) {
-                            CustomerPositionArrayWithEmployee.push({ lat: response[i].Lat, long: response[i].Long, title: response[i].FirstName + " " + response[i].LastName });
-                            Custmarker = new google.maps.Marker({
+                            _customerPositionArrayWithEmployee.push({ lat: response[i].Lat, long: response[i].Long, title: response[i].FirstName + " " + response[i].LastName });
+                            custMarker = new google.maps.Marker({
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
                                 map: map,
-                                icon: "https://upload.wikimedia.org/wikipedia/commons/9/92/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Home_%E2%80%93_People_%E2%80%93_Default.png",
-                                title: CustTitle
+                                icon: "/images/img/Home-321.png",
+                                title: _custTitle
                             });
                         }
-                        Custmarkers.push(Custmarker);
+                        _custMarkers.push(custMarker);
                     }
                 }
             }
@@ -499,12 +530,13 @@ function ShowCustomerDataOnMap() {
     }
     else {
         alert("Must Select a Customer");
-        for (var i = 0; i < Custmarkers.length; i++) {
-            Custmarkers[i].setMap(null);
+        for (var i = 0; i < _custMarkers.length; i++) {
+            _custMarkers[i].setMap(null);
         }
     }
 }
 
+// To adding selected employee in selected employee div 
 function addToSelectedEmployeeDiv(obj) {
     $("#selectedemployeeDiv").html('');
     $("#selectedemployeeDiv").append("<tr><td>" + obj.attr('id') + " </td><td>" + obj.attr('rel') + " </td></tr>");
@@ -512,13 +544,14 @@ function addToSelectedEmployeeDiv(obj) {
 
 }
 
+// To adding selected customers in selected customers div
 function addToSelectedCustomerDiv(obj) {
     $("#selectedCustomer").html('');
     $("#selectedCustomer").append("<tr id=" + obj.attr('id') + "><td>" + obj.attr('id') + " </td><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td></tr>");
     $("#selectedCustomer").css('display', 'block');
 }
 
-
+// To adding multipal customers in selected customers div by check box checked 
 function chkcustomerChange(obj) {
     var selectedRow = obj.closest('.customerRow');
     if (obj.checked == true) {
@@ -533,18 +566,18 @@ function chkcustomerChange(obj) {
     return false;
 }
 
-
+// To adding selected customers id in array so can get all data by customers ids
 function GetSelectedCustomersIdsForMap() {
     if ($('#selectedCustomer tr').length > 0) {
         for (var i = 0, l = $('#selectedCustomer tr').length; i < l; i++) {
-            checkedCustomersforMap += $('#selectedCustomer tr')[i].id + ",";
+            _checkedCustomersforMap += $('#selectedCustomer tr')[i].id + ",";
         }
     }
 }
 
 
-
-function showEmployeeById() {
+// To showing loggend employee on map with last point of current date.
+function ShowEmployeeById() {
     $.ajax({
         type: "POST",
         url: "/Map/GetEmployeeByIdOnLoad",
@@ -555,6 +588,7 @@ function showEmployeeById() {
                 for (var i = 0; i < response.length; i++) {
                     $("#tblmapsearchgridEmployee").append("<tr rel='" + response[i].LastName + "' id='" + response[i].EmployeeID + "' class='active'><td class='tg-dx8v'>" + response[i].Number + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].FirstName + "</td></tr>");
                 }
+                ShowEmployeeDataOnMap();
             }
         },
 

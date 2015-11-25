@@ -106,7 +106,8 @@ namespace ISEEREGION.Controllers
         #region Search for Employee
         public JsonResult GetEmployee(string manufacture, string lastname, string firstname, string empNumber, string phoneType, bool isActive)
         {
-           try{
+            try
+            {
                 var empData = _facory.GetEmployees(SessionManagement.FactoryID, Common.GetNullableValues(lastname), Common.GetNullableValues(firstname), Common.GetNullableValues(empNumber), Common.GetInteger(manufacture), Common.GetInteger(phoneType), isActive).ToList().Select(x => new
                 {
                     EmployeeId = x.EmployeeId,
@@ -126,14 +127,14 @@ namespace ISEEREGION.Controllers
 
                 }).ToList();
 
-               
-                return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-           }
-           catch (Exception ex)
-           {
 
-               throw ex;
-           }
+                return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public JsonResult GetMessageHistory(int employeeId, string start, string end)
@@ -142,16 +143,14 @@ namespace ISEEREGION.Controllers
             {
                 var msgHistory = _facory.GetSMSFilter(employeeId, Common.ConvertDateTimeN(start), Common.ConvertDateTimeN(end)).ToList()
                     .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
-                //var msgHistory1 = context.EmployeeSmsSends.ToList().Where(x => x.EmployeeId == employeeId && x.SmsCreatDate >= startD
-                //        && x.SmsCreatDate <= endD)
-                //        .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
+                return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-            return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
 
         }
 

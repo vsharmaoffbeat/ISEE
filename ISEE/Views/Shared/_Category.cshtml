@@ -1,9 +1,10 @@
-﻿<form role="form" method="post" action="">
+﻿@using ISEE.Resources
+<form role="form" method="post" action="">
     <div class="row">
 
         <div class="col-md-12 col-xs-12 category_header">
 
-            <div class="col-sm-3 col-xs-3"><h4 class="category_title">Category</h4></div>
+            <div class="col-sm-3 col-xs-3"><h4 class="category_title">@ISEE.Resources.Resource.Category</h4></div>
 
             <div class="col-sm-5 col-xs-3 category_active_blank"></div>
 
@@ -27,10 +28,10 @@
             <div class="col-md-6 col-xs-12 category_scroll_panel">
 
                 <div class="col-lg-12 col-xs-12 category_company">
-                    <h4 class="customer_title">Main Classification</h4>
+                    <h4 class="customer_title">@ISEE.Resources.Resource.Level1</h4>
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="usr">Main Classification</label>
+                            <label for="usr">@ISEE.Resources.Resource.Level1</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" ng-model="newcontact.RequestDescCodeLevel1">
                             </div>
@@ -38,7 +39,7 @@
 
 
                         <div class="col-md-4">
-                            <label for="usr">Order</label>
+                            <label for="usr">@ISEE.Resources.Resource.Order</label>
                             <div class="form-group">
                                 <input type="number" name="Order" class="form-control order_input" min="0" step="1" ng-model="newcontact.RequsetOrder">
                                 <input type="hidden" ng-model="newcontact.RequestSysIdLevel1" />
@@ -63,12 +64,12 @@
                         <div class="category_tg-wrap">
                             <table class="category_tg">
                                 <tr>
-                                    <th class="category_tg-z1n2">Main Classification</th>
-                                    <th class="category_tg-z1n2">Order</th>
-                                    <th class="category_tg-z1n2">Active</th>
+                                    <th class="category_tg-z1n2">@ISEE.Resources.Resource.Level1</th>
+                                    <th class="category_tg-z1n2">@ISEE.Resources.Resource.Order</th>
+                                    <th class="category_tg-z1n2">@ISEE.Resources.Resource.Active</th>
                                 </tr>
 
-                                <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)" >
+                                <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)">
 
                                     <td class="tg-dx8v_category">
                                         <span ng-hide="contact.editing" ng-dblclick="editItem(contact)">{{ contact.RequestDescCodeLevel1 }}</span>
@@ -97,16 +98,16 @@
             <div class="col-md-6 col-xs-12 category_scroll_panel">
 
                 <div class="col-lg-12 col-xs-12 category_company">
-                    <h4 class="customer_title">Secondary Classification</h4>
+                    <h4 class="customer_title">@ISEE.Resources.Resource.Level2</h4>
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="usr">Secondary Classification</label>
+                            <label for="usr">@ISEE.Resources.Resource.Level2</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" ng-model="newSecondary.RequestDescCodeLevel2" required autofocus>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="usr">Order</label>
+                            <label for="usr">@ISEE.Resources.Resource.Order</label>
                             <div class="form-group">
                                 <input type="number" class="form-control" min="0" step="1" ng-model="newSecondary.RequsetOrder" required autofocus>
                                 <input type="hidden" ng-model="newSecondary.RequestSysIdLevel2" />
@@ -128,9 +129,9 @@
                         <div class="category_tg-wrap">
                             <table class="category_tg">
                                 <tr>
-                                    <th class="category_tg-z1n21">Secondary Classification</th>
-                                    <th class="category_tg-z1n2">Order</th>
-                                    <th class="category_tg-z1n2">Active</th>
+                                    <th class="category_tg-z1n21">@ISEE.Resources.Resource.Level2</th>
+                                    <th class="category_tg-z1n2">@ISEE.Resources.Resource.Order</th>
+                                    <th class="category_tg-z1n2">@ISEE.Resources.Resource.Active</th>
                                 </tr>
 
                                 <tr ng-repeat="Secondary in Secondarys" ng-hide="{{hideSecondayRow(Secondary)}}">

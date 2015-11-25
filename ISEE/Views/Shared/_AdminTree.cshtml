@@ -1,4 +1,5 @@
-﻿<style>
+﻿@using ISEE.Resources
+<style>
     .easytree-draggable i.employee {
         background-image: url("/images/img/employee_16.png") !important;
         height: 16px;
@@ -32,20 +33,20 @@
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Type Find Tree</label>
+                <label for="usr">@ISEE.Resources.Resource.TypeFindTree</label>
                 <select class="form-control isee_select_option" ng-model="choice">
-                    <option value='' selected="selected">Employee</option>
-                    <option value="2">Customer</option>
+                    <option value='' selected="selected">@ISEE.Resources.Resource.Employee</option>
+                    <option value="2">@ISEE.Resources.Resource.Customer</option>
                 </select>
             </div>
         </div>
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Type Drag drop</label>
+                <label for="usr">@ISEE.Resources.Resource.TypeDragDrop</label>
                 <select class="form-control isee_select_option" ng-model="choiceType">
-                    <option value='' selected="selected">Multi</option>
-                    <option value="2">Single</option>
+                    <option value='' selected="selected">@ISEE.Resources.Resource.Multi</option>
+                    <option value="2">@ISEE.Resources.Resource.Single</option>
                 </select>
             </div>
         </div>
@@ -61,7 +62,7 @@
     <div class="row second_tree_rightbar" ng-hide="choice==2">
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Last Name</label>
+                <label for="usr">@ISEE.Resources.Resource.LastName</label>
                 <input type="text" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.LastName">
             </div>
         </div>
@@ -69,7 +70,7 @@
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="usr">First Name</label>
+                    <label for="usr">@ISEE.Resources.Resource.FirstName</label>
                     <input type="text" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.FirstName">
                 </div>
             </div>
@@ -77,7 +78,7 @@
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Number</label>
+                <label for="usr">@ISEE.Resources.Resource.Number</label>
                 <input type="text" class="form-control isee_input_shadow" ng-model="EmployeeSearchData.phone">
             </div>
         </div>
@@ -87,12 +88,12 @@
     <div class="row third_tree_rightbar" ng-show="choice==2">
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">State</label>
+                <label for="usr">@ISEE.Resources.Resource.State</label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.state">
             </div>
 
             <div class="form-group">
-                <label for="usr">Contact Name</label>
+                <label for="usr">@ISEE.Resources.Resource.LastNameCus </label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.contactName">
             </div>
 
@@ -100,24 +101,24 @@
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">City</label>
+                <label for="usr">@ISEE.Resources.Resource.City</label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.city">
             </div>
 
             <div class="form-group">
-                <label for="usr">Company Name</label>
+                <label for="usr">@ISEE.Resources.Resource.FirstNameCus</label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.companyName">
             </div>
         </div>
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Street</label>
+                <label for="usr">@ISEE.Resources.Resource.Street</label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.street">
             </div>
 
             <div class="form-group">
-                <label for="usr">Phone1</label>
+                <label for="usr">@ISEE.Resources.Resource.Phone1</label>
                 <input type="text" style="width: 20%;display: inline-block;" class="form-control fields isee_input" ng-model="CustomerSearchData.phoneArea" />
                 <input type="text" style="width: 75%;margin-left: 1%; display: inline-block;" class="form-control fields isee_input" ng-model="CustomerSearchData.phone1" />
 
@@ -126,12 +127,12 @@
 
         <div class="col-md-3 col-xs-12">
             <div class="form-group">
-                <label for="usr">Bulding Number</label>
+                <label for="usr">@ISEE.Resources.Resource.BuildingNum</label>
                 <input type="text" class="form-control isee_input" ng-model="CustomerSearchData.buldingNumber" />
             </div>
 
             <div class="form-group">
-                <label for="usr">Customer Number</label>
+                <label for="usr">@ISEE.Resources.Resource.CustomerNum</label>
                 <input type="number" class="form-control isee_input" ng-model="CustomerSearchData.customerNumber" />
             </div>
         </div>
@@ -141,16 +142,16 @@
     <div class="row fourth_tree_rightbar">
 
         <div class="col-md-12 col-xs-12 search_result_header">
-            <h5 class="tree_title">Search result</h5>
+            <h5 class="tree_title">@ISEE.Resources.Resource.SearchResult</h5>
         </div>
 
         <div class="col-md-6 col-xs-12 tree_scroll_panel">
 
             <div class="col-lg-12 col-xs-12 tree_demo_company">
 
-                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(false)">Delete Leaf</button></div>
+                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(false)">@ISEE.Resources.Resource.DeleteLeaf</button></div>
 
-                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(true)">Delete Node</button></div>
+                <div class="col-md-3 col-xs-12 demo_row"><button type="button" class="btn btn-default isee_select_button btn_down" onclick="removeNodeX(true)">@ISEE.Resources.Resource.DeleteNode</button></div>
 
                 <div class="col-md-3 col-xs-12 demo_row">
                     <div class="form-group">
@@ -160,7 +161,7 @@
 
                 <div class="col-md-3 col-xs-12 demo_row">
 
-                    <button type="button" class="btn btn-default isee_select_button btn_down" onclick="addNode()">Add Node</button>
+                    <button type="button" class="btn btn-default isee_select_button btn_down" onclick="addNode()">@ISEE.Resources.Resource.AddNode</button>
                 </div>
 
                 <div class="col-lg-12 col-sm-12 tree_second_company">
@@ -181,8 +182,8 @@
                     <table class="tree_tg" id="employeeGrid">
                         <tr>
                             <th class="tree_tg-zqgi"></th>
-                            <th class="tree_tg-z1n2">Name</th>
-                            <th class="tree_tg-z1n2">Phone1</th>
+                            <th class="tree_tg-z1n2">@ISEE.Resources.Resource.Name</th>
+                            <th class="tree_tg-z1n2">@ISEE.Resources.Resource.Phone1</th>
                         </tr>
 
                         <tr ng-repeat="gridOption in gridOptions" ng-attr-class="{{gridOption.id == SelectedAdminTreeEmployee && 'easytree-draggable active' || 'easytree-draggable' }}" ng-hide="choice==2" data-oid='{{gridoption.id}}' data-id='{{gridOption.id}}' data-name='{{gridOption.LastName}} {{gridOption.FirstName}}' data-type="employee" ng-mousedown="setVariable(gridOption)">

@@ -116,7 +116,7 @@ function ShowEmployeeDataOnMap() {
                             strokeWeight: 2
                         });
                         flightPath.setMap(_map);
-                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                        if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -167,7 +167,7 @@ function ShowEmployeeDataOnMap() {
                             });
                             _markers.push(marker);
                         }
-                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                        if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -213,7 +213,7 @@ function ShowEmployeeDataOnMap() {
                             title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes
                         });
                         _markers.push(marker);
-                        if ($("#chkshowwithCustomer").prop('checked') == true) {
+                        if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -596,10 +596,11 @@ function ShowEmployeeById(employeeID) {
 }
 
 function showCustomerById(customerID) {
+    var customerId = customerID + ",";
     $.ajax({
         type: "POST",
         url: "/Map/GetCustomerByIdOnLoad",
-        data: { customerID: customerID },
+        data: { customerID: customerId },
         dataType: "json",
         success: function (response) {
             if (response.length > 0) {

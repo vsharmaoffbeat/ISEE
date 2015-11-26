@@ -204,8 +204,7 @@ namespace ISEE.Controllers
                 using (ISEEEntities context = new ISEEEntities())
                 {
                     int factoryId = SessionManagement.FactoryID;
-                    var empData = context.Employees.ToList().Where(x => x.Factory == factoryId
-                        && x.EmployeeId == employeeID).Select(x => new
+                    var empData = _facory.GetEmployeeById(employeeID, factoryId).Select(x => new
                         {
                             EmployeeID = x.EmployeeId,
                             Number = x.EmployeeNum,
@@ -227,13 +226,13 @@ namespace ISEE.Controllers
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public JsonResult GetCustomerByIdOnLoad(int customerID)
+        public JsonResult GetCustomerByIdOnLoad(string customerID)
         {
-            if (customerID > 0)
+            if (customerID != "")
             {
                 using (ISEEEntities context = new ISEEEntities())
                 {
-                    var result = context.Customers.Where(s => s.CustomerId == customerID).Select(x => new
+                    var result = _facory.GetCustomersByCustomerID(customerID).Select(x => new
                     {
                         CustomerId = x.CustomerId,
                         CustomerNumber = x.CustomerNumber,

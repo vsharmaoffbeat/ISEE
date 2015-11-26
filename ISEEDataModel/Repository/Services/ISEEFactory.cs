@@ -934,6 +934,11 @@ namespace ISEEDataModel.Repository.Services
         {
             return _context.Customers.Where(s => s.Factory == factoryId);
         }
+        public IQueryable<Employee> GetEmployeeById(int employeeID, int factoryId)
+        {
+            return _context.Employees.Where(x => x.Factory == factoryId
+                      && x.EmployeeId == employeeID);
+        }
 
         #endregion
 

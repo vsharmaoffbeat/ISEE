@@ -208,18 +208,8 @@ namespace ISEE.Controllers
                         {
                             EmployeeID = x.EmployeeId,
                             Number = x.EmployeeNum,
-                            Mail = x.Mail == null ? "" : x.Mail,
                             FirstName = x.FirstName == null ? "" : x.FirstName,
                             LastName = x.LastName == null ? "" : x.LastName,
-                            StartDay = x.StartDay == null ? "" : x.StartDay.Value.ToString("dd/MM/yyyy"),
-                            MainAreaPhone = x.MainAreaPhone == null ? "" : x.MainAreaPhone,
-                            MainPhone = x.MainPhone == null ? "" : x.MainPhone,
-                            SecondAreaPhone = x.SecondAreaPhone == null ? "" : x.SecondAreaPhone,
-                            SecondPhone = x.SecondPhone == null ? "" : x.SecondPhone,
-                            LastSendApp = x.LastSendApp == null ? "" : x.LastSendApp.Value.ToString("dd/MM/yyyy"),
-                            EndDay = x.EndDay == null ? "" : x.EndDay.Value.ToString("dd/MM/yyyy"),
-                            PhoneManufactory = x.PhoneManufactory,
-                            PhoneType = x.PhoneType
                         }).ToList();
                     return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }

@@ -91,6 +91,10 @@ function ShowEmployeeDataOnMap() {
     var date = $('#dpDate').val();
     var fromTime = TimeParseExact($('#txtfromTime').val());
     var endTime = TimeParseExact($('#txtendTime').val());
+    if (fromTime > endTime) {
+        alert("End Time Large Then Start Time");
+        return false;
+    }
     var selectedOpation = $("input:radio[name='choices']:checked").val().toLowerCase();
     if (employeeID != "" && employeeID != undefined) {
         if (selectedOpation == 'runwayshow') {
@@ -202,9 +206,9 @@ function ShowEmployeeDataOnMap() {
                     }
                 }
             });
-
         }
         else if (selectedOpation == 'lastpoint') {
+
             $.ajax({
                 type: "POST",
                 url: "/Map/GetLastPointForEmployee",
@@ -222,41 +226,41 @@ function ShowEmployeeDataOnMap() {
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
                             icon: "/images/employee_1new.png",
-                            title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes 
-                    });
-                    _markers.push(marker);
-                    if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
-                        GetLatLongOfSelectedCustomer();
-                        for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
-                            var custMarker = new google.maps.Marker({
-                                position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
-                                map: _map,
-                                icon: "/images/img/Home-321.png",
-                                title: _customerPositionArrayWithEmployee[i].title
-                            });
-                            _custMarkers.push(custMarker);
+                            title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes
+                        });
+                        _markers.push(marker);
+                        if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
+                            GetLatLongOfSelectedCustomer();
+                            for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
+                                var custMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
+                                    map: _map,
+                                    icon: "/images/img/Home-321.png",
+                                    title: _customerPositionArrayWithEmployee[i].title
+                                });
+                                _custMarkers.push(custMarker);
+                            }
+                        }
+
+                    } else {
+                        alert("No Location Data");
+                        if (_flightPath != undefined && _flightPath != '') {
+                            _flightPath.setMap(null);
+                            _flightPath = '';
+                        }
+                        for (var i = 0; i < _markers.length; i++) {
+                            _markers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _custMarkers.length; i++) {
+                            _custMarkers[i].setMap(null);
                         }
                     }
-
-                } else {
-                        alert("No Location Data");
-            if (_flightPath != undefined && _flightPath != '') {
-                _flightPath.setMap(null);
-                _flightPath = '';
-            }
-            for (var i = 0; i < _markers.length; i++) {
-                _markers[i].setMap(null);
-            }
-            for (var i = 0; i < _custMarkers.length; i++) {
-                _custMarkers[i].setMap(null);
-            }
+                }
+            });
         }
+    } else {
+        alert("Must select a employee");
     }
-});
-}
-} else {
-    alert("Must select a employee");
-}
 }
 
 // To show only time when focus on from time and end time textboxes.
@@ -591,6 +595,7 @@ function GetSelectedCustomersIdsForMap() {
 
 // To move map to selected employee that comes for employee tab
 function ShowEmployeeById(employeeID) {
+    debugger;
     $.ajax({
         type: "POST",
         url: "/Map/GetEmployeeByIdOnLoad",
@@ -602,6 +607,7 @@ function ShowEmployeeById(employeeID) {
                 for (var i = 0; i < response.length; i++) {
                     $("#tblmapsearchgridEmployee").append("<tr rel='" + response[i].LastName + "' id='" + response[i].EmployeeID + "' class='active'><td class='tg-dx8v'>" + response[i].Number + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].FirstName + "</td></tr>");
                 }
+                $('#tblmapsearchgridEmployee tr:first').click();
                 ShowEmployeeDataOnMap();
             }
         },

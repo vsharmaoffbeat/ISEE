@@ -1,4 +1,5 @@
-﻿<form role="form" method="post" action="">
+﻿@using ISEE.Resources
+<form role="form" method="post" action="">
 
     <div class="row customer_top_rightbar">
         <div class="col-md-12 col-xs-12 customer_save_header">
@@ -11,22 +12,21 @@
             <!---- Customer info panel-->
             <!----- ================START======================-->
             <div class="col-lg-12 col-xs-12 customer_first_form">
-                <h4 class="customer_title">Customer Info</h4>
+                <h4 class="customer_title">@ISEE.Resources.Resource.CustomerDetailsLabel</h4>
                 <div class="col-md-4 col-xs-12">
                     <div class="form-group">
-                        <label for="usr">Customer Number</label>
+                        <label for="usr">@ISEE.Resources.Resource.CustomerNum</label>
                         <input id="inputCustomerNumber" ng-model="CustomerInfo.CustomerNumber" type="tel" class="form-control isee_input_shadow">
                     </div>
 
                     <div class="form-group">
-                        <label for="usr">Floor</label>
+                        <label for="usr">@ISEE.Resources.Resource.Floor</label>
                         <input id="inputFloor" ng-model="CustomerInfo.Floor" type="tel" class="form-control isee_input_shadow">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-5">
-
-                            <label>Phone1</label>
+                            <label>@ISEE.Resources.Resource.Phone1</label>
                             <div class="form-group">
                                 <input class="form-control isee_input cust_phone" ng-model="CustomerInfo.PhoneArea1" id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
                             </div>
@@ -44,19 +44,19 @@
 
                 <div class="col-md-4 col-xs-12">
                     <div class="form-group">
-                        <label for="usr">Company Name *</label>
+                        <label for="usr">@ISEE.Resources.Resource.FirstNameCus *</label>
                         <input id="inputCompanyName" ng-model="CustomerInfo.CompanyName" type="text" class="form-control isee_input" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="usr">Apartment</label>
+                        <label for="usr">@ISEE.Resources.Resource.Apartment</label>
                         <input id="inputApartment" ng-model="CustomerInfo.Apartment" type="text" class="form-control isee_input">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-5">
                             <div class="form-group">
-                                <label for="usr">Phone2</label>
+                                <label for="usr">@ISEE.Resources.Resource.Phone2</label>
                                 <input id="inputPhoneTwo" ng-model="CustomerInfo.PhoneArea2" type="tel" class="form-control isee_input cust_phone">
                             </div>
                         </div>
@@ -74,12 +74,12 @@
 
                 <div class="col-md-4 col-xs-12">
                     <div class="form-group">
-                        <label for="usr">Contact Name *</label>
+                        <label for="usr">@ISEE.Resources.Resource.LastNameCus *</label>
                         <input id="inputContactName" ng-model="CustomerInfo.ContactName" type="text" class="form-control isee_input" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Mail</label>
+                        <label for="">@ISEE.Resources.Resource.Mail</label>
                         <input id="inputMail" ng-model="CustomerInfo.Mail" type="email" class="form-control isee_input">
                     </div>
 
@@ -112,7 +112,7 @@
                                 <div class="col-xs-5">
 
                                     <div class="form-group">
-                                        <label>Fax</label>
+                                        <label>@ISEE.Resources.Resource.Fax</label>
                                         <input class="form-control isee_input" ng-model="CustomerInfo.AreaFax" id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
                                     </div>
                                 </div>
@@ -143,30 +143,30 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="usr">State *</label>
-                            <input id="inputState" ng-model="CustomerInfo.State" ng-disabled="{{HasStateActive}}"  type="text" class="form-control isee_input" required>
+                            <label for="usr">@ISEE.Resources.Resource.State *</label>
+                            <input id="inputState" ng-model="CustomerInfo.State" ng-disabled="{{HasStateActive}}" type="text" class="form-control isee_input" required>
                         </div>
                     </div>
 
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="usr">City *</label>
-                            <input id="inputCity" ng-model="CustomerInfo.City"  type="text" class="form-control isee_input" required>
+                            <label for="usr">@ISEE.Resources.Resource.City *</label>
+                            <input id="inputCity" ng-model="CustomerInfo.City" type="text" class="form-control isee_input" required>
                         </div>
                     </div>
 
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="usr">Street *</label>
+                            <label for="usr">@ISEE.Resources.Resource.Street *</label>
                             <input id="inputStreet" ng-model="CustomerInfo.Street" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input" required>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Bulding Number *</label>
+                            <label for="usr">@ISEE.Resources.Resource.BuildingNum *</label>
                             <input id="inputBuldingNumber" ng-model="CustomerInfo.BuildingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input" required>
 
                         </div>
@@ -174,7 +174,7 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Entry</label>
+                            <label for="usr">@ISEE.Resources.Resource.Entry</label>
                             <input id="inputEntry" ng-model="CustomerInfo.Entry" type="text" class="form-control isee_input">
                         </div>
                     </div>
@@ -182,14 +182,14 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Zip Code</label>
+                            <label for="usr">@ISEE.Resources.Resource.ZipCode</label>
                             <input id="inputZipCode" ng-model="CustomerInfo.ZipCode" type="tel" class="form-control isee_input">
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Visit Interval</label>
+                            <label for="usr">@ISEE.Resources.Resource.VisitInterval</label>
                             <input id="inputVisitInterval" ng-model="CustomerInfo.VisitInterval" type="tel" class="form-control isee_input">
                         </div>
                     </div>
@@ -198,14 +198,14 @@
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Visit time</label>
+                            <label for="usr">@ISEE.Resources.Resource.VisitTime</label>
                             <input id="inputVisitTime" ng-model="CustomerInfo.VisitTime" type="tel" class="form-control isee_input">
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="usr">Next Visit</label>
+                            <label for="usr">@ISEE.Resources.Resource.NextVisit</label>
                             @*<div class="input-group datetime datepicker">
                                     <input id="inputNextVisit" ng-model="CustomerInfo.NextVisit" class="form-control make-datepicker isee_input" type="text" name="leaving_time">
                                     <span class="input-group-addon">
@@ -218,9 +218,9 @@
                             </div>
 
                         </div>
-                        <button type="button" id="buttonInsert" onclick="InsertAddress()" class="btn btn-default pull-right isee_select_button">Insert address</button>
+                        <button type="button" id="buttonInsert" onclick="InsertAddress()" class="btn btn-default pull-right isee_select_button">@ISEE.Resources.Resource.InsertAdress</button>
                     </div>
-                    <h4 class="customer_title">Drag Item To Tree</h4>
+                    <h4 class="customer_title">@ISEE.Resources.Resource.DragItemToTree</h4>
                     <div class="col-md-12">
                         <div class="form-group">
                             <div class="tree_tg-wrap">
@@ -267,23 +267,23 @@
             <div style="overflow:auto;height:100px">
                 <table id="MapHeaderGrid" class="tg">
                     <tr>
-                        <th class="tg-z1n2">Country</th>
-                        <th class="tg-z1n2">State</th>
-                        <th class="tg-z1n2">City</th>
-                        <th class="tg-z1n2">Street</th>
-                        <th class="tg-z1n2">Building Number</th>
-                        <th class="tg-z1n2">Full Address</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.Country</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.State</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.City</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.Street</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.BuildingNum</th>
+                        <th class="tg-z1n2">@ISEE.Resources.Resource.FullAddress</th>
                     </tr>
-                  
+
 
                 </table>
             </div>
             <div id="map_canvas" style="min-height: 350px;min-width:450px !important"></div>
             <div>
-                <button type="button" onclick="OnInsertAddressOkClick();">Ok</button>
-                <button type="button" onclick="closeDialog()">Cancel</button>
+                <button type="button" onclick="OnInsertAddressOkClick();">@ISEE.Resources.Resource.OK</button>
+                <button type="button" onclick="closeDialog()">@ISEE.Resources.Resource.Cancel</button>
             </div>
-       
+
         </div>
     </div>
     <!-- Customer right panel end---->
@@ -300,8 +300,7 @@
            dropping: droppingCustomer
        });
 
-    function IsNodeExist(NodeChildrenArray,source)
-    {
+    function IsNodeExist(NodeChildrenArray, source) {
         var item = $.grep(NodeChildrenArray, function (v) {
             return v.objectid === $(source).data("id");
         })
@@ -330,7 +329,7 @@
             if (target.objecttype == undefined) {
                 return false;
             }
-            if (target.children != null && IsNodeExist(target.children,source)) {
+            if (target.children != null && IsNodeExist(target.children, source)) {
                 return false;
             }
             isCurrentNodeAdded = false;
@@ -365,8 +364,8 @@
                     node.iconUrl = "/images/img/customer_16.png";
                 }
 
-            //    objTree.addNode(node, target.id);
-              //  objEmployeeTree.addNode(node, target.id);
+                //    objTree.addNode(node, target.id);
+                //  objEmployeeTree.addNode(node, target.id);
                 objCustomerTree.addNode(node, target.id);
 
                 isCurrentNodeAdded = true;
@@ -375,5 +374,4 @@
     }
 
 </script>
-
 

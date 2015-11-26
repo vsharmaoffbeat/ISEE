@@ -537,7 +537,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     //Common Method To Save Tree Data
     $scope.saveTree = function () {
-        var treeViewData = JSON.stringify(treeJsonData);
+        var treeViewData = JSON.stringify(objTree.getAllNodes());
         $.ajax({
             type: "POST",
             url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {

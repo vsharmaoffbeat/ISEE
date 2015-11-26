@@ -25,6 +25,24 @@ $(document).ready(function () {
     $("#datepickerEndDay,#nextVisitDatePicker").datepicker('remove');
     $('#datepickerEndDay input').val('');
     $('#nextVisitDatePicker input').val('');
+
+    //set viewbag property
+    $('#showMap').click(function () {
+
+        if (parseInt(_customerId) <= 0)
+            alert("Select Employee");
+        data = { empId: 0, cusId: _customerId }
+        $.ajax({
+            type: "POST",
+            url: "/Data/SetViewBagProperty",
+            data: data,
+            dataType: "json",
+            success: function (response) {
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+        });
+    })
 });
 
 //Classification();
@@ -424,6 +442,7 @@ function selectedEmployee(obj) {
 function selectedCustomer(obj) {
     _customerId = $(obj).attr('CustomerId');
     setInputValues(obj);
+    $('#showMap').attr('href', '/map/map');
 }
 
 function setInputValues(obj) {
@@ -543,22 +562,7 @@ function updateCustomer() {
 }
 
 
-//set viewbag property
-$('#showMap').click(function () {
-    if (parseInt(_customerId) <= 0)
-        alert("Select Employee");
-    data = { empId: 0, cusId: _customerId }
-    $.ajax({
-        type: "POST",
-        url: "/Data/SetViewBagProperty",
-        data: data,
-        dataType: "json",
-        success: function (response) {
 
-        },
-        error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-})
 
 //Get Customer Request Data
 

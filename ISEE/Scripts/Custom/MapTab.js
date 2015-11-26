@@ -222,41 +222,41 @@ function ShowEmployeeDataOnMap() {
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
                             icon: "/images/employee_1new.png",
-                            title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes
-                        });
-                        _markers.push(marker);
-                        if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
-                            GetLatLongOfSelectedCustomer();
-                            for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
-                                var custMarker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
-                                    map: _map,
-                                    icon: "/images/img/Home-321.png",
-                                    title: _customerPositionArrayWithEmployee[i].title
-                                });
-                                _custMarkers.push(custMarker);
-                            }
-                        }
-
-                    } else {
-                        alert("No Location Data");
-                        if (_flightPath != undefined && _flightPath != '') {
-                            _flightPath.setMap(null);
-                            _flightPath = '';
-                        }
-                        for (var i = 0; i < _markers.length; i++) {
-                            _markers[i].setMap(null);
-                        }
-                        for (var i = 0; i < _custMarkers.length; i++) {
-                            _custMarkers[i].setMap(null);
+                            title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes 
+                    });
+                    _markers.push(marker);
+                    if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
+                        GetLatLongOfSelectedCustomer();
+                        for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
+                            var custMarker = new google.maps.Marker({
+                                position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
+                                map: _map,
+                                icon: "/images/img/Home-321.png",
+                                title: _customerPositionArrayWithEmployee[i].title
+                            });
+                            _custMarkers.push(custMarker);
                         }
                     }
-                }
-            });
+
+                } else {
+                        alert("No Location Data");
+            if (_flightPath != undefined && _flightPath != '') {
+                _flightPath.setMap(null);
+                _flightPath = '';
+            }
+            for (var i = 0; i < _markers.length; i++) {
+                _markers[i].setMap(null);
+            }
+            for (var i = 0; i < _custMarkers.length; i++) {
+                _custMarkers[i].setMap(null);
+            }
         }
-    } else {
-        alert("Must select a employee");
     }
+});
+}
+} else {
+    alert("Must select a employee");
+}
 }
 
 // To show only time when focus on from time and end time textboxes.
@@ -279,13 +279,13 @@ function TimeParseExact(time) {
             if (hh == "12") {
                 hh = "0";
             }
-            return parseFloat(hh + "." + mm) + 12;
+            return parseFloat(hh) + 12 + "." + parseFloat(mm);
         }
         else {
             if (hh == "12") {
                 hh = "0";
             }
-            return parseFloat(hh + "." + mm);
+            return parseFloat(hh) + "." + parseFloat(mm);
         }
     }
 

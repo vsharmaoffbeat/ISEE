@@ -44,6 +44,7 @@ var _abliableDataForBuildingLat = [];
 var _abliableDataForBuildingLong = [];
 var _buildingLatLong = [];
 var _checkedCustomersforMap = '';
+var _flightPath = '';
 
 // To load the map on current loged user country.
 function LoadMapByCurrentLogedUser() {
@@ -109,14 +110,15 @@ function ShowEmployeeDataOnMap() {
                             _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
 
                         }
-                        var flightPath = new google.maps.Polyline({
+                        _flightPath = new google.maps.Polyline({
                             path: _polyLineArray,
                             strokeColor: "#0000FF",
                             strokeOpacity: 0.8,
                             strokeWeight: 2
                         });
-                        flightPath.setMap(_map);
+                        _flightPath.setMap(_map);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
+                            GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -131,6 +133,10 @@ function ShowEmployeeDataOnMap() {
                     }
                     else {
                         alert("No Location Data");
+                        if (_flightPath != undefined && _flightPath != '') {
+                            _flightPath.setMap(null);
+                            _flightPath = '';
+                        }
                         for (var i = 0; i < _markers.length; i++) {
                             _markers[i].setMap(null);
                         }
@@ -168,6 +174,7 @@ function ShowEmployeeDataOnMap() {
                             _markers.push(marker);
                         }
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
+                            GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -181,6 +188,10 @@ function ShowEmployeeDataOnMap() {
                     }
                     else {
                         alert("No Location Data");
+                        if (_flightPath != undefined && _flightPath != '') {
+                            _flightPath.setMap(null);
+                            _flightPath = '';
+                        }
                         for (var i = 0; i < _markers.length; i++) {
                             _markers[i].setMap(null);
                         }
@@ -214,6 +225,7 @@ function ShowEmployeeDataOnMap() {
                         });
                         _markers.push(marker);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
+                            GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
                                 var custMarker = new google.maps.Marker({
                                     position: new google.maps.LatLng(_customerPositionArrayWithEmployee[i].lat, _customerPositionArrayWithEmployee[i].long),
@@ -227,6 +239,10 @@ function ShowEmployeeDataOnMap() {
 
                     } else {
                         alert("No Location Data");
+                        if (_flightPath != undefined && _flightPath != '') {
+                            _flightPath.setMap(null);
+                            _flightPath = '';
+                        }
                         for (var i = 0; i < _markers.length; i++) {
                             _markers[i].setMap(null);
                         }
@@ -428,9 +444,6 @@ function SearchCustomers() {
     buildingNumber = $('#ddlbuildinginputCustomer').val();
 
     if ($('#ddlcityinputCustomer').val() == "") {
-        $('#ddlcityinputCustomer').val('');
-        $('#ddlstreetinputCustomer').val('');
-        $('#ddlbuildinginputCustomer').val('');
         $.ajax({
             type: "POST",
             url: "/Map/GetAllCustomers",
@@ -475,6 +488,7 @@ function SearchCustomers() {
         else {
             $("#tblmapsearchgridCustomer").html('');
             $("#selectedCustomer").html('');
+            $('#ddlcityinputCustomer').val('');
             alert('No Records Founded');
         }
     }
@@ -575,7 +589,7 @@ function GetSelectedCustomersIdsForMap() {
 }
 
 
-// To showing loggend employee on map with last point of current date.
+// To move map to selected employee that comes for employee tab
 function ShowEmployeeById(employeeID) {
     $.ajax({
         type: "POST",
@@ -595,7 +609,8 @@ function ShowEmployeeById(employeeID) {
     });
 }
 
-function showCustomerById(customerID) {
+// To move map to selected customer that comes for customer tab
+function ShowCustomerById(customerID) {
     var customerId = customerID + ",";
     $.ajax({
         type: "POST",
@@ -616,5 +631,35 @@ function showCustomerById(customerID) {
         }
     })
 }
+
+
+// To get customer lat long and show it in map on show with customer
+function GetLatLongOfSelectedCustomer() {
+    debugger;
+    _checkedCustomersforMap = '';
+    GetSelectedCustomersIdsForMap();
+    if (_checkedCustomersforMap != '') {
+        $.ajax({
+            type: "POST",
+            url: "/Map/GetCustomerForMapByCustomerID",
+            data: { checkedcustomers: _checkedCustomersforMap },
+            dataType: "json",
+            success: function (response) {
+                if (response != null || response[0].Lat != null) {
+                    _customerPositionArrayWithEmployee = [];
+                    var custMarker, i;
+                    for (i = 0; i < response.length; i++) {
+                        _custTitle = response[i].FirstName + " " + response[i].LastName;
+                        if (response[i].Lat != null && response[i].Long != null) {
+                            _customerPositionArrayWithEmployee.push({ lat: response[i].Lat, long: response[i].Long, title: response[i].FirstName + " " + response[i].LastName });
+                        }
+                    }
+                }
+            }
+
+        })
+    }
+}
+
 
 

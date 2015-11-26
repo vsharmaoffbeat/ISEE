@@ -106,6 +106,7 @@ function ShowEmployeeDataOnMap() {
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
+                        _polyLineArray = [];
                         for (var i = 0; i < response.length; i++) {
                             _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
 
@@ -220,7 +221,7 @@ function ShowEmployeeDataOnMap() {
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
-                            icon: "/images/img/employee_1_stop.png",
+                            icon: "/images/employee_1new.png",
                             title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes
                         });
                         _markers.push(marker);
@@ -565,7 +566,6 @@ function AddToSelectedCustomerDiv(obj) {
 
 // To adding multipal customers in selected customers div by check box checked 
 function ChkcustomerChange(obj) {
-    debugger;
     var selectedRow = obj.closest('.customerRow');
     if (obj.checked == true) {
         var firstName = selectedRow.attributes.firstName != null ? selectedRow.attributes.firstName.value : "";
@@ -635,7 +635,6 @@ function ShowCustomerById(customerID) {
 
 // To get customer lat long and show it in map on show with customer
 function GetLatLongOfSelectedCustomer() {
-    debugger;
     _checkedCustomersforMap = '';
     GetSelectedCustomersIdsForMap();
     if (_checkedCustomersforMap != '') {
@@ -644,6 +643,7 @@ function GetLatLongOfSelectedCustomer() {
             url: "/Map/GetCustomerForMapByCustomerID",
             data: { checkedcustomers: _checkedCustomersforMap },
             dataType: "json",
+            async: false,
             success: function (response) {
                 if (response != null || response[0].Lat != null) {
                     _customerPositionArrayWithEmployee = [];

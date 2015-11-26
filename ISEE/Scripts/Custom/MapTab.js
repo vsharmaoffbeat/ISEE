@@ -225,7 +225,7 @@ function ShowEmployeeDataOnMap() {
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
-                            icon: "/images/employee_1new.png",
+                            icon: "/images/img/employee_1new.png",
                             title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes
                         });
                         _markers.push(marker);

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Customer";
 }
-
+@using ISEE.Resources
 <link href="~/Scripts/Custom/jquery.timepicker.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="~/Scripts/Custom/jquery.timepicker.js"></script>
@@ -221,49 +221,49 @@
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group customer_input">
-            <label for="usr">State</label>
+            <label for="usr">@ISEE.Resources.Resource.State</label>
             <input class="form-control isee_input_shadow" id="custState" onblur="GetCitysByState()" name="" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group customer_input">
-            <label for="usr">City</label>
+            <label for="usr">@ISEE.Resources.Resource.City</label>
             <input class="form-control isee_input_shadow" id="custCity" onblur="GetStreetByCity()" name="" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group customer_input">
-            <label for="usr">Street</label>
+            <label for="usr">@ISEE.Resources.Resource.Street</label>
             <input class="form-control isee_input_shadow" id="custStreet" onblur="GetBuildingsByCity()" name="" type="text" value="">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group">
-            <label for="usr">Buliding Number</label>
+            <label for="usr">@ISEE.Resources.Resource.BuildingNum</label>
             <input class="form-control isee_input_shadow" id="custBuldingNumber" name="" type="tel" value="">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group">
-            <label for="usr">Customer Number</label>
+            <label for="usr">@ISEE.Resources.Resource.CustomerNum</label>
             <input class="form-control isee_input_shadow" id="custNumber" name="" type="tel" value="" placeholder="0">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group">
-            <label for="usr">Contact Name</label>
+            <label for="usr">@ISEE.Resources.Resource.LastNameCus</label>
             <input class="form-control isee_input_shadow" id="custName" name="" type="tel" value="">
         </div>
     </div>
 
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group">
-            <label for="usr">Cuompany Name</label>
+            <label for="usr">@ISEE.Resources.Resource.FirstNameCus</label>
             <input class="form-control isee_input_shadow" id="custCompany" name="" type="text" value="">
         </div>
     </div>
@@ -272,7 +272,7 @@
 
         <div class="col-xs-5">
             <div class="form-group customer_input">
-                <label for="usr">Phone1</label>
+                <label for="usr">@ISEE.Resources.Resource.Phone1</label>
                 <input class="form-control isee_input_shadow" id="custPhone" name="" type="tel" value="">
             </div>
         </div>
@@ -290,7 +290,7 @@
     <div class="col-md-1 col-xs-12 ">
         <div class="form-group customer_check_box">
             <input type="checkbox" class="myClass" value="yes" id="isActive" name="" data-color="green" checked="checked">
-            <label for="usr">Active</label>
+            <label for="usr">@ISEE.Resources.Resource.Active</label>
         </div>
 
     </div>
@@ -328,36 +328,36 @@
         <div class="col-md-12 col-xs-12 main_employee_save">
             <label for="text" class="cutomer_label">This is dummy content</label>
 
-            <button type="button" class="btn btn-default pull-right isee_select_button" id="showMap"><img src="../images/img/show_in_map.png" />Show Map</button>
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="setDetails()"><img src="../images/img/edit_details.png" />Set Details</button>
-           
+            <button type="button" class="btn btn-default pull-right isee_select_button" id="showMap"><img src="../images/img/show_in_map.png" />@ISEE.Resources.Resource.ShowMap</button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="setDetails()"><img src="../images/img/edit_details.png" />@ISEE.Resources.Resource.EditDetails</button>
+
         </div>
 
         <div class="col-md-12 col-xs-12 main_employee_save" style="display:none;">
             <label for="text" class="cutomer_label">This is dummy content</label>
 
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="removeChange()"><img src="../images/img/cancel.png" /> Cancel</button>
-            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateCustomer()"><img src="../images/img/save5.png" /> Save</button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="removeChange()"><img src="../images/img/cancel.png" />@ISEE.Resources.Resource.Cancel</button>
+            <button type="button" class="btn btn-default pull-right floppy-icon isee_select_button" onclick="updateCustomer()"><img src="../images/img/save5.png" />@ISEE.Resources.Resource.Save</button>
 
         </div>
 
         <div class="col-lg-12 col-xs-12 left_inner_main_cuttab">
-            <h4 class="customer_title">Customer Info</h4>
+            <h4 class="customer_title">@ISEE.Resources.Resource.CustomerDetailsLabel</h4>
             <div class="col-md-4 col-xs-12">
                 <div class="form-group">
-                    <label for="usr">Customer Number</label>
+                    <label for="usr">@ISEE.Resources.Resource.LastNameCus</label>
                     <input id="inputCustomerNumber" type="tel" class="form-control isee_input_shadow disabledClass" disabled>
                 </div>
 
                 <div class="form-group">
-                    <label for="usr">Floor</label>
+                    <label for="usr">@ISEE.Resources.Resource.Floor</label>
                     <input id="inputFloor" type="tel" class="form-control isee_input_shadow disabledClass" disabled>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-5">
 
-                        <label>Phone1</label>
+                        <label>@ISEE.Resources.Resource.Phone1</label>
                         <div class="form-group">
                             <input class="form-control isee_input cust_phone disabledClass" disabled id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
                         </div>
@@ -375,19 +375,19 @@
 
             <div class="col-md-4 col-xs-12">
                 <div class="form-group">
-                    <label for="usr">Company Name</label>
+                    <label for="usr">@ISEE.Resources.Resource.FirstNameCus</label>
                     <input id="inputCompanyName" type="text" class="form-control isee_input disabledClass" disabled required>
                 </div>
 
                 <div class="form-group">
-                    <label for="usr">Apartment</label>
+                    <label for="usr">@ISEE.Resources.Resource.Apartment</label>
                     <input id="inputApartment" type="text" class="form-control isee_input disabledClass" disabled>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-5">
                         <div class="form-group">
-                            <label for="usr">Phone2</label>
+                            <label for="usr">@ISEE.Resources.Resource.Phone2</label>
                             <input id="inputPhoneTwo" type="tel" class="form-control isee_input cust_phone disabledClass" disabled>
                         </div>
                     </div>
@@ -408,14 +408,14 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group">
-                            <label for="usr">Contact Name</label>
+                            <label for="usr">@ISEE.Resources.Resource.LastNameCus</label>
                             <input id="inputContactName" disabled type="text" class="form-control isee_input disabledClass">
                         </div>
                     </div>
 
 
                     <div class="col-xs-6">
-                        <label for="usr">End Date</label>
+                        <label for="usr">@ISEE.Resources.Resource.EndDay</label>
                         <div id="datepickerEndDay" class="input-group date" data-date-format="dd/mm/yyyy">
                             <input class="form-control isee_input  disabledClass" type="text" id="" title="enddate" value="" disabled />
                             <span class="input-group-addon"><i class="fa fa-th"></i></span></span>
@@ -426,7 +426,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="">Mail</label>
+                    <label for="">@ISEE.Resources.Resource.Mail</label>
                     <input id="inputMail" type="email" class="form-control isee_input  disabledClass" disabled>
                 </div>
 
@@ -458,7 +458,7 @@
                             <div class="col-xs-5">
 
                                 <div class="form-group">
-                                    <label>Fax</label>
+                                    <label>@ISEE.Resources.Resource.Fax</label>
                                     <input class="form-control isee_input  disabledClass" disabled id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
                                 </div>
                             </div>
@@ -487,10 +487,10 @@
 
                     <div class="span12">
                         <ul class="nav nav-tabs">
-                            <li class="active menu_tabs"><a href="#Building" data-toggle="tab">Building Data</a></li>
-                            <li class="menu_tabs"><a href="#Request" data-toggle="tab">Request</a></li>
-                            <li class="menu_tabs"><a href="#Visiting" data-toggle="tab">Visiting Employee</a></li>
-                            <li class="menu_tabs"><a href="#Tree" data-toggle="tab">Tree</a></li>
+                            <li class="active menu_tabs"><a href="#Building" data-toggle="tab">@ISEE.Resources.Resource.BuildingNum</a></li>
+                            <li class="menu_tabs"><a href="#Request" data-toggle="tab">@ISEE.Resources.Resource.Request</a></li>
+                            <li class="menu_tabs"><a href="#Visiting" data-toggle="tab">@ISEE.Resources.Resource.EmpToCustomer</a></li>
+                            <li class="menu_tabs"><a href="#Tree" data-toggle="tab">@ISEE.Resources.Resource.Tree</a></li>
 
                         </ul>
 
@@ -504,14 +504,14 @@
                                     <div class="col-md-12 emp_border_area">
 
                                         <div class="col-md-6 col-xs-12 mian_emp_sms">
-                                            <p>Customer Note</p>
+                                            <p>@ISEE.Resources.Resource.CusRemark1</p>
                                             <div class="col-md-12 left_content_area">
 
                                                 <textarea class="col-md-12 main_cust_area  disabledClass" id="customerRemarks1" disabled name="" type="" value="" />
                                                 </textarea>
 
                                                 <p></p>
-                                                <p>Secondary Customer Note</p>
+                                                <p>@ISEE.Resources.Resource.CusRemark2</p>
 
                                                 <textarea class="col-md-12 main_cust_area  disabledClass" id="customerRemarks2" disabled name="" type="" value="" />
                                                 </textarea>
@@ -526,35 +526,35 @@
                                             <div class="col-md-9 col-xs-12 msg_date_area">
 
                                                 <div class="form-group">
-                                                    <label>State</label>
+                                                    <label>@ISEE.Resources.Resource.State</label>
                                                     <input class="form-control isee_input" disabled id="stateId" type="text" value="">
                                                 </div>
 
 
                                                 <div class="form-group">
-                                                    <label>City</label>
-                                                    <input class="form-control isee_input" disabled id="cityId"  type="text" value="">
+                                                    <label>@ISEE.Resources.Resource.City</label>
+                                                    <input class="form-control isee_input" disabled id="cityId" type="text" value="">
                                                 </div>
 
 
                                                 <div class="form-group">
-                                                    <label>Street</label>
+                                                    <label>@ISEE.Resources.Resource.Street</label>
                                                     <input class="form-control isee_input" disabled id="streetID" type="text" value="">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Building Number</label>
+                                                    <label>@ISEE.Resources.Resource.BuildingNum</label>
                                                     <input class="form-control isee_input" disabled id="buildingCode" type="text">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Entry</label>
-                                                    <input class="form-control isee_input" disabled id=""  type="text" value="">
+                                                    <label>@ISEE.Resources.Resource.Entry</label>
+                                                    <input class="form-control isee_input" disabled id="" type="text" value="">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Zip code</label>
-                                                    <input class="form-control isee_input" disabled id="zipcode"  type="text" value="">
+                                                    <label>@ISEE.Resources.Resource.ZipCode</label>
+                                                    <input class="form-control isee_input" disabled id="zipcode" type="text" value="">
                                                 </div>
 
 
@@ -564,8 +564,8 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Visit Interval</label>
-                                                        <input class="form-control isee_input" id="visitInterval"  name=""  title="" type="number" value="">
+                                                        <label>@ISEE.Resources.Resource.VisitInterval</label>
+                                                        <input class="form-control isee_input" id="visitInterval" name="" title="" type="number" value="">
                                                     </div>
 
                                                 </div>
@@ -574,7 +574,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Visit Time</label>
+                                                        <label>@ISEE.Resources.Resource.VisitTime</label>
                                                         <input class="form-control isee_input" id="visitTime" title="" type="number" value="">
                                                     </div>
 
@@ -585,7 +585,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="usr">Next Visit</label>
+                                                        <label for="usr">@ISEE.Resources.Resource.NextVisit</label>
                                                         <div id="nextVisitDatePicker" class="input-group date" data-date-format="dd/mm/yyyy">
                                                             <input class="form-control isee_input disabledClass" type="text" id="" name="startday" value="" />
                                                             <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -596,7 +596,7 @@
 
                                                 <div class="col-md-6"></div>
                                                 <button type="button" id="btnShowSimple" class="btn btn-default pull-right send_application isee_select_button">
-                                                    Change Address
+                                                    @ISEE.Resources.Resource.ChangeAdress
                                                 </button>
 
 
@@ -621,7 +621,7 @@
                                                     <input class="form-control isee_input" id="" maxlength="3" name="" size="3" title="" type="text" value="">*@
 
                                             <div class="form-group">
-                                                <label for="usr">From</label>
+                                                <label for="usr">@ISEE.Resources.Resource.From</label>
                                                 <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
                                                     <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text">
                                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -632,8 +632,8 @@
 
 
                                         <div class="col-md-2">
-                                           <div class="form-group">
-                                                <label for="usr">To</label>
+                                            <div class="form-group">
+                                                <label for="usr">@ISEE.Resources.Resource.To</label>
                                                 <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
                                                     <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
                                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -645,10 +645,10 @@
 
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="usr">Main Classification</label>
+                                                <label for="usr">@ISEE.Resources.Resource.Level1</label>
                                                 <select class="form-control isee_select_option" id="mainClassificationDdl" onchange="Classification();">
                                                     <option value="-1"></option>
-                                                    <option>Select All</option>
+                                                    <option>@ISEE.Resources.Resource.SelectAll</option>
                                                     <option></option>
                                                     <option></option>
                                                     <option></option>
@@ -664,10 +664,10 @@
 
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="usr">Secon Classification</label>
+                                                <label for="usr">@ISEE.Resources.Resource.Level2</label>
                                                 <select class="form-control isee_select_option" id="secondClassification">
                                                     <option value="-1"></option>
-                                                    <option>Select All</option>
+                                                    <option>@ISEE.Resources.Resource.SelectAll</option>
                                                     <option></option>
                                                     <option></option>
                                                     <option></option>
@@ -705,12 +705,12 @@
                                             <table class="tg">
                                                 <tr>
                                                     <th class="tg-z1n2"></th>
-                                                    <th class="tg-z1n2">Date</th>
-                                                    <th class="tg-z1n2">Main Classification</th>
-                                                    <th class="tg-z1n2">Secondary Classification</th>
-                                                    <th class="tg-z1n2">Request</th>
-                                                    <th class="tg-z1n2">Treatment Date</th>
-                                                    <th class="tg-z1n2">Treatment</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Level1</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Level2</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Request</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.TreatmentDate</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Treatment</th>
 
                                                 </tr>
 
@@ -736,7 +736,7 @@
                                         <div class="col-md-2">
 
                                             <div class="form-group">
-                                                <label for="usr">From</label>
+                                                <label for="usr">@ISEE.Resources.Resource.From</label>
                                                 <div id="datepicker3" class="input-group date" data-date-format="mm-dd-yyyy">
                                                     <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text">
                                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -748,7 +748,7 @@
                                         <div class="col-md-2">
 
                                             <div class="form-group">
-                                                <label for="usr">To</label>
+                                                <label for="usr">@ISEE.Resources.Resource.To</label>
                                                 <div id="datepicker4" class="input-group date" data-date-format="mm-dd-yyyy">
                                                     <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
                                                     <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -776,11 +776,11 @@
                                             <table class="tg">
                                                 <tr>
                                                     <th class="tg-z1n2"></th>
-                                                    <th class="tg-z1n2">Date</th>
-                                                    <th class="tg-z1n2">Time</th>
-                                                    <th class="tg-z1n2">Employee Number</th>
-                                                    <th class="tg-z1n2">Employee</th>
-                                                    <th class="tg-z1n2">Insert Status</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Time</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Employee_N</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Employee</th>
+                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.InsertStatus</th>
 
                                                 </tr>
 
@@ -868,38 +868,38 @@
             <div class="container customer_popup_tab">
 
                 <div class="form-group">
-                    <label>State</label>
-                    <input id="inputState"  type="text" class="form-control isee_input" >
+                    <label>@ISEE.Resources.Resource.State</label>
+                    <input id="inputState" type="text" class="form-control isee_input">
                 </div>
 
 
                 <div class="form-group">
-                    <label>City</label>
-                    <input id="inputCity"  type="text" class="form-control isee_input" >
+                    <label>@ISEE.Resources.Resource.City</label>
+                    <input id="inputCity" type="text" class="form-control isee_input">
                 </div>
 
 
                 <div class="form-group">
-                    <label>Street</label>
-                     <input id="inputStreet" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input">
+                    <label>@ISEE.Resources.Resource.Street</label>
+                    <input id="inputStreet" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input">
                 </div>
 
                 <div class="form-group">
-                    <label>Building Number</label>
-                   <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input" >
+                    <label>@ISEE.Resources.Resource.BuildingNum</label>
+                    <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input">
                 </div>
 
                 <div class="form-group">
-                    <label>Entry</label>
+                    <label>@ISEE.Resources.Resource.Entry</label>
                     <input class="form-control isee_input" id="inputEntry" type="text" value="">
                 </div>
 
                 <div class="form-group">
-                    <label>Zip code</label>
+                    <label>@ISEE.Resources.Resource.ZipCode</label>
                     <input class="form-control isee_input" id="inputZipCode" type="tel" value="">
                 </div>
 
-                <button type="button" id="btnupdateAddress" class="btn btn-default pull-right send_application isee_select_button"  onclick="InsertAddress()">Update Address</button>
+                <button type="button" id="btnupdateAddress" class="btn btn-default pull-right send_application isee_select_button" onclick="InsertAddress()">@ISEE.Resources.Resource.UpdateAdress</button>
 
             </div>
 
@@ -908,25 +908,26 @@
         <div class="col-sm-6 right_popup">
             <div class="row">
                 <div class="col-md-12">
-                <div style="overflow:auto;height:100px">
-                <table id="MapHeaderGrid" class="tg">
-                    <tr>
-                        <th class="tg-z1n2">Country</th>
-                        <th class="tg-z1n2">State</th>
-                        <th class="tg-z1n2">City</th>
-                        <th class="tg-z1n2">Street</th>
-                        <th class="tg-z1n2">Building Number</th>
-                        <th class="tg-z1n2">Full Address</th>
-                    </tr>
-                  
+                    <div style="overflow:auto;height:100px">
+                        <table id="MapHeaderGrid" class="tg">
+                            <tr>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.Country</th>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.State</th>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.City</th>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.Street</th>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.BuildingNum</th>
+                                <th class="tg-z1n2">@ISEE.Resources.Resource.FullAddress</th>
+                            </tr>
 
-                </table>
-            </div> </div>
+
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                   <div id="map_canvas" style="min-height: 250px;min-width:450px !important"></div>
+                    <div id="map_canvas" style="min-height: 250px;min-width:450px !important"></div>
                 </div>
             </div>
 
@@ -937,8 +938,8 @@
                 <div class="col-md-9"></div>
 
                 <div class="col-md-3">
-                    <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">OK</button>
-                    <button type="button" id="btnClose" class="btn btn-default isee_select_button">Cancel</button>
+                    <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
+                    <button type="button" id="btnClose" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
             </div>
@@ -972,14 +973,14 @@
                 <div class="col-sm-12">
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="usr">Main Classification</label>
+                            <label for="usr">@ISEE.Resources.Resource.Level1</label>
                             <select class="form-control isee_select_option" id="addmanufacture" onchange="popUpClassification()"></select>
                         </div>
                     </div>
 
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="usr">Secondary Classification</label>
+                            <label for="usr">@ISEE.Resources.Resource.Level2</label>
                             <select class="form-control isee_select_option" id="addSecondary">
                                 <option value="-1"></option>
 
@@ -998,7 +999,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="usr">Request</label>
+                        <label for="usr">@ISEE.Resources.Resource.Request</label>
                         <div id="datepicker6" class="input-group date" data-date-format="mm-dd-yyyy">
                             <input class="form-control isee_input" type="text" id="" title="" value="" />
                             <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -1019,7 +1020,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="usr">Treatment</label>
+                        <label for="usr">@ISEE.Resources.Resource.Treatment</label>
                         <div id="datepicker5" class="input-group date" data-date-format="mm-dd-yyyy">
                             <input class="form-control isee_input" type="text" id="" title="" value="" />
                             <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -1045,8 +1046,8 @@
                 <div class="col-md-9"></div>
 
                 <div class="col-md-3">
-                    <button type="button" id="saveClassification" class="btn btn-default isee_select_button">OK</button>
-                    <button type="button" id="Closebtn" class="btn btn-default isee_select_button">Cancel</button>
+                    <button type="button" id="saveClassification" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
+                    <button type="button" id="Closebtn" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
 

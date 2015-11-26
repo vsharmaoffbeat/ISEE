@@ -136,7 +136,7 @@ namespace ISEE.Controllers
         public JsonResult GetCustomersForMap(int state, int city, int street, string buildingNumber, string companyName, string customerNumber)
         {
             int factoryId = SessionManagement.FactoryID;
-            var custData = _facory.GetCustomersNew(factoryId, state, city, street, buildingNumber, customerNumber, null, companyName, null, null, true).Select(c => new
+            var custData = _facory.GetCustomersNew(factoryId, state, city, street, buildingNumber, customerNumber, companyName, null, null, null, true).Select(c => new
             {
                 FirstName = c.FirstName ?? string.Empty,
                 CustomerId = c.CustomerId,

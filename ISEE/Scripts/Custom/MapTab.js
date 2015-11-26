@@ -1,9 +1,12 @@
 ﻿$(document).ready(function () {
-    //LoadMapByCurrentLogedUser();
     $(document).on('click', '#tblmapsearchgridEmployee tr', function () {
         $("#tblmapsearchgridEmployee tr").removeClass('active');
         $(this).addClass('active');
         AddToSelectedEmployeeDiv($(this));
+    });
+
+    $(document).on('click', '#selectedCustomer tr', function () {
+        alert('City ' + $(this).attr('CityName') + ' | ' + 'Street ' + $(this).attr('StreetName') + ' | ' + 'BuildingNumber ' + $(this).attr('BuildingNumber'));
     });
 
     $(document).on('click', '#tblmapsearchgridCustomer tr td', function () {
@@ -208,7 +211,6 @@ function ShowEmployeeDataOnMap() {
             });
         }
         else if (selectedOpation == 'lastpoint') {
-
             $.ajax({
                 type: "POST",
                 url: "/Map/GetLastPointForEmployee",
@@ -458,7 +460,7 @@ function SearchCustomers() {
                     $("#tblmapsearchgridCustomer").html('');
                     if (response != null) {
                         for (var i = 0; i < response.length; i++) {
-                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' StreetName='" + response[i].StreetName + "' CityName='" + response[i].CityName + "' BuildingNumber='" + response[i].BuildingNumber + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                         }
                     }
                 }
@@ -477,12 +479,12 @@ function SearchCustomers() {
                     if (response.length > 0) {
                         if (response != null) {
                             for (var i = 0; i < response.length; i++) {
-                                $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                                $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' StreetName='" + response[i].StreetName + "' CityName='" + response[i].CityName + "' BuildingNumber='" + response[i].BuildingNumber + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                             }
                         }
                     }
                     else {
-                        alert("No Location Data");
+                        alert('No Records Founded');
                         $("#tblmapsearchgridCustomer").html('');
                         $('#selectedCustomer').html('');
                         $('#selectedCustomer').css('display', 'none');
@@ -494,6 +496,8 @@ function SearchCustomers() {
             $("#tblmapsearchgridCustomer").html('');
             $("#selectedCustomer").html('');
             $('#ddlcityinputCustomer').val('');
+            $('#ddlstreetinputCustomer').val('');
+            $('#ddlbuildinginputCustomer').val('');
             alert('No Records Founded');
         }
     }
@@ -564,7 +568,7 @@ function AddToSelectedEmployeeDiv(obj) {
 // To adding selected customers in selected customers div
 function AddToSelectedCustomerDiv(obj) {
     $("#selectedCustomer").html('');
-    $("#selectedCustomer").append("<tr id=" + obj.attr('id') + "><td>" + obj.attr('id') + " </td><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td></tr>");
+    $("#selectedCustomer").append("<tr id=" + obj.attr('id') + " StreetName=" + obj.attr('StreetName') + " CityName=" + obj.attr('CityName') + "  BuildingNumber=" + obj.attr('BuildingNumber') + "  ><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td><td>" + obj.attr('StreetName') + " </td><td>" + obj.attr('CityName') + " </td><td>" + obj.attr('BuildingNumber') + " </td></tr>");
     $("#selectedCustomer").css('display', 'block');
 }
 

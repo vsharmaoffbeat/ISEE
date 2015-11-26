@@ -16,6 +16,8 @@ namespace ISEEDataModel.Repository
         public string employeeId { get; set; }
         public string customerId { get; set; }
         public string color { get; set; }
+        public string latitude { get; set; }
+        public string longtitude { get; set; }
         public string uniqueid { get; set; }
     }
 }

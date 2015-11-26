@@ -13,29 +13,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>11/07/2015 16:05:01</publishTime>
+    </File>
     <File Include="bin/de/ISEE.resources.dll">
-      <publishTime>11/19/2015 14:29:08</publishTime>
+      <publishTime>11/24/2015 15:24:07</publishTime>
     </File>
     <File Include="bin/DHTMLX.dll">
       <publishTime>11/18/2015 09:52:11</publishTime>
     </File>
+    <File Include="bin/DHTMLX.pdb">
+      <publishTime>11/18/2015 09:52:11</publishTime>
+    </File>
     <File Include="bin/en/ISEE.resources.dll">
-      <publishTime>11/19/2015 14:29:08</publishTime>
+      <publishTime>11/24/2015 15:24:07</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="bin/es-CL/ISEE.resources.dll">
-      <publishTime>11/19/2015 14:29:08</publishTime>
+      <publishTime>11/24/2015 15:24:08</publishTime>
     </File>
     <File Include="bin/es-MX/ISEE.resources.dll">
-      <publishTime>11/19/2015 14:29:08</publishTime>
+      <publishTime>11/24/2015 15:24:08</publishTime>
     </File>
     <File Include="bin/ISEE.dll">
-      <publishTime>11/19/2015 14:29:07</publishTime>
+      <publishTime>11/24/2015 15:24:07</publishTime>
+    </File>
+    <File Include="bin/ISEE.pdb">
+      <publishTime>11/20/2015 16:29:17</publishTime>
     </File>
     <File Include="bin/ISEEDataModel.dll">
-      <publishTime>11/18/2015 09:47:30</publishTime>
+      <publishTime>11/24/2015 15:24:03</publishTime>
+    </File>
+    <File Include="bin/ISEEDataModel.pdb">
+      <publishTime>11/20/2015 16:29:15</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -44,7 +56,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="bin/ru/ISEE.resources.dll">
-      <publishTime>11/19/2015 14:29:09</publishTime>
+      <publishTime>11/24/2015 15:24:08</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.dll">
+      <publishTime>09/26/2012 03:16:08</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.DomainServices.EntityFramework.dll">
+      <publishTime>11/21/2015 22:14:11</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.DomainServices.Hosting.dll">
+      <publishTime>11/21/2015 22:14:11</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.DomainServices.Hosting.OData.dll">
+      <publishTime>11/21/2015 22:14:11</publishTime>
+    </File>
+    <File Include="bin/System.ServiceModel.DomainServices.Server.dll">
+      <publishTime>11/21/2015 22:14:11</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -83,10 +110,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Content/css/main.css">
-      <publishTime>11/18/2015 15:49:01</publishTime>
+      <publishTime>11/19/2015 14:57:08</publishTime>
     </File>
     <File Include="Content/css/responsive.css">
-      <publishTime>11/18/2015 15:49:01</publishTime>
+      <publishTime>11/19/2015 14:57:08</publishTime>
     </File>
     <File Include="Content/EasyTree/icons.gif">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -161,25 +188,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2015 16:32:49</publishTime>
     </File>
     <File Include="images/edit.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/employee_2new.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/folder.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/footer_logo.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/header.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/Home.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/hover.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/Blank300.png">
       <publishTime>11/13/2015 16:39:52</publishTime>
@@ -188,7 +215,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2015 16:32:49</publishTime>
     </File>
     <File Include="images/img/cl.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/customer.png">
       <publishTime>11/06/2015 10:08:02</publishTime>
@@ -197,7 +224,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2015 16:40:00</publishTime>
     </File>
     <File Include="images/img/de.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/edit.png">
       <publishTime>11/06/2015 16:31:05</publishTime>
@@ -215,28 +242,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2015 16:40:00</publishTime>
     </File>
     <File Include="images/img/en.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/06/2015 10:08:02</publishTime>
     </File>
     <File Include="images/img/es.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/he.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/06/2015 10:08:02</publishTime>
     </File>
     <File Include="images/img/header.png">
       <publishTime>11/10/2015 14:19:49</publishTime>
     </File>
     <File Include="images/img/login_background.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/login_backgroundnew.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/rsz_1edit_add.png">
       <publishTime>11/13/2015 19:17:20</publishTime>
     </File>
     <File Include="images/img/ru.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/img/save.png">
       <publishTime>11/13/2015 19:16:54</publishTime>
@@ -269,22 +296,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/06/2015 16:31:05</publishTime>
     </File>
     <File Include="images/login_background.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/login_page.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/logout.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/question.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/region_see.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/report.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/save.png">
       <publishTime>11/13/2015 16:39:48</publishTime>
@@ -293,10 +320,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2015 16:40:00</publishTime>
     </File>
     <File Include="images/settings_icon.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="images/world.png">
-      <publishTime>11/07/2015 16:05:01</publishTime>
+      <publishTime>11/05/2015 12:46:15</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>11/18/2015 09:52:21</publishTime>
@@ -332,10 +359,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Scripts/Custom/Admin.js">
-      <publishTime>11/17/2015 13:25:39</publishTime>
+      <publishTime>11/24/2015 15:19:14</publishTime>
     </File>
     <File Include="Scripts/Custom/AdminController.js">
-      <publishTime>11/19/2015 14:45:49</publishTime>
+      <publishTime>11/24/2015 09:58:36</publishTime>
     </File>
     <File Include="Scripts/Custom/angular-route.min.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -343,20 +370,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/Custom/app.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
+    <File Include="Scripts/Custom/Common.js">
+      <publishTime>11/24/2015 15:19:14</publishTime>
+    </File>
     <File Include="Scripts/Custom/Customer.js">
-      <publishTime>11/18/2015 15:49:01</publishTime>
+      <publishTime>11/24/2015 15:19:14</publishTime>
     </File>
     <File Include="Scripts/Custom/date.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Scripts/Custom/Employee.js">
-      <publishTime>11/14/2015 17:51:25</publishTime>
+      <publishTime>11/24/2015 10:58:20</publishTime>
     </File>
     <File Include="Scripts/Custom/EmployeeController.js">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Scripts/Custom/employeeScheduler.js">
-      <publishTime>11/18/2015 15:47:35</publishTime>
+      <publishTime>11/24/2015 12:12:57</publishTime>
     </File>
     <File Include="Scripts/Custom/jquery.easytree.js">
       <publishTime>11/19/2015 09:14:00</publishTime>
@@ -383,7 +413,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2015 09:13:55</publishTime>
     </File>
     <File Include="Scripts/Custom/MapTab.js">
-      <publishTime>11/13/2015 12:08:02</publishTime>
+      <publishTime>11/24/2015 10:58:20</publishTime>
     </File>
     <File Include="Scripts/dhtmlxScheduler/dhtmlxscheduler.css">
       <publishTime>11/18/2015 09:52:20</publishTime>
@@ -980,13 +1010,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2015 14:39:34</publishTime>
     </File>
     <File Include="Views/Calendar/Index.cshtml">
-      <publishTime>11/18/2015 15:48:24</publishTime>
+      <publishTime>11/24/2015 12:44:21</publishTime>
     </File>
     <File Include="Views/Customer/Customer.cshtml">
-      <publishTime>11/18/2015 15:49:01</publishTime>
+      <publishTime>11/24/2015 15:19:14</publishTime>
     </File>
     <File Include="Views/Employee/Employee.cshtml">
-      <publishTime>11/14/2015 17:51:25</publishTime>
+      <publishTime>11/24/2015 10:58:20</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -1004,25 +1034,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2015 15:46:16</publishTime>
     </File>
     <File Include="Views/Map/Map.cshtml">
-      <publishTime>11/13/2015 12:08:02</publishTime>
+      <publishTime>11/23/2015 09:22:40</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Views/Shared/_AdminTree.cshtml">
-      <publishTime>11/19/2015 10:25:44</publishTime>
+      <publishTime>11/23/2015 14:01:37</publishTime>
     </File>
     <File Include="Views/Shared/_Category.cshtml">
       <publishTime>11/19/2015 14:07:11</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/18/2015 15:49:01</publishTime>
+      <publishTime>11/23/2015 09:22:40</publishTime>
     </File>
     <File Include="Views/Shared/_NewCustomer.cshtml">
-      <publishTime>11/19/2015 12:21:02</publishTime>
+      <publishTime>11/23/2015 10:50:30</publishTime>
     </File>
     <File Include="Views/Shared/_NewEmployee.cshtml">
-      <publishTime>11/19/2015 14:18:58</publishTime>
+      <publishTime>11/24/2015 09:58:36</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/07/2015 16:05:01</publishTime>
@@ -1031,7 +1061,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/07/2015 16:05:01</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/18/2015 16:08:46</publishTime>
+      <publishTime>11/24/2015 15:24:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

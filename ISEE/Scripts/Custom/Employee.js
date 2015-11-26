@@ -1,4 +1,4 @@
-﻿var _employeeId = 0;
+﻿
 $(document).ready(function () {
     $(".disabledClass").prop("disabled", true);
     //bind date pickers
@@ -59,14 +59,14 @@ function setDatePicker() {
 $('#showMap').click(function () {
     if (parseInt(_employeeId) <= 0)
         alert("Select Employee");
-    data = { empId: _employeeId ,cusId:0}
+    data = { empId: _employeeId, cusId: 0 }
     $.ajax({
         type: "POST",
         url: "/Data/SetViewBagProperty",
         data: data,
         dataType: "json",
         success: function (response) {
-           
+
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -510,3 +510,97 @@ function getHourData() {
     })
     return JSON.stringify(dataList);
 }
+
+
+//Employee Scheduler
+function showEmployeeScheduler() {
+    if (parseInt(_employeeId) > 0) {
+        $("#employeeSchdulerDialog").dialog({
+            width: 1000,
+            height: 600,
+            open: function (event, ui) {
+
+                var appElement = document.querySelector('[ng-controller=SchedulerController]');
+                var $scope = angular.element(appElement).scope();
+
+                scheduler.clearAll()
+                scheduler.config.serverLists = {};
+                scheduler.config.details_on_create = true;
+                scheduler.config.details_on_dblclick = true;
+                scheduler.config.prevent_cache = true;
+
+                scheduler.config.first_hour = new Date("1/1/2001 " + $scope.schdulerStartTime).getHours();
+                scheduler.config.last_hour = new Date("1/1/2001 " + $scope.schdulerEndTime).getHours();
+                scheduler.config.start_on_monday = true;
+                scheduler.config.dblclick_create = false; //false to create new event on double click
+                scheduler.config.details_on_dblclick = false;
+                scheduler.config.readonly = true;
+                scheduler.config.drag_create = false;//false to create new event on drag
+                scheduler.init('scheduler_here', new Date(todayDate));
+                dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
+                dp.init(scheduler);
+                dp.setTransactionMode("POST", false);
+
+                var getEventsUrl = "/Calendar/Data?ID=" + _employeeId + "&startTime=" + $scope.schdulerStartTime + "&endTime=" + $scope.schdulerEndTime
+                scheduler.setLoadMode("month");
+                scheduler.load(getEventsUrl, "json");
+
+                /*Click of Event Rendered on Schdulerd*/
+                scheduler.attachEvent("onClick", function (id, e) {
+                    //any custom logic here
+                    $("#searchSection").flip('toggle');
+                    if (parseInt(selectedEventID) > 0 && selectedEventID !== id) {
+                        scheduler.load(getEventsUrl, "json");
+                    }
+                    var appElement = document.querySelector('[ng-controller=SchedulerController]');
+                    var $scope = angular.element(appElement).scope();
+                    $scope.$apply(function () {
+                        $scope.SelectedEventDate = scheduler.getEvent(id).start_date.toLocaleDateString("en-US") + ' ' + scheduler.getEvent(id).start_date.toLocaleTimeString("en-US") + '-' + scheduler.getEvent(id).end_date.toLocaleTimeString("en-US")
+                    });
+
+                    selectedEventID = id;
+                    if ($('#chkMap').prop('checked')) {
+                        var lat = scheduler.getEvent(id).latitude;
+                        var long = scheduler.getEvent(id).longtitude;
+
+
+
+                        $("<div id='googleMap' style'width:500px;height:380px;'></div>").dialog(
+                            {
+                                width: 500,
+                                height: 380,
+                                open: function (event, ui) {
+                                    initialize(lat, long)
+                                },
+                                close: function (event, ui) {
+                                    $('#googleMap').remove();
+                                }
+                            });
+                    }
+                    return false;
+                });
+
+
+            }
+        });
+    }
+}
+
+
+//initialize map
+function initialize(lat, long) {
+
+    var mapProp = {
+        center: new google.maps.LatLng(lat, long),
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, long),
+        map: map,
+    });
+}
+
+

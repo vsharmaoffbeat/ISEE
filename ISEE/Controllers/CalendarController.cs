@@ -58,17 +58,19 @@ namespace ISEE.Controllers
             //scheduler.LoadData = true;
             //scheduler.EnableDataprocessor = true;
 
-            return View();
+            ViewBag.EmployeeID = Request.QueryString["employeeId"];
+
+            return PartialView();
         }
 
-        public ContentResult Data(int ID, DateTime from, DateTime to)
+        public ContentResult Data(int ID, string startTime, string endTime, DateTime from, DateTime to)
         {
             List<CalendarEvent> listCalendarEvent = new List<CalendarEvent>();
             // int ID = 2;
             DateTime dt1 = from;
             DateTime dt2 = to;
-            TimeSpan from1 = from.TimeOfDay;
-            TimeSpan to1 = to.AddMinutes(-1).TimeOfDay;
+            TimeSpan from1 = DateTime.Parse("1/1/2001 " + startTime).TimeOfDay;
+            TimeSpan to1 = DateTime.Parse("1/1/2001 " + endTime).TimeOfDay;
             var employeeStopPoints = _factory.GetStopPoints(SessionManagement.FactoryID, ID, dt1, dt2, from1, to1);
 
             var employeeCustomerPoints = _factory.GetGpsEmployeeCustomerPoints(ID, dt1, dt2, from1, to1);
@@ -82,7 +84,7 @@ namespace ISEE.Controllers
                 if (p.StopStartTime != null && p.StopTime != null)
                 {
                     TimeSpan timestop = (TimeSpan)p.StopTime;
-                    CalendarEvent stop = new CalendarEvent { id = p.EmployeeId ?? 0,employeeId=p.EmployeeId.ToString() ?? "0" ,text = Status_stop, uniqueid = p.SysId.ToString(), start_date = (DateTime)p.StopStartTime, end_date = Convert.ToDateTime(p.StopStartTime).AddMinutes(timestop.TotalMinutes), color = Category.Red.ToString()};
+                    CalendarEvent stop = new CalendarEvent { id = p.EmployeeId ?? 0,latitude=p.Lat.ToString(),longtitude=p.Long.ToString(), employeeId = p.EmployeeId.ToString() ?? "0", text = Status_stop, uniqueid = p.SysId.ToString(), start_date = (DateTime)p.StopStartTime, end_date = Convert.ToDateTime(p.StopStartTime).AddMinutes(timestop.TotalMinutes), color = Category.Red.ToString() };
 
                     foreach (CalendarEvent p1 in listCalendarEvent)
                         if (p1.uniqueid == stop.uniqueid)
@@ -134,7 +136,7 @@ namespace ISEE.Controllers
                                 CalendarEvent app1 = listCalendarEvent.Where(x => x.uniqueid.CompareTo(Convert.ToString(p.GpsPointId)) == 0).FirstOrDefault();
                                 if (app1 == null)
                                 {
-                                    CalendarEvent s = new CalendarEvent { id = p.EmployeeId, employeeId = p.EmployeeId.ToString() ?? "0", customerId = p.CustomerId.ToString(), text = Status_1, uniqueid = Convert.ToString(p.GpsPointId), start_date = (DateTime)p.EmployeeGpsPoint.StopStartTime, end_date = Convert.ToDateTime(p.EmployeeGpsPoint.StopStartTime).AddMinutes(timestop.TotalMinutes), color = cur_category };
+                                    CalendarEvent s = new CalendarEvent { id = p.EmployeeId, latitude = p.EmployeeGpsPoint.Lat.ToString(), longtitude = p.EmployeeGpsPoint.Long.ToString(), employeeId = p.EmployeeId.ToString() ?? "0", customerId = p.CustomerId.ToString(), text = Status_1, uniqueid = Convert.ToString(p.GpsPointId), start_date = (DateTime)p.EmployeeGpsPoint.StopStartTime, end_date = Convert.ToDateTime(p.EmployeeGpsPoint.StopStartTime).AddMinutes(timestop.TotalMinutes), color = cur_category };
                                     foreach (CalendarEvent p1 in listCalendarEvent)
                                         if (p1.uniqueid == s.uniqueid)
                                             blnFlag = true;
@@ -147,7 +149,7 @@ namespace ISEE.Controllers
 
                             else
                             {
-                                CalendarEvent s = new CalendarEvent { id = p.EmployeeId, employeeId = p.EmployeeId.ToString() ?? "0", customerId = p.CustomerId.ToString(), text = strSubject, uniqueid = Convert.ToString(p.GpsPointId), start_date = (DateTime)p.EmployeeGpsPoint.StopStartTime, end_date = Convert.ToDateTime(p.EmployeeGpsPoint.StopStartTime).AddMinutes(timestop.TotalMinutes), color = cur_category };
+                                CalendarEvent s = new CalendarEvent { id = p.EmployeeId, latitude = p.EmployeeGpsPoint.Lat.ToString(), longtitude = p.EmployeeGpsPoint.Long.ToString(), employeeId = p.EmployeeId.ToString() ?? "0", customerId = p.CustomerId.ToString(), text = strSubject, uniqueid = Convert.ToString(p.GpsPointId), start_date = (DateTime)p.EmployeeGpsPoint.StopStartTime, end_date = Convert.ToDateTime(p.EmployeeGpsPoint.StopStartTime).AddMinutes(timestop.TotalMinutes), color = cur_category };
                                 foreach (CalendarEvent p1 in listCalendarEvent)
                                     if (p1.uniqueid == s.uniqueid)
                                         blnFlag = true;
@@ -203,9 +205,9 @@ namespace ISEE.Controllers
         #endregion
 
 
-        
+
     }
 
-   
+
 }
 

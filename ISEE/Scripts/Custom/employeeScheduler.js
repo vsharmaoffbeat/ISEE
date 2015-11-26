@@ -3,6 +3,19 @@ var selectedEventID;
 schedulerModule.controller('SchedulerController', function ($scope, SchedulerService) {
 
     $scope.SelectedEventDate = ''
+    $scope.schdulerStartTime = '8:00 AM'
+    $scope.schdulerEndTime = '11:30 PM'
+
+    $scope.$watch('schdulerStartTime', function () {
+        refreshSchduler()
+
+    }, true);
+
+    $scope.$watch('schdulerEndTime', function () {
+        refreshSchduler()
+
+    }, true);
+
 
     $scope.CustomerSearchData = {
         State: '',
@@ -14,6 +27,19 @@ schedulerModule.controller('SchedulerController', function ($scope, SchedulerSer
     }
     $scope.Customers = null;
 
+    // Refresh Schduler on time change
+    $scope.refreshSchduler = function () {
+        scheduler.clearAll();
+        scheduler.config.first_hour = new Date("1/1/2001 " + $scope.schdulerStartTime).getHours();
+        scheduler.config.last_hour = new Date("1/1/2001 " + $scope.schdulerEndTime).getHours();
+        scheduler.init('scheduler_here', new Date(todayDate));
+        dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
+        dp.init(scheduler);
+        dp.setTransactionMode("POST", false);
+        var getEventsUrl = "/Calendar/Data?ID=" + _employeeId + "&startTime=" + $scope.schdulerStartTime + "&endTime=" + $scope.schdulerEndTime
+        scheduler.setLoadMode("month");
+        scheduler.load(getEventsUrl, "json");
+    }
 
     //Get Customer By Search Criteria
     $scope.GetCustomersNew = function () {

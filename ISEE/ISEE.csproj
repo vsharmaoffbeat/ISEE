@@ -223,6 +223,7 @@
     <Content Include="Global.asax" />
     <Content Include="images\cancel.png" />
     <Content Include="images\edit.png" />
+    <Content Include="images\employee_1new.png" />
     <Content Include="images\employee_2new.png" />
     <Content Include="images\folder.png" />
     <Content Include="images\footer_logo.png" />

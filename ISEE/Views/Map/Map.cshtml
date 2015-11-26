@@ -37,8 +37,8 @@
         <br />
         <table id="selectedemployeeDiv" style="height:20px;border:1px solid black;background-color:yellow;display:none;width:200px"></table>
         Date &nbsp;&nbsp;&nbsp;&nbsp;<input id="dpDate" type="text" style="width:210px" />
-        From Time<input id="txtfromTime" onfocus="showTime(this)" style="width:75px" />
-        End Time&nbsp;&nbsp;<input id="txtendTime" onfocus="showTime(this)" style="width:75px" />
+        From Time<input id="txtfromTime" onfocus="ShowTime(this)" style="width:75px" />
+        End Time&nbsp;&nbsp;<input id="txtendTime" onfocus="ShowTime(this)" style="width:75px" />
         <br /><br />
         <input id="chkshowwithCustomer" type="checkbox" />Show With Customer<br />
         <input type="radio" name="choices" value="RunWayShow"> Run Way Show
@@ -80,3 +80,21 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    debugger;
+    var employeeID = '@Html.Raw(ViewBag.Empoyeeid)';
+    var customerID = '@Html.Raw(ViewBag.CustomerID)';
+    if (employeeID != "") {
+        debugger;
+        ShowEmployeeById(employeeID);
+    }
+    else if (customerID != "") {
+        debugger;
+        showCustomerById(customerID);
+    }
+    else {
+        LoadMapByCurrentLogedUser();
+    }
+
+</script>

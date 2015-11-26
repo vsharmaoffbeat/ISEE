@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    LoadMapByCurrentLogedUser();
+    //LoadMapByCurrentLogedUser();
     $(document).on('click', '#tblmapsearchgridEmployee tr', function () {
         $("#tblmapsearchgridEmployee tr").removeClass('active');
         $(this).addClass('active');
-        addToSelectedEmployeeDiv($(this));
+        AddToSelectedEmployeeDiv($(this));
     });
 
     $(document).on('click', '#tblmapsearchgridCustomer tr td', function () {
@@ -12,16 +12,16 @@
             $(this).closest('.customerRow').addClass('active');
             $("#tblmapsearchgridCustomer tr").find('.chk').prop('checked', '');
             $(this).closest('.customerRow').find('.chk').prop('checked', 'true');
-            addToSelectedCustomerDiv($(this).closest('.customerRow'));
+            AddToSelectedCustomerDiv($(this).closest('.customerRow'));
         }
     });
     GetAllStatesByCountry();
-    ShowEmployeeById();
     var $datepicker = $("#dpDate");
     $datepicker.datepicker();
     $datepicker.datepicker('setDate', new Date());
     $('#ddlbuildinginputCustomer').attr('disabled', 'disabled');
     $('#ddlstreetinputCustomer').attr('disabled', 'disabled');
+
 });
 
 
@@ -65,13 +65,13 @@ function LoadMapByCurrentLogedUser() {
 function SearchEmployee() {
     var firstName = $('#txtfirstName').val();
     var lastName = $('#txtlastName').val();
-    var active = $('#chkActive:checked').val() != "on" ? "1" : "0";
+    var active = $('#chkActive:checked').val() != "on" ? false : true;
     var number = $('#txtnumber').val();
 
     $.ajax({
         type: "POST",
         url: "/Map/GetEmployeeForMap",
-        data: { firstname: firstName, lastname: lastName, active: active, number: number },
+        data: { firstName: firstName, lastName: lastName, active: active, number: number },
         dataType: "json",
         success: function (response) {
             $("#tblmapsearchgridEmployee").html('');
@@ -84,20 +84,19 @@ function SearchEmployee() {
     });
 }
 
-
 // To show selected employee on map with selected opations(runwayshow,stoppoint,lastpoint).
 function ShowEmployeeDataOnMap() {
     var employeeID = $('#tblmapsearchgridEmployee .active').attr('id');
     var date = $('#dpDate').val();
-    var fromTime = timeParseExact($('#txtfromTime').val());
-    var endTime = timeParseExact($('#txtendTime').val());
+    var fromTime = TimeParseExact($('#txtfromTime').val());
+    var endTime = TimeParseExact($('#txtendTime').val());
     var selectedOpation = $("input:radio[name='choices']:checked").val().toLowerCase();
     if (employeeID != "" && employeeID != undefined) {
         if (selectedOpation == 'runwayshow') {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetEmployeeGpsPointsByEmployeeID",
-                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
+                data: { employeeID: employeeID, fromTime: fromTime, endTime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
@@ -148,7 +147,7 @@ function ShowEmployeeDataOnMap() {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetStopPointsForEmployee",
-                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
+                data: { employeeID: employeeID, fromTime: fromTime, endTime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
@@ -197,7 +196,7 @@ function ShowEmployeeDataOnMap() {
             $.ajax({
                 type: "POST",
                 url: "/Map/GetLastPointForEmployee",
-                data: { employeeID: employeeID, fromtime: fromTime, endtime: endTime, date: date },
+                data: { employeeID: employeeID, fromTime: fromTime, endTime: endTime, date: date },
                 dataType: "json",
                 success: function (response) {
                     if (response != false) {
@@ -244,7 +243,7 @@ function ShowEmployeeDataOnMap() {
 }
 
 // To show only time when focus on from time and end time textboxes.
-function showTime(obj) {
+function ShowTime(obj) {
     $('#' + obj.id + '').timepicker({ 'timeFormat': 'h:i A' });
 
     if ($('#' + obj.id + '').val() == null || $('#' + obj.id + '').val() == undefined) {
@@ -253,7 +252,7 @@ function showTime(obj) {
 }
 
 // To convert time in 24 hours formet
-function timeParseExact(time) {
+function TimeParseExact(time) {
     if (time != undefined && time != "") {
         var hhmm = time.split(' ')[0];
         var tt = time.split(' ')[1].toLowerCase();
@@ -441,7 +440,7 @@ function SearchCustomers() {
                     $("#tblmapsearchgridCustomer").html('');
                     if (response != null) {
                         for (var i = 0; i < response.length; i++) {
-                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                            $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                         }
                     }
                 }
@@ -460,7 +459,7 @@ function SearchCustomers() {
                     if (response.length > 0) {
                         if (response != null) {
                             for (var i = 0; i < response.length; i++) {
-                                $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                                $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "'><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
                             }
                         }
                     }
@@ -536,7 +535,7 @@ function ShowCustomerDataOnMap() {
 }
 
 // To adding selected employee in selected employee div 
-function addToSelectedEmployeeDiv(obj) {
+function AddToSelectedEmployeeDiv(obj) {
     $("#selectedemployeeDiv").html('');
     $("#selectedemployeeDiv").append("<tr><td>" + obj.attr('id') + " </td><td>" + obj.attr('rel') + " </td></tr>");
     $("#selectedemployeeDiv").css('display', 'block');
@@ -544,14 +543,15 @@ function addToSelectedEmployeeDiv(obj) {
 }
 
 // To adding selected customers in selected customers div
-function addToSelectedCustomerDiv(obj) {
+function AddToSelectedCustomerDiv(obj) {
     $("#selectedCustomer").html('');
     $("#selectedCustomer").append("<tr id=" + obj.attr('id') + "><td>" + obj.attr('id') + " </td><td>" + obj.attr('FirstName') + " </td><td>" + obj.attr('rel') + " </td></tr>");
     $("#selectedCustomer").css('display', 'block');
 }
 
 // To adding multipal customers in selected customers div by check box checked 
-function chkcustomerChange(obj) {
+function ChkcustomerChange(obj) {
+    debugger;
     var selectedRow = obj.closest('.customerRow');
     if (obj.checked == true) {
         var firstName = selectedRow.attributes.firstName != null ? selectedRow.attributes.firstName.value : "";
@@ -576,10 +576,11 @@ function GetSelectedCustomersIdsForMap() {
 
 
 // To showing loggend employee on map with last point of current date.
-function ShowEmployeeById() {
+function ShowEmployeeById(employeeID) {
     $.ajax({
         type: "POST",
         url: "/Map/GetEmployeeByIdOnLoad",
+        data: { employeeID: employeeID },
         dataType: "json",
         success: function (response) {
             $("#tblmapsearchgridEmployee").html('');
@@ -594,23 +595,25 @@ function ShowEmployeeById() {
     });
 }
 
-//function showCustomerById() {
-//    $.ajax({
-//        type: "POST",
-//        url: "/Map/GetCustomerByIdOnLoad",
-//        dataType: "json",
-//        success: function (response) {
-//            if (response.length > 0) {
-//                $("#tblmapsearchgridCustomer").html('');
-//                if (response != null) {
-//                    for (var i = 0; i < response.length; i++) {
-//                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow active' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='chkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
-//                    }
-//                    chkcustomerChange();
-//                    ShowCustomerDataOnMap();
-//                }
-//            }
-//        }
-//    })
-//}
+function showCustomerById(customerID) {
+    $.ajax({
+        type: "POST",
+        url: "/Map/GetCustomerByIdOnLoad",
+        data: { customerID: customerID },
+        dataType: "json",
+        success: function (response) {
+            if (response.length > 0) {
+                $("#tblmapsearchgridCustomer").html('');
+                if (response != null) {
+                    for (var i = 0; i < response.length; i++) {
+                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow active' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
+                    }
+                    $("#tblmapsearchgridCustomer tr").find('.chk').click();
+                    ShowCustomerDataOnMap();
+                }
+            }
+        }
+    })
+}
+
 

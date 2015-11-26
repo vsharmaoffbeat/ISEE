@@ -37,33 +37,6 @@ namespace ISEEDataModel.Repository.Services
 
         }
 
-        // Search employee for map in MAP TAB
-        public IQueryable<Employee> SearchEmploeesForMap(int factoryId, string _LN, string _FN, string _Num, bool _Active)
-        {
-            return _context.Employees.Where(x => x.Factory == factoryId
-                                                          && (string.IsNullOrEmpty(_FN) || x.FirstName.Contains(_FN))
-                                                          && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
-                                                          && (string.IsNullOrEmpty(_Num) || x.EmployeeNum.Contains(_Num))
-                                                          && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
-
-        }
-        public IQueryable<EmployeeGpsPoint> GetRunWayForEmploees(int employeeID, TimeSpan _From, TimeSpan _To, DateTime date)
-        {
-            return _context.EmployeeGpsPoints.Where(s => s.EmployeeId == employeeID
-                && s.GpsDate == date
-                && s.GpsTime >= _From
-                && s.GpsTime <= _To
-           );
-        }
-        public IQueryable<EmployeeGpsPoint> GetStopPointForEmploees(int employeeID, TimeSpan _From, TimeSpan _To, DateTime date)
-        {
-            return _context.EmployeeGpsPoints.Where(s => s.EmployeeId == employeeID
-                && s.GpsDate == date
-                && s.GpsTime >= _From
-                && s.GpsTime <= _To
-                && s.StopTime != null
-           );
-        }
 
         public IQueryable<EmployeeSmsSend> GetSMS(int empID)
         {
@@ -913,6 +886,54 @@ namespace ISEEDataModel.Repository.Services
 
         }
 
+
+
+        // Methods for map tab
+        public IQueryable<Employee> SearchEmploeesForMap(int factoryId, string _LN, string _FN, string _Num, bool _Active)
+        {
+            return _context.Employees.Where(x => x.Factory == factoryId
+                                                          && (string.IsNullOrEmpty(_FN) || x.FirstName.Contains(_FN))
+                                                          && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
+                                                          && (string.IsNullOrEmpty(_Num) || x.EmployeeNum.Contains(_Num))
+                                                          && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
+
+        }
+        public IQueryable<EmployeeGpsPoint> GetRunWayForEmploees(int employeeID, TimeSpan _From, TimeSpan _To, DateTime date)
+        {
+            return _context.EmployeeGpsPoints.Where(s => s.EmployeeId == employeeID
+                && s.GpsDate == date
+                && s.GpsTime >= _From
+                && s.GpsTime <= _To
+           );
+        }
+        public IQueryable<EmployeeGpsPoint> GetStopPointForEmploees(int employeeID, TimeSpan _From, TimeSpan _To, DateTime date)
+        {
+            return _context.EmployeeGpsPoints.Where(s => s.EmployeeId == employeeID
+                && s.GpsDate == date
+                && s.GpsTime >= _From
+                && s.GpsTime <= _To
+                && s.StopTime != null
+           );
+        }
+        public IQueryable<EmployeeGpsPoint> GetLastPointForEmploees(int employeeID, TimeSpan _From, TimeSpan _To, DateTime date)
+        {
+            return _context.EmployeeGpsPoints.Where(s => s.EmployeeId == employeeID
+                       && s.GpsDate == date
+                       && s.GpsTime >= _From
+                       && s.GpsTime <= _To
+                       && s.StopTime != null
+                   ).OrderByDescending(x => x.SysId);
+        }
+        public IQueryable<Customer> GetCustomersByCustomerID(string checkedcustomers)
+        {
+            var numbers = checkedcustomers.TrimEnd(',').Split(',').Select(Int32.Parse).ToList();
+            return _context.Customers.Where(s => numbers.Contains(s.CustomerId));
+        }
+
+        public IQueryable<Customer> GetAllCustomers(int factoryId)
+        {
+            return _context.Customers.Where(s => s.Factory == factoryId);
+        }
 
         #endregion
 

@@ -82,15 +82,14 @@
 
 
 <script type="text/javascript">
-    debugger;
     var employeeID = '@Html.Raw(ViewBag.Empoyeeid)';
     var customerID = '@Html.Raw(ViewBag.CustomerID)';
     if (employeeID != "") {
-        debugger;
+        LoadMapByCurrentLogedUser();
         ShowEmployeeById(employeeID);
     }
     else if (customerID != "") {
-        debugger;
+        LoadMapByCurrentLogedUser();
         showCustomerById(customerID);
     }
     else {

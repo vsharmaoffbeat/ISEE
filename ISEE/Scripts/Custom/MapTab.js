@@ -444,7 +444,7 @@ function SearchCustomers() {
     companyName = $('#txtcompanynameInputCustomer').val();
     buildingNumber = $('#ddlbuildinginputCustomer').val();
 
-    if ($('#ddlcityinputCustomer').val() == "") {
+    if ($('#ddlcityinputCustomer').val() == "" && $('#txtcompanynameInputCustomer').val() == "" && $('#txtcustomernoInput').val() == "") {
         $.ajax({
             type: "POST",
             url: "/Map/GetAllCustomers",

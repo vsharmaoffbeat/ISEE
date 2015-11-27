@@ -60,6 +60,14 @@ namespace ISEEDataModel.Utilities
             return (rad / Math.PI * 180.0);
         }
         #endregion
+
+
+        public static string GetAppKeyValue(string keyName)
+        {
+            dynamic value = string.Empty;
+            value = System.Configuration.ConfigurationManager.AppSettings[keyName];
+            return value;
+        }
     }
 
     public enum Category

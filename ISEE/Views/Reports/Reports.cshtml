@@ -1,0 +1,29 @@
+﻿@using ReportViewerForMvc
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+    #reports iframe {
+        width: 100% !important;
+        height: 1500px !important;
+        margin-top: -37px;
+        background-color: white;
+        border: none;
+    }
+</style>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View1</title>
+</head>
+<body>
+    <div> 
+        <div id="reports">
+            @Html.ReportViewer((Microsoft.Reporting.WebForms.ReportViewer)ViewBag.ReportViewer)
+        </div>
+    </div>
+</body>
+</html>

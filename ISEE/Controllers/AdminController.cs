@@ -114,10 +114,10 @@ namespace ISEE.Controllers
                         EmployeeDiaryTemplate factoryDairyTemplet = new EmployeeDiaryTemplate();
                         factoryDairyTemplet.DayStatus = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         factoryDairyTemplet.EmployeeId = employeeID;
-                            factoryDairyTemplet.Start1 = Common.Common.GetTimeSpan(item.Start1);
-                            factoryDairyTemplet.Stop1 = Common.Common.GetTimeSpan(item.End1)  ;
-                            factoryDairyTemplet.Start2 = Common.Common.GetTimeSpan(item.Start2) ;
-                            factoryDairyTemplet.Stop2 = Common.Common.GetTimeSpan(item.End2)  ;
+                        factoryDairyTemplet.Start1 = Common.Common.GetTimeSpan(item.Start1);
+                        factoryDairyTemplet.Stop1 = Common.Common.GetTimeSpan(item.End1);
+                        factoryDairyTemplet.Start2 = Common.Common.GetTimeSpan(item.Start2);
+                        factoryDairyTemplet.Stop2 = Common.Common.GetTimeSpan(item.End2);
                         factoryDairyTemplet.OrderDay = (int)((Days)Enum.Parse(typeof(Days), item.Day));
                         context.EmployeeDiaryTemplates.Add(factoryDairyTemplet);
                         context.SaveChanges();
@@ -138,15 +138,15 @@ namespace ISEE.Controllers
                 try
                 {
                     Employee emp = new Employee();
-                    emp.FirstName =Common.Common.GetNullableValues(firstName);
+                    emp.FirstName = Common.Common.GetNullableValues(firstName);
                     emp.LastName = Common.Common.GetNullableValues(lastName);
-                    emp.EmployeeNum =Common.Common.GetNullableValues( number);
+                    emp.EmployeeNum = Common.Common.GetNullableValues(number);
                     emp.SysCreatDate = DateTime.Now;
                     emp.Factory = factoryId;
                     if (string.IsNullOrEmpty(startDay))
                         emp.StartDay = DateTime.Now;
                     else
-                    emp.StartDay = startDay != "" ? Convert.ToDateTime(startDay).Date : emp.StartDay;
+                        emp.StartDay = startDay != "" ? Convert.ToDateTime(startDay).Date : emp.StartDay;
                     emp.EndDay = enddate != "" ? Convert.ToDateTime(enddate).Date : emp.EndDay;
                     emp.PhoneManufactory = Convert.ToInt32(ManufactureChoice);
                     emp.PhoneType = Convert.ToInt32(phoneTypeChoice != "" ? phoneTypeChoice : "1");
@@ -179,7 +179,7 @@ namespace ISEE.Controllers
 
         }
 
-    
+
 
         public ActionResult SaveCustomerForm(CustomerDataModel objCustomerData)
         {
@@ -496,7 +496,7 @@ namespace ISEE.Controllers
 
         #endregion
         //Customer Tab
-    
+
 
         public JsonResult GetEmployeeByEmployeeID(int EmployeeID)
         {

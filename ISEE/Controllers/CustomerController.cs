@@ -1,5 +1,6 @@
 ﻿using ISEE.Common;
 using ISEEDataModel.Repository;
+using ISEEDataModel.Repository.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace ISEE.Controllers
     {
         //
         // GET: /Customer/
+        ISEEFactory _facory = new ISEEFactory();
+
         public ActionResult Index()
         {
             return View();
@@ -20,75 +23,13 @@ namespace ISEE.Controllers
         {
             return View();
         }
-    
+
         //{ state: state, city: city, street: street, building: building, custNumber: $('#custNumber').text().trim(), firstName: $('#custName').text().trim(), lastName: $('#custCompany').text().trim(), phone: $('#custPhone').text().trim(), phone1: $('#custPhone1').text().trim(), isActive: $('#isActive').is(':checked') }//
         public JsonResult GetCustomerSarch(int state, int city, int street, string building, string custNumber, string firstName, string lastName, string phone, string phone1, bool isActive)
         {
-            state = 1;
-            //        building = GetNullableValues(building);
-
-            //        custNumber = GetNullableValues(custNumber);
-            //        firstName = GetNullableValues(firstName);
-            //        lastName = GetNullableValues(lastName);
-            //        phone = GetNullableValues(phone);
-            //        phone1 = GetNullableValues(phone1);
-
-            //        using (ISEEEntities context = new ISEEEntities())
-            //        {
-            //            var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == SessionManagement.FactoryID &&
-            //                (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
-            //x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
-            //x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
-            //x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
-            //x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
-            //x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
 
 
-            //           && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
-            //(x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
-            //(x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
-            //(x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-            //(isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
-            //{
-            //    CustomerId = x.CustomerId,
-            //    CustomerNumber = x.CustomerNumber,
-            //    FirstName = x.FirstName ?? "!@#$",
-            //    LastName = x.LastName ?? "!@#$",
-            //    Floor = x.Floor ?? "!@#$",
-            //    Apartment = x.Apartment ?? "!@#$",
-            //    AreaPhone1 = x.AreaPhone1 ?? "!@#$",
-            //    Phone1 = x.Phone1 ?? "!@#$",
-            //    AreaPhone2 = x.AreaPhone2 ?? "!@#$",
-            //    Phone2 = x.Phone2 ?? "!@#$",
-            //    AreaFax = x.AreaFax ?? "!@#$",
-            //    Fax = x.Fax ?? "!@#$",
-            //    Mail = x.Mail ?? "!@#$",
-            //    CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
-            //    CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
-            //    VisitInterval = x.VisitInterval ?? 0,
-            //    NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
-            //    VisitDate = x.VisitDate ?? 0,
-            //    VisitTime = x.VisitTime ?? 0,
-            //    EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
-            //    Lat = x.Building.Lat,
-            //    BuildingCode = x.BuildingCode,
-            //    BuildingNumber = x.Building.Number ?? "!@#$",
-            //    Long = x.Building.Long,
-            //    ZipCode = x.Building.ZipCode,
-            //    StreetName = x.Building.Street.StreetDesc ?? "!@#$",
-            //    StreetId = x.Building.Street.StateCode,
-            //    CityId = x.Building.Street.City.CityCode,
-            //    CityName = x.Building.Street.City.CityDesc ?? "!@#$",
-            //    StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
-            //    StateId = x.Building.Street.City.State.StateCode
-
-
-
-            //}).ToList();
-
-
-            state = 1;
-            building =Common.Common.GetNullableValues(building);
+            building = Common.Common.GetNullableValues(building);
 
             custNumber = Common.Common.GetNullableValues(custNumber);
             firstName = Common.Common.GetNullableValues(firstName);
@@ -96,64 +37,46 @@ namespace ISEE.Controllers
             phone = Common.Common.GetNullableValues(phone);
             phone1 = Common.Common.GetNullableValues(phone1);
 
-            using (ISEEEntities context = new ISEEEntities())
-            {
-                var results = context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == ISEE.Common.SessionManagement.FactoryID &&
-                    (state != 0 ? x.Building.StateCode == state : x.Building.StateCode == null) &&
-    x.Building.StateCode == (state == 0 ? x.Building.StateCode : state) &&
-    x.Building.CityCode == (city == 0 ? x.Building.CityCode : city) &&
-    x.Building.StreetCode == (street == 0 ? x.Building.StreetCode : street) &&
-    x.Building.Number.Contains(building == null ? x.Building.Number : building) &&
-    x.CustomerNumber.CompareTo(custNumber == null ? x.CustomerNumber : custNumber) == 0
+            var results = _facory.GetCustomersNew(SessionManagement.FactoryID, state, city, street, building, custNumber, firstName, lastName, phone, phone1, isActive).ToList().Select(x => new
+                     {
+                         CustomerId = x.CustomerId,
+                         CustomerNumber = x.CustomerNumber,
+                         FirstName = x.FirstName ?? "!@#$",
+                         LastName = x.LastName ?? "!@#$",
+                         Floor = x.Floor ?? "!@#$",
+                         Apartment = x.Apartment ?? "!@#$",
+                         AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+                         Phone1 = x.Phone1 ?? "!@#$",
+                         AreaPhone2 = x.AreaPhone2 ?? "!@#$",
+                         Phone2 = x.Phone2 ?? "!@#$",
+                         AreaFax = x.AreaFax ?? "!@#$",
+                         Fax = x.Fax ?? "!@#$",
+                         Mail = x.Mail ?? "!@#$",
+                         CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
+                         CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
+                         VisitInterval = x.VisitInterval ?? 0,
+                         NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
+                         VisitDate = x.VisitDate ?? 0,
+                         VisitTime = x.VisitTime ?? 0,
+                         EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
+                         Lat = x.Building.Lat,
+                         BuildingCode = x.BuildingCode,
+                         BuildingNumber = x.Building.Number ?? "!@#$",
+                         Long = x.Building.Long,
+                         ZipCode = x.Building.ZipCode,
+                         StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+                         StreetId = x.Building.Street.StateCode,
+                         CityId = x.Building.Street.City.CityCode,
+                         CityName = x.Building.Street.City.CityDesc ?? "!@#$",
+                         StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+                         StateId = x.Building.Street.City.State.StateCode
 
 
-               && x.FirstName.Contains(firstName == null ? x.FirstName : firstName) &&
-    (x.LastName == null || x.LastName.Contains(lastName == null ? x.LastName : lastName)) &&
-    (x.AreaPhone1 == null || x.AreaPhone1.Contains(phone == null ? x.AreaPhone1 : phone)) &&
-    (x.Phone1 == null || x.Phone1.Contains(phone1 == null ? x.Phone1 : phone1)) &&
-    (isActive ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now))).ToList().Select(x => new
-    {
-        CustomerId = x.CustomerId,
-        CustomerNumber = x.CustomerNumber,
-        FirstName = x.FirstName ?? "!@#$",
-        LastName = x.LastName ?? "!@#$",
-        Floor = x.Floor ?? "!@#$",
-        Apartment = x.Apartment ?? "!@#$",
-        AreaPhone1 = x.AreaPhone1 ?? "!@#$",
-        Phone1 = x.Phone1 ?? "!@#$",
-        AreaPhone2 = x.AreaPhone2 ?? "!@#$",
-        Phone2 = x.Phone2 ?? "!@#$",
-        AreaFax = x.AreaFax ?? "!@#$",
-        Fax = x.Fax ?? "!@#$",
-        Mail = x.Mail ?? "!@#$",
-        CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
-        CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
-        VisitInterval = x.VisitInterval ?? 0,
-        NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
-        VisitDate = x.VisitDate ?? 0,
-        VisitTime = x.VisitTime ?? 0,
-        EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
-        Lat = x.Building.Lat,
-        BuildingCode = x.BuildingCode,
-        BuildingNumber = x.Building.Number ?? "!@#$",
-        Long = x.Building.Long,
-        ZipCode = x.Building.ZipCode,
-        StreetName = x.Building.Street.StreetDesc ?? "!@#$",
-        StreetId = x.Building.Street.StateCode,
-        CityId = x.Building.Street.City.CityCode,
-        CityName = x.Building.Street.City.CityDesc ?? "!@#$",
-        StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
-        StateId = x.Building.Street.City.State.StateCode
+                     }).ToList();
 
+            return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-    }).ToList();
-
-
-
-                return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
         }
-        //}
 
 
         //Bind Main Classsification DDL 
@@ -255,7 +178,7 @@ namespace ISEE.Controllers
                 {
                     Customer customer = context.Customers.Where(x => x.CustomerId == customerID).FirstOrDefault();
                     customer.BuildingCode = cbuildingCode;
-                    customer.CustomerNumber =Common.Common.GetNullableValues(cNumber.Trim());
+                    customer.CustomerNumber = Common.Common.GetNullableValues(cNumber.Trim());
                     customer.LastName = Common.Common.GetNullableValues(cCompanyName.Trim());
                     customer.FirstName = Common.Common.GetNullableValues(cContactName.Trim());
                     customer.Floor = Common.Common.GetNullableValues(cFloor.Trim());

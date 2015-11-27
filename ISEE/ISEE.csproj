@@ -542,6 +542,8 @@
     <Content Include="Views\Reports\Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\EmployeeSms.rdlc" />
+    <EmbeddedResource Include="Reports\Empty.rdlc" />
     <EmbeddedResource Include="Resources\Resource.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.de.Designer.cs</LastGenOutput>

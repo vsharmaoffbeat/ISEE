@@ -114,8 +114,9 @@ function ShowEmployeeDataOnMap() {
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
                         _polyLineArray = [];
-                        for (var i = 0; i < response.length; i++) {
-                            _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
+                        if (response.length > 1) {
+                            _polyLineArray.push(new google.maps.LatLng(response[0].Lat, response[0].Long));
+                            _polyLineArray.push(new google.maps.LatLng(response[response.length - 1].Lat, response[response.length - 1].Long));
 
                         }
                         _flightPath = new google.maps.Polyline({

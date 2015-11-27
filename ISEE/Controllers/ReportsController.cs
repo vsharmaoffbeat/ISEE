@@ -50,6 +50,53 @@ namespace ISEE.Controllers
             switch (reportName)
             {
                 case "EmployeeSms":
+            //        var companyLogo = ReportParameters["CompanyLogo"].Value;
+
+            //if (companyLogo != null)
+            //{
+            //    pictureBox2.Value = "http://isee1.blob.core.windows.net/logo/" + companyLogo;
+            //    pictureBox2.Visible = true;
+
+            //}
+            //else
+            //{ pictureBox1.Visible = true; }
+
+            //string sql = @"SELECT  RepoetStringLabelPk, MainString, EN, HE, RU, ES, DE FROM  RepoetStringLabel";
+            //string connectionString = ConfigurationManager.ConnectionStrings["ReportLibrary.Properties.Settings.iSEE_report"].ConnectionString;
+            //var value = ReportParameters["lg"].Value;
+            //var lang = "EN";//default lang
+
+            //if (value != null)
+            //{
+            //    lang = value.ToString();
+            //}
+
+            //SqlDataAdapter adapter = new SqlDataAdapter(sql, connectionString);
+            //DataTable datatable = new DataTable();
+            //adapter.Fill(datatable);
+
+            //ReportItemBase[] allTextBoxes = this.Items.Find(typeof(Telerik.Reporting.TextBox), true);
+            //foreach (Telerik.Reporting.TextBox textBox in allTextBoxes)
+            //{
+
+            //    DataRow[] result = datatable.Select("MainString  = '" + textBox.Name + "'");
+            //    if (result.Length > 0) textBox.Value = result[0][lang].ToString();
+
+            //}
+
+            //string commaseparatedValue = ReportParameters["EmployeeList"].Value.ToString();
+            //string FactoryGuid = (string)ReportParameters["Factory"].Value;
+
+            //SqlDataSource sqlDataSource = new SqlDataSource
+            //{
+            //    ConnectionString = connectionString,
+            //    SelectCommand = GetSql(commaseparatedValue)
+            //};
+            //sqlDataSource.Parameters.Add("@Factory", DbType.Int32, GetFactoryId(FactoryGuid));
+            //sqlDataSource.Parameters.Add("@FromDate", DbType.DateTime, ReportParameters["FromDate"].Value);
+            //sqlDataSource.Parameters.Add("@ToDate", DbType.DateTime, ReportParameters["ToDate"].Value);
+
+
 
                     //  reportViewer.LocalReport.DataSources.Add(new ReportDataSource("dsLocalReport", dataSet.Tables["SampleTable"]));
                     break;

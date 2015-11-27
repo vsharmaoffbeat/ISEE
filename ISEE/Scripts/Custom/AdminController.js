@@ -53,9 +53,11 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         }
         else {
 
-            $scope.CustomerSearchData = null;
             $scope.gridCustOptions = null;
             $scope.CustomerSearchData = {
+                stateid: 0,
+                cityid: 0,
+                streetid: 0,
                 state: '',
                 city: '',
                 street: '',
@@ -99,6 +101,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     //Clear Customer Controls
     $scope.clearControlsCustomers = function () {
         $scope.CustomerSearchData = {
+            stateid: 0,
+            cityid: 0,
+            streetid: 0,
             state: '',
             city: '',
             street: '',
@@ -119,6 +124,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     //Customer Search Model
     $scope.CustomerSearchData = {
+        stateid: 0,
+        cityid: 0,
+        streetid: 0,
         state: '',
         city: '',
         street: '',
@@ -147,16 +155,10 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         else if ($scope.choice == "2") {
 
             ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
-                if ($scope.CustomerSearchData.state == '0') {
-                    $scope.CustomerSearchData.state = '';
-                }
+                $scope.CustomerSearchData.stateid = GetIdByName(statesArray, $scope.CustomerSearchData.state)
+                $scope.CustomerSearchData.cityid = GetIdByName(cityArray, $scope.CustomerSearchData.city)
+                $scope.CustomerSearchData.streetid = GetIdByName(streetArray, $scope.CustomerSearchData.street)
 
-                if ($scope.CustomerSearchData.city == '0') {
-                    $scope.CustomerSearchData.city = '';
-                }
-                if ($scope.CustomerSearchData.street == '0') {
-                    $scope.CustomerSearchData.street = '';
-                }
                 if (d.data.length > 0) {
                     $scope.gridCustOptions = d.data;
                 }
@@ -638,16 +640,6 @@ module.service('ContactService', function ($http) {
         //});
     };
     contacts.GetCustomersData = function (d) {
-        if (d.state == '') {
-            d.state = '0';
-        }
-
-        if (d.city == '') {
-            d.city = '0';
-        }
-        if (d.street == '') {
-            d.street = '0';
-        }
         return $http({
             url: '/Admin/GetCustomersNew',
             method: 'POST',

@@ -67,11 +67,11 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = empData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        public JsonResult GetCustomersNew(int state, int city, int street, string buldingNumber, string customerNumber, string contactName, string companyName, string phoneArea, string phone1)
+        public JsonResult GetCustomersNew(int stateid, int cityid, int streetid, string buldingNumber, string customerNumber, string contactName, string companyName, string phoneArea, string phone1)
         {
             int factoryId = SessionManagement.FactoryID;
             bool _Active = true;
-            var custData = _facory.GetCustomersNew(factoryId, state, city, street, buldingNumber, customerNumber, companyName, contactName, phoneArea, phone1, _Active).Select(c => new
+            var custData = _facory.GetCustomersNew(factoryId, stateid, cityid, streetid, buldingNumber, customerNumber, companyName, contactName, phoneArea, phone1, _Active).Select(c => new
                        {
                            FirstName = c.FirstName ?? string.Empty,
                            id = c.CustomerId,

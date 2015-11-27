@@ -1,7 +1,7 @@
 ﻿//Employee Section
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
-  //  $("<option value=''/>");
+    //  $("<option value=''/>");
     $.ajax({
         type: "POST",
         url: "/Admin/GetPhoneTypes",
@@ -67,14 +67,16 @@ function GetAllStatesByCountry() {
             $scope.$apply(function () {
                 if (response.length <= 1) {
                     $scope.HasStateActive = "true";
-                    $('#inputState').prop("disabled", true)
+                    $('#inputState,#treeState').prop("disabled", true)
                 } else {
                     $scope.HasStateActive = "false";
-                    $('#inputState').prop("disabled", false)
+                    $('#inputState,#treeState').prop("disabled", false)
                 }
             });
             $(response).each(function () {
-                stateNames.push(this.StateDesc);
+                if (stateNames.indexOf(this.StateDesc.trim()) == -1) {
+                    stateNames.push(this.StateDesc.trim());
+                }
                 stateIds.push(this.StateCode);
                 statesArray.push({ id: this.StateCode, name: this.StateDesc })
             });
@@ -82,7 +84,7 @@ function GetAllStatesByCountry() {
             if (response.length <= 1) {
                 GetAllCitysByState(response[0].StateDesc);
             }
-            $("#inputState").autocomplete({
+            $("#inputState,#treeState").autocomplete({
                 source: stateNames,
                 select: function (event, ui) {
                     var label = ui.item.label;
@@ -118,12 +120,14 @@ function GetAllCitysByState(state) {
                 cityArray = [];
 
                 $(response).each(function () {
-                    availableCityName.push(this.CityDesc);
+                    if (availableCityName.indexOf(this.CityDesc.trim()) == -1) {
+                        availableCityName.push(this.CityDesc.trim());
+                    }
                     availableCityIds.push(this.CityCode);
                     cityArray.push({ id: this.CityCode, name: this.CityDesc })
                 });
             }
-            $("#inputCity").autocomplete({
+            $("#inputCity,#treeCity").autocomplete({
                 source: availableCityName,
                 select: function (event, ui) {
                     var label = ui.item.label;
@@ -155,7 +159,9 @@ function GetAllStreetByCity(city) {
         success: function (response) {
             if (response != null) {
                 $(response).each(function () {
-                    availableStreetName.push(this.Streetdesc);
+                    if (availableStreetName.indexOf(this.Streetdesc.trim()) == -1) {
+                        availableStreetName.push(this.Streetdesc.trim());
+                    }
                     availableStreetId.push(this.StreetCode);
                     streetArray.push({ id: this.StreetCode, name: this.Streetdesc })
                 });
@@ -166,6 +172,15 @@ function GetAllStreetByCity(city) {
                     var label = ui.item.label;
                     var value = ui.item.value;
                     GetAllBuildingsByCity(ui.item.label, $('#inputCity').val());
+                }
+            });
+
+            $("#treeStreet").autocomplete({
+                source: availableStreetName,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    GetAllBuildingsByCity(ui.item.label, $('#treeCity').val());
                 }
             });
         },
@@ -200,7 +215,7 @@ function GetAllBuildingsByCity(street, city) {
                     availableBuildingLong.push(this.BuldingLong);
                 });
             }
-            $("#inputBuldingNumber").autocomplete({
+            $("#inputBuldingNumber,#treeBuldingNumber").autocomplete({
                 source: availableBuildingNumber,
             });
             //  GetSelectedBuildingLatLong();
@@ -308,7 +323,7 @@ function InsertAddress() {
                 }
             } else {
                 $scope.$apply(function () {
-                    $scope.ShowMessageBox('Message',response.ErrorMessage)
+                    $scope.ShowMessageBox('Message', response.ErrorMessage)
                 });
             }
         },

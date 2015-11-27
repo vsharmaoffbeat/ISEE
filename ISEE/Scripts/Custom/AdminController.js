@@ -147,6 +147,16 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         else if ($scope.choice == "2") {
 
             ContactService.GetCustomersData($scope.CustomerSearchData).then(function (d) {
+                if ($scope.CustomerSearchData.state == '0') {
+                    $scope.CustomerSearchData.state = '';
+                }
+
+                if ($scope.CustomerSearchData.city == '0') {
+                    $scope.CustomerSearchData.city = '';
+                }
+                if ($scope.CustomerSearchData.street == '0') {
+                    $scope.CustomerSearchData.street = '';
+                }
                 if (d.data.length > 0) {
                     $scope.gridCustOptions = d.data;
                 }
@@ -628,7 +638,16 @@ module.service('ContactService', function ($http) {
         //});
     };
     contacts.GetCustomersData = function (d) {
+        if (d.state == '') {
+            d.state = '0';
+        }
 
+        if (d.city == '') {
+            d.city = '0';
+        }
+        if (d.street == '') {
+            d.street = '0';
+        }
         return $http({
             url: '/Admin/GetCustomersNew',
             method: 'POST',

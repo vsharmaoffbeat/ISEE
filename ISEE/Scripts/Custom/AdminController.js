@@ -415,9 +415,9 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
                     $scope.EmployeeID = d.data;
                     ContactService.SaveEmployeeHours($scope.employeeData, d.data).then(function (d) {
                         if (d.data != "0" || d.data == true) {
-                            ContactService.GetEmployeeHours().then(function (d) {
-                                $scope.employeeData = d.data;
-                            })
+                            //ContactService.GetEmployeeHours().then(function (d) {
+                            //    $scope.employeeData = d.data;
+                            //})
                             ContactService.GetEmployeeByEmployeeID($scope.EmployeeID).then(function (responce) {
                                 $scope.NewAddedEmployee = responce.data;
                             })

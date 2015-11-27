@@ -408,7 +408,7 @@ function searchCustomerData() {
                            ' EndDate=' + this.EndDate +
 
                                             '>Company Name: '
-                   + this.FirstName + ' </br>Contact Name: ' + stringValidation(this.LastName) + '</br>City: ' + stringValidation(this.CityName) + '</br>Street: ' + stringValidation(this.StreetName) + ' , ' + stringValidation(this.BuildingNumber) + '</br>Phone1: ' + stringValidation(this.AreaPhone1) + '-' + stringValidation(this.Phone1)
+                   + stringValidation(this.LastName) + ' </br>Contact Name: ' + stringValidation(this.FirstName) + '</br>City: ' + stringValidation(this.CityName) + '</br>Street: ' + stringValidation(this.StreetName) + ' , ' + stringValidation(this.BuildingNumber) + '</br>Phone1: ' + stringValidation(this.AreaPhone1) + '-' + stringValidation(this.Phone1)
                    + '        </div>').appendTo($('#left_employee_window'));
             });
 
@@ -472,7 +472,7 @@ function setInputValues(obj) {
     $('#zipcode').val(stringValidation($(obj).attr('ZipCode')));
     $('#visitInterval').val(stringValidation($(obj).attr('VisitInterval')));
     $('#datepickerEndDay').val(stringValidation($(obj).attr('EndDate')));
-    $('#visiteTime').val(stringValidation($(obj).attr('VisitTime')));
+    $('#visitTime').val(stringValidation($(obj).attr('VisitTime')));
     $('#nextVisitDatePicker').val(stringValidation($(obj).attr('NextVisit')));
 }
 
@@ -525,7 +525,7 @@ function updateCustomer() {
         success: function (response) {
             $('#msgHistory tr:gt(0)').remove();
             if (response) {
-                return alert("Customer Updated successfully.");
+                 alert("Customer Updated successfully.");
                 $('#left_employee_window div').each(function () {
                     if ($(this).attr('customerid') == _customerId) {
                         $(this).attr('CustomerId', data.customerID);
@@ -544,11 +544,12 @@ function updateCustomer() {
                         $(this).attr('Fax', data.cFax1);
                         $(this).attr('CustomerRemark1', data.cRemarks1);
                         $(this).attr('CustomerRemark2', data.cRemarks2);
-
+                        $(this).attr('VisitInterval', data.cvisitInterval);
+                        $(this).attr('VisitTime', data.cvisitTime);
                         $(this).attr('Mail', data.cMail);
 
                         $(this).empty();
-                        $('<div class="col-md-12 col-xs-12 tab_box">Company Name: ' + data.cCompanyName + ' </br>Contact Name: ' + data.cContactName + '</br>City: ' + $(this).attr('CityName') + '</br>Street: ' + $(this).attr('StreetName') + ' , ' + data.cbuildingNumber + '</br>Phone1: ' + data.cPhoneOne + '-' + data.cPhone11 + '  </div>').appendTo($(this));
+                        $('<div class="col-md-12 col-xs-12 tab_box">Customer Name: ' + data.cCompanyName + ' </br>Contact Name: ' + data.cContactName + '</br>City: ' + $(this).attr('CityName') + '</br>Street: ' + $(this).attr('StreetName') + ' , ' + data.cbuildingNumber + '</br>Phone1: ' + data.cPhoneOne + '-' + data.cPhone11 + '  </div>').appendTo($(this));
                         removeChange();
                     }
                 })

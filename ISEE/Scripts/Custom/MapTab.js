@@ -55,6 +55,8 @@ var _allLat = [];
 var _allLong = [];
 var _centerLat = '';
 var _centerLong = '';
+var bounds = new google.maps.LatLngBounds();
+var newTimeForIcon = '';
 
 
 // To load the map on current loged user country.
@@ -116,14 +118,10 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-                        for (var i = 0; i < response.length; i++) {
-                            _allLat.push(response[i].Lat);
-                            _allLong.push(response[i].Long);
-                        }
-
+                        bounds = new google.maps.LatLngBounds();
                         _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
-                            center: new google.maps.LatLng(response[0].Lat, response[0].Long),
+                            center: new google.maps.LatLng(_centerLat, _centerLong),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
                         _polyLineArray = [];
@@ -159,9 +157,9 @@ function ShowEmployeeDataOnMap() {
                                 title: title
                             });
                             _routStartEndMarkers.push(endStartMarker);
+                            bounds.extend(endStartMarker.position);
                         }
                         _flightPath.setMap(_map);
-
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
@@ -172,7 +170,12 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
+                                bounds.extend(custMarker.position);
                             }
+                            _map.fitBounds(bounds);
+                        }
+                        else {
+                            zoomToObject(_flightPath);
                         }
 
                     }
@@ -205,22 +208,31 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-
+                        bounds = new google.maps.LatLngBounds();
                         _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
+
                         var marker, i;
                         for (i = 0; i < response.length; i++) {
+                            var gpsMins = response[i].GpsTime.Minutes.toString().length == 1 ? "0" + response[i].GpsTime.Minutes.toString() : response[i].GpsTime.Minutes.toString();
+                            var firstName = response[i].LastName;
+                            var stopHour = response[i].StopTime.Hours.toString().length == 1 ? "0" + response[i].StopTime.Hours.toString() : response[i].StopTime.Hours.toString();
+                            var stopMins = response[i].StopTime.Minutes.toString().length == 1 ? "0" + response[i].StopTime.Minutes.toString() : response[i].StopTime.Minutes.toString();
+                            var gpsHours = response[i].GpsTime.Hours.toString().length == 1 ? "0" + response[i].GpsTime.Hours.toString() : response[i].GpsTime.Hours.toString();
+
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
                                 map: _map,
                                 icon: "/images/img/employee_1_stop.png",
-                                title: response[i].LastName + "  " + response[i].StopTime.Hours + ":" + response[i].StopTime.Minutes + " " + response[i].GpsTime.Hours + ":" + response[i].GpsTime.Minutes
+                                title: firstName + " " + stopHour + ":" + stopMins + " " + gpsHours + ":" + gpsMins
                             });
                             _markers.push(marker);
+                            bounds.extend(marker.position);
                         }
+
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
@@ -231,8 +243,10 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
+                                bounds.extend(custMarker.position);
                             }
                         }
+                        _map.fitBounds(bounds);
                     }
                     else {
                         alert("No Location Data");
@@ -261,19 +275,28 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response != false) {
+                        bounds = new google.maps.LatLngBounds();
                         var mapOptions = {
                             zoom: 14,
                             center: new google.maps.LatLng(response.Lat, response.Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         };
                         _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
+                        var gpsMins = response.GpsTime.Minutes.toString().length == 1 ? "0" + response.GpsTime.Minutes.toString() : response.GpsTime.Minutes.toString();
+                        var firstName = response.LastName;
+                        var stopHour = response.StopTime.Hours.toString().length == 1 ? "0" + response.StopTime.Hours.toString() : response.StopTime.Hours.toString();
+                        var stopMins = response.StopTime.Minutes.toString().length == 1 ? "0" + response.StopTime.Minutes.toString() : response.StopTime.Minutes.toString();
+                        var gpsHours = response.GpsTime.Hours.toString().length == 1 ? "0" + response.GpsTime.Hours.toString() : response.GpsTime.Hours.toString();
+
+
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
                             icon: "/images/img/employee_1new.png",
-                            title: response.LastName + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes
+                            title: firstName + " " + stopHour + ":" + stopMins + " " + gpsHours + ":" + gpsMins
                         });
                         _markers.push(marker);
+                        bounds.extend(marker.position);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
@@ -284,8 +307,10 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
+                                bounds.extend(custMarker.position);
                             }
                         }
+                        _map.fitBounds(bounds);
 
                     } else {
                         alert("No Location Data");
@@ -334,6 +359,7 @@ function TimeParseExact(time) {
             return parseFloat(hh) + 12 + "." + parseFloat(mm);
         }
         else {
+            $("#searchSection").flip();
             if (hh == "12") {
                 hh = "0";
             }
@@ -345,15 +371,15 @@ function TimeParseExact(time) {
 
 // To flip the div and show customer tab 
 function ShowCustomer() {
-    $('#searchDiv').css('display', 'none');
-    $('#searchdivCustomer').css('display', 'block');
+    $("#searchSection").flip('toggle');
 }
 
 // To flip the div and show employee tab 
 function ShowEmployee() {
-    $('#searchdivCustomer').css('display', 'none');
-    $('#searchDiv').css('display', 'block');
+    $("#searchSection").flip('toggle');
 }
+
+
 
 
 // To getting all the states that are in the logged user country 
@@ -561,10 +587,11 @@ function ShowCustomerDataOnMap() {
             dataType: "json",
             success: function (response) {
                 if (response != null || response[0].Lat != null) {
+                    bounds = new google.maps.LatLngBounds();
                     _customerPositionArrayWithEmployee = [];
                     if (response[0].Lat != null && response[0].Lat != null) {
                         var map = new google.maps.Map(document.getElementById('mapMainDiv'), {
-                            zoom: 8,
+                            zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
@@ -589,7 +616,9 @@ function ShowCustomerDataOnMap() {
                             });
                         }
                         _custMarkers.push(custMarker);
+                        bounds.extend(custMarker.position);
                     }
+                    map.fitBounds(bounds);
                 }
             }
 
@@ -717,12 +746,12 @@ function GetLatLongOfSelectedCustomer() {
     }
 }
 
-
-function getCenterPointOfRout() {
-    var maxLat = Math.max.apply(Math, _allLat);
-    var maxLong = Math.max.apply(Math, _allLong);
-    var minLat = Math.min.apply(Math, _allLat);
-    var minLong = Math.min.apply(Math, _allLong);
-
-   // _centerLat=
+function zoomToObject(obj) {
+    var bounds = new google.maps.LatLngBounds();
+    var points = obj.getPath().getArray();
+    for (var n = 0; n < points.length ; n++) {
+        bounds.extend(points[n]);
+    }
+    _map.fitBounds(bounds);
 }
+

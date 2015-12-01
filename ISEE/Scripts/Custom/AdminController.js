@@ -358,7 +358,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
     $scope.hideSecondayRow = function (secondary) {
         if ($scope.DDLType.id == '') {
-            return falses;
+            return false;
         } else {
             return !($scope.DDLType.id == secondary.StatusCode);
         }
@@ -771,16 +771,16 @@ function timeParseExact(time) {
 function validateEmployee(d) {
     var _msg = "Must select"
     var isvalid = false;
-    if (d.firstname.trim() == '') {
+    if (d.firstname == undefined || d.firstname == "") {
         _msg += ' first name';
         isvalid = true;
     }
-    else if (d.lastname.trim() == '') {
+    else if (d.firstname == undefined || d.firstname == "") {
         _msg += ' last name';
         isvalid = true;
     }
 
-    else if (d.phone1.trim() == '' || d.phone11.trim() == '') {
+    else if ((d.phone11 != undefined ? d.phone11.toString() : "").length >= 5 == false) {
         _msg += ' phone 1';
         isvalid = true;
     }
@@ -789,10 +789,16 @@ function validateEmployee(d) {
         _msg += ' Manufacture';
         isvalid = true;
     }
-    //else if (d.phoneTypeChoice.trim() == '') {
-    //    _msg += ' phone type';
-    //     isvalid = true;
-    //}
+    else if (d.phoneTypeChoice.trim() == '') {
+        _msg += ' phone type';
+        isvalid = true;
+    }
+    else if (d.mail == undefined || d.mail == "") {
+        _msg = 'Email is not valid';
+        isvalid = true;
+    }
+
+
     if (isvalid)
         return _msg;
     return '';

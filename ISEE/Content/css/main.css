@@ -1960,3 +1960,9 @@ tr.active {
     }
 
 /* map section end */
+
+
+/*Changes for Category Tab Right justify text*/
+.rightJustifyTd {
+    text-align: left;
+}

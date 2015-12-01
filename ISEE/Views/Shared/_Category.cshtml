@@ -71,7 +71,7 @@
 
                                 <tr ng-repeat="contact in contacts" ng-attr-class="{{contact.RequestSysIdLevel1 == SelectedSysIdLevel1 && 'active' || '' }}" ng-click="BindSecondary(contact)">
 
-                                    <td class="tg-dx8v_category">
+                                    <td class="tg-dx8v_category rightJustifyTd">
                                         <span ng-hide="contact.editing" ng-dblclick="editItem(contact)">{{ contact.RequestDescCodeLevel1 }}</span>
                                         <input type="hidden" ng-model="contact.RequestSysIdLevel1" />
                                         <input focus-on-show ng-show="contact.editing" ng-model="contact.RequestDescCodeLevel1" ng-blur="doneEditing(contact)" />
@@ -135,9 +135,10 @@
                                 </tr>
 
                                 <tr ng-repeat="Secondary in Secondarys" ng-hide="{{hideSecondayRow(Secondary)}}">
-                                    <td class="tg-dx8v_category">
+                                    <td class="tg-dx8v_category rightJustifyTd">
                                         <span ng-hide="Secondary.editing" ng-dblclick="editSecondary(Secondary)">  {{ Secondary.RequestDescCodeLevel2 }}</span>
-                                        <input focus-on-show ng-show="Secondary.editing" ng-model="contact.RequestDescCodeLevel2" ng-blur="doneEditingSecondary(Secondary)" />
+                                        <input type="hidden" ng-model="Secondary.RequestDescCodeLevel2 " />
+                                        <input focus-on-show ng-show="Secondary.editing" ng-model="Secondary.RequestDescCodeLevel2 " ng-blur="doneEditingSecondary(Secondary)" />
                                     </td>
                                     <td class="tg-dx8v_category">
                                         <div class="form-group grid_style">

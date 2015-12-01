@@ -49,6 +49,14 @@ var _buildingLatLong = [];
 var _checkedCustomersforMap = '';
 var _flightPath = '';
 
+var _routMarker = [];
+var _routStartEndMarkers = [];
+var _allLat = [];
+var _allLong = [];
+var _centerLat = '';
+var _centerLong = '';
+
+
 // To load the map on current loged user country.
 function LoadMapByCurrentLogedUser() {
     $.ajax({
@@ -108,15 +116,24 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            _allLat.push(response[i].Lat);
+                            _allLong.push(response[i].Long);
+                        }
+
                         _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
                             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
                         });
                         _polyLineArray = [];
+                        for (var i = 0; i < response.length; i++) {
+                            _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
+                        }
+                        _routMarker = [];
                         if (response.length > 1) {
-                            _polyLineArray.push(new google.maps.LatLng(response[0].Lat, response[0].Long));
-                            _polyLineArray.push(new google.maps.LatLng(response[response.length - 1].Lat, response[response.length - 1].Long));
+                            _routMarker.push(new google.maps.LatLng(response[0].Lat, response[0].Long));
+                            _routMarker.push(new google.maps.LatLng(response[response.length - 1].Lat, response[response.length - 1].Long));
 
                         }
                         _flightPath = new google.maps.Polyline({
@@ -125,7 +142,26 @@ function ShowEmployeeDataOnMap() {
                             strokeOpacity: 0.8,
                             strokeWeight: 2
                         });
+                        var image, title;
+                        for (var i = 0; i < _routMarker.length; i++) {
+                            if (i == 0) {
+                                image = "/images/img/employee_4.png";
+                                title = "Start";
+                            }
+                            else {
+                                image = "/images/img/employee_1new.png";
+                                title = "End";
+                            }
+                            var endStartMarker = new google.maps.Marker({
+                                position: _routMarker[i],
+                                map: _map,
+                                icon: image,
+                                title: title
+                            });
+                            _routStartEndMarkers.push(endStartMarker);
+                        }
                         _flightPath.setMap(_map);
+
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
@@ -151,6 +187,9 @@ function ShowEmployeeDataOnMap() {
                         }
                         for (var i = 0; i < _custMarkers.length; i++) {
                             _custMarkers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _routStartEndMarkers.length; i++) {
+                            _routStartEndMarkers[i].setMap(null);
                         }
                     }
                 }
@@ -178,7 +217,7 @@ function ShowEmployeeDataOnMap() {
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
                                 map: _map,
                                 icon: "/images/img/employee_1_stop.png",
-                                title: response[i].LastName + " " + response[i].GpsTime.Hours + ":" + response[i].GpsTime.Minutes + "  " + response[i].StopTime.Hours + ":" + response[i].StopTime.Minutes
+                                title: response[i].LastName + "  " + response[i].StopTime.Hours + ":" + response[i].StopTime.Minutes + " " + response[i].GpsTime.Hours + ":" + response[i].GpsTime.Minutes
                             });
                             _markers.push(marker);
                         }
@@ -207,6 +246,9 @@ function ShowEmployeeDataOnMap() {
                         for (var i = 0; i < _custMarkers.length; i++) {
                             _custMarkers[i].setMap(null);
                         }
+                        for (var i = 0; i < _routStartEndMarkers.length; i++) {
+                            _routStartEndMarkers[i].setMap(null);
+                        }
                     }
                 }
             });
@@ -229,7 +271,7 @@ function ShowEmployeeDataOnMap() {
                             position: new google.maps.LatLng(response.Lat, response.Long),
                             map: _map,
                             icon: "/images/img/employee_1new.png",
-                            title: response.LastName + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes
+                            title: response.LastName + "  " + response.StopTime.Hours + ":" + response.StopTime.Minutes + " " + response.GpsTime.Hours + ":" + response.GpsTime.Minutes
                         });
                         _markers.push(marker);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
@@ -256,6 +298,9 @@ function ShowEmployeeDataOnMap() {
                         }
                         for (var i = 0; i < _custMarkers.length; i++) {
                             _custMarkers[i].setMap(null);
+                        }
+                        for (var i = 0; i < _routStartEndMarkers.length; i++) {
+                            _routStartEndMarkers[i].setMap(null);
                         }
                     }
                 }
@@ -673,4 +718,11 @@ function GetLatLongOfSelectedCustomer() {
 }
 
 
+function getCenterPointOfRout() {
+    var maxLat = Math.max.apply(Math, _allLat);
+    var maxLong = Math.max.apply(Math, _allLong);
+    var minLat = Math.min.apply(Math, _allLat);
+    var minLong = Math.min.apply(Math, _allLong);
 
+   // _centerLat=
+}

@@ -83,10 +83,6 @@ namespace ISEE.Controllers
 
         }
 
-
-
-
-
         public ActionResult _Category()
         {
             return PartialView();
@@ -170,17 +166,12 @@ namespace ISEE.Controllers
         }
         public JsonResult GetPhoneTypes(int id)
         {
-
             using (ISEEEntities context = new ISEEEntities())
             {
                 var phoneTypes = context.PhoneTypes.Where(x => x.PhoneManufacturId == id).Select(c => new { PhoneTypeCode = c.PhoneTypeCode, PhoneTypeDesc = c.PhoneTypeDesc }).ToList();
                 return new JsonResult { Data = phoneTypes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-
         }
-
-
-
         public ActionResult SaveCustomerForm(CustomerDataModel objCustomerData)
         {
             string errorMessage = string.Empty;
@@ -347,107 +338,28 @@ namespace ISEE.Controllers
 
         #endregion
         #region Tree Tab
-
         public ActionResult _AdminTree()
         {
-            //SessionManegment.SessionManagement.FactoryID = 1;
-            //SessionManegment.SessionManagement.FactoryDesc = "Demo Company";
-            List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
+            List<TreeView> data = _facory.GetTreeViewRoot(SessionManagement.FactoryID).ToList();
 
             var serializer = new JavaScriptSerializer();
-            ViewBag.JsonData = serializer.Serialize(CreateJsonTree(data));
+            ViewBag.JsonData = serializer.Serialize(_facory.CreateJsonTree(data, SessionManagement.FactoryDesc));
 
             return PartialView();
         }
 
-        public static List<TreeNodeData> CreateJsonTree(List<TreeView> data)
-        {
-            List<TreeNodeData> treeList = new List<TreeNodeData>();
-            if (data.Count == 0)
-            {
-                treeList.Add(new TreeNodeData() { id = -100, text = SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
-            }
-            TreeNodeData parentTreeNode = new TreeNodeData();
-            CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
-
-            return treeList;
-        }
-
-        private static void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
-        {
-            TreeNodeData objTreeNodeData;
-            foreach (var objTreeView in data)
-            {
-                if (objTreeView.EmployeeID != null)
-                {
-                    var emp = dataContext.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, textCss = "employeeTitle", objecttype = "employee", iconUrl = "/images/img/employee_16.png" };
-                }
-                else if (objTreeView.CustomerID != null)
-                {
-                    var cust = dataContext.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, textCss = "customerTitle", objecttype = "customer", iconUrl = "/images/img/customer_16.png" };
-                }
-                else
-                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description, textCss = "customnode", objecttype = objTreeView.ParentID == null ? "companyNode" : "branchNode" };
-                if (hasChildren)
-                {
-                    if (parentTreeNode.children == null)
-                    {
-                        parentTreeNode.children = new List<TreeNodeData>();
-                    }
-                    parentTreeNode.children.Add(objTreeNodeData);
-                }
-                else
-                {
-                    treeList.Add(objTreeNodeData);
-                }
-
-                if (objTreeView.TreeView1.Any())
-                {
-                    CreateTreeNodes(objTreeView.TreeView1.ToList(), ref  treeList, ref objTreeNodeData, true);
-                }
-            }
-        }
-
-        private void DeleteNodes(List<TreeNodeData> treeNodeList, int factoryId)
-        {
-            List<long> _idsList = new List<long>();
-            GetTreeIds(treeNodeList, ref _idsList);
-            var deleteNodes = dataContext.TreeViews.Where(c => !_idsList.Contains(c.ID) && c.ID > 0 && c.FactoryID == factoryId).ToList();
-            for (int i = deleteNodes.Count; i > 0; i--)
-            {
-                dataContext.TreeViews.Remove(deleteNodes[i - 1]);
-            }
-            dataContext.SaveChanges();
-        }
-
-        private void GetTreeIds(List<TreeNodeData> treeNodeList, ref  List<long> _idsList)
-        {
-            foreach (var item in treeNodeList)
-            {
-                _idsList.Add(item.id);
-                if (item.children != null && item.children.Any())
-                {
-                    GetTreeIds(item.children, ref _idsList);
-                }
-            }
-        }
-
         public JsonResult SaveTreeViewData(string treeViewData)
         {
-            var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
-            try
+             try
             {
-                DeleteNodes(treeNodeList, SessionManagement.FactoryID);
+                  var treeNodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TreeNodeData>>(treeViewData);
 
-                SaveProcess(treeNodeList, null);
-                dataContext.SaveChanges();
-
-                List<TreeView> data = dataContext.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
+                  _facory.SaveTree(treeNodeList, SessionManagement.FactoryID);
+                 
+                List<TreeView> data = _facory.GetTreeViewRoot(SessionManagement.FactoryID).ToList();
 
                 var serializer = new JavaScriptSerializer();
-                var jsonString = serializer.Serialize(CreateJsonTree(data));
+                var jsonString = serializer.Serialize(_facory.CreateJsonTree(data, SessionManagement.FactoryDesc));
 
                 return new JsonResult { Data = new { Message = "Success", NewTreeJson = jsonString }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
@@ -458,40 +370,6 @@ namespace ISEE.Controllers
 
             }
 
-        }
-
-        private void SaveProcess(List<TreeNodeData> treeNodeList, long? objParentNodeID)
-        {
-            TreeView objNode;
-            foreach (var objTreeNode in treeNodeList)
-            {
-                objNode = dataContext.TreeViews.FirstOrDefault(c => c.ID == objTreeNode.id);
-                if (objNode == null)
-                {
-                    objNode = new TreeView();
-                    objNode.Description = objTreeNode.text;
-                    objNode.FactoryID = SessionManagement.FactoryID;
-                    if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "employee" && objTreeNode.objectid != null)
-                        objNode.EmployeeID = objTreeNode.objectid;
-                    else if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "customer" && objTreeNode.objectid != null)
-                        objNode.CustomerID = objTreeNode.objectid;
-
-                    if (objParentNodeID.HasValue)
-                    {
-                        objNode.ParentID = objParentNodeID;
-                    }
-                    dataContext.TreeViews.Add(objNode);
-                    dataContext.SaveChanges();
-                }
-                else
-                {
-                    objNode.Description = objTreeNode.text;
-                }
-                if (objTreeNode.children != null && objTreeNode.children.Any())
-                {
-                    SaveProcess(objTreeNode.children, objNode.ID);
-                }
-            }
         }
 
         #endregion

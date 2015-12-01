@@ -301,6 +301,7 @@
     <Compile Include="Repository\TreeLocation.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\TreeNodeData.cs" />
     <Compile Include="Repository\TreeView.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>

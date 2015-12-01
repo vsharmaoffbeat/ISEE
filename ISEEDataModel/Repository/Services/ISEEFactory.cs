@@ -20,6 +20,130 @@ namespace ISEEDataModel.Repository.Services
             _context = new ISEEEntities();
         }
 
+        #region Admin Tree
+        public IQueryable<TreeView> GetTreeViewRoot(int factoryId)
+        {
+            return _context.TreeViews.Where(x => x.FactoryID == factoryId && x.ParentID == null);
+        }
+
+
+        public List<TreeNodeData> CreateJsonTree(List<TreeView> data, string FactoryDesc)
+        {
+            List<TreeNodeData> treeList = new List<TreeNodeData>();
+            if (data.Count == 0)
+            {
+                treeList.Add(new TreeNodeData() { id = -100, text = FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
+            }
+            TreeNodeData parentTreeNode = new TreeNodeData();
+            CreateTreeNodes(data, ref treeList, ref parentTreeNode, false);
+
+            return treeList;
+        }
+
+        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
+        {
+            TreeNodeData objTreeNodeData;
+            foreach (var objTreeView in data)
+            {
+                if (objTreeView.EmployeeID != null)
+                {
+                    var emp = _context.Employees.Where(x => x.EmployeeId == objTreeView.EmployeeID).FirstOrDefault();
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = emp.LastName + " " + emp.FirstName, objectid = objTreeView.EmployeeID, textCss = "employeeTitle", objecttype = "employee", iconUrl = "/images/img/employee_16.png" };
+                }
+                else if (objTreeView.CustomerID != null)
+                {
+                    var cust = _context.Customers.Where(x => x.CustomerId == objTreeView.CustomerID).FirstOrDefault();
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = cust.LastName + " " + cust.FirstName, objectid = objTreeView.CustomerID, textCss = "customerTitle", objecttype = "customer", iconUrl = "/images/img/customer_16.png" };
+                }
+                else
+                    objTreeNodeData = new TreeNodeData() { id = objTreeView.ID, text = objTreeView.Description, textCss = "customnode", objecttype = objTreeView.ParentID == null ? "companyNode" : "branchNode" };
+                if (hasChildren)
+                {
+                    if (parentTreeNode.children == null)
+                    {
+                        parentTreeNode.children = new List<TreeNodeData>();
+                    }
+                    parentTreeNode.children.Add(objTreeNodeData);
+                }
+                else
+                {
+                    treeList.Add(objTreeNodeData);
+                }
+
+                if (objTreeView.TreeView1.Any())
+                {
+                    CreateTreeNodes(objTreeView.TreeView1.ToList(), ref  treeList, ref objTreeNodeData, true);
+                }
+            }
+        }
+
+        public void SaveTree(List<TreeNodeData> treeNodeList, int FactoryID)
+        {
+            DeleteNodes(treeNodeList, FactoryID);
+            SaveProcess(treeNodeList, null, FactoryID);
+            _context.SaveChanges();
+        }
+
+        private void DeleteNodes(List<TreeNodeData> treeNodeList, int factoryId)
+        {
+            List<long> _idsList = new List<long>();
+            GetTreeIds(treeNodeList, ref _idsList);
+            var deleteNodes = _context.TreeViews.Where(c => !_idsList.Contains(c.ID) && c.ID > 0 && c.FactoryID == factoryId).ToList();
+            for (int i = deleteNodes.Count; i > 0; i--)
+            {
+                _context.TreeViews.Remove(deleteNodes[i - 1]);
+            }
+            _context.SaveChanges();
+        }
+
+        private void GetTreeIds(List<TreeNodeData> treeNodeList, ref  List<long> _idsList)
+        {
+            foreach (var item in treeNodeList)
+            {
+                _idsList.Add(item.id);
+                if (item.children != null && item.children.Any())
+                {
+                    GetTreeIds(item.children, ref _idsList);
+                }
+            }
+        }
+
+
+        private void SaveProcess(List<TreeNodeData> treeNodeList, long? objParentNodeID, int? FactoryID)
+        {
+            TreeView objNode;
+            foreach (var objTreeNode in treeNodeList)
+            {
+                objNode = _context.TreeViews.FirstOrDefault(c => c.ID == objTreeNode.id);
+                if (objNode == null)
+                {
+                    objNode = new TreeView();
+                    objNode.Description = objTreeNode.text;
+                    objNode.FactoryID = FactoryID;
+                    if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "employee" && objTreeNode.objectid != null)
+                        objNode.EmployeeID = objTreeNode.objectid;
+                    else if (!string.IsNullOrEmpty(objTreeNode.objecttype) && objTreeNode.objecttype == "customer" && objTreeNode.objectid != null)
+                        objNode.CustomerID = objTreeNode.objectid;
+
+                    if (objParentNodeID.HasValue)
+                    {
+                        objNode.ParentID = objParentNodeID;
+                    }
+                    _context.TreeViews.Add(objNode);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    objNode.Description = objTreeNode.text;
+                }
+                if (objTreeNode.children != null && objTreeNode.children.Any())
+                {
+                    SaveProcess(objTreeNode.children, objNode.ID, FactoryID);
+                }
+            }
+        }
+
+        #endregion
 
         #region "Employees"
 

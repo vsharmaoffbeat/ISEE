@@ -254,6 +254,7 @@
     <Compile Include="Repository\ReportCategory.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\ReportFilterCriteria.cs" />
     <Compile Include="Repository\ReportLocalParmeter.cs">
       <DependentUpon>ISEEDataModel.tt</DependentUpon>
     </Compile>

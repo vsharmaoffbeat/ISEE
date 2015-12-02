@@ -1,4 +1,8 @@
 ﻿using ISEE.Common;
+using ISEE.Reports;
+using ISEE.Reports.ReportDataSetTableAdapters;
+using ISEEDataModel.Repository;
+using ISEEDataModel.Repository.Services;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -14,6 +18,8 @@ namespace ISEE.Controllers
 {
     public class ReportsController : Controller
     {
+        ISEEFactory _facory = new ISEEFactory();
+
         //
         // GET: /Reports/
         public ActionResult Index()
@@ -22,8 +28,43 @@ namespace ISEE.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Reports()
+        {
+            try
+            {
 
-        public ActionResult Reports(string reportName)
+                ReportViewer reportViewer = LoadReport(null);
+
+                ViewBag.ReportViewer = reportViewer;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Reports(ReportSearchParams reportSearchModel)
+        {
+            try
+            {
+
+                ReportViewer reportViewer = LoadReport(reportSearchModel);
+
+                ViewBag.ReportViewer = reportViewer;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View();
+        }
+
+        private ReportViewer LoadReport(ReportSearchParams reportSearchModel)
         {
             #region Server Report
             //ReportViewer reportViewer = new ReportViewer();
@@ -36,11 +77,15 @@ namespace ISEE.Controllers
             //reportViewer.ServerReport.ReportServerCredentials = new CustomReportCredentials(ColorTrend.Common.GetAppKeyValue("ReportServerUser"), ColorTrend.Common.GetAppKeyValue("ReportServerPassword"), "");
 
             #endregion
-            if (string.IsNullOrEmpty(reportName))
+            string reportName = "";
+            if (reportSearchModel == null || string.IsNullOrEmpty(reportSearchModel.ReportName))
             {
                 reportName = "Empty";
             }
-
+            else
+            {
+                reportName = reportSearchModel.ReportName;
+            }
             #region Local Report
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
@@ -51,7 +96,7 @@ namespace ISEE.Controllers
             //TODO: To use our report path
             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + string.Format(@"Reports\{0}.rdlc", reportName);
             //TODO: To get datasource as per report;
-
+            reportViewer.LocalReport.DataSources.Clear();
             var value = SessionManagement.CurrentLang;
             var lang = "EN";//default lang
 
@@ -116,64 +161,58 @@ namespace ISEE.Controllers
                     //  reportViewer.LocalReport.DataSources.Add(new ReportDataSource("dsLocalReport", dataSet.Tables["SampleTable"]));
                     break;
                 case "ListCustomers":
-                    //var companyLogo = ReportParameters["CompanyLogo"].Value;
-
-                    //if (companyLogo != null)
-                    //{
-                    //    pictureBox2.Value = "http://isee1.blob.core.windows.net/logo/" + companyLogo;
-                    //    pictureBox2.Visible = true;
-
-                    //}
-                    //else
-                    //{ pictureBox1.Visible = true; }
-
-                   // string sql = @"SELECT  RepoetStringLabelPk, MainString, EN, HE, RU, ES, DE FROM  RepoetStringLabel";
-                   // string connectionString = ConfigurationManager.ConnectionStrings["ReportsConnectionString"].ConnectionString;
-
-
-                   // SqlDataAdapter adapter = new SqlDataAdapter(sql, connectionString);
-                   // DataTable datatable = new DataTable();
-                   // adapter.Fill(datatable);
-
-
-
-                   // int factoryID = SessionManagement.FactoryID;
-                   //// string commaseparatedValue = ReportParameters["Customers"].Value.ToString();
-                   // SqlDataSource sqlDataSource = new SqlDataSource
-                   // {
-                   //     ConnectionString = connectionString,
-                   //     SelectCommand = GetSql(commaseparatedValue)
-                   // };
-                   // sqlDataSource.Parameters.Add("@Factory", DbType.Int32, factoryID);
+                    ReportDataSet ds = new ReportDataSet();
+                    usp_GetCustomersTableAdapter da = new usp_GetCustomersTableAdapter();
+                    da.Fill(ds.usp_GetCustomers, SessionManagement.FactoryID, reportSearchModel.FilterSearch);
+                    List<ReportParameter> parm = new List<ReportParameter>();
+                    DataTable dt = ds.Tables["usp_GetCustomers"];
+                    ReportDataSource rptDataSource = new ReportDataSource("GetCustomers", dt);
+                    reportViewer.LocalReport.DataSources.Add(rptDataSource);
                     break;
             }
-
+            reportViewer.LocalReport.Refresh();
             #endregion
-
-            ViewBag.ReportViewer = reportViewer;
-            return View();
+            return reportViewer;
         }
 
-        private string GetSql(string listcustomers)
+    
+        public ActionResult GetCustomers(ReportFilterCriteria model)
         {
+            try
+            {
+                List<ClsEmployee> resultList = new List<ClsEmployee>();
+                switch (model.FilterType)
+                {
+                    case "1":
+                        _facory.GetEmployees(SessionManagement.FactoryID, model.LastName, model.FirstName, model.CustomerNumber, 0, 0, model.Active).ToList().ForEach(x => resultList.Add(new ClsEmployee { FirstName = x.FirstName, Id = x.EmployeeId, LastName = x.LastName, CustomerNumber = x.EmployeeNum }));
+                        break;
+                    default:
+                        _facory.GetCustomersNew(SessionManagement.FactoryID, 0, 0, 0, null, model.CustomerNumber, model.FirstName, model.LastName, null, null, model.Active).ToList().ForEach(x => resultList.Add(new ClsEmployee { FirstName = x.FirstName, Id = x.CustomerId, LastName = x.LastName, CustomerNumber = x.CustomerNumber }));
+                        break;
+                }
+                return new JsonResult { Data = new { IsSuccess = true, Customers = resultList }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception)
+            {
 
-            string sql =
-                @" SELECT Customer.CustomerId, Customer.CustomerNumber, Customer.Factory, Customer.FirstName, Customer.LastName, Customer.Floor, Customer.Apartment, Customer.AreaPhone1,  
-                         Customer.Phone1, Customer.AreaPhone2, Customer.Phone2, Customer.AreaCelolar, Customer.Celolar, Customer.AreaFax, Customer.Fax, Customer.Mail, 
-                         Customer.VisitInterval, Customer.NextVisit, Country.CountryDesc, City.CityDesc, Street.StreetDesc, Building.Entry, Building.Number
-                         FROM            Customer INNER JOIN
-                         Building ON Customer.BuildingCode = Building.BuildingCode INNER JOIN
-                         Country ON Building.CountryCode = Country.CountryCode INNER JOIN
-                         City ON Building.CityCode = City.CityCode INNER JOIN
-                         Street ON Building.StreetCode = Street.StreetCode AND City.CityCode = Street.CityCode
-                        Where Customer.Factory=@Factory";
-
-            string strParams = string.IsNullOrEmpty(listcustomers) ? string.Empty : " and " + listcustomers;
-            return sql + strParams;
-
+                return new JsonResult { Data = new { IsSuccess = false, ErrorMessageText = "An Error has been occured...", ErrorMessageBoxTitle = "Message" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
         }
-     
+
+        public class ClsEmployee
+        {
+            public int Id { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+            public string CustomerNumber { get; set; }
+        }
 
 
+    }
+
+    public class ReportSearchParams
+    {
+        public string ReportName { get; set; }
+        public string FilterSearch { get; set; }
     }
 }

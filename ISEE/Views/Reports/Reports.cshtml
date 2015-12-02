@@ -1,4 +1,5 @@
-﻿@using ReportViewerForMvc
+﻿@model ISEE.Controllers.ReportSearchParams
+@using ReportViewerForMvc
 @{
     ViewBag.Title = "employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +9,10 @@
         width: 100%;
         height: 100%;
     }
+
+    .active {
+        background-color: lightgrey;
+    }
 </style>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -16,14 +21,57 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/themes/default/style.css" rel="stylesheet" />
 
-<div ng-app="Reports" ng-controller="ReportController" style="padding-top:20px;">
-    <div class="col-md-2">
+<form id="reportForm" ng-submit="RendorReport()" ng-app="Reports" ng-controller="ReportController" style="padding-top:20px;" method="post">
+    <div class="col-md-2" style="background-color:white;border:1px solid">
+        <div>
+            <input type="button" name="SearchButton" ng-click="ShowFilterDialog()" value="Search" ng-hide="HideSearchButton" />
+        </div>
         <div ng-repeat="objReport in Reports" ng-click="SelectReport(objReport)" ng-attr-class="{{objReport.ReportName == SelectedReport && 'active' || '' }}">
             {{objReport.text}}
         </div>
     </div>
     <div id="reports" class="col-md-10">
-        @Html.ReportViewer((Microsoft.Reporting.WebForms.ReportViewer)ViewBag.ReportViewer)
+        @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
     </div>
-</div>
 
+    <div id="divReportFilter" style="display:none;">
+        <div>Report Parameters</div>
+        <div>
+            <div>
+                <input type="radio" name="radAll" value="1" ng-model="ReportFilterCriteria.FilterType" /> All
+                <input type="radio" name="radAll" value="2" ng-model="ReportFilterCriteria.FilterType" /> Search With Params
+                <input type="button" name="btnParamSearch" value="Search" ng-click="DoSearch()" ng-hide="HideParamSearchButton" />
+            </div>
+            <div>
+                <input type="text" name="txtLastName" ng-model="ReportFilterCriteria.LastName" value=" " placeholder="Last Name" />
+                <input type="text" name="txtFirstName" ng-model="ReportFilterCriteria.FirstName" value=" " placeholder="First Name" />
+                <input type="text" name="txtCustomerNumber" ng-model="ReportFilterCriteria.CustomerNumber" value=" " placeholder="Customer Number" />
+                <input type="checkbox" name="chkActive" ng-model="ReportFilterCriteria.Active" ng-true-value="true" ng-false-value="false" value=" " /> Active
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th><input type="checkbox" name="chkSelectAll" ng-click="toggleAll()" ng-model="isAllSelected" ng-true-value="true" ng-false-value="false" /></th>
+                        <th>Number</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="objCustomer in Customers">
+                        <td><input type="checkbox" name="chk_{{objCustomer.CustomerNumber}}" ng-change="optionToggled()" ng-model="objCustomer.IsSelected" ng-true-value="true" ng-false-value="false" /></td>
+                        <td>{{objCustomer.CustomerNumber}}</td>
+                        <td>{{objCustomer.LastName}} {{objCustomer.FirstName}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <input type="button" onclick="submitForm()" name="btnOk" value="Ok" />
+                <input type="button" name="btnCancel" value="Cancel" ng-click="CloseDialog()" />
+            </div>
+        </div>
+    </div>
+
+    <input ng-update-hidden id="ReportName" name="ReportName" ng-model="ReportSearchParams.ReportName" type="hidden"/>
+    <input ng-update-hidden id="FilterSearch" name="FilterSearch" ng-model="ReportSearchParams.FilterSearch" type="hidden" />
+    @*@Html.HiddenFor(Model => Model.ReportName)
+    @Html.HiddenFor(Model => Model.FilterSearch)*@
+
+</form>

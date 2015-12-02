@@ -178,6 +178,11 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ReportDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resource.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,6 +319,17 @@
     <Content Include="Content\themes\default-dark\Thumbs.db" />
     <Content Include="Content\themes\default\Thumbs.db" />
     <None Include="Properties\PublishProfiles\FTPPublish.pubxml" />
+    <Content Include="Reports\ReportDataSet.xsc">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\ReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reports\ReportDataSet.xss">
+      <DependentUpon>ReportDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\MapTab.js" />
     <Content Include="Scripts\Custom\Reports.js" />

@@ -688,5 +688,52 @@ namespace ISEEREGION.Controllers
 
         }
         #endregion
+
+
+        // Country tab start
+        public JsonResult GetAllCountrys()
+        {
+            using (ISEEEntities context = new ISEEEntities())
+            {
+                var StateDec = _facory.GetAllcountries().ToList()
+                .Select(x => new { CountryCode = x.CountryCode.ToString().Trim(), CountryDesc = (x.CountryDesc ?? string.Empty).ToString().Trim(), CurrentGmt = x.CurrentGmt, CountryDescEN = (x.CountryDescEn ?? string.Empty).ToString().Trim() })
+                .Distinct()
+                .ToList();
+                return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+        public JsonResult GetAllStatesByCountryID(int countryID)
+        {
+            var StateDec = _facory.GetAllStates(countryID).ToList()
+                    .Select(x => new { StateCode = x.StateCode.ToString().Trim(), StateDesc = (x.StateDesc ?? string.Empty).ToString().Trim(), StateDescEn = (x.StateDescEn ?? string.Empty).ToString().Trim() })
+                    .Distinct()
+                    .ToList();
+
+            return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult GetAllCitysByStateAndCountry(int stateID, int countyID)
+        {
+            var Cityes = _facory.GetAllCities(countyID, stateID).ToList()
+            .Select(d => new { CityCode = d.CityCode.ToString().Trim(), CityDesc = d.CityDesc.ToString().Trim(), CityDescEn = (d.CityDescEn ?? string.Empty).ToString().Trim() })
+            .Distinct()
+            .ToList();
+            return new JsonResult { Data = Cityes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult GetAllStreetsByCityByCountry(int cityID, int countyID)
+        {
+            var Streets = _facory.GetAllStreets(countyID, cityID).ToList().Select(d => new { StreetCode = d.StreetCode.ToString().Trim(), Streetdesc = d.StreetDesc.ToString().Trim(), StreetDescEn = (d.StreetDescEn ?? string.Empty).ToString().Trim() })
+            .Distinct()
+            .ToList();
+            return new JsonResult { Data = Streets, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        //country tab end
+
+
+
+
     }
+
+
 }

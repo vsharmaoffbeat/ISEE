@@ -39,6 +39,7 @@
             <a class="LoadCategoryParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Category</a>
             <a class="LoadEmployeeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewEmployee</a>
             <a class="LoadCustomerParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewCustomer</a>
+            <a class="LoadCountryParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Country</a>
         </div>
     </div>
 
@@ -57,6 +58,9 @@
                 </div>
                 <div id="bindPartial_NewCustomer" style="display: none">
                     @{Html.RenderAction("_NewCustomer", "Admin");}
+                </div>
+                <div id="bindPartial_NewCountry" style="display:none">
+                    @{Html.RenderAction("_Country", "Admin");}
                 </div>
             </div>
 
@@ -132,7 +136,7 @@
             $('#bindPartial_Category').hide();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').hide();
-
+            $('#bindPartial_NewCountry').hide();
             loadTreeData('tree');
         });
         $('.LoadCategoryParital').click(function (data) {
@@ -140,18 +144,14 @@
             $('#bindPartial_Category').show();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').hide();
-
+            $('#bindPartial_NewCountry').hide();
         });
         $('.LoadEmployeeParital').click(function (data) {
             $('#bindPartial_AdminTree').hide();
             $('#bindPartial_Category').hide();
-            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
-            var $scope = angular.element(appElement).scope();
-            $scope.clearEmployeeDetails();
-            $scope.$apply();
             $('#bindPartial_NewEmployee').show();
             $('#bindPartial_NewCustomer').hide();
-
+            $('#bindPartial_NewCountry').hide();
             loadTreeData('employee');
 
 
@@ -161,7 +161,16 @@
             $('#bindPartial_Category').hide();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').show();
+            $('#bindPartial_NewCountry').hide();
+            loadTreeData('customer');
 
+        });
+        $('.LoadCountryParital').click(function (data) {
+            $('#bindPartial_AdminTree').hide();
+            $('#bindPartial_Category').hide();
+            $('#bindPartial_NewEmployee').hide();
+            $('#bindPartial_NewCustomer').hide();
+            $('#bindPartial_NewCountry').show();
             loadTreeData('customer');
 
         });

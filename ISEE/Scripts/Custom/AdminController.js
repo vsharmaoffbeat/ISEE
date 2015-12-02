@@ -567,6 +567,33 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             }
         });
     }
+
+    //Country tab start
+    $scope.HasCountry_StateActive = "true";
+
+    $scope.CountryTabInfo = null;
+    $scope.clearControlsCountry = function () {
+        $scope.CountryTabInfo = {
+            Country: '',
+            CountryEN: '',
+            UTC: '',
+        };
+    }
+    $scope.clearControlState = function () {
+        $scope.State = '';
+    };
+
+    $scope.clearControlCity = function () {
+        $scope.City = ''
+    };
+
+    $scope.clearControlStreet = function () {
+        $scope.Street = '';
+    };
+    //country tab Ends
+
+
+
 })
 
 module.service('ContactService', function ($http) {

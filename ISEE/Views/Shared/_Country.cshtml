@@ -1,0 +1,91 @@
+﻿<form role="form" method="post" action="#" autocomplete="on">
+    <div class="row second_tree_rightbar">
+        <div class="col-md-12 col-xs-12 category_header">
+            <div class="col-sm-3 col-xs-3"><h4 class="category_title">Country</h4></div>
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">Country</label>
+                <input type="text" id="inputCountry" ng-model="CountryTabInfo.Country" class=" form-control isee_input_shadow">
+            </div>
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="usr">Country EN</label>
+                    <input type="text" id="inputCountryEN" ng-model="CountryTabInfo.CountryEN" class="form-control isee_input_shadow">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label for="usr">UTC</label>
+                <input type="text" id="inputUTC" class="form-control isee_input_shadow" ng-model="CountryTabInfo.UTC">
+            </div>
+        </div>
+        <button type="button" class="btn btn-default isee_select_button edit_tree" ng-click="clearControlsCountry()"><img src="../images/img/edit5.png" /></button>
+        <button type="button" class="btn btn-default isee_select_button save_tree" onclick="SaveCountry()"><img src="../images/img/save.png" /></button>
+        <div class="col-md-12 col-xs-12 bulding_inner_left">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">State</label>
+                        <input id="stateChk" type="checkbox" onchange="StateChkClick(this)" />
+                        <input id="inputCountry_State" type="text" class="form-control isee_input" ng-model="State" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">StateEN</label>
+                        <input id="inputCountry_StateEN" type="text" class="form-control isee_input" ng-model="StateEN" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default isee_select_button edit_tree" ng-click="clearControlState()"><img src="../images/img/edit5.png" /></button>
+                    <button type="button" class="btn btn-default isee_select_button save_tree" onclick="SaveState()"><img src="../images/img/save.png" /></button>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">City</label>
+                        <input id="inputCountry_City" type="text" class="form-control isee_input" ng-model="City" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">CityEN</label>
+                        <input id="inputCountry_CityEN" type="text" class="form-control isee_input" ng-model="CityEN" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default isee_select_button edit_tree" ng-click="clearControlCity()"><img src="../images/img/edit5.png" /></button>
+                    <button type="button" class="btn btn-default isee_select_button save_tree" onclick="SaveCity()"><img src="../images/img/save.png" /></button>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">Street</label>
+                        <input id="inputCountry_Street" type="text" class="form-control isee_input" ng-model="Street" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="usr">StreetEN</label>
+                        <input id="inputCountry_StreetEN" type="text" class="form-control isee_input" ng-model="StreetEN" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default isee_select_button edit_tree" ng-click="clearControlStreet()"><img src="../images/img/edit5.png" /></button>
+                    <button type="button" class="btn btn-default isee_select_button save_tree" onclick="SaveStreet()"><img src="../images/img/save.png" /></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

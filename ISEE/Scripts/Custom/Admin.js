@@ -43,6 +43,12 @@ var availableBuildingId = [];
 var availableBuildingLat = [];
 var availableBuildingLong = [];
 
+
+//Country tab impilimations 
+var countryId = [];
+var countryArray = [];
+
+
 //Will work on arrary of type [{id:1,name:abc},{id:2,name:abtc}]
 function GetIdByName(arr, name) {
     var item = $.grep(arr, function (v) { return v.name === name; })
@@ -466,6 +472,7 @@ $(document).ready(function () {
     });
 
     GetAllStatesByCountry();
+    GetAllCountrys();
 });
 
 
@@ -473,3 +480,436 @@ $(document).ready(function () {
 
 
 //End Tree View Section
+
+
+
+
+
+//Country tab start
+function GetAllCountrys() {
+    countryNames = [];
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetAllCountrys",
+        success: function (response) {
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $(response).each(function () {
+                if (countryNames.indexOf(this.CountryDesc.trim()) == -1) {
+                    countryNames.push(this.CountryDesc.trim());
+                }
+                countryId.push(this.CountryCode);
+                countryArray.push({ id: this.CountryCode, name: this.CountryDesc, NameEN: this.CountryDescEN, UTC: this.CurrentGmt.toString() });
+            });
+
+            if (response.length <= 1) {
+                //GetAllCitysByState(response[0].CountryDesc);
+            }
+            $("#inputCountry").autocomplete({
+                source: countryNames,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    var nameEN = GetNameENByName(countryArray, ui.item.label);
+                    var UTC = GetUTCByName(countryArray, ui.item.label);
+
+                    $("#inputCountryEN").val(nameEN);
+                    $("#inputUTC").val(UTC);
+                    GetAllStatesByCountryID(ui.item.label);
+                }
+            });
+        },
+        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+
+function GetAllStatesByCountryID(country) {
+    if (country == undefined) {
+        country = '';
+    }
+    if (GetIdByName(countryArray, country) == 0) {
+        $('#inputCountry_City').val('');
+        $('#inputCountry_Street').val('');
+
+        return false;
+    }
+    stateNames = [];
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetAllStatesByCountryId",
+        data: { countryID: GetIdByName(countryArray, country) },
+        dataType: "json",
+        success: function (response) {
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $scope.$apply(function () {
+                debugger;
+                if (response.length <= 1) {
+                    $scope.HasCountry_StateActive = "true";
+                    $('#inputCountry_State').prop("disabled", true)
+                    $("#stateChk").prop('checked', 'checked');
+                } else {
+                    $scope.HasCountry_StateActive = "false";
+                    $('#inputCountry_State').prop("disabled", false);
+                    $("#stateChk").prop('checked', '');
+                }
+            });
+            $(response).each(function () {
+                if (stateNames.indexOf(this.StateDesc.trim()) == -1) {
+                    stateNames.push(this.StateDesc.trim());
+                }
+                stateIds.push(this.StateCode);
+                statesArray.push({ id: this.StateCode, name: this.StateDesc, NameEN: this.StateDescEn })
+            });
+
+            //if (response.length <= 1) {
+            //    GetAllCitysByState(response[0].StateDesc);
+            //}
+            $("#inputCountry_State").autocomplete({
+                source: stateNames,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    var nameEN = GetNameENByName(statesArray, ui.item.label);
+                    $("#inputCountry_StateEN").val(nameEN);
+                    GetAllCitysByStateAndCountry(ui.item.label, country);
+                }
+            });
+        },
+        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+function GetAllCitysByStateAndCountry(state, country) {
+    availableCityName = [];
+    cityArray
+    if (state == undefined || country == undefined) {
+        state = '';
+        country = '';
+    }
+    if (GetIdByName(statesArray, state) == 0 && GetIdByName(countryArray, country) == 0) {
+        $('#inputCountry_Street').val('');
+
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetAllCitysByStateAndCountry",
+        data: { stateID: GetIdByName(statesArray, state), countyID: GetIdByName(countryArray, country) },
+        dataType: "json",
+        success: function (response) {
+            if (response != null) {
+                cityArray = [];
+
+                $(response).each(function () {
+                    if (availableCityName.indexOf(this.CityDesc.trim()) == -1) {
+                        availableCityName.push(this.CityDesc.trim());
+                    }
+                    availableCityIds.push(this.CityCode);
+                    cityArray.push({ id: this.CityCode, name: this.CityDesc, NameEN: this.CityDescEn })
+                });
+            }
+
+            $("#inputCountry_City").autocomplete({
+                source: availableCityName,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    var nameEN = GetNameENByName(cityArray, ui.item.label);
+                    $("#inputCountry_CityEN").val(nameEN);
+                    GetAllStreetsByCityStateAndCountry(ui.item.label, country);
+                }
+            });
+        },
+        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+function GetAllStreetsByCityStateAndCountry(city, country) {
+    if (GetIdByName(cityArray, city) == 0 || GetIdByName(countryArray, country) == 0) {
+
+        streetArray = [];
+        $('#inputCountry_Street').val('');
+
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetAllStreetsByCityByCountry",
+        data: { cityID: GetIdByName(cityArray, city), countyID: GetIdByName(countryArray, country) },
+        dataType: "json",
+        success: function (response) {
+            if (response != null) {
+                $(response).each(function () {
+                    if (availableStreetName.indexOf(this.Streetdesc.trim()) == -1) {
+                        availableStreetName.push(this.Streetdesc.trim());
+                    }
+                    availableStreetId.push(this.StreetCode);
+                    streetArray.push({ id: this.StreetCode, name: this.Streetdesc, NameEN: this.StreetDescEn })
+                });
+            }
+            $("#inputCountry_Street").autocomplete({
+                source: availableStreetName,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    var nameEN = GetNameENByName(streetArray, ui.item.label);
+                    $("#inputCountry_StreetEN").val(nameEN);
+                }
+            });
+
+
+
+        },
+        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+
+
+function StateChkClick(obj) {
+    if ($("#stateChk").prop('checked') == false) {
+        $('#inputCountry_State').prop("disabled", false)
+    }
+    else {
+        $('#inputCountry_State').prop("disabled", true)
+    }
+}
+
+function SaveCountry() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+    var countryID = GetIdByName(countryArray, $('#inputCountry').val());
+    var countryDesc = $('#inputCountry').val();
+    var countryDescEN = $('#inputCountryEN').val();
+    var countryUTC = $('#inputUTC').val();
+
+    if (countryID == 0 || countryUTC == "") {
+        if (countryDesc != "" || countryUTC != "") {
+            $.ajax({
+                url: "/Admin/SaveCountry",
+                type: "post",
+                data: { Countrycode: 0, CountryNameEN: countryDescEN, UTC: countryUTC, CountryDesc: countryDesc },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'Country save sucessfully.');
+                            $scope.CountryTabInfo = null;
+                            GetAllCountrys();
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        } else {
+            return false;
+        }
+    } else {
+
+        $.ajax({
+            url: "/Admin/SaveCountry",
+            type: "post",
+            data: { Countrycode: countryID, CountryNameEN: countryDescEN, UTC: countryUTC, CountryDesc: countryDesc },
+            success: function (result) {
+                $scope.$apply(function () {
+                    if (result.Message == 'Success') {
+                        $scope.ShowMessageBox('Save Message', 'Country update sucessfully.');
+                        GetAllCountrys();
+                    } else {
+                        $scope.ShowMessageBox('Error', result.ErrorDetails)
+                    }
+
+                });
+            }
+        });
+    }
+}
+
+
+function SaveState() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+    var countryID = GetIdByName(countryArray, $('#inputCountry').val());
+    var stateDesc = $('#inputCountry_State').val();
+    var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
+    var stateDescEN = $('#inputCountry_StateEN').val();
+
+    if (countryID != 0) {
+        if (stateCode == 0) {
+            $.ajax({
+                url: "/Admin/SaveState",
+                type: "post",
+                data: { Countrycode: countryID, StateCode: 0, StateDescEn: stateDescEN, StateDesc: stateDesc },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "/Admin/SaveState",
+                type: "post",
+                data: { Countrycode: countryID, StateCode: stateCode, StateDescEn: stateDescEN, StateDesc: stateDesc },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+    }
+    else {
+        return false;
+    }
+
+}
+
+
+
+function SaveCity() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+    var stateDesc = $('#inputCountry_State').val();
+    var countryID = GetIdByName(countryArray, $('#inputCountry').val());
+    var cityDesc = $('#inputCountry_City').val();
+    var cityCode = GetIdByName(cityArray, cityDesc == "" ? null : cityDesc);
+    var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
+    var cityDescEN = $('#inputCountry_CityEN').val();
+
+    if (countryID != 0) {
+        if (cityCode == 0) {
+            $.ajax({
+                url: "/Admin/SaveCity",
+                type: "post",
+                data: { Countrycode: countryID, CityCode: 0, CityDescEN: cityDescEN, CityDesc: cityDesc, StateCode: stateCode },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "/Admin/SaveCity",
+                type: "post",
+                data: { Countrycode: countryID, CityCode: cityCode, CityDescEN: cityDescEN, CityDesc: cityDesc, StateCode: stateCode },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+    }
+    else {
+        return false;
+    }
+
+}
+
+function SaveStreet() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+
+    var stateDesc = $('#inputCountry_State').val();
+    var cityDesc = $('#inputCountry_City').val();
+    var countryID = GetIdByName(countryArray, $('#inputCountry').val());
+    var cityCode = GetIdByName(cityArray, cityDesc == "" ? null : cityDesc);
+    var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
+
+    var streetDesc = $('#inputCountry_Street').val();
+    var streetCode = GetIdByName(streetArray, streetDesc == "" ? null : streetDesc);
+    var streetDescEN = $('#inputCountry_StreetEN').val();
+
+    if (countryID != 0) {
+        if (cityCode == 0) {
+            $.ajax({
+                url: "/Admin/SaveStreet",
+                type: "post",
+                data: { Countrycode: countryID, CityCode: cityCode, StreetCode: 0, StreetDescEN: streetDescEN, StreetDesc: streetDesc, StateCode: stateCode },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "/Admin/SaveStreet",
+                type: "post",
+                data: { Countrycode: countryID, CityCode: cityCode, StreetCode: streetCode, StreetDescEN: streetDescEN, StreetDesc: streetDesc, StateCode: stateCode },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
+        }
+    }
+    else {
+        return false;
+    }
+
+}
+
+
+
+
+function GetNameENByName(arr, name) {
+    var item = $.grep(arr, function (v) { return v.name === name; })
+    if (item.length > 0) {
+        return item[0].NameEN;
+    } else {
+        return 0;
+    }
+}
+function GetUTCByName(arr, name) {
+    var item = $.grep(arr, function (v) { return v.name === name; })
+    if (item.length > 0) {
+        return item[0].UTC;
+    } else {
+        return 0;
+    }
+}
+//Country tab end

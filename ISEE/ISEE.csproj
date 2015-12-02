@@ -558,6 +558,7 @@
     <Content Include="Views\Calendar\Index.cshtml" />
     <Content Include="Views\Customer\Customer.cshtml" />
     <Content Include="Views\Reports\Reports.cshtml" />
+    <Content Include="Views\Shared\_Country.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\CustomerRequests.rdlc" />

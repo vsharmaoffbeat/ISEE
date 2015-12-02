@@ -8,14 +8,19 @@
         width: 100%;
         height: 100%;
     }
-
-  
 </style>
-<div style="padding-top:20px;">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/Custom/Reports.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link href="~/Content/themes/default/style.css" rel="stylesheet" />
+
+<div ng-app="Reports" ng-controller="ReportController" style="padding-top:20px;">
     <div class="col-md-2">
-        <a href="/Reports/Reports?reportName=EmployeeSms">Employee Sms</a><br />
-        <a href="/Reports/Reports?reportName=ListCustomers">List of customers</a><br />
-        <a href="/Reports/Reports?reportName=CustomerRequests">Customer Request</a><br />
+        <div ng-repeat="objReport in Reports" ng-click="SelectReport(objReport)" ng-attr-class="{{objReport.ReportName == SelectedReport && 'active' || '' }}">
+            {{objReport.text}}
+        </div>
     </div>
     <div id="reports" class="col-md-10">
         @Html.ReportViewer((Microsoft.Reporting.WebForms.ReportViewer)ViewBag.ReportViewer)

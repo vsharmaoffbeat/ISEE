@@ -271,11 +271,23 @@
 
                 if (objType == "companyNode" || objType == "branchNode") {
                     targetId = target.attr("id")
+
+                    //Check Name Already Exist
+                    var targetNode = objTree.getNode(targetId)
+                    if (targetNode.children != undefined) {
+                        var item = $.grep(targetNode.children, function (v) { return v.text.trim() === $('#addNewNode').val().trim(); })
+                        if (item.length > 0) {
+                            return false
+                        }
+                    }
+
                     sourceNode.textCss = "customnode";
                     objTree.addNode(sourceNode, targetId);
                     // objEmployeeTree.addNode(sourceNode, targetId);
                     //s  objCustomerTree.addNode(sourceNode, targetId);
                     $('#addNewNode').val('')
+
+
                 }
             }
 

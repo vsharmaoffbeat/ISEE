@@ -356,6 +356,7 @@ function GetBuildingsByCity() {
 
 //Search function for customer 
 function searchCustomerData() {
+    debugger;
     $('#left_employee_window').empty();
     var state = 0;
     var city = 0;
@@ -373,7 +374,7 @@ function searchCustomerData() {
     //    building = abliableDataForBuildingId[abliableDataForBuildingNumber.indexOf($('#custBuldingNumber').val())];
 
 
-    var data = { state: state, city: city, street: street, building: $('#custBuldingNumber').val(), custNumber: $('#custNumber').text().trim(), firstName: $('#custName').text().trim(), lastName: $('#custCompany').text().trim(), phone: $('#custPhone').text().trim(), phone1: $('#custPhone1').text().trim(), isActive: $('#isActive').is(':checked') }
+    var data = { state: state, city: city, street: street, building: $('#custBuldingNumber').val(), custNumber: $('#custNumber').val().trim(), firstName: $('#custName').val().trim(), lastName: $('#custCompany').val().trim(), phone: $('#custPhone').val().trim(), phone1: $('#custPhone1').val().trim(), isActive: $('#isActive').is(':checked') }
 
 
     // { manufacture: $("#ddlmanufacture").val(), lastName: $('#empLastname').val(), firstName: $('#empFirstname').val(), empNumber: $('#empNumber').val(), phoneType: $('#ddlphoneType').val(), isActive: $('#isActive').is(':checked') }

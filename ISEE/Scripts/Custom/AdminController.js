@@ -417,7 +417,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     $scope.EmployeeID = 0;
     $scope.SaveAllEmployeeData = function () {
         var msg = validateEmployee($scope.employeeInfo);
-        if (msg.trim() != '') {
+        if (msg != null && msg.trim() != '') {
             $scope.ShowMessageBox('Message', msg);
             return false;
         }
@@ -796,17 +796,17 @@ function validateEmployee(d) {
         angular.element(document.querySelector('#inputPhone1')).css('border-color', 'red');
     }
 
-    else if (d.ManufactureChoice.trim() == '') {
+    else if (d.ManufactureChoice != null && d.ManufactureChoice.trim() == '') {
         _msg += ' Manufacture';
         isvalid = true;
         angular.element(document.querySelector('#ddlmanufacture')).css('border-color', 'red');
     }
-    else if (d.phoneTypeChoice.trim() == '') {
+    else if (d.phoneTypeChoice != null && d.phoneTypeChoice.trim() == '') {
         _msg += ' phone type';
         isvalid = true;
         angular.element(document.querySelector('#ddlphoneType')).css('border-color', 'red');
     }
-    else if (d.mail == undefined || d.mail == "") {
+    else if (d.mail == undefined) {
         _msg = 'Email is not valid';
         isvalid = true;
         angular.element(document.querySelector('#txtmail')).css('border-color', 'red');

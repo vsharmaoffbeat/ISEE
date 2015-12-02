@@ -49,13 +49,13 @@
                 <div id="bindPartial_AdminTree" class="partialDivs">
                     @{Html.RenderAction("_AdminTree", "Admin");}
                 </div>
-                <div id="bindPartial_Category" style="display:none">
+                <div id="bindPartial_Category" style="display: none">
                     @{Html.RenderAction("_Category", "Admin");}
                 </div>
-                <div id="bindPartial_NewEmployee" style="display:none">
+                <div id="bindPartial_NewEmployee" style="display: none">
                     @{Html.RenderAction("_NewEmployee", "Admin");}
                 </div>
-                <div id="bindPartial_NewCustomer" style="display:none">
+                <div id="bindPartial_NewCustomer" style="display: none">
                     @{Html.RenderAction("_NewCustomer", "Admin");}
                 </div>
             </div>
@@ -145,6 +145,10 @@
         $('.LoadEmployeeParital').click(function (data) {
             $('#bindPartial_AdminTree').hide();
             $('#bindPartial_Category').hide();
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $scope.clearEmployeeDetails();
+            $scope.$apply();
             $('#bindPartial_NewEmployee').show();
             $('#bindPartial_NewCustomer').hide();
 

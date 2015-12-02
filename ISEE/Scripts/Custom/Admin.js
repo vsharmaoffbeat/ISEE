@@ -1,4 +1,5 @@
-﻿//Employee Section
+﻿var buildingCode = 0;
+//Employee Section
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
     //  $("<option value=''/>");
@@ -14,6 +15,11 @@ function ManufactureTypes(obj) {
                     text: this.PhoneTypeDesc
                 }).appendTo($('#ddlphoneType'));
             });
+            if (response != null) {
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                $scope.employeeInfo.phoneTypeChoice = response[0].PhoneTypeCode.toString()
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -345,7 +351,7 @@ function InsertAddress() {
 function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode) {
     var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     var $scope = angular.element(appElement).scope();
-    var buildingCode = 0;
+
     $.ajax({
         url: "/Admin/GetAddressBuildingCode",
         data: { state: state, citydesc: citydesc, city: city, street: street, streetdesc: streetdesc, number: number, Lat: Lat, Long: Long, entry: entry, zipcode: zipcode },

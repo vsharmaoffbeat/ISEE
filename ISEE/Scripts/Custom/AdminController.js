@@ -771,33 +771,46 @@ function timeParseExact(time) {
 function validateEmployee(d) {
     var _msg = "Must select"
     var isvalid = false;
+    angular.element(document.querySelector('#txtlastName')).css('border-color', '');
+    angular.element(document.querySelector('#txtfirstName')).css('border-color', '');
+    angular.element(document.querySelector('#inputPhone1')).css('border-color', '');
+    angular.element(document.querySelector('#txtmail')).css('border-color', '');
+
+    angular.element(document.querySelector('#ddlmanufacture')).css('border-color', '');
+    angular.element(document.querySelector('#ddlphoneType')).css('border-color', '');
+
     if (d.firstname == undefined || d.firstname == "") {
         _msg += ' first name';
         isvalid = true;
+        angular.element(document.querySelector('#txtfirstName')).css('border-color', 'red');
     }
-    else if (d.firstname == undefined || d.firstname == "") {
+    else if (d.lastname == undefined || d.lastname == "") {
         _msg += ' last name';
         isvalid = true;
+        angular.element(document.querySelector('#txtlastName')).css('border-color', 'red');
     }
 
     else if ((d.phone11 != undefined ? d.phone11.toString() : "").length >= 5 == false) {
         _msg += ' phone 1';
         isvalid = true;
+        angular.element(document.querySelector('#inputPhone1')).css('border-color', 'red');
     }
 
     else if (d.ManufactureChoice.trim() == '') {
         _msg += ' Manufacture';
         isvalid = true;
+        angular.element(document.querySelector('#ddlmanufacture')).css('border-color', 'red');
     }
     else if (d.phoneTypeChoice.trim() == '') {
         _msg += ' phone type';
         isvalid = true;
+        angular.element(document.querySelector('#ddlphoneType')).css('border-color', 'red');
     }
     else if (d.mail == undefined || d.mail == "") {
         _msg = 'Email is not valid';
         isvalid = true;
+        angular.element(document.querySelector('#txtmail')).css('border-color', 'red');
     }
-
 
     if (isvalid)
         return _msg;

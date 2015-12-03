@@ -579,16 +579,26 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             UTC: '',
         };
     }
+
     $scope.clearControlState = function () {
-        $scope.StateInfo = '';
+        $scope.StateInfo = {
+            State: '',
+            StateEN: ''
+        }
     };
 
     $scope.clearControlCity = function () {
-        $scope.Cityinfo = '';
+        $scope.Cityinfo = {
+            City: '',
+            CityEN: ''
+        }
     };
 
     $scope.clearControlStreet = function () {
-        $scope.Streetinfo = '';
+        $scope.Streetinfo = {
+            Street: '',
+            StreetEN: ''
+        }
     };
     //country tab Ends
 

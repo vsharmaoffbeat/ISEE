@@ -473,6 +473,8 @@ $(document).ready(function () {
 
     GetAllStatesByCountry();
     GetAllCountrys();
+    $('#inputCountry_State').prop("disabled", true);
+    $("#stateChk").prop('checked', 'checked');
 });
 
 
@@ -494,6 +496,7 @@ function GetAllCountrys() {
         success: function (response) {
             var appElement = document.querySelector('[ng-controller=SearchCtrl]');
             var $scope = angular.element(appElement).scope();
+            countryArray = [];
             $(response).each(function () {
                 if (countryNames.indexOf(this.CountryDesc.trim()) == -1) {
                     countryNames.push(this.CountryDesc.trim());
@@ -503,7 +506,7 @@ function GetAllCountrys() {
             });
 
             if (response.length <= 1) {
-                //GetAllCitysByState(response[0].CountryDesc);
+                GetAllCitysByState(response[0].CountryDesc);
             }
             $("#inputCountry").autocomplete({
                 source: countryNames,
@@ -512,7 +515,6 @@ function GetAllCountrys() {
                     var value = ui.item.value;
                     var nameEN = GetNameENByName(countryArray, ui.item.label);
                     var UTC = GetUTCByName(countryArray, ui.item.label);
-
                     $("#inputCountryEN").val(nameEN);
                     $("#inputUTC").val(UTC);
                     GetAllStatesByCountryID(ui.item.label);
@@ -522,7 +524,6 @@ function GetAllCountrys() {
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
-
 
 function GetAllStatesByCountryID(country) {
     if (country == undefined) {
@@ -544,10 +545,11 @@ function GetAllStatesByCountryID(country) {
             var appElement = document.querySelector('[ng-controller=SearchCtrl]');
             var $scope = angular.element(appElement).scope();
             $scope.$apply(function () {
-                debugger;
                 if (response.length <= 1) {
                     $scope.HasCountry_StateActive = "true";
                     $('#inputCountry_State').prop("disabled", true)
+                    $('#inputCountry_State').val('');
+                    $('#inputCountry_StateEN').val('');
                     $("#stateChk").prop('checked', 'checked');
                 } else {
                     $scope.HasCountry_StateActive = "false";
@@ -555,6 +557,7 @@ function GetAllStatesByCountryID(country) {
                     $("#stateChk").prop('checked', '');
                 }
             });
+            statesArray = [];
             $(response).each(function () {
                 if (stateNames.indexOf(this.StateDesc.trim()) == -1) {
                     stateNames.push(this.StateDesc.trim());
@@ -563,9 +566,9 @@ function GetAllStatesByCountryID(country) {
                 statesArray.push({ id: this.StateCode, name: this.StateDesc, NameEN: this.StateDescEn })
             });
 
-            //if (response.length <= 1) {
-            //    GetAllCitysByState(response[0].StateDesc);
-            //}
+            if (response.length <= 1) {
+                GetAllCitysByStateAndCountry(response[0].StateDesc, country);
+            }
             $("#inputCountry_State").autocomplete({
                 source: stateNames,
                 select: function (event, ui) {
@@ -602,7 +605,6 @@ function GetAllCitysByStateAndCountry(state, country) {
         success: function (response) {
             if (response != null) {
                 cityArray = [];
-
                 $(response).each(function () {
                     if (availableCityName.indexOf(this.CityDesc.trim()) == -1) {
                         availableCityName.push(this.CityDesc.trim());
@@ -643,6 +645,7 @@ function GetAllStreetsByCityStateAndCountry(city, country) {
         dataType: "json",
         success: function (response) {
             if (response != null) {
+                streetArray = [];
                 $(response).each(function () {
                     if (availableStreetName.indexOf(this.Streetdesc.trim()) == -1) {
                         availableStreetName.push(this.Streetdesc.trim());
@@ -675,6 +678,8 @@ function StateChkClick(obj) {
     }
     else {
         $('#inputCountry_State').prop("disabled", true)
+        $('#inputCountry_State').val('');
+        $('#inputCountry_StateEN').val('');
     }
 }
 
@@ -697,7 +702,6 @@ function SaveCountry() {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'Country save sucessfully.');
-                            $scope.CountryTabInfo = null;
                             GetAllCountrys();
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
@@ -707,6 +711,7 @@ function SaveCountry() {
                 }
             });
         } else {
+            alert('Select country first');
             return false;
         }
     } else {
@@ -730,7 +735,6 @@ function SaveCountry() {
     }
 }
 
-
 function SaveState() {
     var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     var $scope = angular.element(appElement).scope();
@@ -739,6 +743,10 @@ function SaveState() {
     var stateDesc = $('#inputCountry_State').val();
     var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
     var stateDescEN = $('#inputCountry_StateEN').val();
+    if ($('#inputCountry_State').prop("disabled") == true) {
+        stateDesc = '';
+        stateDescEN = '';
+    }
 
     if (countryID != 0) {
         if (stateCode == 0) {
@@ -750,8 +758,10 @@ function SaveState() {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                            GetAllStatesByCountryID($('#inputCountry').val());
+                            $scope.StateInfo = '';
                         } else {
-                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                            $scope.ShowMessageBox('Error', 'State already exist')
                         }
 
                     });
@@ -767,6 +777,7 @@ function SaveState() {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                            GetAllStatesByCountryID($('#inputCountry').val());
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -777,12 +788,10 @@ function SaveState() {
         }
     }
     else {
+        alert('Select country first');
         return false;
     }
-
 }
-
-
 
 function SaveCity() {
     var appElement = document.querySelector('[ng-controller=SearchCtrl]');
@@ -795,7 +804,7 @@ function SaveCity() {
     var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
     var cityDescEN = $('#inputCountry_CityEN').val();
 
-    if (countryID != 0) {
+    if (countryID != 0 || cityDesc != "") {
         if (cityCode == 0) {
             $.ajax({
                 url: "/Admin/SaveCity",
@@ -804,7 +813,9 @@ function SaveCity() {
                 success: function (result) {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
-                            $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                            $scope.ShowMessageBox('Save Message', 'City save sucessfully.');
+                            GetAllCitysByStateAndCountry(stateDesc, $('#inputCountry').val())
+                            $scope.Cityinfo = '';
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -821,7 +832,8 @@ function SaveCity() {
                 success: function (result) {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
-                            $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                            $scope.ShowMessageBox('Save Message', 'City Update sucessfully.');
+                            GetAllCitysByStateAndCountry(stateDesc, $('#inputCountry').val())
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -832,6 +844,7 @@ function SaveCity() {
         }
     }
     else {
+        alert('Select country and state');
         return false;
     }
 
@@ -851,8 +864,8 @@ function SaveStreet() {
     var streetCode = GetIdByName(streetArray, streetDesc == "" ? null : streetDesc);
     var streetDescEN = $('#inputCountry_StreetEN').val();
 
-    if (countryID != 0) {
-        if (cityCode == 0) {
+    if (countryID != 0 || cityCode != 0 || streetDesc != "") {
+        if (streetCode == 0) {
             $.ajax({
                 url: "/Admin/SaveStreet",
                 type: "post",
@@ -860,7 +873,9 @@ function SaveStreet() {
                 success: function (result) {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
-                            $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
+                            $scope.ShowMessageBox('Save Message', 'Street save sucessfully.');
+                            GetAllStreetsByCityStateAndCountry(cityDesc, $('#inputCountry').val());
+                            $scope.Streetinfo = '';
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -877,7 +892,8 @@ function SaveStreet() {
                 success: function (result) {
                     $scope.$apply(function () {
                         if (result.Message == 'Success') {
-                            $scope.ShowMessageBox('Save Message', 'State Update sucessfully.');
+                            $scope.ShowMessageBox('Save Message', 'Street Update sucessfully.');
+                            GetAllStreetsByCityStateAndCountry(cityDesc, $('#inputCountry').val());
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -888,6 +904,7 @@ function SaveStreet() {
         }
     }
     else {
+        alert('Select country ,state and city');
         return false;
     }
 
@@ -910,6 +927,38 @@ function GetUTCByName(arr, name) {
         return item[0].UTC;
     } else {
         return 0;
+    }
+}
+
+function CountryDescENAndUTCOnBlur() {
+    var nameEN = GetNameENByName(countryArray, $('#inputCountry').val());
+    var UTC = GetUTCByName(countryArray, $('#inputCountry').val());
+    $("#inputCountryEN").val(nameEN);
+    $("#inputUTC").val(UTC);
+    if (nameEN == 0) {
+        $("#inputCountryEN").val('');
+    }
+}
+function StateDescENOnBlur() {
+    var nameEN = GetNameENByName(statesArray, $('#inputCountry_State').val());
+    $("#inputCountry_StateEN").val(nameEN);
+    if (nameEN == 0) {
+        $("#inputCountry_StateEN").val('');
+    }
+}
+function CityDescENOnBlur() {
+
+    var nameEN = GetNameENByName(cityArray, $('#inputCountry_City').val());
+    $("#inputCountry_CityEN").val(nameEN);
+    if (nameEN == 0) {
+        $("#inputCountry_CityEN").val('');
+    }
+}
+function StreetDescENOnBlur() {
+    var nameEN = GetNameENByName(streetArray, $('#inputCountry_Street').val());
+    $("#inputCountry_StreetEN").val(nameEN);
+    if (nameEN == 0) {
+        $("#inputCountry_StreetEN").val('');
     }
 }
 //Country tab end

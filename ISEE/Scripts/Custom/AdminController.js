@@ -580,15 +580,15 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         };
     }
     $scope.clearControlState = function () {
-        $scope.State = '';
+        $scope.StateInfo = '';
     };
 
     $scope.clearControlCity = function () {
-        $scope.City = ''
+        $scope.Cityinfo = '';
     };
 
     $scope.clearControlStreet = function () {
-        $scope.Street = '';
+        $scope.Streetinfo = '';
     };
     //country tab Ends
 

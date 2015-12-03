@@ -901,7 +901,7 @@ namespace ISEEDataModel.Repository.Services
         }
         public void UpdateCityDesc(int Countrycode, int StateCode, int CityCode, string CityDescEN, string CityDesc)
         {
-            var obj = _context.Cities.Where(c => c.CountryCode == Countrycode && c.StateCode == StateCode && c.CityCode == CityCode).FirstOrDefault();
+            var obj = _context.Cities.Where(c => c.CountryCode == Countrycode && c.CityCode == CityCode).FirstOrDefault();
             if (obj != null)
             {
                 obj.CityDesc = CityDesc;
@@ -927,7 +927,7 @@ namespace ISEEDataModel.Repository.Services
 
         public void UpdateStreetDesc(int Countrycode, int StateCode, int CityCode, int StreetCode, string StreetDescEN, string StreetDesc)
         {
-            var obj = _context.Streets.Where(c => c.CountryCode == Countrycode && c.StateCode == StateCode && c.CityCode == CityCode && c.StreetCode == StreetCode).FirstOrDefault();
+            var obj = _context.Streets.Where(c => c.CountryCode == Countrycode && c.StreetCode == StreetCode).FirstOrDefault();
             if (obj != null)
             {
                 obj.StreetDesc = StreetDesc;
@@ -943,13 +943,19 @@ namespace ISEEDataModel.Repository.Services
             objStreet.StreetDescEn = StreetDescEN;
             objStreet.CountryCode = Countrycode;
             objStreet.CreatDate = DateTime.Now.Date;
-            objStreet.StreetCode = StateCode;
+            objStreet.StateCode = StateCode;
             objStreet.CityCode = CityCode;
             objStreet.StatusCode = 0;
             _context.Streets.Add(objStreet);
             _context.SaveChanges();
 
             return objStreet.StreetCode;
+        }
+
+        public IQueryable<State> GetStateCodeByCountryID(int countryID)
+        {
+            return _context.States.Where(s => s.CountryCode == countryID && s.StateDesc == null);
+
         }
 
         //country tab end

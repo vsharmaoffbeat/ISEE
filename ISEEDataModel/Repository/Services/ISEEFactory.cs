@@ -851,6 +851,109 @@ namespace ISEEDataModel.Repository.Services
 
         #endregion
 
+        //Country tab start
+        public IQueryable<Country> GetAllcountries()
+        {
+            return _context.Countries.OrderBy(x => x.CreateDate);
+        }
+        public void UpdateCountryDesc(int Countrycode, string CountryNameEN, string UTC, string CountryDesc)
+        {
+            var obj = _context.Countries.Where(c => c.CountryCode == Countrycode).FirstOrDefault();
+            if (obj != null)
+            {
+                obj.CountryDesc = CountryDesc;
+                obj.CountryDescEn = CountryNameEN;
+                obj.CurrentGmt = float.Parse(UTC);
+            }
+            _context.SaveChanges();
+        }
+        public void SaveCountry(string CountryNameEN, string UTC, string CountryDesc)
+        {
+            Country objCountry = new Country();
+            objCountry.CountryDesc = CountryDesc;
+            objCountry.CountryDescEn = CountryNameEN;
+            objCountry.CurrentGmt = float.Parse(UTC);
+            objCountry.CreateDate = DateTime.Now.Date;
+            _context.Countries.Add(objCountry);
+            _context.SaveChanges();
+
+        }
+        public void UpdateStateDesc(int Countrycode, int StateCode, string StateDescEn, string StateDesc)
+        {
+            var obj = _context.States.Where(c => c.CountryCode == Countrycode && c.StateCode == StateCode).FirstOrDefault();
+            if (obj != null)
+            {
+                obj.StateDesc = StateDesc;
+                obj.StateDescEn = StateDescEn;
+            }
+            _context.SaveChanges();
+        }
+        public void SaveState(int Countrycode, int StateCode, string StateDescEn, string StateDesc)
+        {
+            State objState = new State();
+            objState.StateDesc = StateDesc;
+            objState.StateDescEn = StateDescEn;
+            objState.CountryCode = Countrycode;
+            objState.CreateDate = DateTime.Now.Date;
+            objState.StatusCode = 0;
+            _context.States.Add(objState);
+            _context.SaveChanges();
+        }
+        public void UpdateCityDesc(int Countrycode, int StateCode, int CityCode, string CityDescEN, string CityDesc)
+        {
+            var obj = _context.Cities.Where(c => c.CountryCode == Countrycode && c.StateCode == StateCode && c.CityCode == CityCode).FirstOrDefault();
+            if (obj != null)
+            {
+                obj.CityDesc = CityDesc;
+                obj.CityDescEn = CityDescEN;
+            }
+            _context.SaveChanges();
+        }
+
+        public void SaveCity(int Countrycode, int StateCode, int CityCode, string CityDescEN, string CityDesc)
+        {
+            City objCity = new City();
+            objCity.StateCode = StateCode;
+            objCity.CityDesc = CityDesc;
+            objCity.CityDescEn = CityDescEN;
+            objCity.CountryCode = Countrycode;
+            objCity.CreateDate = DateTime.Now.Date;
+            objCity.StatusCode = 0;
+            _context.Cities.Add(objCity);
+            _context.SaveChanges();
+
+        }
+
+
+        public void UpdateStreetDesc(int Countrycode, int StateCode, int CityCode, int StreetCode, string StreetDescEN, string StreetDesc)
+        {
+            var obj = _context.Streets.Where(c => c.CountryCode == Countrycode && c.StateCode == StateCode && c.CityCode == CityCode && c.StreetCode == StreetCode).FirstOrDefault();
+            if (obj != null)
+            {
+                obj.StreetDesc = StreetDesc;
+                obj.StreetDescEn = StreetDescEN;
+            }
+            _context.SaveChanges();
+        }
+
+        public int SaveStreet(int Countrycode, int StateCode, int CityCode, int StreetCode, string StreetDescEN, string StreetDesc)
+        {
+            Street objStreet = new Street();
+            objStreet.StreetDesc = StreetDesc;
+            objStreet.StreetDescEn = StreetDescEN;
+            objStreet.CountryCode = Countrycode;
+            objStreet.CreatDate = DateTime.Now.Date;
+            objStreet.StreetCode = StateCode;
+            objStreet.CityCode = CityCode;
+            objStreet.StatusCode = 0;
+            _context.Streets.Add(objStreet);
+            _context.SaveChanges();
+
+            return objStreet.StreetCode;
+        }
+
+        //country tab end
+
 
 
 

@@ -804,7 +804,52 @@ namespace ISEEREGION.Controllers
 
         }
         //country tab end
+        #region Company Tab
+        public JsonResult GetAllCompanyDesc()
+        {
 
+            var StateDec = _facory.GetAllCompanyDesc().ToList()
+            .Select(x => new { FactoryId = x.FactoryId.ToString().Trim(), FactoryDesc = (x.FactoryDesc ?? string.Empty).ToString().Trim() })
+            .Distinct()
+            .ToList();
+            return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult GetAllFactoryDataId(int factoryId)
+        {
+
+            var StateDec = _facory.GetAllFactoryDataId(factoryId).ToList().Select(x => new {x.FactoryDesc, x.FactoryId, x.UserName, x.Password, x.FactoryParm.Lat, x.FactoryParm.Long, x.FactoryParm.SplitTime, x.FactoryParm.Zoom, x.FactoryParm.StopEmployeeTime, x.FactoryParm.MapProvider, x.FactoryParm.SmsProvider, x.FactoryParm.PhoneAreaCode, x.FactoryParm.CompanyLogo, x.FactoryParm.CustomerLinkDistanceThreshold, x.FactoryParm.RadiusSearch ,x.FactoryParm.CurrentGmt}).ToList();
+
+            var EmpHours = _facory.GetFactoryDairyTemp(factoryId).ToList().Select(e => new { Day = ((ISEE.Common.Common.WeekDays)Enum.ToObject(typeof(ISEE.Common.Common.WeekDays), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
+            object[] EmpHoursData = new object[7];
+            for (int i = 0; i < EmpHours.Count; i++)
+            {
+
+                if (EmpHours[i].DayStatus == 1)
+                    EmpHoursData[i] = new { Day = SessionManagement.Sunday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 2)
+                    EmpHoursData[i] = new { Day = SessionManagement.Monday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 3)
+                    EmpHoursData[i] = new { Day = SessionManagement.Tuesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 4)
+                    EmpHoursData[i] = new { Day = SessionManagement.Wednesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 5)
+                    EmpHoursData[i] = new { Day = SessionManagement.Thursday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 6)
+                    EmpHoursData[i] = new { Day = SessionManagement.Friday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                if (EmpHours[i].DayStatus == 7)
+                    EmpHoursData[i] = new { Day = SessionManagement.Saturday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                //EmpHours[i].Day = SessionManagement.Sunday;
+            }
+
+            //var StateDeca = StateDec.Select(x => new { FactoryId = x.FactoryId.ToString().Trim(), FactoryDesc = (x.FactoryDesc ?? string.Empty).ToString().Trim() })
+            //   .Distinct()
+            //   .ToList();
+            // object bb= new object {StateDc = "", EmpHors = ""};
+            //  return new JsonResult { Data =  StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return Json(new { Data = StateDec, Profiles = EmpHoursData }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
 
 

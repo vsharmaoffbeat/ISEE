@@ -505,6 +505,42 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         Entry: '',
         ZipCode: ''
     };
+    //Campany tab
+    $scope.clearCompanyDetails = function myfunction() {
+        $scope.NewCustomerDetails = null;
+        $scope.CustomerInfo = null;
+        $scope.CompanyInfo = {
+            FactoryDesc: '',
+
+
+            CountryDesc: '',
+            UserName: '',
+            Password: '',
+            PhoneAreaCode: '',
+            SmsProvider: '',
+            Fax: '',
+            CustomerNumber: '',
+            Floor: '',
+            Lat: '',
+            Long: '',
+            Zoom: '',
+            CurrentGmt: '',
+            RadiusSearch: '',
+            CustomerLinkDistanceThreshold: '',
+            StopEmployeeTime: '',
+            //MobileOne: '',
+            //MobileTwo: '',
+            ////BuildingNumber: '',
+            //State: '',
+            //City: '',
+            //Street: '',
+            //Entry: '',
+            //ZipCode: ''
+        };
+        $scope.factoryId = -1;
+        _factoryId = -1;
+    };
+    //end
     $scope.CustomerID = 0
     $scope.SaveCustomerForm = function () {
         $scope.CustomerInfo.BuldingCode = buildingCode;

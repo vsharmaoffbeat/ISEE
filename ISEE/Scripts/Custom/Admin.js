@@ -1,4 +1,5 @@
 ﻿var buildingCode = 0;
+var _factoryId = -1;
 //Employee Section
 function ManufactureTypes(obj) {
     $('#ddlphoneType').empty();
@@ -432,6 +433,7 @@ function LoadMapByFactoryID() {
                 mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
         }
     });
 }
@@ -473,6 +475,14 @@ $(document).ready(function () {
 
     GetAllStatesByCountry();
     GetAllCountrys();
+    GetAllCompanyDesc();
+
+    //google.maps.event.addListener(map, 'click', function (event) {
+    //    debugger;
+    //    var myLatLng = event.latLng;
+    //    var lat = myLatLng.lat();
+    //    var lng = myLatLng.lng();
+    //});
 });
 
 
@@ -515,13 +525,23 @@ function GetAllCountrys() {
 
                     $("#inputCountryEN").val(nameEN);
                     $("#inputUTC").val(UTC);
-                    GetAllStatesByCountryID(ui.item.label);
+                    //  GetAllStatesByCountryID(ui.item.label);
+                }
+            });
+            $("#inputCountryDesc").autocomplete({
+                source: countryNames,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+
+                    // GetExistingCountry(ui.item.label);
                 }
             });
         },
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
+
 
 
 function GetAllStatesByCountryID(country) {
@@ -913,3 +933,154 @@ function GetUTCByName(arr, name) {
     }
 }
 //Country tab end
+
+//Company Tab
+var companyNames = [];
+var factoryId = [];
+var factoryArray = [];
+function GetAllCompanyDesc() {
+    companyNames = [];
+    factoryId = [];
+    factoryArray = [];
+    $.ajax({
+        type: "POST",
+        url: "/Data/GetAllCompanyDesc",
+        success: function (response) {
+            var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+            var $scope = angular.element(appElement).scope();
+            $(response).each(function () {
+                if (companyNames.indexOf(this.FactoryDesc.trim()) == -1) {
+                    companyNames.push(this.FactoryDesc.trim());
+                }
+                factoryId.push(this.FactoryId);
+                factoryArray.push({ id: this.FactoryId, name: this.FactoryDesc });
+            });
+
+            $("#inputCompanyDesc").autocomplete({
+                source: companyNames,
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    // GetExistingCountry(ui.item.label);
+                }
+            });
+
+        },
+        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+    });
+}
+function GetFactoryData(companyDesc) {
+     _factoryId = GetIdByNameData(factoryArray, $('#inputCompanyDesc').val());
+    if (_factoryId < 0) {
+        // $('#inputCountry_Street').val('');
+        alert('No data');
+        return false;
+    }
+    else {
+        $.ajax({
+            type: "POST",
+            url: "/Data/GetAllFactoryDataId",
+            data: { factoryId: _factoryId },
+            dataType: "json",
+            success: function (response) {
+                debugger;
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                $scope.CompanyInfo = response.Data[0];
+                $scope.$apply();
+                var obj = [];
+                obj.push(response.Data[0].Lat);
+                obj.push(response.Data[0].Long);
+                Initialize1(obj, response.Data[0].Zoom);
+            }
+        });
+        alert('Get data');
+    }
+
+}
+function GetExistingCountry(countryDesc) {
+    var vv = GetIdByNameData(countryArray, $("#inputCountryDesc").val());
+    if (GetIdByName(countryArray, $("#inputCountryDesc").val()) == 0) {
+        // $('#inputCountry_Street').val('');
+        alert('No data');
+        $("#inputCountryDesc").val('');
+        return false;
+    }
+    else {
+
+        alert('Get data');
+    }
+}
+function GetIdByNameData(arr, name) {
+    var item = $.grep(arr, function (v) { return v.name === name; })
+    if (item.length > 0) {
+        return item[0].id;
+    } else {
+        return -1;
+    }
+}
+
+
+function LoadMapByFactoryForCompanyID() {
+    $.ajax({
+        url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
+            google.maps.visualRefresh = true;
+            var Liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
+            var mapOptions = {
+                zoom: 14,
+                center: Liverpool,
+                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions);
+            google.maps.event.addListener(map, 'dblclick', function (event) {
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                $scope.CompanyInfo.Lat = event.latLng.lat();
+                $scope.CompanyInfo.Long = event.latLng.lng();
+                $scope.$apply();
+
+            })
+            map.addListener('zoom_changed', function () {
+                var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+                var $scope = angular.element(appElement).scope();
+                $scope.CompanyInfo.Zoom = map.getZoom();
+                $scope.$apply();
+            });
+        }
+    });
+}
+
+function Initialize1(obj, zoom) {
+
+    if (zoom == undefined || zoom == null)
+        zoom = 14;
+    google.maps.visualRefresh = true;
+    var Liverpool = new google.maps.LatLng(obj[0], obj[1]);
+    var mapOptions = {
+        zoom: zoom,
+        center: Liverpool,
+        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    var marker = new google.maps.Marker({
+        position: Liverpool,
+        map: map,
+    });
+    google.maps.event.addListener(map, 'dblclick', function (event) {
+        var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+        var $scope = angular.element(appElement).scope();
+        $scope.CompanyInfo.Lat = event.latLng.lat();
+        $scope.CompanyInfo.Long = event.latLng.lng();
+        $scope.$apply();
+
+    })
+    map.addListener('zoom_changed', function () {
+        var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+        var $scope = angular.element(appElement).scope();
+        $scope.CompanyInfo.Zoom = map.getZoom();
+        $scope.$apply();
+    });
+};
+
+
+//end Company tab

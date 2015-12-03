@@ -553,8 +553,8 @@ function updateCustomer() {
                     if ($(this).attr('customerid') == _customerId) {
                         $(this).attr('CustomerId', data.customerID);
                         $(this).attr('CustomerNumber', data.cNumber);
-                        $(this).attr('FirstName', data.cCompanyName);
-                        $(this).attr('LastName', data.cContactName);
+                        $(this).attr('FirstName', data.cContactName);
+                        $(this).attr('LastName', data.cCompanyName);
                         $(this).attr('Floor', data.cFloor);
                         $(this).attr('Apartment', data.cApartment);
                         $(this).attr('Mail', data.cMail);
@@ -572,7 +572,7 @@ function updateCustomer() {
                         $(this).attr('Mail', data.cMail);
 
                         $(this).empty();
-                        $('<div class="col-md-12 col-xs-12 tab_box">Customer Name: ' + data.cCompanyName + ' </br>Contact Name: ' + data.cContactName + '</br>City: ' + $(this).attr('CityName') + '</br>Street: ' + $(this).attr('StreetName') + ' , ' + data.cbuildingNumber + '</br>Phone1: ' + data.cPhoneOne + '-' + data.cPhone11 + '  </div>').appendTo($(this));
+                        $('<div class="col-md-12 col-xs-12 tab_box">Company Name: ' + data.cCompanyName + ' </br>Contact Name: ' + data.cContactName + '</br>City: ' + $(this).attr('CityName') + '</br>Street: ' + $(this).attr('StreetName') + ' , ' + data.cbuildingNumber + '</br>Phone1: ' + data.cPhoneOne + '-' + data.cPhone11 + '  </div>').appendTo($(this));
                         removeChange();
                     }
                 })

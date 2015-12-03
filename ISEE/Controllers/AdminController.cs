@@ -52,6 +52,10 @@ namespace ISEE.Controllers
         {
             return PartialView();
         }
+        public ActionResult _Company()
+        {
+            return PartialView();
+        }
         public JsonResult GetEmployee(string firstname, string lastname, string phone)
         {
             firstname = string.IsNullOrEmpty(firstname) ? null : firstname;

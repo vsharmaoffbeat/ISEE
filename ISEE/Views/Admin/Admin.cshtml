@@ -40,6 +40,7 @@
             <a class="LoadEmployeeParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewEmployee</a>
             <a class="LoadCustomerParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.NewCustomer</a>
             <a class="LoadCountryParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Country</a>
+            <a class="LoadCompanyParital list-group-item tree_panel_tab">@ISEE.Resources.Resource.Company</a>
         </div>
     </div>
 
@@ -59,8 +60,11 @@
                 <div id="bindPartial_NewCustomer" style="display: none">
                     @{Html.RenderAction("_NewCustomer", "Admin");}
                 </div>
-                <div id="bindPartial_NewCountry" style="display:none">
+                <div id="bindPartial_NewCountry" style="display: none">
                     @{Html.RenderAction("_Country", "Admin");}
+                </div>
+                <div id="bindPartial_NewCompany" style="display: none">
+                    @{Html.RenderAction("_Company", "Admin");}
                 </div>
             </div>
 
@@ -142,6 +146,14 @@
         $('.LoadCategoryParital').click(function (data) {
             $('#bindPartial_AdminTree').hide();
             $('#bindPartial_Category').show();
+            $('#bindPartial_NewEmployee').hide();
+            $('#bindPartial_NewCustomer').hide();
+            $('#bindPartial_NewCountry').hide();
+        });
+        $('.LoadCompanyParital').click(function (data) {
+            $('#bindPartial_AdminTree').hide();
+            $('#bindPartial_NewCompany').show();
+            $('#bindPartial_Category').hide();
             $('#bindPartial_NewEmployee').hide();
             $('#bindPartial_NewCustomer').hide();
             $('#bindPartial_NewCountry').hide();

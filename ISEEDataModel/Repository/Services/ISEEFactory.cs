@@ -148,19 +148,33 @@ namespace ISEEDataModel.Repository.Services
         #region "Employees"
 
 
+        //public IQueryable<Employee> GetEmployees(int factoryId, string _LN, string _FN, string _Num, int _Manuf, int _Phonetype, bool _Active)
+        //{
+        //    return _context.Employees.Where(x => x.Factory == factoryId
+        //                                                 && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
+        //                                                 && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
+        //                                                 && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
+        //                                                 && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
+        //                                                 && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
+        //                                                 && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
+
+
+        //}
         public IQueryable<Employee> GetEmployees(int factoryId, string _LN, string _FN, string _Num, int _Manuf, int _Phonetype, bool _Active)
         {
+
+
+            // int factory = (int)HttpContext.Current.Session["FactoryId"];
             return _context.Employees.Where(x => x.Factory == factoryId
-                                                         && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
-                                                         && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
-                                                         && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
-                                                         && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
-                                                         && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
-                                                         && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
+                                                              && x.FirstName.Contains(_FN == null ? x.FirstName : _FN)
+                                                              && (string.IsNullOrEmpty(_LN) || x.LastName.Contains(_LN))
+                                                              && x.EmployeeNum.Contains(_Num == null ? x.EmployeeNum : _Num)
+                                                              && x.PhoneManufactory == (_Manuf == 0 ? x.PhoneManufactory : _Manuf)
+                                                              && x.PhoneType == (_Phonetype == 0 ? x.PhoneType : _Phonetype)
+                                                              && (_Active == true ? (x.EndDay == null || (x.EndDay != null && x.EndDay >= DateTime.Now)) : (x.EndDay != null && x.EndDay < DateTime.Now))).OrderBy(x => x.EmployeeNum);
 
 
         }
-
 
         public IQueryable<EmployeeSmsSend> GetSMS(int empID)
         {
@@ -729,36 +743,48 @@ namespace ISEEDataModel.Repository.Services
 
         public IQueryable<Customer> GetCustomersNew(int factoryId, int _state, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone, bool _Active)
         {
-            return _context.Customers.Where(x => x.Factory == factoryId
+            //return _context.Customers.Where(x => x.Factory == factoryId
+            //    //  (_state != 0 ? x.Building.StateCode == _state : x.Building.StateCode == null) &&
+            // && x.Building.StateCode == (_state == 0 ? x.Building.StateCode : _state) && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
+            // && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
+            // && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
+            // && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
+            // && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
+            // && (string.IsNullOrEmpty(x.LastName) || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
+            // && (string.IsNullOrEmpty(x.AreaPhone1) || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
+            // && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone))
+            // && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now)));
+            ////  (_Active == true ? x.EndDate == null : x.EndDate !=null));
+
+            return _context.Customers.Include("Building").Include("Building.Street").Include("Building.Street.City").Include("Building.Street.City.State").Where(x => x.Factory == factoryId &&
                 //  (_state != 0 ? x.Building.StateCode == _state : x.Building.StateCode == null) &&
-             && x.Building.StateCode == (_state == 0 ? x.Building.StateCode : _state) && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
-             && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
-             && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
-             && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
-             && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
-             && (string.IsNullOrEmpty(x.LastName) || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
-             && (string.IsNullOrEmpty(x.AreaPhone1) || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
-             && (string.IsNullOrEmpty(x.Phone1) || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone))
-             && (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now)));
-            //  (_Active == true ? x.EndDate == null : x.EndDate !=null));
-
-
-        }
-
-        public IQueryable<Customer> GetCustomers(int factoryId, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone)
-        {
-            return _context.Customers.Where(x => x.Factory == factoryId
-                && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
-                && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
-                && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
-                && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
-                && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
-                && (x.LastName == null || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
-                && (x.AreaPhone1 == null || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
-                && (x.Phone1 == null || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone)));
-            //.OrderBy(x => x.CustomerNumber); //&&
+                                                                                                          x.Building.StateCode == (_state == 0 ? x.Building.StateCode : _state) &&
+                                                                                                          x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city) &&
+                                                                                                          x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street) &&
+                                                                                                          x.Building.Number.Contains(_num == null ? x.Building.Number : _num) &&
+                                                                                                          x.CustomerNumber.CompareTo(_cusnum == null ? x.CustomerNumber : _cusnum) == 0 &&
+                                                                                                          x.FirstName.Contains(_FN == null ? x.FirstName : _FN) &&
+                                                                                                          (x.LastName == null || x.LastName.Contains(_LN == null ? x.LastName : _LN)) &&
+                                                                                                          (x.AreaPhone1 == null || x.AreaPhone1.Contains(_area == null ? x.AreaPhone1 : _area)) &&
+                                                                                                          (x.Phone1 == null || x.Phone1.Contains(_phone == null ? x.Phone1 : _phone)) &&
+                                                                                                          (_Active ? (x.EndDate == null || (x.EndDate != null && x.EndDate >= DateTime.Now)) : (x.EndDate != null && x.EndDate < DateTime.Now)));
 
         }
+
+        //public IQueryable<Customer> GetCustomers(int factoryId, int _city, int _street, string _num, string _cusnum, string _FN, string _LN, string _area, string _phone)
+        //{
+        //    return _context.Customers.Where(x => x.Factory == factoryId
+        //        && x.Building.CityCode == (_city == 0 ? x.Building.CityCode : _city)
+        //        && x.Building.StreetCode == (_street == 0 ? x.Building.StreetCode : _street)
+        //        && x.Building.Number.Contains(string.IsNullOrEmpty(_num) ? x.Building.Number : _num)
+        //        && x.CustomerNumber.CompareTo(string.IsNullOrEmpty(_cusnum) ? x.CustomerNumber : _cusnum) == 0
+        //        && x.FirstName.Contains(string.IsNullOrEmpty(_FN) ? x.FirstName : _FN)
+        //        && (x.LastName == null || x.LastName.Contains(string.IsNullOrEmpty(_LN) ? x.LastName : _LN))
+        //        && (x.AreaPhone1 == null || x.AreaPhone1.Contains(string.IsNullOrEmpty(_area) ? x.AreaPhone1 : _area))
+        //        && (x.Phone1 == null || x.Phone1.Contains(string.IsNullOrEmpty(_phone) ? x.Phone1 : _phone)));
+        //    //.OrderBy(x => x.CustomerNumber); //&&
+
+        //}
 
         public IQueryable<State> GetAllStates(int county)
         {
@@ -953,7 +979,15 @@ namespace ISEEDataModel.Repository.Services
         }
 
         //country tab end
-
+        #region CompanyTab
+        public IQueryable<Factory> GetAllFactoryDataId(int factoryId)
+        {
+            return _context.Factories.Where(x=>x.FactoryId==factoryId);
+        } public IQueryable<Factory> GetAllCompanyDesc()
+        {
+            return _context.Factories;
+        } 
+        #endregion
 
 
 

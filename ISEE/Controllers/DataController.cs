@@ -17,7 +17,7 @@ namespace ISEEREGION.Controllers
     public class DataController : Controller
     {
         //
-        // GET: /Data/
+        // GET: /Data/  
         ISEEFactory _facory = new ISEEFactory();
         public ActionResult Index()
         {
@@ -85,7 +85,65 @@ namespace ISEEREGION.Controllers
                     //SessionManegment.SessionManagement. = loginData.;
                     //SessionManegment.SessionManagement. = loginData.;
                     //SessionManegment.SessionManagement. = loginData.;
+                    var defaultLang = context.MainStringTables.ToList();
+                    if (SessionManagement.Language == "HE")
+                    {
+                        SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Tuesday = defaultLang.Where(x => x.DefaultLanguage == "Tuesday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Wednesday = defaultLang.Where(x => x.DefaultLanguage == "Wednesday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Thursday = defaultLang.Where(x => x.DefaultLanguage == "Thursday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Friday = defaultLang.Where(x => x.DefaultLanguage == "Friday").Select(x => x.HE).FirstOrDefault();
+                        SessionManagement.Saturday = defaultLang.Where(x => x.DefaultLanguage == "Saturday").Select(x => x.HE).FirstOrDefault();
+                        //SessionManagement.Language 
+                    }
+                    else if (SessionManagement.Language == "RU")
+                    {
+                        SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Tuesday = defaultLang.Where(x => x.DefaultLanguage == "Tuesday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Wednesday = defaultLang.Where(x => x.DefaultLanguage == "Wednesday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Thursday = defaultLang.Where(x => x.DefaultLanguage == "Thursday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Friday = defaultLang.Where(x => x.DefaultLanguage == "Friday").Select(x => x.RU).FirstOrDefault();
+                        SessionManagement.Saturday = defaultLang.Where(x => x.DefaultLanguage == "Saturday").Select(x => x.RU).FirstOrDefault();
+                        //SessionManagement.Language 
+                    }
 
+                    else if (SessionManagement.Language == "ES")
+                    {
+                        SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Tuesday = defaultLang.Where(x => x.DefaultLanguage == "Tuesday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Wednesday = defaultLang.Where(x => x.DefaultLanguage == "Wednesday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Thursday = defaultLang.Where(x => x.DefaultLanguage == "Thursday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Friday = defaultLang.Where(x => x.DefaultLanguage == "Friday").Select(x => x.ES).FirstOrDefault();
+                        SessionManagement.Saturday = defaultLang.Where(x => x.DefaultLanguage == "Saturday").Select(x => x.ES).FirstOrDefault();
+                        //SessionManagement.Language 
+                    }
+
+                    else if (SessionManagement.Language == "DE")
+                    {
+                        SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Tuesday = defaultLang.Where(x => x.DefaultLanguage == "Tuesday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Wednesday = defaultLang.Where(x => x.DefaultLanguage == "Wednesday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Thursday = defaultLang.Where(x => x.DefaultLanguage == "Thursday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Friday = defaultLang.Where(x => x.DefaultLanguage == "Friday").Select(x => x.DE).FirstOrDefault();
+                        SessionManagement.Saturday = defaultLang.Where(x => x.DefaultLanguage == "Saturday").Select(x => x.DE).FirstOrDefault();
+                        //SessionManagement.Language 
+                    }
+
+                    else
+                    {
+                        SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Tuesday = defaultLang.Where(x => x.DefaultLanguage == "Tuesday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Wednesday = defaultLang.Where(x => x.DefaultLanguage == "Wednesday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Thursday = defaultLang.Where(x => x.DefaultLanguage == "Thursday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Friday = defaultLang.Where(x => x.DefaultLanguage == "Friday").Select(x => x.EN).FirstOrDefault();
+                        SessionManagement.Saturday = defaultLang.Where(x => x.DefaultLanguage == "Saturday").Select(x => x.EN).FirstOrDefault();
+                        //SessionManagement.Language 
+                    }
 
                 }
             }
@@ -154,12 +212,29 @@ namespace ISEEREGION.Controllers
         {
             try
             {
+                var EmpHours = _facory.GetEmpDiaryTemplate(employeeId).ToList().Select(e => new { Day = ((ISEE.Common.Common.WeekDays)Enum.ToObject(typeof(ISEE.Common.Common.WeekDays), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
+                object[] EmpHoursData = new object[7];
+                for (int i = 0; i < EmpHours.Count; i++)
+                {
 
-
-                var EmpHours = _facory.GetEmpDiaryTemplate(employeeId).ToList().Select(e => new { Day = ((ISEE.Controllers.AdminController.Days)Enum.ToObject(typeof(ISEE.Controllers.AdminController.Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus }).ToList();
-
+                    if (EmpHours[i].DayStatus == 1)
+                        EmpHoursData[i] = new { Day = SessionManagement.Sunday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 2)
+                        EmpHoursData[i] = new { Day = SessionManagement.Monday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 3)
+                        EmpHoursData[i] = new { Day = SessionManagement.Tuesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 4)
+                        EmpHoursData[i] = new { Day = SessionManagement.Wednesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 5)
+                        EmpHoursData[i] = new { Day = SessionManagement.Thursday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 6)
+                        EmpHoursData[i] = new { Day = SessionManagement.Friday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 7)
+                        EmpHoursData[i] = new { Day = SessionManagement.Saturday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    //EmpHours[i].Day = SessionManagement.Sunday;
+                }
                 //     var EmpHour = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null }).ToList();
-                return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                return new JsonResult { Data = EmpHoursData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)
             {

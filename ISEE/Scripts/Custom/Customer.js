@@ -17,6 +17,7 @@ $(document).ready(function () {
             datepicker1 = $(this).datepicker('getDate');
         }
     });
+    setDatePickerValuesDefault();
     // $(".right_main_employee :input").prop("disabled", true);
     GetStaresByFactoryID();
     BindClassificationDdl();
@@ -44,6 +45,23 @@ $(document).ready(function () {
         });
     })
 });
+
+function setDatePickerValuesDefault() {
+    $('#datepicker1 input').val('');
+    $('#datepicker2 input').val('');
+    $('#datepicker3 input').val('');
+    $('#datepicker4 input').val('');
+}
+function setDatePickerValuesSelection() {
+    var d = new Date();
+    d.setMonth(d.getMonth() - 3);
+    $("#datepicker1").datepicker('setDate', d);
+    $("#datepicker3").datepicker('setDate', d);
+    $("#datepicker2").datepicker('setDate', new Date());
+    $("#datepicker4").datepicker('setDate', new Date());
+    $('#tblrequest tr:gt(0)').remove();
+    $('#tblVisiting tr:gt(0)').remove();
+}
 
 //Classification();
 function Classification() {
@@ -393,19 +411,19 @@ function searchCustomerData() {
             $(response).each(function () {
                 $('<div class="col-sm-12 col-xs-12 tab_box" onclick="selectedCustomer(this)"' +
 
-                     ' CustomerId=' + this.CustomerId + ' CustomerNumber=' + this.CustomerNumber + ' FirstName=' + this.FirstName +
-                       ' LastName=' + this.LastName + ' Floor=' + this.Floor + ' Apartment=' + this.Apartment +
-                       ' Phone2=' + this.Phone2 + ' AreaFax=' + this.AreaFax + ' Fax=' + this.Fax +
-                       ' AreaPhone2=' + this.AreaPhone2 + ' Phone1=' + this.Phone1 + ' AreaPhone1=' + this.AreaPhone1 +
-  ' Mail=' + this.Mail + ' CustomerRemark1=' + this.CustomerRemark1 + ' CustomerRemark2=' + this.CustomerRemark2 +
-                          ' VisitInterval=' + this.VisitInterval + ' NextVisit=' + this.NextVisit + ' LastName=' + this.LastName +
+                     ' CustomerId=' + stringCreation(this.CustomerId) + ' CustomerNumber=' + stringCreation(this.CustomerNumber) + ' FirstName=' + stringCreation(this.FirstName) +
+                       ' LastName=' + stringCreation(this.LastName) + ' Floor=' + stringCreation(this.Floor) + ' Apartment=' + stringCreation(this.Apartment) +
+                       ' Phone2=' + stringCreation(this.Phone2) + ' AreaFax=' + stringCreation(this.AreaFax) + ' Fax=' + stringCreation(this.Fax) +
+                       ' AreaPhone2=' + stringCreation(this.AreaPhone2) + ' Phone1=' + stringCreation(this.Phone1) + ' AreaPhone1=' + stringCreation(this.AreaPhone1) +
+  ' Mail=' + stringCreation(this.Mail) + ' CustomerRemark1=' + stringCreation(this.CustomerRemark1) + ' CustomerRemark2=' + this.CustomerRemark2 +
+                          ' VisitInterval=' + stringCreation(this.VisitInterval) + ' NextVisit=' + stringCreation(this.NextVisit) + ' LastName=' + stringCreation(this.LastName) +
 
-                           ' VisitDate=' + this.VisitDate + ' VisitTime=' + this.VisitTime + ' ZipCode=' + this.ZipCode +
+                           ' VisitDate=' + this.VisitDate + ' VisitTime=' + stringCreation(this.VisitTime) + ' ZipCode=' + stringCreation(this.ZipCode) +
 
-                            ' BuildingCode=' + this.BuildingCode + ' BuildingNumber=' + this.BuildingNumber +
+                            ' BuildingCode=' + stringCreation(this.BuildingCode) + ' BuildingNumber=' + stringCreation(this.BuildingNumber) +
 
-                            ' StreetName=' + this.StreetName + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
-                           ' CityId=' + this.CityId + ' StateName=' + this.StateName + ' StateId=' + this.StateId +
+                            ' StreetName=' + stringCreation(this.StreetName) + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
+                           ' CityId=' + this.CityId + ' StateName=' + stringCreation(this.StateName) + ' StateId=' + this.StateId +
                            ' EndDate=' + this.EndDate +
 
                                             '>Company Name: '
@@ -442,8 +460,12 @@ function selectedEmployee(obj) {
 
 function selectedCustomer(obj) {
     _customerId = $(obj).attr('CustomerId');
-    setInputValues(obj);
+    removeChange();
+    //setInputValues(obj);
+    //$(".disabledClass").prop("disabled", true);
+    setDatePickerValuesSelection();
     $('#showMap').attr('href', '/map/map');
+
 }
 
 function setInputValues(obj) {
@@ -526,7 +548,7 @@ function updateCustomer() {
         success: function (response) {
             $('#msgHistory tr:gt(0)').remove();
             if (response) {
-                 alert("Customer Updated successfully.");
+                alert("Customer Updated successfully.");
                 $('#left_employee_window div').each(function () {
                     if ($(this).attr('customerid') == _customerId) {
                         $(this).attr('CustomerId', data.customerID);
@@ -627,7 +649,12 @@ function stringValidation(val) {
         return '';
     return val;
 }
-
+//Common Methods TODO in common file
+function stringCreation(val) {
+    if (val == '' || val == 'null')
+        return '!@#$';
+    return val;
+}
 function setDatePicker() {
 
     $("#datepickerEndDay").datepicker('add')

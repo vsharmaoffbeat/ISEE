@@ -266,5 +266,83 @@ namespace ISEE.Common
             set { HttpContext.Current.Session["CalenderShowZoomLevel"] = value; }
         }
 
+        public static string Sunday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Sunday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Sunday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Sunday"] = value; }
+        }
+        public static string Monday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Monday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Monday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Monday"] = value; }
+        }
+        public static string Tuesday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Tuesday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Tuesday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Tuesday"] = value; }
+        }
+        public static string Wednesday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Wednesday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Wednesday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Wednesday"] = value; }
+        }
+        public static string Thursday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Thursday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Thursday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Thursday"] = value; }
+        }
+        public static string Friday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Friday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Friday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Saturday"] = value; }
+        }
+        public static string Saturday
+        {
+            get
+            {
+                if (HttpContext.Current.Session["Saturday"] != null)
+                    return Convert.ToString(HttpContext.Current.Session["Saturday"]);
+                else
+                    return "";
+            }
+            set { HttpContext.Current.Session["Saturday"] = value; }
+        }
+
     }
 }

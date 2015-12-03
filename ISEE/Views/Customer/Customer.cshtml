@@ -595,7 +595,7 @@
                                                 </div>
 
                                                 <div class="col-md-6"></div>
-                                                <button type="button" id="btnShowSimple" class="btn btn-default pull-right send_application isee_select_button">
+                                                <button type="button" id="btnShowSimple" class="btn btn-default pull-right send_application isee_select_button disabledClass" disabled>
                                                     @ISEE.Resources.Resource.ChangeAdress
                                                 </button>
 
@@ -939,7 +939,7 @@
 
                 <div class="col-md-3">
                     <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
-                    <button type="button" id="btnClose" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
+                    <button type="button" id="btnClose" onclick="closeDialog()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
             </div>
@@ -1047,7 +1047,7 @@
 
                 <div class="col-md-3">
                     <button type="button" id="saveClassification" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
-                    <button type="button" id="Closebtn" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
+                    <button type="button" id="Closebtn"  class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
 

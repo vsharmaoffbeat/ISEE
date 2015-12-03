@@ -277,14 +277,15 @@ function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, numbe
                 $('#buildingCode').attr('buildingCode', response.BuildingCode);
                 $('#cityId').val(data.citydesc);
                 $('#streetID').val(data.streetdesc);
-                $('#buildingCode').val(response.BuildingCode);
-                $('#stateId').val(r$('#inputState').val());
+                $('#buildingCode').val(data.number);
+                $('#stateId').val($('#inputState').val());
                 // $('#cityId').val(data.citydesc)
                 alert('Address change was successful.Save customer information to comlete the update');
                 //$scope.$apply(function () {
                 //    $scope.ShowMessageBox('Message', 'Address change was successful.Save customer information to comlete the update')
                 //});
                 buildingCode = parseInt(response.BuildingCode);
+                closeDialog();
             }
             else if (parseInt(response.BuildingCode) == -1) {
                 //$scope.$apply(function () {
@@ -292,6 +293,7 @@ function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, numbe
                 //});
                 alert('Error in the change of the address');
             }
+
         },
         error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
@@ -342,7 +344,7 @@ function InsertAddress() {
 
     //Address Data End
 
-    if (data.stateId == 0 || data.buildingNumber == '' || data.street == '' || data.city == '') {
+    if (data.stateID == 0 || data.buildingNumber == '' || data.street == '' || data.city == '') {
         //$scope.$apply(function () {
         //    $scope.ShowMessageBox('Message', 'Must select address first.')
         //});
@@ -415,14 +417,31 @@ function OnInsertAddressOkClick() {
     //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     //var $scope = angular.element(appElement).scope();
 
+
+
+
     var selectedRow = $('#MapHeaderGrid tr.active')
     if (selectedRow.length > 0) {
-        var statedesc = selectedRow.data('state');
-        var state = GetIdByName(statesArray, statedesc);
-        var citydesc = selectedRow.data('citydesc');
-        var city = GetIdByName(cityArray, citydesc);
-        var streetdesc = selectedRow.data('streetdesc');
-        var street = GetIdByName(streetArray, streetdesc);
+        var statedesc = $('#inputState').val();
+        var state = GetIdByName(statesArray, $('#inputState').val());
+        if (state <= 0) {
+            state = GetIdByName(statesArray, statedesc);
+            statedesc = selectedRow.data('state');
+        }
+        //var citydesc = selectedRow.data('citydesc');
+        var citydesc = $('#inputCity').val();
+        var city = GetIdByName(cityArray, $('#inputCity').val());
+        if (city <= 0) {
+            city = GetIdByName(cityArray, citydesc);
+            citydesc = selectedRow.data('citydesc');
+        }
+        var streetdesc = $('#inputStreet').val();
+        //var streetdesc = selectedRow.data('streetdesc');
+        var street = GetIdByName(streetArray, $('#inputStreet').val());
+        if (street <= 0) {
+            street = GetIdByName(streetArray, streetdesc);
+            streetdesc = selectedRow.data('streetdesc');
+        }
         var number = selectedRow.data('building')
         var Lat = selectedRow.data('latitude')
         var Long = selectedRow.data('longitude')
@@ -439,7 +458,7 @@ function OnInsertAddressOkClick() {
 
         //Get Building Code 
         buildingCode = GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode)
-        closeDialog();
+
 
     } else {
         //$scope.$apply(function () {
@@ -448,4 +467,17 @@ function OnInsertAddressOkClick() {
         alert('Must select Street,City and Building Number.');
     }
 
+}
+function closeDialog() {
+    $("#btnClose").click();
+}
+
+
+//Unused Method
+var buildingLatLong = [];
+function GetSelectedBuildingLatLong() {
+    if (availableBuildingLat[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined, availableBuildingLong[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())] == undefined)
+        return false;
+    buildingLatLong = [];
+    buildingLatLong.push(availableBuildingLat[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())], availableBuildingLong[availableBuildingNumber.indexOf($('#inputBuldingNumber').val())]);
 }

@@ -95,8 +95,29 @@ namespace ISEE.Controllers
             int factoryId = SessionManagement.FactoryID;
             using (ISEEEntities context = new ISEEEntities())
             {
-                var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("hh:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("hh:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("hh:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("hh:mm tt") : null }).ToList();
-                return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                var EmpHours = context.FactoryDairyTemplets.Where(s => s.Factory == factoryId).ToList().Select(e => new { Day = ((Days)Enum.ToObject(typeof(Days), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("hh:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("hh:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("hh:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("hh:mm tt") : null, DayStatus = e.DayStatus }).ToList();
+                object[] EmpHoursData = new object[7];
+                for (int i = 0; i < EmpHours.Count; i++)
+                {
+
+                    if (EmpHours[i].DayStatus == 1)
+                        EmpHoursData[i] = new { Day = SessionManagement.Sunday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 2)
+                        EmpHoursData[i] = new { Day = SessionManagement.Monday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 3)
+                        EmpHoursData[i] = new { Day = SessionManagement.Tuesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 4)
+                        EmpHoursData[i] = new { Day = SessionManagement.Wednesday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 5)
+                        EmpHoursData[i] = new { Day = SessionManagement.Thursday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 6)
+                        EmpHoursData[i] = new { Day = SessionManagement.Friday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    if (EmpHours[i].DayStatus == 7)
+                        EmpHoursData[i] = new { Day = SessionManagement.Saturday, Start1 = EmpHours[i].Start1, End1 = EmpHours[i].End1, Start2 = EmpHours[i].Start2, End2 = EmpHours[i].End2, DayStatus = EmpHours[i].DayStatus };
+                    //EmpHours[i].Day = SessionManagement.Sunday;
+                }
+
+                return new JsonResult { Data = EmpHoursData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
         public bool SaveEmployeeHours(string objhours, int employeeID)

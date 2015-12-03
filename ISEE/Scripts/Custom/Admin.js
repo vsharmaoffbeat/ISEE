@@ -475,7 +475,7 @@ $(document).ready(function () {
 
     GetAllStatesByCountry();
     GetAllCountrys();
-<<<<<<< HEAD
+
     GetAllCompanyDesc();
 
     //google.maps.event.addListener(map, 'click', function (event) {
@@ -484,10 +484,10 @@ $(document).ready(function () {
     //    var lat = myLatLng.lat();
     //    var lng = myLatLng.lng();
     //});
-=======
+
     $('#inputCountry_State').prop("disabled", true);
     $("#stateChk").prop('checked', 'checked');
->>>>>>> 57612515f08f51de2f2bf58a7b3c5200eb54c329
+
 });
 
 
@@ -547,11 +547,10 @@ function GetAllCountrys() {
     });
 }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 57612515f08f51de2f2bf58a7b3c5200eb54c329
+
+
 function GetAllStatesByCountryID(country) {
     if (country == undefined) {
         country = '';
@@ -956,7 +955,7 @@ function GetUTCByName(arr, name) {
         return 0;
     }
 }
-<<<<<<< HEAD
+
 //Country tab end
 
 //Company Tab
@@ -1109,7 +1108,7 @@ function Initialize1(obj, zoom) {
 
 
 //end Company tab
-=======
+
 
 function CountryDescENAndUTCOnBlur() {
     var nameEN = GetNameENByName(countryArray, $('#inputCountry').val());

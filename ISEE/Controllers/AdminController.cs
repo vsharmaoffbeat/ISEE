@@ -423,7 +423,6 @@ namespace ISEE.Controllers
         }
 
 
-
         //Country tab start
         public JsonResult SaveCountry(int Countrycode, string CountryNameEN, string UTC, string CountryDesc)
         {
@@ -450,8 +449,26 @@ namespace ISEE.Controllers
             }
             else
             {
-                _facory.SaveState(Countrycode, StateCode, StateDescEn, StateDesc);
-                return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                if (StateDesc == "")
+                {
+                    var state = _facory.GetStateCodeByCountryID(Countrycode).Select(s => new { StateCode = s.StateCode }).ToList();
+                    if (state.Count == 0)
+                    {
+                        _facory.SaveState(Countrycode, StateCode, null, null);
+                        return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        return new JsonResult { Data = new { Message = "Error" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                }
+                else
+                {
+                    _facory.SaveState(Countrycode, StateCode, StateDescEn, StateDesc);
+                    return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+
+
             }
         }
 
@@ -465,8 +482,26 @@ namespace ISEE.Controllers
             }
             else
             {
-                _facory.SaveCity(Countrycode, StateCode, CityCode, CityDescEN, CityDesc);
-                return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                if (StateCode == 0)
+                {
+                    var state = _facory.GetStateCodeByCountryID(Countrycode).Select(s => new { StateCode = s.StateCode }).ToList();
+                    if (state.Count == 0)
+                    {
+                        _facory.SaveState(Countrycode, StateCode, null, null);
+                        return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        StateCode = state.Select(s => s.StateCode).FirstOrDefault();
+                        _facory.SaveCity(Countrycode, StateCode, CityCode, CityDescEN, CityDesc);
+                        return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                }
+                else
+                {
+                    _facory.SaveCity(Countrycode, StateCode, CityCode, CityDescEN, CityDesc);
+                    return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
             }
         }
 
@@ -480,8 +515,26 @@ namespace ISEE.Controllers
             }
             else
             {
-                _facory.SaveStreet(Countrycode, StateCode, CityCode, StreetCode, StreetDescEN, StreetDesc);
-                return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                if (StateCode == 0)
+                {
+                    var state = _facory.GetStateCodeByCountryID(Countrycode).Select(s => new { StateCode = s.StateCode }).ToList();
+                    if (state.Count == 0)
+                    {
+                        _facory.SaveState(Countrycode, StateCode, null, null);
+                        return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        StateCode = state.Select(s => s.StateCode).FirstOrDefault();
+                        _facory.SaveStreet(Countrycode, StateCode, CityCode, StreetCode, StreetDescEN, StreetDesc);
+                        return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                }
+                else
+                {
+                    _facory.SaveStreet(Countrycode, StateCode, CityCode, StreetCode, StreetDescEN, StreetDesc);
+                    return new JsonResult { Data = new { Message = "Success" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
             }
         }
 

@@ -692,8 +692,8 @@ function SaveCountry() {
     var countryDescEN = $('#inputCountryEN').val();
     var countryUTC = $('#inputUTC').val();
 
-    if (countryID == 0 || countryUTC == "") {
-        if (countryDesc != "" || countryUTC != "") {
+    if (countryID != 0 && countryUTC != "" && countryDesc != "") {
+        if (countryID == 0) {
             $.ajax({
                 url: "/Admin/SaveCountry",
                 type: "post",
@@ -710,28 +710,28 @@ function SaveCountry() {
                     });
                 }
             });
-        } else {
-            alert('Select country first');
-            return false;
+        }
+        else {
+            $.ajax({
+                url: "/Admin/SaveCountry",
+                type: "post",
+                data: { Countrycode: countryID, CountryNameEN: countryDescEN, UTC: countryUTC, CountryDesc: countryDesc },
+                success: function (result) {
+                    $scope.$apply(function () {
+                        if (result.Message == 'Success') {
+                            $scope.ShowMessageBox('Save Message', 'Country update sucessfully.');
+                            GetAllCountrys();
+                        } else {
+                            $scope.ShowMessageBox('Error', result.ErrorDetails)
+                        }
+
+                    });
+                }
+            });
         }
     } else {
-
-        $.ajax({
-            url: "/Admin/SaveCountry",
-            type: "post",
-            data: { Countrycode: countryID, CountryNameEN: countryDescEN, UTC: countryUTC, CountryDesc: countryDesc },
-            success: function (result) {
-                $scope.$apply(function () {
-                    if (result.Message == 'Success') {
-                        $scope.ShowMessageBox('Save Message', 'Country update sucessfully.');
-                        GetAllCountrys();
-                    } else {
-                        $scope.ShowMessageBox('Error', result.ErrorDetails)
-                    }
-
-                });
-            }
-        });
+        alert('Select country, UTC first');
+        return false;
     }
 }
 
@@ -804,7 +804,7 @@ function SaveCity() {
     var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
     var cityDescEN = $('#inputCountry_CityEN').val();
 
-    if (countryID != 0 || cityDesc != "") {
+    if (countryID != 0 && cityDesc != "") {
         if (cityCode == 0) {
             $.ajax({
                 url: "/Admin/SaveCity",
@@ -864,7 +864,7 @@ function SaveStreet() {
     var streetCode = GetIdByName(streetArray, streetDesc == "" ? null : streetDesc);
     var streetDescEN = $('#inputCountry_StreetEN').val();
 
-    if (countryID != 0 || cityCode != 0 || streetDesc != "") {
+    if (countryID != 0 && cityCode != 0 && streetDesc != "") {
         if (streetCode == 0) {
             $.ajax({
                 url: "/Admin/SaveStreet",

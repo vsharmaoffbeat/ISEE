@@ -1,0 +1,390 @@
+﻿@using ISEE.Resources
+
+
+<form role="form" method="post" action="#" autocomplete="on">
+    <div class="row first_tree_rightbar" style="width: 1072px;">
+        <div class=" ">
+            <div class="customer_topbar">
+                <div class="f_left">
+                    <span class="sresult">Company</span>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="rest_content rest_radius">
+                <div class="rest_half first_half col-md-12 top_div_padding  nn" style="height: 65px;">
+                    <div class="clear"></div>
+                    <div class=" change_border change_border2" style="margin-bottom: 0px; padding: 7px; background-color: white;">
+                        <div>
+                            <div class=" no-more-tables">
+                                <table class="t5">
+                                    <tbody>
+                                        <tr>
+                                            <td class="no_need" id="">Company</td>
+                                            <input id="inputCompanyDesc" ng-model="CompanyInfo.FactoryDesc" type="text" class="form-control isee_input" onblur="GetFactoryData()" required>
+                                            @*
+                                            <td data-title="Company">
+                                                <select name="Main" class="drp ">
+                                                    <option value="">&nbsp;</option>
+                                                    <option value="">Main Classification1</option>
+                                                    <option value="">Main Classification2</option>
+                                                </select>
+                                            </td>
+                                            *@
+                                            <td><span class="nbtn n_search" ng-click="clearCompanyDetails();" >
+                                                <img src="../images/img/edit5.png" alt=""></span>  <span class="nbtn n_search">
+                                                    <img src="../images/img/save.png" alt=""></span></td>
+
+                                            <td class="no_need">Country</td>
+                                            <td data-title="Company">
+                                                <input id="inputCountryDesc" ng-model="CompanyInfo.CountryDesc" type="text" class="form-control isee_input" onblur="GetExistingCountry()" required>
+                                                @*<select name="Main" class="drp ">
+                                                    <option value="">&nbsp;</option>
+                                                    <option value="">Main Classification1</option>
+                                                    <option value="">Main Classification2</option>
+                                                </select>*@
+                                            </td>
+                                            <td><span class="nbtn n_search">
+                                                <img src="images/edit_add.png" alt="">
+                                            </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cl_heigfht"></div>
+                            <div class=" no-more-tables">
+                                <table style="width: 100%" class="nospace">
+                                    <tbody>
+                                        <tr>
+
+                                            <td class="no_need">User</td>
+                                            <td data-title="user">
+                                                <input type="text" name="user" class="category_banner" ng-model="CompanyInfo.UserName">
+                                            </td>
+                                            <td class="no_need">Password</td>
+                                            <td data-title="Password">
+                                                <input type="Password" name="Password" class="category_banner" style="width: 100%; border: 1px solid #848484;" ng-model="CompanyInfo.Password">
+                                            </td>
+                                            <td class="no_need">Conform Password</td>
+                                            <td data-title="Conform Password">
+                                                <input type="Password" name="Conform Password" class="category_banner" style="width: 100%; border: 1px solid #848484;" ng-model="CompanyInfo.Password">
+                                            </td>
+                                            <td class="no_need">Employee Stop</td>
+                                            <td data-title="Employee Stop">
+                                                <input type="text" name="Employee Stop" class="category_banner" ng-model="CompanyInfo.StopEmployeeTime">
+                                            </td>
+                                            <td class="no_need">Country Area Phone Code</td>
+                                            <td data-title="Country Area Phone Code">
+                                                <input type="text" name="Country Area Phone Code" class="category_banner" ng-model="CompanyInfo.PhoneAreaCode">
+                                            </td>
+                                            <td class="no_need">SMS Provide</td>
+                                            <td data-title="SMS Provide">
+                                                <input type="text" name="SMS Provide" class="category_banner" ng-model="CompanyInfo.SmsProvider">
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="background-color: white;">
+                            <div class="cl_heigfht"></div>
+                            <div class="cl_heigfht"></div>
+                            <div class="col-md-4 small_gap">
+                                <div class=" no-more-tables">
+                                    <table style="width: 100%" class="provide ">
+                                        <tbody>
+                                            <tr>
+                                                <td class="no_need">Map Provide</td>
+                                                <td data-title="Map Provide">
+                                                    <input type="text" name="Map Provide" class="category_banner">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_need">Lat</td>
+                                                <td data-title="Lat">
+                                                    <input type="text" name="Lat" class="category_banner" ng-model="CompanyInfo.Lat">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_need">Long</td>
+                                                <td data-title="Long">
+                                                    <input type="text" name="Long" class="category_banner" ng-model="CompanyInfo.Long">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_need">Zoom</td>
+                                                <td data-title="Zoom">
+                                                    <input type="text" name="Zoom" class="category_banner" ng-model="CompanyInfo.Zoom">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no_need">UTC</td>
+                                                <td data-title="UTC">
+                                                    <input type="text" name="UTC" class="category_banner" ng-model="CompanyInfo.CurrentGmt">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-8 small_gap fullwidth2" style="min-height: 45px;">
+                                @* 
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d471219.7256039201!2d88.36825265!3d22.6759958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1447934654712" class="reports fullwidth fullwidth2" allowfullscreen="" id="map" style="min-height: 45px;"></iframe>
+                                *@
+                                <div id="map_canvas1" style="min-height: 350px; min-width: 450px !important"></div>
+                                <div class="no-more-tables" style="display: none" id="company">
+                                    <table class="customer_list table ">
+                                        <tbody>
+                                            <tr class="no_need">
+                                                <th class="customer_list_head">&nbsp;</th>
+                                                <th class="customer_list_head">Day&nbsp;Status</th>
+                                                <th class="customer_list_head">Start&nbsp;Time</th>
+                                                <th class="customer_list_head">End&nbsp;Time</th>
+                                                <th class="customer_list_head">Start&nbsp;Time</th>
+                                                <th class="customer_list_head">End&nbsp;Time</th>
+                                                <th class="customer_list_head">Start&nbsp;Time</th>
+                                                <th class="customer_list_head">End&nbsp;Time</th>
+                                                <th class="customer_list_head">Display&nbsp;Order</th>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Sun</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="0"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Mon</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="0"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Tue</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="2"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Wed</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="2"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Thu</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="2"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Fri</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="2"></td>
+                                            </tr>
+                                            <tr class="visiablity">
+                                                <td class="left_column_design"></td>
+                                                <td data-title="Day Status">Sat</td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Start Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="End Time">
+                                                    <input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="4 : 19 PM" onkeypress="return false;"></td>
+                                                <td data-title="Display Order">
+                                                    <input type="number" name="c1" value="2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="cl_heigfht"></div>
+                            <div class="cl_heigfht"></div>
+                            <div class=" no-more-tables">
+                                <table style="width: 100%" class="nospace">
+                                    <tbody>
+                                        <tr>
+                                            <td class="no_need">Logo</td>
+                                            <td data-title="Logo">
+                                                <input type="file" name="Logo" class="category_banner type_file">
+                                            </td>
+                                            <td data-title="Logo" class="demo_logo">
+                                                <img src="images/logo-demo-2.jpg" alt=""></td>
+                                            <td class="no_need">&nbsp;</td>
+                                            <td class="no_need">Search Radios</td>
+                                            <td data-title="Search Radios">
+                                                <input type="text" name="text" class="category_banner" ng-model="CompanyInfo.RadiusSearch">
+                                            </td>
+                                            <td class="no_need">Threshold Customer to Employee</td>
+                                            <td data-title="Threshold Customer to Employee">
+                                                <input type="text" name="" class="category_banner" style="width: 100%; border: 1px solid #848484;" ng-model="CompanyInfo.CustomerLinkDistanceThreshold">
+                                            </td>
+                                            <td class="no_need Split">
+                                                <div class="squaredFour" style="float: left">
+                                                    <input type="checkbox" value="None" id="squaredFour" name="check" style="opacity: 0">
+                                                    <label for="squaredFour"></label>
+                                                </div>
+                                                <span class="splittext">&nbsp;Split Time</span></td>
+                                            <td>
+                                                <button type="button" class="btn btn-default" id="working">Company Work Hour </button>
+                                                <button type="button" class="btn btn-default" id="mapshows" style="display: none;">Map Shows </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $(function () {
+        $(".datepik").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).on("resize load", function () {
+            $('.content').css('height', $(window).height() - $('.n2').height() - $('.footer').height() - $('.state_height').height() - 20);
+            $('.rpt').css('height', $(window).height() - $('.n2').height() - $('.footer').height() - $('.state_height').height() - $('.report_bar').height() - $('.rbar2').height() - 40);
+            //$('.second_half_inner ').css('height',$('.content').height()- $('.first_half ').height()-$('.report_bar').height()-$('.rbar2').height()-139);
+            $('.fr ').css('width', $(window).width() - $('.fl').width() - 20);
+            $('.nn ').css('height', $('.content').height() - 85);
+            $('.menu-list ').css('height', $('.nn').height() - 64);
+            $('.fullwidth2 ').css('min-height', $('.content').height() / 2 - 30);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        LoadMapByFactoryForCompanyID();
+        $(".navbar-toggle").click(function () {
+            $(".sidebar").slideToggle();
+        });
+        $(".when_set").hide();
+        $(".when_cancel1").click(function () {
+            $(".when_cancel").hide();
+            $(".when_set").show();
+        });
+        $(".when_set1").click(function () {
+            $(".when_cancel").show();
+            $(".when_set").hide();
+        });
+        $("#mapshows").hide();
+        $("#working").click(function () {
+            $("#company").show();
+            $("#map").hide();
+            $("#mapshows").show();
+            $("#working").hide();
+        });
+        $("#mapshows").click(function () {
+            $("#company").hide();
+            $("#map").show();
+            $("#mapshows").hide();
+            $("#working").show();
+        });
+
+        $('.visiablity').click(function () {
+            $('.visiablity').removeClass('tractive');
+            $(this).addClass('tractive');
+        });
+        $('.time_pik').click(function () {
+            $('.time_pik').removeClass('ctime_pik');
+            $(this).addClass('ctime_pik');
+        });
+
+    });
+</script>
+
+<script type="text/javascript" src="js/wickedpicker.js"></script>
+<script type="text/javascript">
+    $('.timepicker').wickedpicker({ twentyFour: false });
+</script>

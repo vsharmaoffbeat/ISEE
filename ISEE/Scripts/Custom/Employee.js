@@ -535,6 +535,8 @@ function showEmployeeScheduler() {
                 scheduler.config.dblclick_create = false; //false to create new event on double click
                 scheduler.config.details_on_dblclick = false;
                 scheduler.config.readonly = true;
+                scheduler.config.show_loading = true;
+                scheduler.config.api_date = "%Y-%m-%d %h:%i %A";
                 scheduler.config.drag_create = false;//false to create new event on drag
                 scheduler.init('scheduler_here', new Date(todayDate));
                 dp = scheduler.dataProcessor = new dataProcessor("/Calendar/Save");
@@ -542,7 +544,7 @@ function showEmployeeScheduler() {
                 dp.setTransactionMode("POST", false);
 
                 var getEventsUrl = "/Calendar/Data?ID=" + _employeeId + "&startTime=" + $scope.schdulerStartTime + "&endTime=" + $scope.schdulerEndTime
-                scheduler.setLoadMode("month");
+                scheduler.setLoadMode("week");
                 scheduler.load(getEventsUrl, "json");
 
                 /*Click of Event Rendered on Schdulerd*/

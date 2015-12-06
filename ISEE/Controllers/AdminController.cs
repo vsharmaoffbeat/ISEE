@@ -289,9 +289,9 @@ namespace ISEE.Controllers
             {
                 foreach (var item in MainClassification)
                 {
-                    if (db.RequsetToFactoryLevel1.Any(a => a.RequestSysIdLevel1 == item.RequestSysIdLevel1 && a.Factory == 1)) //
+                    item.Factory = SessionManagement.FactoryID;
+                    if (db.RequsetToFactoryLevel1.Any(a => a.RequestSysIdLevel1 == item.RequestSysIdLevel1 && a.Factory == item.Factory)) //
                     {
-                        item.Factory = 1;
                         //   db.RequsetToFactoryLevel1.Attach(item);
                         ISEEDataModel.Repository.RequsetToFactoryLevel1 objRequsetToFactoryLevel1 = db.RequsetToFactoryLevel1.Where(x => x.RequestSysIdLevel1 == item.RequestSysIdLevel1).FirstOrDefault();
                         //var empQuery = from RequsetToFactoryLevel1 in db.RequsetToFactoryLevel1
@@ -328,6 +328,7 @@ namespace ISEE.Controllers
                                     }
                                     else
                                     {
+                                        sec.CreateDate = DateTime.Now.Date;
                                         db.RequsetToFactoryLevel2.Add(sec);
                                         db.SaveChanges();
                                     }
@@ -337,7 +338,6 @@ namespace ISEE.Controllers
                     }
                     else
                     {
-                        item.Factory = 1;
                         var dateAndTime = DateTime.Now;
                         item.CreateDate = dateAndTime.Date;
                         db.RequsetToFactoryLevel1.Add(item);
@@ -360,8 +360,6 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = objcategory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-
-
 
         #endregion
 

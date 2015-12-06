@@ -287,13 +287,21 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
 
             ContactService.getList($scope.DDLType.id).then(function (d) {
                 $scope.contacts = null;
+                $scope.Secondarys = [];
+                OverallSecondarys = [];
                 $scope.contacts = $.makeArray(d.data);
 
                 if ($scope.contacts.length > 0) {
+                    for (var i = 0; i < $scope.contacts.length; i++) {
+                        if ($scope.contacts[i].RequestDescCodeLevel1 == $('.active').find('span').text().trim())
+                            $scope.BindSecondary($scope.contacts[i]);
+                    }
+
                     SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
-                    $scope.BindSecondary($scope.contacts[0]);
+                    // $scope.BindSecondary($scope.contacts[0]);
                 }
-               // $scope.$apply();
+
+                // $scope.$apply();
             }, function (error) {
                 $scope.ShowMessageBox('Error', 'An Error has been occured ....');
             });

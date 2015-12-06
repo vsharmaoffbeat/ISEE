@@ -387,12 +387,34 @@ function OnInsertAddressOkClick() {
 
     var selectedRow = $('#MapHeaderGrid tr.active')
     if (selectedRow.length > 0) {
-        var statedesc = selectedRow.data('state');
-        var state = GetIdByName(statesArray, statedesc);
-        var citydesc = selectedRow.data('citydesc');
-        var city = GetIdByName(cityArray, citydesc);
-        var streetdesc = selectedRow.data('streetdesc');
-        var street = GetIdByName(streetArray, streetdesc);
+        var statedesc = $('#inputState').val();
+        var state = GetIdByName(statesArray, $('#inputState').val());
+        if (state <= 0) {
+            state = GetIdByName(statesArray, statedesc);
+            statedesc = selectedRow.data('state');
+        }
+        //var citydesc = selectedRow.data('citydesc');
+        var citydesc = $('#inputCity').val();
+        var city = GetIdByName(cityArray, $('#inputCity').val());
+        if (city <= 0) {
+            city = GetIdByName(cityArray, citydesc);
+            citydesc = selectedRow.data('citydesc');
+        }
+        var streetdesc = $('#inputStreet').val();
+        //var streetdesc = selectedRow.data('streetdesc');
+        var street = GetIdByName(streetArray, $('#inputStreet').val());
+        if (street <= 0) {
+            street = GetIdByName(streetArray, streetdesc);
+            streetdesc = selectedRow.data('streetdesc');
+        }
+
+
+        //var statedesc = selectedRow.data('state');
+        //var state = GetIdByName(statesArray, statedesc);
+        //var citydesc = selectedRow.data('citydesc');
+        //var city = GetIdByName(cityArray, citydesc);
+        //var streetdesc = selectedRow.data('streetdesc');
+        //var street = GetIdByName(streetArray, streetdesc);
         var number = selectedRow.data('building')
         var Lat = selectedRow.data('latitude')
         var Long = selectedRow.data('longitude')

@@ -266,6 +266,8 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             var newSecondary = $scope.newSecondary;
             newSecondary.RequestSysIdLevel1 = $scope.SelectedSysIdLevel1;
             newSecondary.StatusCode = 0;
+            if ($scope.DDLType.id < 0)
+                newSecondary.StatusCode = -1;
             newSecondary.RequestSysIdLevel2 = 0;
             if ($scope.Secondarys.length == 0) {
 
@@ -281,6 +283,21 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     // code  for Secondary cases
     $scope.OverallSave = function () {
         ContactService.OverallSave($scope.contacts, OverallSecondarys).then(function (d) {
+            //add for save mulitple
+
+            ContactService.getList($scope.DDLType.id).then(function (d) {
+                $scope.contacts = null;
+                $scope.contacts = $.makeArray(d.data);
+
+                if ($scope.contacts.length > 0) {
+                    SysIdLevel1max = d.data[d.data.length - 1].RequestSysIdLevel1 + 1;
+                    $scope.BindSecondary($scope.contacts[0]);
+                }
+               // $scope.$apply();
+            }, function (error) {
+                $scope.ShowMessageBox('Error', 'An Error has been occured ....');
+            });
+            //end
 
             $scope.msg = "Save SuccessFully";
             $scope.ShowMessageBox('Message', 'Save SuccessFully.')
@@ -513,7 +530,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $scope.CompanyInfo = {
             FactoryDesc: '',
 
-            MapProvider:0,
+            MapProvider: 0,
             CountryDesc: '',
             UserName: '',
             Password: '',
@@ -575,32 +592,31 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
     $scope.CustomerID = 0
     $scope.SaveCustomerForm = function () {
         $scope.CustomerInfo.BuldingCode = buildingCode;
-
         if ($scope.CustomerID == 0) {
-            if ($scope.CustomerInfo.BuldingCode > 0) {
-                if ($scope.CustomerInfo.BuildingNumber != '') {
-                    if ($scope.CustomerInfo.CompanyName != '') {
-                        $.ajax({
-                            url: "/Admin/SaveCustomerForm",
-                            type: "post",
-                            contentType: "application/json",
-                            data: JSON.stringify({ objCustomerData: $scope.CustomerInfo }),
-                            dataType: "json",
-                            success: function (result) {
-                                $scope.$apply(function () {
-                                    if (result.Message == 'Success') {
-                                        $scope.NewCustomerDetails = result.CustomerDetails;
-                                        $scope.CustomerID = result.CustomerDetails.CustomerID
-                                        $scope.ShowMessageBox('Save Message', 'Customer data saved sucessfully.')
-                                    } else {
-                                        $scope.ShowMessageBox('Error', result.ErrorDetails)
-                                    }
-                                });
+            if ($scope.CustomerInfo.BuldingCode > 0 && $scope.CustomerInfo.BuildingNumber != '' && $scope.CustomerInfo.CompanyName != '' && $scope.CustomerInfo.ContactName != '') {
+                if ($scope.CustomerInfo.NextVisit == '')
+                    $scope.CustomerInfo.NextVisit = null;
+                $.ajax({
+                    url: "/Admin/SaveCustomerForm",
+                    type: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify({ objCustomerData: $scope.CustomerInfo }),
+                    dataType: "json",
+                    success: function (result) {
+                        $scope.$apply(function () {
+                            if (result.Message == 'Success') {
+                                $scope.NewCustomerDetails = result.CustomerDetails;
+                                $scope.CustomerID = result.CustomerDetails.CustomerID
+                                $scope.ShowMessageBox('Save Message', 'Customer data saved sucessfully.')
+                            } else {
+                                $scope.ShowMessageBox('Error', result.ErrorDetails)
                             }
                         });
                     }
-                    return false;
-                }
+                });
+
+                return false;
+
             } else {
 
                 $scope.ShowMessageBox('Message', 'Must select address first.')

@@ -223,6 +223,7 @@ namespace ISEE.Controllers
                     customer.Phone1 = objCustomerData.Phone1;
                     customer.AreaPhone2 = objCustomerData.PhoneArea2;
                     customer.Phone2 = objCustomerData.Phone2;
+                    customer.AreaFax = objCustomerData.AreaFax;
                     customer.Fax = objCustomerData.Fax;
                     customer.Mail = objCustomerData.Mail;
                     customer.VisitInterval = objCustomerData.VisitInterval;

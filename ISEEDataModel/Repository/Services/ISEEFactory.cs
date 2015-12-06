@@ -40,8 +40,11 @@ namespace ISEEDataModel.Repository.Services
             return treeList;
         }
 
-        private void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
+        private void CreateTreeNodes(List<TreeView> dataVal, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
         {
+            List<TreeView> data = dataVal.Where(x => x.CustomerID == null && x.EmployeeID == null).OrderBy(x => x.Description).ToList();
+            data.AddRange(dataVal.Where(x => x.EmployeeID != null ).OrderBy(x => x.Description).ToList());
+            data.AddRange(dataVal.Where(x => x.CustomerID != null).OrderBy(x => x.Description).ToList());
             TreeNodeData objTreeNodeData;
             foreach (var objTreeView in data)
             {
@@ -988,11 +991,12 @@ namespace ISEEDataModel.Repository.Services
         #region CompanyTab
         public IQueryable<Factory> GetAllFactoryDataId(int factoryId)
         {
-            return _context.Factories.Where(x=>x.FactoryId==factoryId);
-        } public IQueryable<Factory> GetAllCompanyDesc()
+            return _context.Factories.Where(x => x.FactoryId == factoryId);
+        }
+        public IQueryable<Factory> GetAllCompanyDesc()
         {
             return _context.Factories;
-        } 
+        }
         #endregion
 
 

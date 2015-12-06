@@ -21,21 +21,21 @@
 
                     <div class="form-group">
                         <label for="usr">@ISEE.Resources.Resource.Floor</label>
-                        <input id="inputFloor" ng-model="CustomerInfo.Floor" type="tel" class="form-control isee_input_shadow">
+                        <input id="inputFloor" ng-model="CustomerInfo.Floor" type="number" class="form-control isee_input_shadow">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-5">
                             <label>@ISEE.Resources.Resource.Phone1</label>
                             <div class="form-group">
-                                <input class="form-control isee_input cust_phone" ng-model="CustomerInfo.PhoneArea1" id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="text">
+                                <input class="form-control isee_input cust_phone" ng-model="CustomerInfo.PhoneArea1" id="inputPhoneOne" maxlength="5" name="" value="" size="3" title="" type="number">
                             </div>
                         </div>
 
                         <div class="col-xs-7">
                             <label></label>
                             <div class="form-group phone_no">
-                                <input class="form-control isee_input cust_phone2" id="inputPhone11" ng-model="CustomerInfo.Phone1" maxlength="10" name="" value="" size="3" title="" type="text">
+                                <input class="form-control isee_input cust_phone2" id="inputPhone11" ng-model="CustomerInfo.Phone1" maxlength="10" name="" value="" size="3" title="" type="number">
                             </div>
                         </div>
                     </div>
@@ -50,21 +50,21 @@
 
                     <div class="form-group">
                         <label for="usr">@ISEE.Resources.Resource.Apartment</label>
-                        <input id="inputApartment" ng-model="CustomerInfo.Apartment" type="text" class="form-control isee_input">
+                        <input id="inputApartment" ng-model="CustomerInfo.Apartment" type="number" class="form-control isee_input">
                     </div>
 
                     <div class="row">
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <label for="usr">@ISEE.Resources.Resource.Phone2</label>
-                                <input id="inputPhoneTwo" ng-model="CustomerInfo.PhoneArea2" type="tel" class="form-control isee_input cust_phone">
+                                <input id="inputPhoneTwo" ng-model="CustomerInfo.PhoneArea2" type="number" class="form-control isee_input cust_phone">
                             </div>
                         </div>
 
                         <div class="col-xs-7">
                             <label></label>
                             <div class="form-group phone_no">
-                                <input class="form-control isee_input cust_phone2" ng-model="CustomerInfo.Phone2" id="inputPhone22" maxlength="10" name="phone" size="3" title="" type="tel">
+                                <input class="form-control isee_input cust_phone2" ng-model="CustomerInfo.Phone2" id="inputPhone22" maxlength="10" name="phone" size="3" title="" type="number">
                             </div>
                         </div>
 
@@ -92,14 +92,14 @@
 
                                     <div class="form-group">
                                         <label>Mobile</label>
-                                        <input class="form-control isee_input" ng-model="CustomerInfo.MobileOne" id="inputMobile" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                        <input class="form-control isee_input" ng-model="CustomerInfo.MobileOne" id="inputMobile" maxlength="3" name="" size="3" title="" type="number" value="">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control isee_input" ng-model="CustomerInfo.MobileTwo" id="inputMobile1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                        <input class="form-control isee_input" ng-model="CustomerInfo.MobileTwo" id="inputMobile1" maxlength="20" name="" size="3" title="" type="number" value="">
                                     </div>
                                 </div>
                             </div>
@@ -113,14 +113,14 @@
 
                                     <div class="form-group">
                                         <label>@ISEE.Resources.Resource.Fax</label>
-                                        <input class="form-control isee_input" ng-model="CustomerInfo.AreaFax" id="inputFax" maxlength="3" name="" size="3" title="" type="tel" value="">
+                                        <input class="form-control isee_input" ng-model="CustomerInfo.AreaFax" id="inputFax" maxlength="3" name="" size="3" title="" type="number" value="">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-7">
                                     <label></label>
                                     <div class="form-group phone_no">
-                                        <input class="form-control isee_input" ng-model="CustomerInfo.Fax" id="inputFax1" maxlength="20" name="" size="3" title="" type="tel" value="">
+                                        <input class="form-control isee_input" ng-model="CustomerInfo.Fax" id="inputFax1" maxlength="20" name="" size="3" title="" type="number" value="">
                                     </div>
                                 </div>
                             </div>
@@ -183,14 +183,14 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="usr">@ISEE.Resources.Resource.ZipCode</label>
-                            <input id="inputZipCode" ng-model="CustomerInfo.ZipCode" type="tel" class="form-control isee_input">
+                            <input id="inputZipCode" ng-model="CustomerInfo.ZipCode" type="number" class="form-control isee_input">
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="usr">@ISEE.Resources.Resource.VisitInterval</label>
-                            <input id="inputVisitInterval" ng-model="CustomerInfo.VisitInterval" type="tel" class="form-control isee_input">
+                            <input id="inputVisitInterval" ng-model="CustomerInfo.VisitInterval" type="number" class="form-control isee_input">
                         </div>
                     </div>
 
@@ -199,7 +199,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="usr">@ISEE.Resources.Resource.VisitTime</label>
-                            <input id="inputVisitTime" ng-model="CustomerInfo.VisitTime" type="tel" class="form-control isee_input">
+                            <input id="inputVisitTime" ng-model="CustomerInfo.VisitTime" type="number" class="form-control isee_input">
                         </div>
                     </div>
 

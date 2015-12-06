@@ -393,6 +393,7 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
             phoneTypeChoice: '',
         };
         $scope.EmployeeID = 0;
+        $scope.$apply();
     };
 
     $scope.employeeInfo = {

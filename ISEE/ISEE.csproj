@@ -236,6 +236,7 @@
     <Content Include="Global.asax" />
     <Content Include="images\cancel.png" />
     <Content Include="images\edit.png" />
+    <Content Include="images\edit_add.png" />
     <Content Include="images\employee_1new.png" />
     <Content Include="images\employee_2new.png" />
     <Content Include="images\folder.png" />
@@ -278,6 +279,7 @@
     <Content Include="images\img\User.png" />
     <Content Include="images\login_background.png" />
     <Content Include="images\login_page.png" />
+    <Content Include="images\logo-demo-2.jpg" />
     <Content Include="images\logout.png" />
     <Content Include="images\question.png" />
     <Content Include="images\region_see.png" />

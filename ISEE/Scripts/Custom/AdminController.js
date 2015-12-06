@@ -512,22 +512,22 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $scope.CompanyInfo = {
             FactoryDesc: '',
 
-
+            MapProvider:0,
             CountryDesc: '',
             UserName: '',
             Password: '',
             PhoneAreaCode: '',
-            SmsProvider: '',
+            SmsProvider: 0,
             Fax: '',
             CustomerNumber: '',
             Floor: '',
-            Lat: '',
-            Long: '',
-            Zoom: '',
-            CurrentGmt: '',
-            RadiusSearch: '',
-            CustomerLinkDistanceThreshold: '',
-            StopEmployeeTime: '',
+            Lat: 0,
+            Long: 0,
+            Zoom: 0,
+            CurrentGmt: 0,
+            RadiusSearch: 0,
+            CustomerLinkDistanceThreshold: 0,
+            StopEmployeeTime: 0,
             //MobileOne: '',
             //MobileTwo: '',
             ////BuildingNumber: '',
@@ -540,6 +540,36 @@ module.controller('SearchCtrl', function ($scope, ContactService) {
         $scope.factoryId = -1;
         _factoryId = -1;
     };
+    $scope.CompanyInfo = {
+        FactoryDesc: '',
+
+        MapProvider: 0,
+        CountryDesc: '',
+        UserName: '',
+        Password: '',
+        PhoneAreaCode: '',
+        SmsProvider: 0,
+        Fax: '',
+        CustomerNumber: '',
+        Floor: '',
+        Lat: 0,
+        Long: 0,
+        Zoom: 0,
+        CurrentGmt: 0,
+        RadiusSearch: 0,
+        CustomerLinkDistanceThreshold: 0,
+        StopEmployeeTime: 0,
+        //MobileOne: '',
+        //MobileTwo: '',
+        ////BuildingNumber: '',
+        //State: '',
+        //City: '',
+        //Street: '',
+        //Entry: '',
+        //ZipCode: ''
+    };
+    $scope.factoryId = -1;
+    _factoryId = -1;
     //end
     $scope.CustomerID = 0
     $scope.SaveCustomerForm = function () {

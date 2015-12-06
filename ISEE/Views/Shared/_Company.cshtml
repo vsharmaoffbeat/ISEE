@@ -31,8 +31,8 @@
                                                 </select>
                                             </td>
                                             *@
-                                            <td><span class="nbtn n_search" ng-click="clearCompanyDetails();" >
-                                                <img src="../images/img/edit5.png" alt=""></span>  <span class="nbtn n_search">
+                                            <td><span class="nbtn n_search" ng-click="clearCompanyDetails();">
+                                                <img src="../images/img/edit5.png" alt=""></span>  <span class="nbtn n_search" onclick="saveCompany()">
                                                     <img src="../images/img/save.png" alt=""></span></td>
 
                                             <td class="no_need">Country</td>
@@ -45,7 +45,7 @@
                                                 </select>*@
                                             </td>
                                             <td><span class="nbtn n_search">
-                                                <img src="images/edit_add.png" alt="">
+                                                <img src="/images/edit_add.png" alt="">
                                             </span></td>
                                         </tr>
                                     </tbody>
@@ -97,7 +97,7 @@
                                             <tr>
                                                 <td class="no_need">Map Provide</td>
                                                 <td data-title="Map Provide">
-                                                    <input type="text" name="Map Provide" class="category_banner">
+                                                    <input type="text" name="Map Provide" class="category_banner" ng-model="CompanyInfo.MapProvider">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -134,19 +134,19 @@
                                 *@
                                 <div id="map_canvas1" style="min-height: 350px; min-width: 450px !important"></div>
                                 <div class="no-more-tables" style="display: none" id="company">
-                                    <table class="customer_list table ">
+                                    <table class="customer_list table " id="companyHours">
                                         <tbody>
                                             <tr class="no_need">
                                                 <th class="customer_list_head">&nbsp;</th>
                                                 <th class="customer_list_head">Day&nbsp;Status</th>
-                                                <th class="customer_list_head">Start&nbsp;Time</th>
-                                                <th class="customer_list_head">End&nbsp;Time</th>
-                                                <th class="customer_list_head">Start&nbsp;Time</th>
-                                                <th class="customer_list_head">End&nbsp;Time</th>
-                                                <th class="customer_list_head">Start&nbsp;Time</th>
-                                                <th class="customer_list_head">End&nbsp;Time</th>
+                                                <th class="customer_list_head">Start1&nbsp;Time</th>
+                                                <th class="customer_list_head">End1&nbsp;Time</th>
+                                                <th class="customer_list_head">Start2&nbsp;Time</th>
+                                                <th class="customer_list_head">End2&nbsp;Time</th>
+                                               
                                                 <th class="customer_list_head">Display&nbsp;Order</th>
                                             </tr>
+                                            @*
                                             <tr class="visiablity">
                                                 <td class="left_column_design"></td>
                                                 <td data-title="Day Status">Sun</td>
@@ -273,6 +273,7 @@
                                                 <td data-title="Display Order">
                                                     <input type="number" name="c1" value="2"></td>
                                             </tr>
+                                            *@
                                         </tbody>
                                     </table>
                                 </div>
@@ -285,10 +286,10 @@
                                         <tr>
                                             <td class="no_need">Logo</td>
                                             <td data-title="Logo">
-                                                <input type="file" name="Logo" class="category_banner type_file">
+                                                <input type="file" name="Logo" class="category_banner type_file" id="file" data-show-preview="false" data-show-caption="true">
                                             </td>
                                             <td data-title="Logo" class="demo_logo">
-                                                <img src="images/logo-demo-2.jpg" alt=""></td>
+                                                <img src="/images/logo-demo-2.jpg" alt="" id="imgLogo" width="50px" height="30px"></td>
                                             <td class="no_need">&nbsp;</td>
                                             <td class="no_need">Search Radios</td>
                                             <td data-title="Search Radios">
@@ -296,7 +297,7 @@
                                             </td>
                                             <td class="no_need">Threshold Customer to Employee</td>
                                             <td data-title="Threshold Customer to Employee">
-                                                <input type="text" name="" class="category_banner" style="width: 100%; border: 1px solid #848484;" ng-model="CompanyInfo.CustomerLinkDistanceThreshold">
+                                                <input type="text" name="" class="category_banner" style="width: 100%; border: 1px solid #848484;" ng-model="CompanyInfo.CustomerLinkDistanceThreshold" runat="Server">
                                             </td>
                                             <td class="no_need Split">
                                                 <div class="squaredFour" style="float: left">
@@ -345,6 +346,8 @@
 </script>
 <script>
     $(document).ready(function () {
+        $('.timepicker').timepicker({ 'timeFormat': 'h:i A' });
+        loadCompanyHours();
         LoadMapByFactoryForCompanyID();
         $(".navbar-toggle").click(function () {
             $(".sidebar").slideToggle();
@@ -361,13 +364,13 @@
         $("#mapshows").hide();
         $("#working").click(function () {
             $("#company").show();
-            $("#map").hide();
+            $("#map_canvas1").hide();
             $("#mapshows").show();
             $("#working").hide();
         });
         $("#mapshows").click(function () {
             $("#company").hide();
-            $("#map").show();
+            $("#map_canvas1").show();
             $("#mapshows").hide();
             $("#working").show();
         });
@@ -382,9 +385,21 @@
         });
 
     });
+    function loadCompanyHours() {
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        for (var i = 0; i < days.length; i++) {
+            $('<tr class="visiablity"><td class="left_column_design"></td><td data-title="Day Status">' + days[i] + '</td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="Display Order"><input type="number" name="c1" value="0"></td></tr>"').appendTo($('#companyHours'))
+        }
+        $('.timepicker').timepicker({ 'timeFormat': 'h:i A' });
+    }
+    $(document).on('ready', function () {
+        $('#file').change(function (event) {
+            debugger;
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            $("#imgLogo").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+        })
+    });
 </script>
 
-<script type="text/javascript" src="js/wickedpicker.js"></script>
-<script type="text/javascript">
-    $('.timepicker').wickedpicker({ twentyFour: false });
-</script>
+
+

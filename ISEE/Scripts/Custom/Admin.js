@@ -994,10 +994,9 @@ function GetAllCompanyDesc() {
     });
 }
 function GetFactoryData(companyDesc) {
-     _factoryId = GetIdByNameData(factoryArray, $('#inputCompanyDesc').val());
+    _factoryId = GetIdByNameData(factoryArray, $('#inputCompanyDesc').val());
     if (_factoryId < 0) {
         // $('#inputCountry_Street').val('');
-        alert('No data');
         return false;
     }
     else {
@@ -1011,14 +1010,22 @@ function GetFactoryData(companyDesc) {
                 var appElement = document.querySelector('[ng-controller=SearchCtrl]');
                 var $scope = angular.element(appElement).scope();
                 $scope.CompanyInfo = response.Data[0];
+                $scope.CompanyInfo.CountryDesc = GetNameById(countryArray, response.Data[0].Country.toString());
                 $scope.$apply();
                 var obj = [];
                 obj.push(response.Data[0].Lat);
                 obj.push(response.Data[0].Long);
                 Initialize1(obj, response.Data[0].Zoom);
+                $('#companyHours tr:gt(0)').remove();
+                for (var i = 0; i < response.Profiles.length; i++) {
+                    $('<tr class="visiablity"><td class="left_column_design"></td><td data-title="Day Status" class="dayStatus">' + response.Profiles[i].Day + '</td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker start1" value="' + response.Profiles[i].Start1 + '" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker end1" value="' + response.Profiles[i].End1 + '" onkeypress="return false;"></td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker start2" value="' + response.Profiles[i].Start2 + '" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker end2" value="' + response.Profiles[i].End2 + '" onkeypress="return false;"></td><td data-title="Display Order"><input type="number" class="order " name="c1" value="' + response.Profiles[i].Order + '"></td></tr>"').appendTo($('#companyHours'))
+                }
+                //$('<tr class="visiablity"><td class="left_column_design"></td><td data-title="Day Status">' + days[i] + '</td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="Start Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="End Time"><input type="text" name="ct" class="timepicker time_pik hasWickedpicker" value="" onkeypress="return false;"></td><td data-title="Display Order"><input type="number" name="c1" value="0"></td></tr>"').appendTo($('#companyHours'))
+
+                $('.timepicker').timepicker({ 'timeFormat': 'h:i A' });
+
             }
         });
-        alert('Get data');
     }
 
 }
@@ -1026,13 +1033,11 @@ function GetExistingCountry(countryDesc) {
     var vv = GetIdByNameData(countryArray, $("#inputCountryDesc").val());
     if (GetIdByName(countryArray, $("#inputCountryDesc").val()) == 0) {
         // $('#inputCountry_Street').val('');
-        alert('No data');
         $("#inputCountryDesc").val('');
         return false;
     }
     else {
 
-        alert('Get data');
     }
 }
 function GetIdByNameData(arr, name) {
@@ -1043,6 +1048,63 @@ function GetIdByNameData(arr, name) {
         return -1;
     }
 }
+
+//get hours grid data
+function getHourData() {
+    //var data = { day: '', start1: '', start2: '', end1: '', end2: '' };
+    var dataList = [];
+    $("#companyHours tr").each(function () {
+        //if ($(this).find('input').length > 0) {
+        //    $(this).find('input').attr('start') == 'Start1'
+        //    '';// data.sta
+
+        //}
+        debugger;
+        var data = {};
+        var tdData = $(this).find('td')[1];
+        data.dayStatus = $(tdData).text();
+       $(this).find('td').find('input').each(function () {
+
+
+            if ($(this).hasClass('start1')) {
+                if (this.value != 'null' && this.value != "")
+                    data.start1 = this.value;
+                else
+                    data.start1 = null
+            }
+            if ($(this).hasClass('start2')) {
+                if (this.value != 'null' && this.value != "")
+                    data.start2 = this.value;
+                else
+                    data.start2 = null
+            }
+            if ($(this).hasClass('end1')) {
+                if (this.value != 'null' && this.value != "")
+                    data.end1 = this.value;
+                else
+                    data.end1 = null
+            }
+            if ($(this).hasClass('end2')) {
+                if (this.value != 'null' && this.value != "")
+                    data.end2 = this.value;
+                else
+                    data.end2 = null
+            }
+            if ($(this).hasClass('order')) {
+                if (this.value != 'null' && this.value != "")
+                    data.order = this.value;
+                else
+                    data.order = null
+            }
+        })
+        if ($(this).find('td').find('input').length > 0) {
+            data.Day = this.id;
+            dataList.push(data);
+        }
+    })
+    return JSON.stringify(dataList);
+}
+
 
 
 function LoadMapByFactoryForCompanyID() {
@@ -1106,7 +1168,49 @@ function Initialize1(obj, zoom) {
     });
 };
 
+function saveCompany() {
+    var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+    var $scope = angular.element(appElement).scope();
+    if ($scope.CompanyInfo.companyDesc == '' || $scope.CompanyInfo.CountryDesc == '' || $scope.CompanyInfo.UserName == '' || $scope.CompanyInfo.Password == '') {
+        $scope.ShowMessageBox('Message', 'Data not correct');
+        return false;
+    }
+    if (_factoryId <= -1) {
 
+    }
+    var data = {};
+    data.countryId = GetIdByNameData(countryArray, $scope.CompanyInfo.CountryDesc);
+    data.currentGmt = $scope.CompanyInfo.CurrentGmt
+    data.customerLinkDistanceThreshold = $scope.CompanyInfo.CustomerLinkDistanceThreshold
+    data.factoryDesc = $scope.CompanyInfo.FactoryDesc;
+    data.factoryId = _factoryId;
+    data.lat = $scope.CompanyInfo.Lat
+    data.lang = $scope.CompanyInfo.Long
+    data.mapProvider = $scope.CompanyInfo.MapProvider
+    data.password = $scope.CompanyInfo.Password
+    data.phoneAreaCode = $scope.CompanyInfo.PhoneAreaCode
+    data.radiusSearch = 0;//$scope.CompanyInfo.RadiusSearch
+    data.smsProvider = $scope.CompanyInfo.SmsProvider
+    data.splitTime = true;
+    data.stopEmployeeTime = $scope.CompanyInfo.StopEmployeeTime
+    data.userName = $scope.CompanyInfo.UserName
+
+    data.zoom = $scope.CompanyInfo.Zoom
+
+    ////
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin/SaveCompany",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+
+            debugger;
+        }
+    });
+
+}
 //end Company tab
 
 
@@ -1142,4 +1246,4 @@ function StreetDescENOnBlur() {
     }
 }
 //Country tab end
->>>>>>> 57612515f08f51de2f2bf58a7b3c5200eb54c329
+

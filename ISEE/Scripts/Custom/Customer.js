@@ -404,9 +404,15 @@ function searchCustomerData() {
         success: function (response) {
             if (response == null) {
                 $('#left_employee_window').text('No records found.');
-                return true;
+                return false;
             }
             debugger;
+            if (response.length <= 0) {
+
+
+                $('<div class="row" > <div class="col-md-12 col-xs-12 tab_box">No records found.</div></div>').appendTo($('#left_employee_window'));
+                return false;
+            }
             var setAttr = ''
             $(response).each(function () {
                 $('<div class="col-sm-12 col-xs-12 tab_box" onclick="selectedCustomer(this)"' +
@@ -487,7 +493,7 @@ function setInputValues(obj) {
     $('#inputFax1').val(stringValidation($(obj).attr('Fax')));
     $('#customerRemarks1').val(stringValidation($(obj).attr('CustomerRemark1')));
     $('#customerRemarks2').val(stringValidation($(obj).attr('CustomerRemark2')));
-    $('#stateId').val(stringValidation($(obj).attr('StreetName')));
+    $('#stateId').val(stringValidation($(obj).attr('StateName')));
     $('#cityId').val(stringValidation($(obj).attr('CityName')));
     $('#streetID').val(stringValidation($(obj).attr('StreetName')));
     $('#buildingCode').attr('BuildingCode', stringValidation($(obj).attr('BuildingCode')));
@@ -664,6 +670,8 @@ function setDatePicker() {
     //    //     $('#datepickerStartDay').datepicker('setEndDate', minDate);
     //});
 }
+
+
 
 
 // Map snippets

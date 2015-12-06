@@ -539,7 +539,68 @@ namespace ISEE.Controllers
         }
 
         //country tab end
+        public static bool IsImage(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                using (var bitmap = new System.Drawing.Bitmap(postedFile.InputStream))
+                {
+                    return !bitmap.Size.IsEmpty;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
+        public JsonResult SaveCompany(int countryId, int currentGmt, int customerLinkDistanceThreshold, string factoryDesc
+            ,
+            int factoryId, float lat, float lang, int mapProvider,
+            string password, string phoneAreaCode, int radiusSearch,
+            int smsProvider, bool splitTime, int stopEmployeeTime
+            ,
+              string userName, int zoom
+           )
+        {
+            try
+            {
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                    Factory factory = new Factory();
+                    if (factoryId <= -1)
+                    {
+
+                    }
+                    else
+                    {
+                        factory = _facory.GetAllFactoryDataId(factoryId).FirstOrDefault();
+                        factory.FactoryDesc = factoryDesc;
+                        factory.FactoryParm.Country = countryId;
+                        factory.UserName = userName;
+                        factory.Password = password;
+                        factory.FactoryParm.StopEmployeeTime = stopEmployeeTime;
+                        factory.FactoryParm.PhoneAreaCode = phoneAreaCode;
+                        factory.FactoryParm.MapProvider = mapProvider;
+                        factory.FactoryParm.Lat = lat;
+                        factory.FactoryParm.Long = lang;
+                        factory.FactoryParm.Zoom = zoom;
+                        factory.FactoryParm.CurrentGmt = currentGmt;
+                        factory.FactoryParm.RadiusSearch = radiusSearch;
+                        factory.FactoryParm.CustomerLinkDistanceThreshold = customerLinkDistanceThreshold;
+                        factory.FactoryParm.SplitTime = splitTime;
+
+                    }
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+            return new JsonResult { Data = "", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
     }
 }

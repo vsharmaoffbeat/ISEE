@@ -227,7 +227,7 @@ function ShowEmployeeDataOnMap() {
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
                                 map: _map,
                                 icon: "/images/img/employee_1_stop.png",
-                                title: firstName + " " + stopHour + ":" + stopMins + " " + gpsHours + ":" + gpsMins
+                                title: firstName+ " " + gpsHours + ":" + gpsMins +" " +stopHour +  ":" + stopMins + " " 
                             });
                             _markers.push(marker);
                             bounds.extend(marker.position);

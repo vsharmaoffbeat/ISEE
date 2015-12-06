@@ -273,12 +273,16 @@ function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, numbe
             if (parseInt(response.BuildingCode) > 0) {
                 //Set Address Values
                 updatedAddress = data;
+                updateAddress.Id = _customerId;
                 updatedAddress.BuildingCode = response.BuildingCode;
                 $('#buildingCode').attr('buildingCode', response.BuildingCode);
                 $('#cityId').val(data.citydesc);
                 $('#streetID').val(data.streetdesc);
                 $('#buildingCode').val(data.number);
                 $('#stateId').val($('#inputState').val());
+
+
+
                 // $('#cityId').val(data.citydesc)
                 alert('Address change was successful.Save customer information to comlete the update');
                 //$scope.$apply(function () {

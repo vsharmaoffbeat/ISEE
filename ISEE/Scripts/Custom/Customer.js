@@ -424,13 +424,13 @@ function searchCustomerData() {
   ' Mail=' + stringCreation(this.Mail) + ' CustomerRemark1=' + stringCreation(this.CustomerRemark1) + ' CustomerRemark2=' + this.CustomerRemark2 +
                           ' VisitInterval=' + stringCreation(this.VisitInterval) + ' NextVisit=' + stringCreation(this.NextVisit) + ' LastName=' + stringCreation(this.LastName) +
 
-                           ' VisitDate=' + this.VisitDate + ' VisitTime=' + stringCreation(this.VisitTime) + ' ZipCode=' + stringCreation(this.ZipCode) +
+                           ' VisitDate=' + this.VisitDate + ' VisitTime=' + stringCreation(this.VisitTime) +
 
                             ' BuildingCode=' + stringCreation(this.BuildingCode) + ' BuildingNumber=' + stringCreation(this.BuildingNumber) +
 
                             ' StreetName=' + stringCreation(this.StreetName) + ' StreetId=' + this.StreetId + ' CityName=' + this.CityName +
                            ' CityId=' + this.CityId + ' StateName=' + stringCreation(this.StateName) + ' StateId=' + this.StateId +
-                           ' EndDate=' + this.EndDate +
+                           ' EndDate=' + this.EndDate + ' ZipCode=' + stringCreation(this.ZipCode) +
 
                                             '>Company Name: '
                    + stringValidation(this.LastName) + ' </br>Contact Name: ' + stringValidation(this.FirstName) + '</br>City: ' + stringValidation(this.CityName) + '</br>Street: ' + stringValidation(this.StreetName) + ' , ' + stringValidation(this.BuildingNumber) + '</br>Phone1: ' + stringValidation(this.AreaPhone1) + '-' + stringValidation(this.Phone1)
@@ -477,7 +477,7 @@ function selectedCustomer(obj) {
 function setInputValues(obj) {
 
     // $(".right_main_employee :input").prop("disabled", false);
-
+    debugger;
     $('#inputCustomerNumber').val(stringValidation($(obj).attr('CustomerNumber')));
     $('#inputCompanyName').val(stringValidation($(obj).attr('lastName')));
     $('#inputContactName').val(stringValidation($(obj).attr('firstName'))); 1

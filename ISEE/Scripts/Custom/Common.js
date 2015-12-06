@@ -373,9 +373,10 @@ function InsertAddress() {
                     LoadMapByFactoryID();
                 } else {
                     buildingCode = response.BuildingCode;
-                    //$scope.$apply(function () {
-                    //    $scope.ShowMessageBox('Message', 'Address change was successful.Save customer information to comlete the update.')
-                    //});
+                    //var buildingLatLongArray = [];
+                    //buildingLatLongArray.push(response.BuildingLat, response.BuildingLong);
+                    //Initialize(buildingLatLongArray);
+                    //alert("Test");
                 }
             } else {
                 //$scope.$apply(function () {

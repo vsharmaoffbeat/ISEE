@@ -694,8 +694,6 @@ namespace ISEEREGION.Controllers
         {
             try
             {
-
-
                 int countryID = SessionManagement.Country;
 
                 var objBuilding = _facory.GetChangeBuildingCode1(countryID, stateID, cityID, streetID, buildingNumber, entry, zipCode);
@@ -719,7 +717,7 @@ namespace ISEEREGION.Controllers
                 }
                 else
                 {
-                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = false, BuildingCode = objBuilding.BuildingCode }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    return new JsonResult { Data = new { IsSuccess = true, IsOpenMap = false, BuildingCode = objBuilding.BuildingCode, BuildingLat = objBuilding.Lat, BuildingLong = objBuilding.Long }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
 
             }
@@ -805,7 +803,7 @@ namespace ISEEREGION.Controllers
         }
         //country tab end
         #region Company Tab
-        
+
         public JsonResult GetAllCompanyDesc()
         {
 
@@ -819,8 +817,8 @@ namespace ISEEREGION.Controllers
         public JsonResult GetAllFactoryDataId(int factoryId)
         {
 
-            var StateDec = _facory.GetAllFactoryDataId(factoryId).ToList().Select(x => new {x.FactoryDesc, x.FactoryId, x.UserName, x.Password, x.FactoryParm.Lat, x.FactoryParm.Long, x.FactoryParm.SplitTime, x.FactoryParm.Zoom, x.FactoryParm.StopEmployeeTime, x.FactoryParm.MapProvider, x.FactoryParm.SmsProvider, x.FactoryParm.PhoneAreaCode, x.FactoryParm.CompanyLogo, x.FactoryParm.CustomerLinkDistanceThreshold, x.FactoryParm.RadiusSearch ,x.FactoryParm.CurrentGmt, x.FactoryParm.Country}).ToList();
-            var EmpHours = _facory.GetFactoryDairyTemp(factoryId).ToList().Select(e => new { Day = ((ISEE.Common.Common.WeekDays)Enum.ToObject(typeof(ISEE.Common.Common.WeekDays), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus,Order = e.OrderDay }).ToList();
+            var StateDec = _facory.GetAllFactoryDataId(factoryId).ToList().Select(x => new { x.FactoryDesc, x.FactoryId, x.UserName, x.Password, x.FactoryParm.Lat, x.FactoryParm.Long, x.FactoryParm.SplitTime, x.FactoryParm.Zoom, x.FactoryParm.StopEmployeeTime, x.FactoryParm.MapProvider, x.FactoryParm.SmsProvider, x.FactoryParm.PhoneAreaCode, x.FactoryParm.CompanyLogo, x.FactoryParm.CustomerLinkDistanceThreshold, x.FactoryParm.RadiusSearch, x.FactoryParm.CurrentGmt, x.FactoryParm.Country }).ToList();
+            var EmpHours = _facory.GetFactoryDairyTemp(factoryId).ToList().Select(e => new { Day = ((ISEE.Common.Common.WeekDays)Enum.ToObject(typeof(ISEE.Common.Common.WeekDays), e.DayStatus)).ToString(), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToShortTimeString() : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToShortTimeString() : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToShortTimeString() : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToShortTimeString() : null, DayStatus = e.DayStatus, Order = e.OrderDay }).ToList();
             object[] EmpHoursData = new object[7];
             for (int i = 0; i < EmpHours.Count; i++)
             {

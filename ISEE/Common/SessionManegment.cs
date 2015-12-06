@@ -330,7 +330,7 @@ namespace ISEE.Common
                 else
                     return "";
             }
-            set { HttpContext.Current.Session["Saturday"] = value; }
+            set { HttpContext.Current.Session["Friday"] = value; }
         }
         public static string Saturday
         {

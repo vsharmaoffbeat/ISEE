@@ -475,15 +475,7 @@ $(document).ready(function () {
 
     GetAllStatesByCountry();
     GetAllCountrys();
-
     GetAllCompanyDesc();
-
-    //google.maps.event.addListener(map, 'click', function (event) {
-    //    debugger;
-    //    var myLatLng = event.latLng;
-    //    var lat = myLatLng.lat();
-    //    var lng = myLatLng.lng();
-    //});
 
     $('#inputCountry_State').prop("disabled", true);
     $("#stateChk").prop('checked', 'checked');
@@ -517,7 +509,7 @@ function GetAllCountrys() {
                 countryId.push(this.CountryCode);
                 countryArray.push({ id: this.CountryCode, name: this.CountryDesc, NameEN: this.CountryDescEN, UTC: this.CurrentGmt.toString() });
             });
-
+            availableCityName = [];
             if (response.length <= 1) {
                 GetAllCitysByState(response[0].CountryDesc);
             }
@@ -530,7 +522,7 @@ function GetAllCountrys() {
                     var UTC = GetUTCByName(countryArray, ui.item.label);
                     $("#inputCountryEN").val(nameEN);
                     $("#inputUTC").val(UTC);
-                    //  GetAllStatesByCountryID(ui.item.label);
+                    GetAllStatesByCountryID(ui.item.label);
                 }
             });
             $("#inputCountryDesc").autocomplete({
@@ -538,7 +530,6 @@ function GetAllCountrys() {
                 select: function (event, ui) {
                     var label = ui.item.label;
                     var value = ui.item.value;
-
                     // GetExistingCountry(ui.item.label);
                 }
             });
@@ -546,10 +537,6 @@ function GetAllCountrys() {
         //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
     });
 }
-
-
-
-
 
 function GetAllStatesByCountryID(country) {
     if (country == undefined) {
@@ -631,6 +618,7 @@ function GetAllCitysByStateAndCountry(state, country) {
         success: function (response) {
             if (response != null) {
                 cityArray = [];
+                availableCityName = [];
                 $(response).each(function () {
                     if (availableCityName.indexOf(this.CityDesc.trim()) == -1) {
                         availableCityName.push(this.CityDesc.trim());
@@ -697,7 +685,6 @@ function GetAllStreetsByCityStateAndCountry(city, country) {
     });
 }
 
-
 function StateChkClick(obj) {
     if ($("#stateChk").prop('checked') == false) {
         $('#inputCountry_State').prop("disabled", false)
@@ -718,7 +705,7 @@ function SaveCountry() {
     var countryDescEN = $('#inputCountryEN').val();
     var countryUTC = $('#inputUTC').val();
 
-    if (countryID != 0 && countryUTC != "" && countryDesc != "") {
+    if (countryUTC != "" && countryDesc != "") {
         if (countryID == 0) {
             $.ajax({
                 url: "/Admin/SaveCountry",
@@ -820,6 +807,7 @@ function SaveState() {
 }
 
 function SaveCity() {
+    debugger;
     var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     var $scope = angular.element(appElement).scope();
 
@@ -830,7 +818,16 @@ function SaveCity() {
     var stateCode = GetIdByName(statesArray, stateDesc == "" ? null : stateDesc);
     var cityDescEN = $('#inputCountry_CityEN').val();
 
-    if (countryID != 0 && cityDesc != "") {
+    if ($('#inputCountry_State').prop("disabled") == true) {
+        stateCode = 0;
+    }
+    else {
+        if ($('#inputCountry_State').val() == "") {
+            stateCode = "-1";
+        }
+    }
+
+    if (countryID != 0 && cityDesc != "" && stateCode != "-1") {
         if (cityCode == 0) {
             $.ajax({
                 url: "/Admin/SaveCity",
@@ -870,8 +867,16 @@ function SaveCity() {
         }
     }
     else {
-        alert('Select country and state');
+        if (cityDesc == "") {
+            alert('Enter city name first');
+        }
+        else if (stateCode == "-1") {
+            alert('Enter state first or disable the text box');
+        } else {
+            alert('Select country');
+        }
         return false;
+
     }
 
 }
@@ -930,10 +935,31 @@ function SaveStreet() {
         }
     }
     else {
-        alert('Select country ,state and city');
+        if (streetDesc == "") {
+            alert('Enter street first');
+        }
+        else if (cityCode == 0) {
+            alert('Select city first');
+        }
+        else {
+            alert('Select country');
+        }
         return false;
     }
 
+}
+
+
+function ClearAllControlsCountry() {
+    $('#inputCountry').val('');
+    $('#inputCountryEN').val('');
+    $('#inputUTC').val('');
+    $('#inputCountry_State').val('');
+    $('#inputCountry_StateEN').val('');
+    $('#inputCountry_City').val('');
+    $('#inputCountry_CityEN').val('');
+    $('#inputCountry_Street').val('');
+    $('#inputCountry_StreetEN').val('');
 }
 
 
@@ -1063,7 +1089,7 @@ function getHourData() {
         var data = {};
         var tdData = $(this).find('td')[1];
         data.dayStatus = $(tdData).text();
-       $(this).find('td').find('input').each(function () {
+        $(this).find('td').find('input').each(function () {
 
 
             if ($(this).hasClass('start1')) {

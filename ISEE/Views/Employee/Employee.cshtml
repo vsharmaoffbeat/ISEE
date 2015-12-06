@@ -782,9 +782,30 @@
     var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
 
+    var objEmployeeTree = $('#jstree_Employee_div').easytree(
+    {
+        data: treeJsonData,
+        enableDnd: true,
+        canDrop: canDropEmployee,
+        dropped: droppedEmployee,
+        dropping: droppingEmployee
+    });
 
+
+    var newNodeID = -1000;
+    function IsNodeExist(NodeChildrenArray, source) {
+        var item = $.grep(NodeChildrenArray, function (v) {
+            return v.objectid === $(source).data("id");
+        })
+        if (item.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     function canDropEmployee(event, nodes, isSourceNode, source, isTargetNode, target) {
+        debugger;
         if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
             return source.href ? true : false;
         }

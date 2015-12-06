@@ -11,6 +11,9 @@
 <script src="//maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
 <script src="~/Scripts/Custom/Common.js"></script>
 <script src="~/Scripts/Custom/Customer.js"></script>
+
+<script src="~/Scripts/Custom/jquery.easytree.js"></script>
+<link href="~/Content/EasyTree/ui.easytree.css" rel="stylesheet" />
 <style>
     /* add css for customer change address popup window */
 
@@ -507,7 +510,7 @@
                                             <p>@ISEE.Resources.Resource.CusRemark1</p>
                                             <div class="col-md-12 left_content_area">
 
-                                                <textarea class="col-md-12 main_cust_area " id="customerRemarks1"  name="" type="" value="" />
+                                                <textarea class="col-md-12 main_cust_area " id="customerRemarks1" name="" type="" value="" />
                                                 </textarea>
 
                                                 <p></p>
@@ -802,27 +805,37 @@
                             <div class="tab-pane" id="Tree">
                                 <div class="container sms_tabs">
                                     <div class="col-md-6">
-                                        <p class="text-left">Demo Company</p>
-                                        <div class="col-md-12 left_content_area">
-                                        </div>
+                                        <div id="jstree_Customer_div"></div>
                                     </div>
+
                                     <div class="col-md-6">
 
-                                        <div class="right_content_tabs_window">
-                                            <table class="tg">
-                                                <tr><td class="tg-dx8v"></td></tr>
-                                                <tr><td class="tg-dx8v"></td></tr>
-                                            </table>
+                                        <div class="container right_content_tabs_window" id="customerDrag">
+                                            <div class="tree_tg-wrap" style="width:33% !important;">
+                                                <table class="tree_tg" id="newCustomerGrid">
 
+                                                    <tr data-oid='' data-id='' data-name='' data-type="customer" class="easytree-draggable">
+                                                        <td class="tg-dx8v_category">
+                                                            <i></i>
+                                                            @*<span style="display: none;" id='{gridOption.employeeID}'>{{NewAddedEmployee.employeeID}}</span>*@
+                                                            <span style="display: none;" id=''></span>
+                                                        </td>
+                                                        @*<td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
+                                                            </td>
+                                                            <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
+                                                            </td>
+                                                        *@
+                                                        <td class="tg-dx8v_category" style="text-align: left !important;"></td>
+                                                        <td class="tg-dx8v_category" style="text-align: left !important;"></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
 
-
+                                            @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
                                         </div>
 
                                     </div>
-
                                 </div>
-
-
                             </div>
 
 
@@ -1047,7 +1060,7 @@
 
                 <div class="col-md-3">
                     <button type="button" id="saveClassification" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
-                    <button type="button" id="Closebtn"  class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
+                    <button type="button" id="Closebtn" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                 </div>
 
 
@@ -1181,4 +1194,90 @@
         $("#Rqstab").hide();
         $("#Dialogtab").fadeOut(300);
     }
+
+
+    var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
+    var objCustomerTree = $('#jstree_Customer_div').easytree(
+       {
+           data: treeJsonData,
+           enableDnd: true,
+           canDrop: canDropCustomer,
+           dropped: droppedCustomer,
+           dropping: droppingCustomer
+       });
+    var newNodeID = -1000;
+    function IsNodeExist(NodeChildrenArray, source) {
+        var item = $.grep(NodeChildrenArray, function (v) {
+            return v.objectid === $(source).data("id");
+        })
+        if (item.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    function canDropCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+            return source.href ? true : false;
+        }
+        if (isTargetNode) {
+            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                return false;
+            }
+            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+                return false;
+            }
+            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                return false;
+            }
+            if (target.objecttype == undefined) {
+                return false;
+            }
+            if (target.children != null && IsNodeExist(target.children, source)) {
+                return false;
+            }
+            isCurrentNodeAdded = false;
+            return true;
+        }
+    }
+    function droppingCustomer(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropping node rejected '" + source.text + "'");
+        }
+    }
+
+    function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+        // internal to external drop
+        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+            //  alertMessage("Dropped node accepted '" + source.text + "'");
+        }
+        if (isSourceNode && isTargetNode) { // internal to internal drop
+            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+        }
+        if (isTargetNode && !isSourceNode) { // external to internal drop
+            if (!isCurrentNodeAdded) {
+                var node = {};
+                node.text = $(source).data("name");
+                node.id = newNodeID;
+                newNodeID = newNodeID - 1;
+                node.objectid = $(source).data("id");
+                node.objecttype = $(source).data("type");
+                if (node.objecttype == "employee") {
+                    node.iconUrl = "/images/img/employee_16.png";
+                } else {
+                    node.iconUrl = "/images/img/customer_16.png";
+                }
+
+                //    objTree.addNode(node, target.id);
+                //  objEmployeeTree.addNode(node, target.id);
+                objCustomerTree.addNode(node, target.id);
+
+                isCurrentNodeAdded = true;
+            }
+        }
+    }
+
 </script>

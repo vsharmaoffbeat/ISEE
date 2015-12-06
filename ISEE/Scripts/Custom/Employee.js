@@ -238,6 +238,7 @@ function setInputValues(obj) {
     $('#newemployeeGrid').html('')
     $('<tr data-oid=' + _employeeId + ' data-id=' + _employeeId + ' data-name=' + $(obj).attr('LastName') + ' ' + $(obj).attr('FirstName') + ' data-type="employee" class="easytree-draggable"><td class="tg-dx8v_category"><i></i><span style="display:none;" id=' + _employeeId + '>' + _employeeId + '</span> </td><td class="tg-dx8v_category" style="text-align:left !important;">' + $(obj).attr('LastName') + ' ' + $(obj).attr('FirstName') + '</td><td class="tg-dx8v_category" style="text-align:left !important;">' + $(obj).attr('MainAreaPhone') + '-' + $(obj).attr('MainPhone') + '</td></tr>').appendTo($('#newemployeeGrid'));
 
+
     //  $("#employeeData :input").prop("disabled", false);
     $("#sendApp").prop("disabled", true);
     $('#txtnumber').val($(obj).attr('EmployeeNum'));
@@ -260,8 +261,10 @@ function setInputValues(obj) {
     //  $('#ddlphonetype').val($(obj).attr('PhoneType'));
     $('#txtapplication').val($(obj).attr('LastSendApp'));
     $('#txtend').val($(obj).attr('EndDay'));
-    $('#employoeeDrag').empty();
-    $('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
+
+    //Employee tree changes sunday
+    //$('#employoeeDrag').empty();
+    // $('<table class="tg"><tr id="' + _employeeId + '"><td class="tg-dx8v">' + $(obj).attr("FirstName") + '</td><td class="tg-dx8v">' + $(obj).attr("MainAreaPhone") + ' - ' + $(obj).attr("MainPhone") + '</td></tr></table>').appendTo($('#employoeeDrag'));
 
 
 
@@ -430,6 +433,7 @@ function updateEmployee() {
             success: function (response) {
                 if (response) {
                     alert("Updated Employee.");
+                    saveTree();
                     $('#left_employee_window div').each(function () {
                         if ($(this).attr('EmployeeId') == _employeeId) {
                             $(this).attr('EmployeeNum', d.number);
@@ -602,6 +606,27 @@ function initialize(lat, long) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, long),
         map: map,
+    });
+}
+
+
+function saveTree() {
+    var treeViewData = JSON.stringify(objEmployeeTree.getAllNodes());
+    $.ajax({
+        type: "POST",
+        url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
+            $scope.$apply(function () {
+                if (result.Message == "Success") {
+                    treeJsonData = JSON.parse(result.NewTreeJson)
+                    treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
+                    treeCustomerJsonData = JSON.parse(result.NewTreeJson)
+
+                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
+                } else {
+                    $scope.ShowMessageBox("Error", result.ErrorDetails)
+                }
+            });
+        }
     });
 }
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace ISEE.Controllers
 {
@@ -13,6 +14,7 @@ namespace ISEE.Controllers
     {
         //
         // GET: /Customer/
+        ISEEEntities context = new ISEEEntities();
         ISEEFactory _facory = new ISEEFactory();
 
         public ActionResult Index()
@@ -21,6 +23,14 @@ namespace ISEE.Controllers
         }
         public ActionResult Customer()
         {
+            if (SessionManagement.FactoryID == 0)
+                return RedirectToAction("login", "login");
+            List<TreeView> data = context.TreeViews.Where(tt => tt.FactoryID == SessionManagement.FactoryID && tt.ParentID == null).ToList();
+
+
+            var serializer = new JavaScriptSerializer();
+            ViewBag.JsonData = serializer.Serialize(context.PhoneManufactures.Select(pm => new { pm.PhoneManufacturId, pm.PhoneManufacture1 }).ToList());
+            ViewBag.TreeJsonData = serializer.Serialize(Common.Common.CreateJsonTree(data));
             return View();
         }
 
@@ -161,7 +171,6 @@ namespace ISEE.Controllers
 
 
         }
-
 
         public string UpdateCustomer(int customerID, string cNumber,
             string cCompanyName,

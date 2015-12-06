@@ -500,6 +500,7 @@ $(document).ready(function () {
     GetAllCompanyDesc();
 
     $('#inputCountry_State').prop("disabled", true);
+    $('#inputCountry_StateEN').prop("disabled", true);
     $("#stateChk").prop('checked', 'checked');
 
 });
@@ -583,12 +584,14 @@ function GetAllStatesByCountryID(country) {
                 if (response.length <= 1) {
                     $scope.HasCountry_StateActive = "true";
                     $('#inputCountry_State').prop("disabled", true)
+                    $('#inputCountry_StateEN').prop("disabled", true)
                     $('#inputCountry_State').val('');
                     $('#inputCountry_StateEN').val('');
                     $("#stateChk").prop('checked', 'checked');
                 } else {
                     $scope.HasCountry_StateActive = "false";
                     $('#inputCountry_State').prop("disabled", false);
+                    $('#inputCountry_StateEN').prop("disabled", false)
                     $("#stateChk").prop('checked', '');
                 }
             });
@@ -710,9 +713,11 @@ function GetAllStreetsByCityStateAndCountry(city, country) {
 function StateChkClick(obj) {
     if ($("#stateChk").prop('checked') == false) {
         $('#inputCountry_State').prop("disabled", false)
+        $('#inputCountry_StateEN').prop("disabled", false)
     }
     else {
         $('#inputCountry_State').prop("disabled", true)
+        $('#inputCountry_StateEN').prop("disabled", true)
         $('#inputCountry_State').val('');
         $('#inputCountry_StateEN').val('');
     }
@@ -794,7 +799,6 @@ function SaveState() {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'State save sucessfully.');
                             GetAllStatesByCountryID($('#inputCountry').val());
-                            $scope.StateInfo = '';
                         } else {
                             $scope.ShowMessageBox('Error', 'State already exist')
                         }
@@ -860,7 +864,6 @@ function SaveCity() {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'City save sucessfully.');
                             GetAllCitysByStateAndCountry(stateDesc, $('#inputCountry').val())
-                            $scope.Cityinfo = '';
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }
@@ -928,7 +931,6 @@ function SaveStreet() {
                         if (result.Message == 'Success') {
                             $scope.ShowMessageBox('Save Message', 'Street save sucessfully.');
                             GetAllStreetsByCityStateAndCountry(cityDesc, $('#inputCountry').val());
-                            $scope.Streetinfo = '';
                         } else {
                             $scope.ShowMessageBox('Error', result.ErrorDetails)
                         }

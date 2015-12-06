@@ -479,7 +479,7 @@ function selectedCustomer(obj) {
 }
 
 function setInputValues() {
-
+    debugger;
     var item = $.grep(_customerArray, function (v) { return v.CustomerId === parseInt(_customerId); });
     if (item.length > 0) {
         $('#inputCustomerNumber').val(stringValidation(item[0].CustomerNumber));
@@ -517,10 +517,15 @@ function setInputValues() {
 
 
         }
+
+        $('#newCustomerGrid').html('');
+        $('<tr data-oid=' + stringValidation(item[0].CustomerId) + ' data-id=' + stringValidation(item[0].CustomerId) + ' data-name=' + stringValidation(item[0].LastName) + ' ' + stringValidation(item[0].FirstName) + ' data-type="customer" class="easytree-draggable"><td class="tg-dx8v_category"><i></i><span style="display:none;" id=' + stringValidation(item[0].CustomerId) + '>' + stringValidation(item[0].CustomerId) + '</span> </td><td class="tg-dx8v_category" style="text-align:left !important;">' + stringValidation(item[0].LastName) + ' ' + stringValidation(item[0].FirstName) + '</td><td class="tg-dx8v_category" style="text-align:left !important;">' + stringValidation(item[0].AreaPhone1) + '-' + stringValidation(item[0].Phone1) + '</td></tr>').appendTo($('#newCustomerGrid'));
+
+
     } 1
 
     // $(".right_main_employee :input").prop("disabled", false);
-    debugger;
+
     //$('#inputCustomerNumber').val(stringValidation($(obj).attr('CustomerNumber')));
     //$('#inputCompanyName').val(stringValidation($(obj).attr('lastName')));
     //$('#inputContactName').val(stringValidation($(obj).attr('firstName'))); 1
@@ -597,6 +602,7 @@ function updateCustomer() {
         success: function (response) {
             $('#msgHistory tr:gt(0)').remove();
             if (response) {
+                saveTree();
                 alert("Customer Updated successfully.");
                 $('#left_employee_window div').each(function () {
                     if ($(this).attr('customerid') == _customerId) {
@@ -740,3 +746,27 @@ function setDatePicker() {
 
 
 // Map snippets
+
+
+//Customer Tree Save
+function saveTree() {
+    var treeViewData = JSON.stringify(objCustomerTree.getAllNodes());
+    $.ajax({
+        type: "POST",
+        url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
+            $scope.$apply(function () {
+                if (result.Message == "Success") {
+                    treeJsonData = JSON.parse(result.NewTreeJson)
+                    treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
+                    treeCustomerJsonData = JSON.parse(result.NewTreeJson)
+
+                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
+                } else {
+                    $scope.ShowMessageBox("Error", result.ErrorDetails)
+                }
+            });
+        }
+    });
+}
+
+//Ends

@@ -31,7 +31,7 @@ namespace ISEE.Controllers
             else if (TempData["cusId"] != null)
             {
                 ViewBag.Empoyeeid = null;
-                ViewBag.CustomerID = 1;
+                ViewBag.CustomerID = TempData["cusId"];
                 TempData["cusId"] = null;
             }
             return View();

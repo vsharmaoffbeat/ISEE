@@ -198,6 +198,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Resource.es-CL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.es-CL.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resource.es-MX.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -258,12 +263,12 @@
     <Content Include="images\img\employee_1new.png" />
     <Content Include="images\img\employee_1_stop.png" />
     <Content Include="images\img\employee_4.png" />
-    <Content Include="images\img\es.png" />
+    <Content Include="images\img\es-CL.png" />
     <Content Include="images\img\header.png" />
     <Content Include="images\img\Home-321.png" />
     <Content Include="images\img\login_background.png" />
     <Content Include="images\img\login_backgroundnew.png" />
-    <Content Include="images\img\he.png" />
+    <Content Include="images\img\es-MX.png" />
     <Content Include="images\img\rsz_1edit_add.png" />
     <Content Include="images\img\ru.png" />
     <Content Include="images\img\en.png" />
@@ -580,7 +585,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.es-CL.resx" />
+    <EmbeddedResource Include="Resources\Resource.es-CL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.es-CL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Resource.es-MX.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.es-MX.Designer.cs</LastGenOutput>

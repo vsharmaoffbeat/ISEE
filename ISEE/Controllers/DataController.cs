@@ -86,7 +86,7 @@ namespace ISEEREGION.Controllers
                     //SessionManegment.SessionManagement. = loginData.;
                     //SessionManegment.SessionManagement. = loginData.;
                     var defaultLang = context.MainStringTables.ToList();
-                    if (SessionManagement.Language == "HE")
+                    if (SessionManagement.Language.Contains("CL"))
                     {
                         SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.HE).FirstOrDefault();
                         SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.HE).FirstOrDefault();
@@ -109,7 +109,7 @@ namespace ISEEREGION.Controllers
                         //SessionManagement.Language 
                     }
 
-                    else if (SessionManagement.Language == "ES")
+                    else if (SessionManagement.Language.Contains("MX"))
                     {
                         SessionManagement.Sunday = defaultLang.Where(x => x.DefaultLanguage == "Sunday").Select(x => x.ES).FirstOrDefault();
                         SessionManagement.Monday = defaultLang.Where(x => x.DefaultLanguage == "Monday").Select(x => x.ES).FirstOrDefault();

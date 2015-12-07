@@ -80,6 +80,12 @@ namespace ISEEREGION.Controllers
 
         public ActionResult SetSelectedCountry(string lang)
         {
+            if (lang == "ES")
+                lang = "ES-MX";
+            else if (lang == "HE")
+                lang = "ES-CL";
+
+            
             SessionManagement.Language = lang;
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(SessionManagement.Language);
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(SessionManagement.Language);

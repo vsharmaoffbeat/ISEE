@@ -119,13 +119,40 @@ namespace ISEE.Controllers
                 var customerRequest1 = context.CustomerRequests.Include("RequsetToFactoryLevel2").Include("RequsetToFactoryLevel2.RequsetToFactoryLevel1").Where(x => x.CustomerId == customerID &&
                                                                                                                                                         x.RequsetToFactoryLevel2.RequestSysIdLevel1 == (level1 == -1 ? x.RequsetToFactoryLevel2.RequestSysIdLevel1 : level1) &&
                                                                                                                                                        x.RequestSysIdLevel2 == (level2 == -1 ? x.RequestSysIdLevel2 : level2) &&
-                                                                                                                                                      (x.CreateDate >= fromdate && x.CreateDate < todate)).ToList().Select(x => new { CreateDate = x.CreateDate.Date.ToString(), Treatment = x.Treatment, TreatmentDate = x.TreatmentDate.ToString(), Request = x.Request, RequestSysIdLevel1 = x.RequsetToFactoryLevel2.RequestSysIdLevel1, RequestSysIdLevel2 = x.RequsetToFactoryLevel2.RequestSysIdLevel2 }).ToList();
+                                                                                                                                                      (x.CreateDate >= fromdate && x.CreateDate < todate)).ToList().Select(x => new { RequestDescCodeLevel1= x.RequsetToFactoryLevel2.RequsetToFactoryLevel1.RequestDescCodeLevel1, RequestDescCodeLevel2 = x.RequsetToFactoryLevel2.RequestDescCodeLevel2, CreateDate = x.CreateDate.Date.ToString("dd/MM/yyyy"), Treatment = x.Treatment, TreatmentDate = x.TreatmentDate.ToString(), Request = x.Request, RequestSysIdLevel1 = x.RequsetToFactoryLevel2.RequestSysIdLevel1, RequestSysIdLevel2 = x.RequsetToFactoryLevel2.RequestSysIdLevel2, customerRequestId = x.SysId }).ToList();
                 return Json(customerRequest1, JsonRequestBehavior.AllowGet);
             }
 
         }
 
         //Save Classificion request
+        public bool UpdateClassificationRequestCustomerByDate(int customerID, string requestDate, int level2, string request, string treatment, string treatmentDate, int requestSysIdLevel1, int requestSysIdLevel2,int sysId)
+        {
+            try
+            {
+
+                using (ISEEEntities context = new ISEEEntities())
+                {
+                   CustomerRequest customerRequest =     context.CustomerRequests.Where(x => x.SysId == sysId).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(treatmentDate))
+                        customerRequest.TreatmentDate = Convert.ToDateTime(treatmentDate);
+                    customerRequest.Treatment = treatment;
+                    customerRequest.Request = request;
+                    customerRequest.RequestSysIdLevel2 = level2;
+                    customerRequest.Status = 0;
+                    customerRequest.RequsetToFactoryLevel2.RequestSysIdLevel1 = requestSysIdLevel1;
+                    context.CustomerRequests.Add(customerRequest);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+        }
         public bool SaveClassificationRequestCustomerByDate(int customerID, string requestDate, int level2, string request, string treatment, string treatmentDate)
         {
             try

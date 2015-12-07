@@ -1,4 +1,4 @@
-﻿
+﻿var _existingAddress = {};
 var statesArray = []
 var cityArray = []
 var streetArray = []
@@ -225,6 +225,19 @@ function Initialize(obj) {
 function OnInsertAddressOkClick() {
     //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     //var $scope = angular.element(appElement).scope();
+    if (!$.isEmptyObject(_existingAddress)) {
+
+        $('#cityId').val(_existingAddress.City);
+        $('#streetID').val(_existingAddress.Street);
+        $('#buildingCode').val(_existingAddress.BuldingNumber);
+        $('#buildingCode').attr('buildingCode', _existingAddress.BuldingCode)
+        $('#stateId').val(_existingAddress.State);
+        $("#btnClose").click();
+        alert('Address change was successful.Save customer information to comlete the update');
+        return false;
+
+
+    }
 
     var selectedRow = $('#MapHeaderGrid tr.active')
     if (selectedRow.length > 0) {
@@ -241,9 +254,9 @@ function OnInsertAddressOkClick() {
         var entry = $('#inputVisitInterval').val();
 
         if (streetdesc == '' || citydesc == '' || number == '') {
-            $scope.$apply(function () {
-                $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
-            });
+            //$scope.$apply(function () {
+                alert('Message', 'Must select Street,City and Building Number.')
+            //});
             return false;
         }
 
@@ -253,9 +266,9 @@ function OnInsertAddressOkClick() {
         //  closeDialog();
 
     } else {
-        $scope.$apply(function () {
-            $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
-        });
+        //$scope.$apply(function () {
+        alert('Message', 'Must select Street,City and Building Number.')
+        //});
     }
 
 }
@@ -307,6 +320,7 @@ function GetAddressBuildingCode(state, citydesc, city, street, streetdesc, numbe
 
 function InsertAddress() {
     buildinCode = 0;
+    _existingAddress = {};
     //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
     //var $scope = angular.element(appElement).scope();
 
@@ -380,6 +394,18 @@ function InsertAddress() {
                     var buildingLatLongArray = [];
                     buildingLatLongArray.push(response.BuildingLat, response.BuildingLong);
                     Initialize(buildingLatLongArray);
+                    _existingAddress = {
+                        State: $('#inputState').val(),
+                        City: $('#inputCity').val(),
+                        Street: $('#inputStreet').val(),
+                        BuldingNumber: $('#inputBuldingNumber').val(),
+                        Entry: $('#inputEntry').val(),
+                        ZipCode: $('#inputZipCode').val,
+                        BuldingCode: buildingCode
+
+
+                    }
+
                     alert("Test");
                 }
             } else {
@@ -418,61 +444,61 @@ function bindTableRowClick() {
     });
 }
 
-function OnInsertAddressOkClick() {
-    //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
-    //var $scope = angular.element(appElement).scope();
+//function OnInsertAddressOkClick() {
+//    //var appElement = document.querySelector('[ng-controller=SearchCtrl]');
+//    //var $scope = angular.element(appElement).scope();
 
 
 
 
-    var selectedRow = $('#MapHeaderGrid tr.active')
-    if (selectedRow.length > 0) {
-        var statedesc = $('#inputState').val();
-        var state = GetIdByName(statesArray, $('#inputState').val());
-        if (state <= 0) {
-            state = GetIdByName(statesArray, statedesc);
-            statedesc = selectedRow.data('state');
-        }
-        //var citydesc = selectedRow.data('citydesc');
-        var citydesc = $('#inputCity').val();
-        var city = GetIdByName(cityArray, $('#inputCity').val());
-        if (city <= 0) {
-            city = GetIdByName(cityArray, citydesc);
-            citydesc = selectedRow.data('citydesc');
-        }
-        var streetdesc = $('#inputStreet').val();
-        //var streetdesc = selectedRow.data('streetdesc');
-        var street = GetIdByName(streetArray, $('#inputStreet').val());
-        if (street <= 0) {
-            street = GetIdByName(streetArray, streetdesc);
-            streetdesc = selectedRow.data('streetdesc');
-        }
-        var number = selectedRow.data('building')
-        var Lat = selectedRow.data('latitude')
-        var Long = selectedRow.data('longitude')
-        var zipcode = $('#inputEntry').val();
-        var entry = $('#inputVisitInterval').val();
+//    var selectedRow = $('#MapHeaderGrid tr.active')
+//    if (selectedRow.length > 0) {
+//        var statedesc = $('#inputState').val();
+//        var state = GetIdByName(statesArray, $('#inputState').val());
+//        if (state <= 0) {
+//            state = GetIdByName(statesArray, statedesc);
+//            statedesc = selectedRow.data('state');
+//        }
+//        //var citydesc = selectedRow.data('citydesc');
+//        var citydesc = $('#inputCity').val();
+//        var city = GetIdByName(cityArray, $('#inputCity').val());
+//        if (city <= 0) {
+//            city = GetIdByName(cityArray, citydesc);
+//            citydesc = selectedRow.data('citydesc');
+//        }
+//        var streetdesc = $('#inputStreet').val();
+//        //var streetdesc = selectedRow.data('streetdesc');
+//        var street = GetIdByName(streetArray, $('#inputStreet').val());
+//        if (street <= 0) {
+//            street = GetIdByName(streetArray, streetdesc);
+//            streetdesc = selectedRow.data('streetdesc');
+//        }
+//        var number = selectedRow.data('building')
+//        var Lat = selectedRow.data('latitude')
+//        var Long = selectedRow.data('longitude')
+//        var zipcode = $('#inputEntry').val();
+//        var entry = $('#inputVisitInterval').val();
 
-        if (streetdesc == '' || citydesc == '' || number == '') {
-            alert('Must select Street,City and Building Number.');
-            //$scope.$apply(function () {
-            //    $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
-            //});
-            return false;
-        }
+//        if (streetdesc == '' || citydesc == '' || number == '') {
+//            alert('Must select Street,City and Building Number.');
+//            //$scope.$apply(function () {
+//            //    $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
+//            //});
+//            return false;
+//        }
 
-        //Get Building Code 
-        buildingCode = GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode)
+//        //Get Building Code 
+//        buildingCode = GetAddressBuildingCode(state, citydesc, city, street, streetdesc, number, Lat, Long, entry, zipcode)
 
 
-    } else {
-        //$scope.$apply(function () {
-        //    $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
-        //});
-        alert('Must select Street,City and Building Number.');
-    }
+//    } else {
+//        //$scope.$apply(function () {
+//        //    $scope.ShowMessageBox('Message', 'Must select Street,City and Building Number.')
+//        //});
+//        alert('Must select Street,City and Building Number.');
+//    }
 
-}
+//}
 function closeDialog() {
     $("#btnClose").click();
 }

@@ -26,7 +26,13 @@ $(document).ready(function () {
     $("#datepickerEndDay,#nextVisitDatePicker").datepicker('remove');
     $('#datepickerEndDay input').val('');
     $('#nextVisitDatePicker input').val('');
-
+    $("#inputFloor,#inputApartment,#inputPhone11,#inputPhone22,#inputMobile1,#inputFax1").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
+    });
     //set viewbag property
     $('#showMap').click(function () {
 
@@ -164,7 +170,7 @@ function searchRequestCustData() {
     data = { customerID: _customerId, fromyear: 0, from: $("#datepicker1 input").val(), to: $("#datepicker2 input").val(), level1: main, level2: second };
 
 
-
+    $('#tblrequest tr:gt(0)').remove();
     $.ajax({
         type: "POST",
         url: "/Customer/GetRequestCustomerByDate",
@@ -174,18 +180,26 @@ function searchRequestCustData() {
             if (response != null) {
 
                 $(response).each(function () {
-                    $('<tr class="tg-dx8v"> <td class="tg-dx8v"></td><td class="tg-dx8v">' +
-                        this.CreateDate
-                        + '   </td><td class="tg-dx8v">' +
-                        this.RequestSysIdLevel1 +
-                        '</td<td class="tg-dx8v">' +
-                        this.RequestSysIdLevel2 +
-                        '</td><td class="tg-dx8v">'
-                        + this.Request + '</td><td class="tg-dx8v">'
-                        + this.Treatment + '</td><td class="tg-dx8v">'
-                        + this.TreatmentDate
-                        + '</td></tr>').appendTo($('#tblrequest'));
+                    $('<tr class="tg-dx8v" RequestSysIdLevel2="' + this.RequestSysIdLevel2 + '" RequestSysIdLevel1="' + this.RequestSysIdLevel1
+                        + '" sysId="' + this.customerRequestId + '"> <td class="tg-dx8v"></td><td class="tg-dx8v">' + this.CreateDate + '</td><td class="tg-dx8v">' +
+                        this.RequestDescCodeLevel1 + '</td><td class="tg-dx8v">' + this.RequestDescCodeLevel2 + '</td><td class="tg-dx8v">'
+                        + this.Request + '</td><td class="tg-dx8v">' + this.Treatment + '</td><td class="tg-dx8v">' + this.TreatmentDate + '</td></tr>').appendTo($('#tblrequest'));
                 });
+                $('#tblrequest tr').dblclick(function () {
+                    _requestSysIdLevel2 = $(this).attr('RequestSysIdLevel2');
+                    _requestSysIdLevel1 = $(this).attr('RequestSysIdLevel1');
+                    _sysId = $(this).attr('sysId');
+                    $("#addClassifications").click();
+                    $('#addmanufacture [value="' + $(this).attr('RequestSysIdLevel1') + '"]').attr('selected', true);
+                    popUpClassificationEdit(_requestSysIdLevel1, _requestSysIdLevel2);
+                    $('#txtRequest').text($($(this).find('td')[4]).text())
+                    $('#txtTreatment').text($($(this).find('td')[5]).text())
+                    $('#datepicker6 input').val($($(this).find('td')[1]).text())
+                    $('#datepicker5 input').val($($(this).find('td')[6]).text())
+                    $('#saveClassification').attr("isActive", "false");
+                    $('#addmanufacture [value="' + $(this).attr('RequestSysIdLevel2') + '"]').attr('selected', true);
+                    //do something with id
+                })
             }
 
         }
@@ -561,6 +575,11 @@ function clearSearchFields() {
 //Update Customer
 function updateCustomer() {
     debugger;
+
+    if (!ValidateEmail($("#inputMail").val())) {
+        alert("Invalid email address.");
+        return false;
+    }
     var visit = 0;
     var cvisitInterval = 0;
     if ($('#visitInterval').val() != '')
@@ -624,10 +643,20 @@ function updateCustomer() {
                                 _customerArray[i].CustomerRemark1 = data.cRemarks1;
                                 _customerArray[i].CustomerRemark2 = data.cRemarks2;
                                 _customerArray[i].VisitInterval = data.cvisitInterval;
+
+                                _customerArray[i].BuildingCode = data.cbuildingCode;
+                                _customerArray[i].BuildingNumber = data.cbuildingNumber;
+                                //_customerArray[i].CityId  =   ;
+                                //_customerArray[i].CityName  =   ;
+
+                                //_customerArray[i].
+                                //_customerArray[i].
+                                //    _customerArray[i].
+                                //_customerArray[i].
+
+
                             }
                         }
-
-
 
                         //$(this).attr('CustomerNumber', data.cNumber);
                         //$(this).attr('FirstName', data.cContactName);
@@ -708,6 +737,7 @@ function setDetails() {
 
 //Cancel click
 function removeChange() {
+    $("#datepickerEndDay").datepicker('remove');
     if (parseInt(_customerId) > 0)
         $('#left_employee_window div').each(function () {
             if ($(this).attr('customerid') == _customerId) {
@@ -770,3 +800,65 @@ function saveTree() {
 }
 
 //Ends
+function ValidateEmail(email) {
+    if (email == '')
+        return true;
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return expr.test(email);
+};
+var _requestSysIdLevel2 = 0;
+var _requestSysIdLevel1 = 0;
+var _sysId = 0;
+
+function clearPopupMapFields() {
+    $('#inputState').val('')
+    $('#inputCity').val('')
+    $('#inputStreet').val('')
+    $('#inputBuldingNumber').val('')
+    $('#inputEntry').val('')
+    $('#inputZipCode').val('')
+    $('#MapHeaderGrid tr:gt(0)').remove();
+
+}
+
+
+function clearPopupReqFields() {
+    $('#txtRequest').text('')
+    $('#txtTreatment').text('')
+    $('#datepicker6 input').val('')
+    $('#datepicker5 input').val('')
+    $('#saveClassification').attr("isActive", "true");
+    $('#addmanufacture [value=""]').attr('selected', true);
+    $('#addSecondary').empty();
+    $('#datepicker6').datepicker('update', new Date());
+}
+
+function popUpClassificationEdit(id, sId) {
+    $("<option value='-1' />").appendTo($('#addSecondary'));
+    if ($('#addmanufacture :selected').val() == "")
+        return false;
+
+    data = { id: id };
+    $.ajax({
+        type: "POST",
+        url: "/Customer/BindSecondClassificationDdl",
+        data: data,
+        success: function (response) {
+            debugger;
+            if (response != null) {
+                $(response).each(function () {
+                    $("<option />", {
+                        val: this.RequestSysIdLevel2,
+                        text: this.RequestDescCodeLevel2
+                    }).appendTo($('#addSecondary'));
+                });
+
+                $('#addSecondary [value="' + sId + '"]').attr('selected', true)
+
+            }
+
+        }
+    })
+}
+
+

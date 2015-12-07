@@ -130,15 +130,9 @@ namespace ISEE.Common
             set { HttpContext.Current.Session["Zoom"] = value; }
         }
 
-        public static string MapProvider
+        public static int MapProvider
         {
-            get
-            {
-                if (HttpContext.Current.Session["MapProvider"] != null)
-                    return Convert.ToString(HttpContext.Current.Session["MapProvider"]);
-                else
-                    return "";
-            }
+            get { return Convert.ToInt16(HttpContext.Current.Session["MapProvider"]); }
             set { HttpContext.Current.Session["MapProvider"] = value; }
         }
 

@@ -77,7 +77,7 @@ function LoadMapByCurrentLogedUser() {
                 mapTypeId: _mapTypeId
             };
             _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
-            if (_mapProvider = 1) {
+            if (_mapProvider == 1) {
                 _map.mapTypes.set("OSM", new google.maps.ImageMapType({
                     getTileUrl: function (coord, zoom) {
                         var tilesPerGlobe = 1 << zoom;

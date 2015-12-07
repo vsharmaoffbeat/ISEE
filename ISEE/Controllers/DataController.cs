@@ -80,6 +80,7 @@ namespace ISEEREGION.Controllers
                     SessionManagement.CurrentGmt = loginData.CurrentGmt;
                     SessionManagement.SmsProvider = loginData.SmsProvider;
                     SessionManagement.PhoneAreaCode = loginData.PhoneAreaCode;
+                    SessionManagement.MapProvider = loginData.MapProvider;
                     //SessionManegment.SessionManagement. = loginData.;
                     //SessionManegment.SessionManagement. = loginData.;
                     //SessionManegment.SessionManagement. = loginData.;
@@ -682,7 +683,7 @@ namespace ISEEREGION.Controllers
             {
                 using (ISEEEntities context = new ISEEEntities())
                 {
-                    var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom }).Where(x => x.FactoryId == FactoryId).ToList();
+                    var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom, MapProvider=c.MapProvider }).Where(x => x.FactoryId == FactoryId).ToList();
                     return new JsonResult { Data = CountryDetail, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
             }

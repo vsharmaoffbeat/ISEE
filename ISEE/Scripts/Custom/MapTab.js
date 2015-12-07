@@ -55,8 +55,10 @@ var _allLat = [];
 var _allLong = [];
 var _centerLat = '';
 var _centerLong = '';
-var bounds = new google.maps.LatLngBounds();
-var newTimeForIcon = '';
+var _bounds = new google.maps.LatLngBounds();
+
+var _mapTypeId = "OSM";
+var _mapProvider = 1;
 
 
 // To load the map on current loged user country.
@@ -65,14 +67,61 @@ function LoadMapByCurrentLogedUser() {
         url: "/Data/GetCurrentLogedUserCountery", success: function (result) {
             google.maps.visualRefresh = true;
             _liverpool = new google.maps.LatLng(result[0].Lat, result[0].Long);
+            if (result[0].MapProvider == 2) {
+                _mapTypeId = google.maps.MapTypeId.G_NORMAL_MAP;
+
+            }
             var mapOptions = {
                 zoom: result[0].Zoom,
                 center: _liverpool,
-                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                mapTypeId: _mapTypeId
             };
             _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
+            if (_mapProvider = 1) {
+                _map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                    getTileUrl: function (coord, zoom) {
+                        var tilesPerGlobe = 1 << zoom;
+                        var x = coord.x % tilesPerGlobe;
+                        if (x < 0) {
+                            x = tilesPerGlobe + x;
+                        }
+                        return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                    },
+                    tileSize: new google.maps.Size(256, 256),
+                    maxZoom: 18
+                }));
+            }
         }
     });
+    //var element = document.getElementById("mapMainDiv");
+
+    //var map = new google.maps.Map(element, {
+    //    center: new google.maps.LatLng(57, 21),
+    //    zoom: 3,
+    //    mapTypeId: "OSM",
+    //    mapTypeControl: false,
+    //    streetViewControl: false
+    //});
+
+    ////Define OSM map type pointing at the OpenStreetMap tile server
+    //map.mapTypes.set("OSM", new google.maps.ImageMapType({
+    //    getTileUrl: function (coord, zoom) {
+    //        // "Wrap" x (logitude) at 180th meridian properly
+    //        // NB: Don't touch coord.x because coord param is by reference, and changing its x property breakes something in Google's lib 
+    //        var tilesPerGlobe = 1 << zoom;
+    //        var x = coord.x % tilesPerGlobe;
+    //        if (x < 0) {
+    //            x = tilesPerGlobe + x;
+    //        }
+    //        // Wrap y (latitude) in a like manner if you want to enable vertical infinite scroll
+
+    //        return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+    //    },
+    //    tileSize: new google.maps.Size(256, 256),
+    //    name: "OpenStreetMap",
+    //    maxZoom: 18
+    //}));
+
 }
 
 // To search employees by first name, last name,active and customer number
@@ -118,12 +167,26 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-                        bounds = new google.maps.LatLngBounds();
+                        _bounds = new google.maps.LatLngBounds();
                         _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(_centerLat, _centerLong),
-                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                            mapTypeId: _mapTypeId
                         });
+                        if (_mapProvider = 1) {
+                            _map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                                getTileUrl: function (coord, zoom) {
+                                    var tilesPerGlobe = 1 << zoom;
+                                    var x = coord.x % tilesPerGlobe;
+                                    if (x < 0) {
+                                        x = tilesPerGlobe + x;
+                                    }
+                                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                                },
+                                tileSize: new google.maps.Size(256, 256),
+                                maxZoom: 18
+                            }));
+                        }
                         _polyLineArray = [];
                         for (var i = 0; i < response.length; i++) {
                             _polyLineArray.push(new google.maps.LatLng(response[i].Lat, response[i].Long));
@@ -157,7 +220,7 @@ function ShowEmployeeDataOnMap() {
                                 title: title
                             });
                             _routStartEndMarkers.push(endStartMarker);
-                            bounds.extend(endStartMarker.position);
+                            _bounds.extend(endStartMarker.position);
                         }
                         _flightPath.setMap(_map);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
@@ -170,9 +233,9 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
-                                bounds.extend(custMarker.position);
+                                _bounds.extend(custMarker.position);
                             }
-                            _map.fitBounds(bounds);
+                            _map.fitBounds(_bounds);
                         }
                         else {
                             zoomToObject(_flightPath);
@@ -208,12 +271,26 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response.length > 0) {
-                        bounds = new google.maps.LatLngBounds();
+                        _bounds = new google.maps.LatLngBounds();
                         _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
-                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                            mapTypeId: _mapTypeId
                         });
+                        if (_mapProvider = 1) {
+                            _map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                                getTileUrl: function (coord, zoom) {
+                                    var tilesPerGlobe = 1 << zoom;
+                                    var x = coord.x % tilesPerGlobe;
+                                    if (x < 0) {
+                                        x = tilesPerGlobe + x;
+                                    }
+                                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                                },
+                                tileSize: new google.maps.Size(256, 256),
+                                maxZoom: 18
+                            }));
+                        }
 
                         var marker, i;
                         for (i = 0; i < response.length; i++) {
@@ -227,10 +304,10 @@ function ShowEmployeeDataOnMap() {
                                 position: new google.maps.LatLng(response[i].Lat, response[i].Long),
                                 map: _map,
                                 icon: "/images/img/employee_1_stop.png",
-                                title: firstName+ " " + gpsHours + ":" + gpsMins +" " +stopHour +  ":" + stopMins + " " 
+                                title: firstName + " " + gpsHours + ":" + gpsMins + " " + stopHour + ":" + stopMins + " "
                             });
                             _markers.push(marker);
-                            bounds.extend(marker.position);
+                            _bounds.extend(marker.position);
                         }
 
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
@@ -243,10 +320,10 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
-                                bounds.extend(custMarker.position);
+                                _bounds.extend(custMarker.position);
                             }
                         }
-                        _map.fitBounds(bounds);
+                        _map.fitBounds(_bounds);
                     }
                     else {
                         alert("No Location Data");
@@ -275,13 +352,27 @@ function ShowEmployeeDataOnMap() {
                 dataType: "json",
                 success: function (response) {
                     if (response != false) {
-                        bounds = new google.maps.LatLngBounds();
-                        var mapOptions = {
-                            zoom: 14,
+                        _bounds = new google.maps.LatLngBounds();
+                        _map = new google.maps.Map(document.getElementById('mapMainDiv'), {
+                            zoom: 10,
                             center: new google.maps.LatLng(response.Lat, response.Long),
-                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-                        };
-                        _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
+                            mapTypeId: _mapTypeId
+                        });
+                        if (_mapProvider = 1) {
+                            _map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                                getTileUrl: function (coord, zoom) {
+                                    var tilesPerGlobe = 1 << zoom;
+                                    var x = coord.x % tilesPerGlobe;
+                                    if (x < 0) {
+                                        x = tilesPerGlobe + x;
+                                    }
+                                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                                },
+                                tileSize: new google.maps.Size(256, 256),
+                                maxZoom: 18
+                            }));
+                        }
+                        // _map = new google.maps.Map(document.getElementById("mapMainDiv"), mapOptions);
                         var gpsMins = response.GpsTime.Minutes.toString().length == 1 ? "0" + response.GpsTime.Minutes.toString() : response.GpsTime.Minutes.toString();
                         var firstName = response.LastName;
                         var stopHour = response.StopTime.Hours.toString().length == 1 ? "0" + response.StopTime.Hours.toString() : response.StopTime.Hours.toString();
@@ -296,7 +387,7 @@ function ShowEmployeeDataOnMap() {
                             title: firstName + " " + stopHour + ":" + stopMins + " " + gpsHours + ":" + gpsMins
                         });
                         _markers.push(marker);
-                        bounds.extend(marker.position);
+                        _bounds.extend(marker.position);
                         if ($("#chkshowwithCustomer").prop('checked') == true && $('#selectedCustomer').html() != "<tbody></tbody>") {
                             GetLatLongOfSelectedCustomer();
                             for (var i = 0; i < _customerPositionArrayWithEmployee.length; i++) {
@@ -307,10 +398,10 @@ function ShowEmployeeDataOnMap() {
                                     title: _customerPositionArrayWithEmployee[i].title
                                 });
                                 _custMarkers.push(custMarker);
-                                bounds.extend(custMarker.position);
+                                _bounds.extend(custMarker.position);
                             }
                         }
-                        _map.fitBounds(bounds);
+                        _map.fitBounds(_bounds);
 
                     } else {
                         alert("No Location Data");
@@ -587,21 +678,49 @@ function ShowCustomerDataOnMap() {
             dataType: "json",
             success: function (response) {
                 if (response != null || response[0].Lat != null) {
-                    bounds = new google.maps.LatLngBounds();
+                    _bounds = new google.maps.LatLngBounds();
                     _customerPositionArrayWithEmployee = [];
                     if (response[0].Lat != null && response[0].Lat != null) {
                         var map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 10,
                             center: new google.maps.LatLng(response[0].Lat, response[0].Long),
-                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                            mapTypeId: _mapTypeId
                         });
+                        if (_mapProvider = 1) {
+                            map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                                getTileUrl: function (coord, zoom) {
+                                    var tilesPerGlobe = 1 << zoom;
+                                    var x = coord.x % tilesPerGlobe;
+                                    if (x < 0) {
+                                        x = tilesPerGlobe + x;
+                                    }
+                                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                                },
+                                tileSize: new google.maps.Size(256, 256),
+                                maxZoom: 18
+                            }));
+                        }
                     }
                     else {
                         var map = new google.maps.Map(document.getElementById('mapMainDiv'), {
                             zoom: 8,
                             center: _liverpool,
-                            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                            mapTypeId: _mapTypeId
                         });
+                        if (_mapProvider = 1) {
+                            map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                                getTileUrl: function (coord, zoom) {
+                                    var tilesPerGlobe = 1 << zoom;
+                                    var x = coord.x % tilesPerGlobe;
+                                    if (x < 0) {
+                                        x = tilesPerGlobe + x;
+                                    }
+                                    return "http://tile.openstreetmap.org/" + zoom + "/" + x + "/" + coord.y + ".png";
+                                },
+                                tileSize: new google.maps.Size(256, 256),
+                                maxZoom: 18
+                            }));
+                        }
                     }
                     var custMarker, i;
                     for (i = 0; i < response.length; i++) {
@@ -616,9 +735,9 @@ function ShowCustomerDataOnMap() {
                             });
                         }
                         _custMarkers.push(custMarker);
-                        bounds.extend(custMarker.position);
+                        _bounds.extend(custMarker.position);
                     }
-                    map.fitBounds(bounds);
+                    map.fitBounds(_bounds);
                 }
             }
 

@@ -377,10 +377,10 @@ function InsertAddress() {
                     LoadMapByFactoryID();
                 } else {
                     buildingCode = response.BuildingCode;
-                    //var buildingLatLongArray = [];
-                    //buildingLatLongArray.push(response.BuildingLat, response.BuildingLong);
-                    //Initialize(buildingLatLongArray);
-                    //alert("Test");
+                    var buildingLatLongArray = [];
+                    buildingLatLongArray.push(response.BuildingLat, response.BuildingLong);
+                    Initialize(buildingLatLongArray);
+                    alert("Test");
                 }
             } else {
                 //$scope.$apply(function () {

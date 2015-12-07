@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
     $(".disabledClass").prop("disabled", true);
+
     //bind date pickers
     $("#datepickerLastApp,#datepicker1,#datepicker2").datepicker({
         autoclose: true,
@@ -15,6 +16,14 @@ $(document).ready(function () {
         canDrop: canDropEmployee,
         dropped: droppedEmployee,
         dropping: droppingEmployee
+    });
+
+    $("#txtphone11,#txtphone22").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
     });
 
 
@@ -37,9 +46,17 @@ $(document).ready(function () {
     var d = new Date();
     d.setMonth(d.getMonth() - 3);
     $("#datepicker1").datepicker('setDate', d);
-
+    setDefaultDDl();
 
 });
+function setDefaultDDl() {
+    var date = new Date;
+    $('#ddlMonthname [value="' + date.getMonth() + '"]').attr('selected', true);
+    $('#ddlYearValue [value="' + date.getFullYear() + '"]').attr('selected', true);
+    date.setMonth(date.getMonth() - 3);
+    $("#datepicker1").datepicker('setDate', date);
+
+}
 function setDatePicker() {
     $("#datepickerStartDay").datepicker({
         todayBtn: 1,
@@ -217,14 +234,15 @@ function selectedEmployee(obj) {
         return false;
 
     _employeeId = $(obj).attr('EmployeeId');
+    setDefaultDDl();
     removeChange();
 
     //get messgae history
-    getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
+    //    getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
     //get Employeefill hours
     getEmployeeTimeTemplate(_employeeId);
     //get Employee history template
-    getEmployeeTimeHistoryDiary();
+    // getEmployeeTimeHistoryDiary();
     //Set employee data
     $('#newemployeeGrid').show();
     $('#showMap').attr('href', '/map/map');
@@ -403,6 +421,8 @@ function replaceNullWithEmpty(obj) {
 //Update Employee
 function updateEmployee() {
     if (parseInt(_employeeId) > 0) {
+        if (($('#txtphone1').val() != "" || $('#txtphone1').val() != "" || $('#txtphone1').val().trim().indexOf(' ') < 0) || ($('#txtphone11').val() != "" || $('#txtphone11').val() != "" || $('#txtphone11').val().trim().indexOf(' ') < 0))
+            return false
         var houlyFilled = getHourData();
         d = {
             employeeId: _employeeId,
@@ -615,17 +635,18 @@ function saveTree() {
     $.ajax({
         type: "POST",
         url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-            $scope.$apply(function () {
-                if (result.Message == "Success") {
-                    treeJsonData = JSON.parse(result.NewTreeJson)
-                    treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
-                    treeCustomerJsonData = JSON.parse(result.NewTreeJson)
+            //$scope.$apply(function () {
+            if (result.Message == "Success") {
+                treeJsonData = JSON.parse(result.NewTreeJson)
+                treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
+                treeCustomerJsonData = JSON.parse(result.NewTreeJson)
 
-                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
-                } else {
-                    $scope.ShowMessageBox("Error", result.ErrorDetails)
-                }
-            });
+                // $scope.ShowMessageBox("Message", "Tree saved successfully.")
+            }
+            //else {
+            //    //$scope.ShowMessageBox("Error", result.ErrorDetails)
+            //}
+            //});
         }
     });
 }

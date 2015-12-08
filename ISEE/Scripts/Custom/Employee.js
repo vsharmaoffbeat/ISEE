@@ -8,16 +8,6 @@ $(document).ready(function () {
         todayHighlight: true
     }).datepicker('update', new Date());
 
-    //create tree
-    var objEmployeeTree = $('#jstree_Employee_div').easytree(
-    {
-        data: treeJsonData,
-        enableDnd: true,
-        canDrop: canDropEmployee,
-        dropped: droppedEmployee,
-        dropping: droppingEmployee
-    });
-
     $("#txtphone11,#txtphone22").keypress(function (e) {
         //if the letter is not digit then display error and don't type anything
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -25,7 +15,15 @@ $(document).ready(function () {
             return false;
         }
     });
+    $("#txtphone1,#txtphone2").keypress(function (event) {
+        var regex = new RegExp("^[0-9?=.*!@#$%^&*]+$");
+        var key = String.fromCharCode(event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
 
+    });
 
     $("#datepickerStartDay,#datepickerEndDay,#datepickerLastApp").datepicker('remove');
 
@@ -91,6 +89,7 @@ $('#showMap').click(function () {
 //set details click
 function setDetails() {
     if (parseInt(_employeeId) > 0) {
+        createTree(treeJsonData, true);
         setDatePicker();
         $('#tblemployeeHours input').attr('disabled', false);
         $(".disabledClass").prop("disabled", false);
@@ -102,7 +101,7 @@ function setDetails() {
 }
 //Cancel click
 function removeChange() {
-    if (parseInt(_employeeId) > 0)
+    if (parseInt(_employeeId) > 0) {
         $('#left_employee_window div').each(function () {
             if ($(this).attr('EmployeeId') == _employeeId) {
                 setInputValues(this);
@@ -114,6 +113,8 @@ function removeChange() {
 
             }
         })
+        createTree(defaultTreeJsonData, false)
+    }
 }
 
 //Set input fields default values
@@ -265,10 +266,10 @@ function setInputValues(obj) {
 
     $('#txtlastname').val($(obj).attr('LastName'));
 
-    $('#txtphone1').val($(obj).attr('MainAreaPhone'));
-    $('#txtphone11').val($(obj).attr('MainPhone'));
-    $('#txtphone2').val($(obj).attr('SecondAreaPhone'));
-    $('#txtphone22').val($(obj).attr('SecondPhone'));
+    $('#txtphone1').val($(obj).attr('MainAreaPhone').trim());
+    $('#txtphone11').val($(obj).attr('MainPhone').trim());
+    $('#txtphone2').val($(obj).attr('SecondAreaPhone').trim());
+    $('#txtphone22').val($(obj).attr('SecondPhone').trim());
     $('#txtStart').val($(obj).attr('StartDay'));
 
     //$('#ddlmanufacture').val($(obj).attr('PhoneManufactory'));
@@ -421,8 +422,10 @@ function replaceNullWithEmpty(obj) {
 //Update Employee
 function updateEmployee() {
     if (parseInt(_employeeId) > 0) {
-        if (($('#txtphone1').val() != "" || $('#txtphone1').val() != "" || $('#txtphone1').val().trim().indexOf(' ') < 0) || ($('#txtphone11').val() != "" || $('#txtphone11').val() != "" || $('#txtphone11').val().trim().indexOf(' ') < 0))
-            return false
+        if (!ValidateEmail($("#txtmail").val())) {
+            alert("Invalid email address.");
+            return false;
+        }
         var houlyFilled = getHourData();
         d = {
             employeeId: _employeeId,
@@ -430,10 +433,10 @@ function updateEmployee() {
             mail: $('#txtmail').val(),
             firstName: $('#txtfirstname').val(),
             lastName: $('#txtlastname').val(),
-            phone1: $('#txtphone1').val(),
-            phone11: $('#txtphone11').val(),
-            phone2: $('#txtphone2').val(),
-            phone22: $('#txtphone22').val(),
+            phone1: $('#txtphone1').val().trim(),
+            phone11: $('#txtphone11').val().trim(),
+            phone2: $('#txtphone2').val().trim(),
+            phone22: $('#txtphone22').val().trim(),
             Start: $('#txtStart').val(),
             manufacture: $('#ddlmanufacture').val(),
             // bindDdlphonetype($(obj).attr('PhoneManufactory'));
@@ -652,3 +655,20 @@ function saveTree() {
 }
 
 
+////create tree
+function createTree(treeJson, isDnd) {
+    objEmployeeTree = $('#jstree_Employee_div').easytree(
+        {
+            data: treeJson,
+            enableDnd: isDnd,
+            canDrop: canDropEmployee,
+            dropped: droppedEmployee,
+            dropping: droppingEmployee
+        });
+}
+function ValidateEmail(email) {
+    if (email == '')
+        return true;
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return expr.test(email);
+}

@@ -55,6 +55,14 @@ namespace ISEE.Common
 
             return treeList;
         }
+        public static List<TreeNodeData> CreateJsonTre(List<TreeView> data)
+        {
+            List<TreeNodeData> treeList = new List<TreeNodeData>();
+
+            treeList.Add(new TreeNodeData() { id = -100, text = SessionManagement.FactoryDesc, textCss = "customnode", objecttype = "companyNode" });
+
+            return treeList;
+        }
 
         public static void CreateTreeNodes(List<TreeView> data, ref List<TreeNodeData> treeList, ref TreeNodeData parentTreeNode, bool hasChildren = false)
         {

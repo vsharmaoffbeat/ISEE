@@ -200,7 +200,7 @@ namespace ISEEREGION.Controllers
         {
             try
             {
-                var msgHistory = _facory.GetSMSFilter(employeeId, Common.ConvertDateTimeN(start), Common.ConvertDateTimeN(end)).ToList()
+                var msgHistory = _facory.GetSMSFilter(employeeId, Common.ConvertDateTimeN(start), Common.ConvertDateTimeN(end).AddDays(1).AddMilliseconds(-1)).ToList()
                     .Select(x => new { SmsCreatDate = x.SmsCreatDate.ToString("dd/MM/yyyy HH:mm"), x.SmsMsg, x.SmsStatus, x.SmsCount }).ToList();
                 return new JsonResult { Data = msgHistory, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }

@@ -31,6 +31,7 @@ namespace ISEE.Controllers
             var serializer = new JavaScriptSerializer();
             ViewBag.JsonData = serializer.Serialize(context.PhoneManufactures.Select(pm => new { pm.PhoneManufacturId, pm.PhoneManufacture1 }).ToList());
             ViewBag.TreeJsonData = serializer.Serialize(Common.Common.CreateJsonTree(data));
+            ViewBag.DefaultTreeJsonData = serializer.Serialize(Common.Common.CreateJsonTre(data)); 
             return View();
         }
 
@@ -79,7 +80,9 @@ namespace ISEE.Controllers
                          CityId = x.Building.Street.City.CityCode,
                          CityName = x.Building.Street.City.CityDesc ?? "!@#$",
                          StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
-                         StateId = x.Building.Street.City.State.StateCode
+                         StateId = x.Building.Street.City.State.StateCode,
+                         Mobile = x.AreaCelolar ?? "!@#$",
+                         Mobile1 = x.Celolar ?? "!@#$"
 
 
                      }).ToList();
@@ -206,7 +209,7 @@ namespace ISEE.Controllers
             string cFax, string cFax1, string cRemarks1, string cRemarks2,
             int cbuildingCode,
             string cbuildingNumber, string cZipCode, int cvisitInterval,
-            string cEndDate, string cNextVisit, int cvisitTime)
+            string cEndDate, string cNextVisit, int cvisitTime, string cMobile, string cMobile1)
         {
             try
             {
@@ -232,6 +235,8 @@ namespace ISEE.Controllers
                     customer.NextVisit = Common.Common.ConvertDateTime(cNextVisit);
                     customer.VisitTime = cvisitTime;
                     customer.VisitInterval = cvisitInterval;
+                    customer.Celolar = Common.Common.GetNullableValues(cMobile1);
+                    customer.AreaCelolar = Common.Common.GetNullableValues(cMobile);
                     context.SaveChanges();
                 }
             }

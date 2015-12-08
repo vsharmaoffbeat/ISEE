@@ -2,67 +2,20 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox1">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>List of  customers</Value>
-                <Style>
-                  <FontSize>20pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.28in</Top>
-        <Left>4.31125in</Left>
-        <Height>0.42708in</Height>
-        <Width>3.04167in</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Image Name="Image2">
-        <Source>Embedded</Source>
-        <Value>region_see</Value>
-        <Sizing>FitProportional</Sizing>
-        <Top>0.42583in</Top>
-        <Left>8.73833in</Left>
-        <Height>0.38541in</Height>
-        <Width>2.34375in</Width>
-        <ZIndex>1</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Image>
       <Tablix Name="Tablix5">
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.91927in</Width>
+              <Width>2.79166in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.66927in</Width>
+              <Width>2.54166in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.31511in</Width>
+              <Width>2.1875in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.33593in</Width>
+              <Width>3.20832in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -392,11 +345,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>GetCustomers</DataSetName>
-        <Top>1.03in</Top>
-        <Left>0.35292in</Left>
+        <Top>0.24875in</Top>
+        <Left>0.54042in</Left>
         <Height>0.6875in</Height>
-        <Width>11.23958in</Width>
-        <ZIndex>2</ZIndex>
+        <Width>10.72916in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -421,10 +373,10 @@
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
         <Top>2.18309in</Top>
-        <Left>0.35292in</Left>
+        <Left>0.54042in</Left>
         <Height>0.375in</Height>
-        <Width>10.23958in</Width>
-        <ZIndex>3</ZIndex>
+        <Width>10.05208in</Width>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -459,8 +411,8 @@
         <Top>2.18309in</Top>
         <Left>10.5925in</Left>
         <Height>0.375in</Height>
-        <Width>1in</Width>
-        <ZIndex>4</ZIndex>
+        <Width>0.67708in</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -486,8 +438,68 @@
       <BackgroundColor>White</BackgroundColor>
     </Style>
   </Body>
-  <Width>11.88321in</Width>
+  <Width>11.77904in</Width>
   <Page>
+    <PageHeader>
+      <Height>1in</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox1">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>List of  customers</Value>
+                  <Style>
+                    <FontSize>20pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Top>0.41542in</Top>
+          <Left>4.31125in</Left>
+          <Height>0.42708in</Height>
+          <Width>3.04167in</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="Image2">
+          <Source>Embedded</Source>
+          <Value>region_see</Value>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.41542in</Top>
+          <Left>8.37375in</Left>
+          <Height>0.38541in</Height>
+          <Width>2.34375in</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+        <BackgroundColor>White</BackgroundColor>
+      </Style>
+    </PageHeader>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>

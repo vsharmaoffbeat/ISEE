@@ -155,11 +155,18 @@ namespace ISEE.Controllers
                     //sqlDataSource.Parameters.Add("@Factory", DbType.Int32, GetFactoryId(FactoryGuid));
                     //sqlDataSource.Parameters.Add("@FromDate", DbType.DateTime, ReportParameters["FromDate"].Value);
                     //sqlDataSource.Parameters.Add("@ToDate", DbType.DateTime, ReportParameters["ToDate"].Value);
+                    //reportViewer.LocalReport.DataSources.Add(new ReportDataSource("dsLocalReport", dataSet.Tables["SampleTable"]));
 
-
-
-                    //  reportViewer.LocalReport.DataSources.Add(new ReportDataSource("dsLocalReport", dataSet.Tables["SampleTable"]));
+                    ReportDataSet dsE = new ReportDataSet();
+                    usp_GetEmployeeSMSTableAdapter daE = new usp_GetEmployeeSMSTableAdapter();
+                    dsE.EnforceConstraints = false;
+                    daE.Fill(dsE.usp_GetEmployeeSMS, reportSearchModel.StartDate, SessionManagement.FactoryID, reportSearchModel.EndDate, reportSearchModel.FilterSearch);
+                    List<ReportParameter> parmE = new List<ReportParameter>();
+                    DataTable dtE = dsE.Tables["usp_GetEmployeeSMS"];
+                    ReportDataSource rptDataSourceE = new ReportDataSource("Getsms", dtE);
+                    reportViewer.LocalReport.DataSources.Add(rptDataSourceE);
                     break;
+
                 case "ListCustomers":
                     ReportDataSet ds = new ReportDataSet();
                     usp_GetCustomersTableAdapter da = new usp_GetCustomersTableAdapter();
@@ -175,7 +182,7 @@ namespace ISEE.Controllers
             return reportViewer;
         }
 
-    
+
         public ActionResult GetCustomers(ReportFilterCriteria model)
         {
             try
@@ -199,6 +206,32 @@ namespace ISEE.Controllers
             }
         }
 
+
+        public ActionResult GetEmployees(ReportFilterCriteria model)
+        {
+            try
+            {
+                List<ClsEmployeeSMS> resultList = new List<ClsEmployeeSMS>();
+                switch (model.FilterType)
+                {
+                    case "1":
+                        _facory.GetEmployees(SessionManagement.FactoryID, model.LastName, model.FirstName, model.EmployeeNumber, 0, 0, model.Active).ToList().ForEach(x => resultList.Add(new ClsEmployeeSMS { FirstName = x.FirstName, Id = x.EmployeeId, LastName = x.LastName, EmployeeNumber = x.EmployeeNum }));
+                        break;
+                    default:
+                        _facory.GetEmployees(SessionManagement.FactoryID, model.LastName, model.FirstName, model.EmployeeNumber, 0, 0, model.Active).ToList().ForEach(x => resultList.Add(new ClsEmployeeSMS { FirstName = x.FirstName, Id = x.EmployeeId, LastName = x.LastName, EmployeeNumber = x.EmployeeNum }));
+                        break;
+                }
+                return new JsonResult { Data = new { IsSuccess = true, Employees = resultList }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception)
+            {
+
+                return new JsonResult { Data = new { IsSuccess = false, ErrorMessageText = "An Error has been occured...", ErrorMessageBoxTitle = "Message" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+
+
         public class ClsEmployee
         {
             public int Id { get; set; }
@@ -206,12 +239,21 @@ namespace ISEE.Controllers
             public string FirstName { get; set; }
             public string CustomerNumber { get; set; }
         }
+        public class ClsEmployeeSMS
+        {
+            public int Id { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+            public string EmployeeNumber { get; set; }
+        }
 
 
     }
 
     public class ReportSearchParams
     {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string ReportName { get; set; }
         public string FilterSearch { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿@model ISEE.Controllers.ReportSearchParams
 @using ReportViewerForMvc
 @{
-    ViewBag.Title = "employee";
+    ViewBag.Title = "Reports";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -20,6 +20,8 @@
 <script src="~/Scripts/Custom/Reports.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/themes/default/style.css" rel="stylesheet" />
+<script src="~/Scripts/Custom/date.js"></script>
+
 
 <form id="reportForm" ng-submit="RendorReport()" ng-app="Reports" ng-controller="ReportController" style="padding-top:20px;" method="post">
     <div class="col-md-2" style="background-color:white;border:1px solid">
@@ -34,7 +36,7 @@
         @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
     </div>
 
-    <div id="divReportFilter" style="display:none;">
+    <div id="divReportFilter" style="display: none; top: 50px;">
         <div>Report Parameters</div>
         <div>
             <div>
@@ -69,9 +71,75 @@
         </div>
     </div>
 
-    <input ng-update-hidden id="ReportName" name="ReportName" ng-model="ReportSearchParams.ReportName" type="hidden"/>
+    <div id="divEmployeeSMSReportFilter" style="display: none; top: 50px;">
+        <div>Report Parameters</div>
+        From
+        <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy" style="width:200px">
+            <input class="form-control isee_input" type="text" ng-model="ReportSearchParams.StartDate" />
+            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+        </div>
+        To
+        <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy" style="width:200px">
+            <input class="form-control isee_input" type="text" ng-model="ReportSearchParams.EndDate" />
+            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+        </div>
+        <div>
+            <div>
+                <input type="radio" name="radAll" value="1" ng-model="ReportFilterCriteria.FilterType" /> All
+                <input type="radio" name="radAll" value="2" ng-model="ReportFilterCriteria.FilterType" /> Search With Params
+                <input type="button" name="btnParamSearch" value="Search" ng-click="DoSearchOnEmployeeSMS()" ng-hide="HideParamSearchButton" />
+            </div>
+            <div>
+                <input type="text" name="txtLastName" ng-model="ReportFilterCriteria.LastName" value=" " placeholder="Last Name" />
+                <input type="text" name="txtFirstName" ng-model="ReportFilterCriteria.FirstName" value=" " placeholder="First Name" />
+                <input type="text" name="txtCustomerNumber" ng-model="ReportFilterCriteria.EmployeeNumber" value=" " placeholder="Employee Number" />
+                <input type="checkbox" name="chkActive" ng-model="ReportFilterCriteria.Active" ng-true-value="true" ng-false-value="false" value=" " /> Active
+            </div>
+            <div style="height:200px !important;overflow:auto">
+                <table>
+                    <tr>
+                        <th><input type="checkbox" name="chkSelectAll" ng-click="toggleAll()" ng-model="isAllSelected" ng-true-value="true" ng-false-value="false" />Number</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="objEmployees in Employees">
+                        <td><input type="checkbox" name="chk_{{objEmployees.EmployeeNumber}}" ng-change="optionToggled()" ng-model="objEmployees.IsSelected" ng-true-value="true" ng-false-value="false" /></td>
+                        <td>{{objEmployees.EmployeeNumber}}</td>
+                        <td>{{objEmployees.LastName}} {{objEmployees.FirstName}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <input type="button" onclick="submitFormEmployeeSMS()" name="btnOk" value="Ok" />
+                <input type="button" name="btnCancel" value="Cancel" ng-click="CloseDialogEmployeeSMS()" />
+            </div>
+        </div>
+    </div>
+
+
+    <input ng-update-hidden id="ReportName" name="ReportName" ng-model="ReportSearchParams.ReportName" type="hidden" />
     <input ng-update-hidden id="FilterSearch" name="FilterSearch" ng-model="ReportSearchParams.FilterSearch" type="hidden" />
-    @*@Html.HiddenFor(Model => Model.ReportName)
-    @Html.HiddenFor(Model => Model.FilterSearch)*@
+
+    <input ng-update-hidden id="StartDate" name="StartDate" ng-model="ReportSearchParams.StartDate" type="hidden" />
+    <input ng-update-hidden id="EndDate" name="EndDate" ng-model="ReportSearchParams.EndDate" type="hidden" />
+
 
 </form>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datepicker1").datepicker({
+            onSelect: function () {
+                datepicker1 = $(this).datepicker('getDate');
+            }
+        });
+        $("#datepicker2").datepicker({
+            onSelect: function () {
+                datepicker2 = $(this).datepicker('getDate');
+            }
+        });
+    });
+
+</script>

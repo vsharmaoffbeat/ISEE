@@ -13,14 +13,26 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
     ];
 
     $scope.Customers = null;
+    $scope.Employees = null;
 
     $scope.ReportFilterCriteria = {
         FilterType: '1',
         FirstName: '',
         LastName: '',
         CustomerNumber: '',
+        EmployeeNumber: '',
         Active: true
     }
+
+    //$scope.EmployeeSMSReportFilter = {
+    //    startDate: '',
+    //    EndDate: '',
+    //    FilterType: '1',
+    //    FirstName: '',
+    //    LastName: '',
+    //    CustomerNumber: '',
+    //    Active: true
+    //}
 
 
     $scope.SelectReport = function (objReport) {
@@ -36,13 +48,27 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
     }
 
     $scope.ShowFilterDialog = function () {
-        $('#divReportFilter').dialog({
-            width: 1000,
-            height: 600,
-            open: function (event, ui) {
-                $scope.ReportFilterCriteria.FilterType = '1'
-            }
-        })
+        if ($scope.ReportSearchParams.ReportName == "ListCustomers") {
+            $('#divReportFilter').dialog({
+                width: 1000,
+                height: 600,
+                open: function (event, ui) {
+                    $scope.ReportFilterCriteria.FilterType = '1'
+                }
+            })
+        }
+        else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+            $('#divEmployeeSMSReportFilter').dialog({
+                width: 1000,
+                height: 600,
+                open: function (event, ui) {
+                    $scope.ReportFilterCriteria.FilterType = '1'
+                }
+            })
+        }
+    }
+    $scope.CloseDialogEmployeeSMS = function () {
+        $('#divEmployeeSMSReportFilter').dialog('close');
     }
 
     $scope.CloseDialog = function () {
@@ -73,19 +99,46 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
         });
     }
 
+
+    $scope.DoSearchOnEmployeeSMS = function () {
+        ReportService.GetEmployees($scope.ReportFilterCriteria).then(function (d) {
+            if (d.data.IsSuccess == true) {
+                $scope.Employees = d.data.Employees;
+            }
+            else {
+                $scope.Employees = null;
+                $scope.ShowMessageBox(d.data.ErrorMessageBoxTitle, d.data.ErrorMessageText);
+            }
+        }, function (error) {
+            $scope.ShowMessageBox('Message', 'An Error has been occured....');
+        });
+    }
+
+
     $scope.toggleAll = function () {
         var toggleStatus = $scope.isAllSelected;
-        angular.forEach($scope.Customers, function (itm) {
-            itm.IsSelected = toggleStatus;
-        });
-
+        if ($scope.ReportSearchParams.ReportName == "ListCustomers") {
+            angular.forEach($scope.Customers, function (itm) {
+                itm.IsSelected = toggleStatus;
+            });
+        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+            angular.forEach($scope.Employees, function (itm) {
+                itm.IsSelected = toggleStatus;
+            });
+        }
     }
 
     $scope.optionToggled = function () {
-        $scope.isAllSelected = $scope.Customers.every(function (itm) { return itm.IsSelected; })
+        if ($scope.ReportSearchParams.ReportName == "ListCustomers") {
+            $scope.isAllSelected = $scope.Customers.every(function (itm) { return itm.IsSelected; })
+        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+            $scope.isAllSelected = $scope.Employees.every(function (itm) { return itm.IsSelected; })
+        }
     }
 
     $scope.ReportSearchParams = {
+        StartDate: '',
+        EndDate: '',
         ReportName: 'Empty',
         FilterSearch: ''
     }
@@ -100,6 +153,15 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
     contacts.GetCustomers = function (objData) {
         return $http({
             url: '/Reports/GetCustomers',
+            data: objData,
+            method: 'POST',
+            headers: { 'content-type': 'application/json' }
+        });
+    }
+
+    contacts.GetEmployees = function (objData) {
+        return $http({
+            url: '/Reports/GetEmployees',
             data: objData,
             method: 'POST',
             headers: { 'content-type': 'application/json' }
@@ -140,7 +202,6 @@ function wuSubmit() {
     };
 }
 
-
 var submitForm = function () {
     var appElement = document.querySelector('[ng-controller=ReportController]');
     var $scope = angular.element(appElement).scope();
@@ -149,8 +210,24 @@ var submitForm = function () {
             $scope.ReportSearchParams.FilterSearch = '';
         } else {
             angular.forEach($scope.Customers, function (itm) {
-                if( itm.IsSelected)
-                {
+                if (itm.IsSelected) {
+                    $scope.ReportSearchParams.FilterSearch += itm.Id + ","
+                }
+            });
+        }
+    });
+    $('#reportForm').submit();
+}
+
+var submitFormEmployeeSMS = function () {
+    var appElement = document.querySelector('[ng-controller=ReportController]');
+    var $scope = angular.element(appElement).scope();
+    $scope.$apply(function () {
+        if ($scope.ReportFilterCriteria.FilterType == '1') {
+            $scope.ReportSearchParams.FilterSearch = '';
+        } else {
+            angular.forEach($scope.Employees, function (itm) {
+                if (itm.IsSelected) {
                     $scope.ReportSearchParams.FilterSearch += itm.Id + ","
                 }
             });

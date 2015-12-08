@@ -461,28 +461,10 @@ function searchCustomerData() {
     });
 
 }
-//function selectedEmployee(obj) {
-//    var d = new Date();
-//    d.setMonth(d.getMonth() - 3);
-//    $("#datepicker1").datepicker('setDate', d);
-//    d = new Date();
-//    $("#datepicker2").datepicker('setDate', d);
-//    var data = $(obj).attr('EmployeeId').split('|');
-//    _employeeId = $(obj).attr('EmployeeId');
-//    //get messgae history
-//    getMessageHistory(_employeeId, $("#datepicker1 input").val(), $("#datepicker2 input").val());
-//    //get Employeefill hours
-//    getEmployeeTimeTemplate(_employeeId);
-//    //get Employee history template
-//    getEmployeeTimeHistoryDiary();
-//    //Set employee data
-//    setInputValues(obj);
 
-
-
-//}
 
 function selectedCustomer(obj) {
+    updatedAddress = {};
     _customerId = $(obj).attr('CustomerId');
     removeChange();
     //setInputValues(obj);
@@ -784,17 +766,17 @@ function saveTree() {
     $.ajax({
         type: "POST",
         url: "/Admin/SaveTreeViewData", data: { treeViewData: treeViewData }, dataType: "json", success: function (result) {
-            $scope.$apply(function () {
-                if (result.Message == "Success") {
-                    treeJsonData = JSON.parse(result.NewTreeJson)
-                    treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
-                    treeCustomerJsonData = JSON.parse(result.NewTreeJson)
+            //$scope.$apply(function () {
+            if (result.Message == "Success") {
+                treeJsonData = JSON.parse(result.NewTreeJson)
+                treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
+                treeCustomerJsonData = JSON.parse(result.NewTreeJson)
 
-                    $scope.ShowMessageBox("Message", "Tree saved successfully.")
-                } else {
-                    $scope.ShowMessageBox("Error", result.ErrorDetails)
-                }
-            });
+                $scope.ShowMessageBox("Message", "Tree saved successfully.")
+            } else {
+                $scope.ShowMessageBox("Error", result.ErrorDetails)
+            }
+            //});
         }
     });
 }

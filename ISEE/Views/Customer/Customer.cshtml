@@ -883,13 +883,13 @@
 
                         <div class="form-group">
                             <label>@ISEE.Resources.Resource.State</label>
-                            <input id="inputState" type="text" class="form-control isee_input">
+                            <input id="inputState" type="text" class="form-control isee_input"  onblur="GetCitysByState()">
                         </div>
 
 
                         <div class="form-group">
                             <label>@ISEE.Resources.Resource.City</label>
-                            <input id="inputCity" type="text" class="form-control isee_input">
+                            <input id="inputCity" type="text" class="form-control isee_input"  onblur="GetStreetByCity()" >
                         </div>
 
 
@@ -1198,7 +1198,7 @@
                 $("#overlay").hide();
                 $("#dialog").fadeOut(300);
             }
-            ;
+    
 
             function ShowDialogR(modal) {
                 $("#Rqstab").show();

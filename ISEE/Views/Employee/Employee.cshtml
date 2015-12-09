@@ -102,8 +102,6 @@
 
         <div class="col-md-12 scroll_window">
             <div class="left_employee_window" id="left_employee_window">
-
-
             </div>
 
         </div>
@@ -223,6 +221,7 @@
                                     <div class="form-group">
                                         <label for="usr">@ISEE.Resources.Resource.Manufacture</label>
                                         <select class="form-control tree_select_option isee_button_color disabledClass" id="ddlmanufacture" onchange="ManufactureTypes(this, false)">
+                                            <option value=""></option>
                                             <option value="2">Samsung</option>
                                             <option value="5">LG</option>
                                             <option value="4">BlackBerry</option>
@@ -486,7 +485,7 @@
                                         <div class="col-md-6">
 
                                             <div class="container right_content_tabs_window" id="employoeeDrag">
-                                                <div class="tree_tg-wrap" style="width:33% !important;">
+                                                <div class="tree_tg-wrap" style="width: 33% !important;">
                                                     <table class="tree_tg" id="newemployeeGrid">
 
                                                         <tr data-oid='' data-id='' data-name='' data-type="employee" class="easytree-draggable">
@@ -496,9 +495,9 @@
                                                                 <span style="display: none;" id=''></span>
                                                             </td>
                                                             @*<td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
-                                                                </td>
-                                                                <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
-                                                                </td>
+                                                            </td>
+                                                            <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
+                                                            </td>
                                                             *@
                                                             <td class="tg-dx8v_category" style="text-align: left !important;"></td>
                                                             <td class="tg-dx8v_category" style="text-align: left !important;"></td>
@@ -523,110 +522,110 @@
                     <!--.container -->
                     <!------------------=====================================------>
                     @*<div class="row">
-                            <div class="col-md-6 col-xs-12 employee_hours">
-                                <div class="col-md-12 col-xs-12 employee_fill_left">
-                                    <!--- change col-md-6 into col-md-12-->
-                                    <h4 class="customer_title">Fill Employee Hours</h4>
+                        <div class="col-md-6 col-xs-12 employee_hours">
+                            <div class="col-md-12 col-xs-12 employee_fill_left">
+                                <!--- change col-md-6 into col-md-12-->
+                                <h4 class="customer_title">Fill Employee Hours</h4>
 
-                                    <div class="tg-wrap">
-                                        <table class="tg">
-                                            <tr>
+                                <div class="tg-wrap">
+                                    <table class="tg">
+                                        <tr>
 
-                                                <th class="tg-z1n2">Day Status</th>
-                                                <th class="tg-z1n2">Start Time</th>
-                                                <th class="tg-z1n2">End Time</th>
-                                                <th class="tg-z1n2">Start Time</th>
-                                                <th class="tg-z1n2">End Time</th>
+                                            <th class="tg-z1n2">Day Status</th>
+                                            <th class="tg-z1n2">Start Time</th>
+                                            <th class="tg-z1n2">End Time</th>
+                                            <th class="tg-z1n2">Start Time</th>
+                                            <th class="tg-z1n2">End Time</th>
 
-                                            </tr>
+                                        </tr>
 
-                                            <tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Sun</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Sun</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Mon</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Mon</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Tue</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Tue</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Wed</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Wed</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Thu</td>
-                                                <td class="tg-dx8v">9:00 AM</td>
-                                                <td class="tg-dx8v">6:00 PM</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Thu</td>
+                                            <td class="tg-dx8v">9:00 AM</td>
+                                            <td class="tg-dx8v">6:00 PM</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Fri</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Fri</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
-                                            <tr>
+                                        </tr>
+                                        <tr>
 
-                                                <td class="tg-dx8v">Sat</td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
-                                                <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v">Sat</td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
+                                            <td class="tg-dx8v"></td>
 
-                                            </tr>
+                                        </tr>
 
-                                        </table>
-                                    </div>
-                                    <h4 class="customer_title">Drag Item To Tree</h4>
-                                    <div class="col-md-12 col-xs-12">
-                                        <input class="form-control isee_input" id="" name="item" value="">
-                                    </div>
-                                    <!--- add new  col-md-12 for drag item -->
-
+                                    </table>
                                 </div>
-                            </div>
-
-
-                            <div class="col-md-6 col-xs-12 employee_inner_demo">
-                                <div class="col-md-12 col-xs-12 employee_inner_demo_first">
-                                    <!--- 3 nov change col-md-6 into col-md-12-->
-
-                                    <div class="col-md-6 col-xs-12 employee_inner_demo_second">
-                                        <p>Demo Company</p>
-                                    </div>
+                                <h4 class="customer_title">Drag Item To Tree</h4>
+                                <div class="col-md-12 col-xs-12">
+                                    <input class="form-control isee_input" id="" name="item" value="">
                                 </div>
+                                <!--- add new  col-md-12 for drag item -->
 
                             </div>
                         </div>
+
+
+                        <div class="col-md-6 col-xs-12 employee_inner_demo">
+                            <div class="col-md-12 col-xs-12 employee_inner_demo_first">
+                                <!--- 3 nov change col-md-6 into col-md-12-->
+
+                                <div class="col-md-6 col-xs-12 employee_inner_demo_second">
+                                    <p>Demo Company</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     *@
 
                 </div>
@@ -639,9 +638,9 @@
 
 </div>
 
-<div id="employeeSchdulerDialog" class="container" style="display:none;">
-    <div class="col-md-12" id="schdulerData" ng-app="Scheduler" ng-controller="SchedulerController" class="container" style="    padding-top: 40px;">
-        <div style="width:30%;float:left">
+<div id="employeeSchdulerDialog" class="container" style="display: none;">
+    <div class="col-md-12" id="schdulerData" ng-app="Scheduler" ng-controller="SchedulerController" class="container" style="padding-top: 40px;">
+        <div style="width: 30%; float: left">
             <div>
                 <button type="button" ng-click="SaveCalendarEventsToDatabase();">@ISEE.Resources.Resource.Save</button>
                 <div>
@@ -678,9 +677,14 @@
                     <div title="searchResult">
                         <div id="left_employee_window" class="col-sm-12 scroll_window">
                             <div ng-repeat="objCustomer in Customers" class="col-sm-12 col-xs-12 tab_box" ng-click="updatecalendarEvent(objCustomer)">
-                                @ISEE.Resources.Resource.FirstNameCus: 5675 <br>@ISEE.Resources.Resource.LastNameCus: {{objCustomer.LastName}} {{objCustomer.FirstName}}
-                                <br>@ISEE.Resources.Resource.City: {{objCustomer.CityDesc}}<br>@ISEE.Resources.Resource.Street: {{objCustomer.StreetDesc}}
-                                <br>@ISEE.Resources.Resource.Phone1: {{objCustomer.AreaPhone1}} {{objCustomer.Phone1}}
+                                @ISEE.Resources.Resource.FirstNameCus: 5675
+                                <br>
+                                @ISEE.Resources.Resource.LastNameCus: {{objCustomer.LastName}} {{objCustomer.FirstName}}
+                                <br>
+                                @ISEE.Resources.Resource.City: {{objCustomer.CityDesc}}<br>
+                                @ISEE.Resources.Resource.Street: {{objCustomer.StreetDesc}}
+                                <br>
+                                @ISEE.Resources.Resource.Phone1: {{objCustomer.AreaPhone1}} {{objCustomer.Phone1}}
                             </div>
 
                         </div>
@@ -693,19 +697,19 @@
             </div>
         </div>
         <div style="width: 70%; float: left">
-            <div style="height:700px;width:900px;margin:0 auto">
+            <div style="height: 700px; width: 900px; margin: 0 auto">
                 <script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
                 <script src="~/Scripts/dhtmlxScheduler/ext/dhtmlxscheduler_timeline.js"></script>
                 <link href="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.css" rel="stylesheet" />
-                <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+                <div id="scheduler_here" class="dhx_cal_container" style='width: 100%; height: 100%;'>
                     <div class="dhx_cal_navline">
                         <div class="dhx_cal_prev_button">&nbsp;</div>
                         <div class="dhx_cal_next_button">&nbsp;</div>
                         <div class="dhx_cal_today_button"></div>
                         <div class="dhx_cal_date"></div>
-                        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-                        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-                        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+                        <div class="dhx_cal_tab" name="day_tab" style="right: 204px;"></div>
+                        <div class="dhx_cal_tab" name="week_tab" style="right: 140px;"></div>
+                        <div class="dhx_cal_tab" name="month_tab" style="right: 76px;"></div>
                     </div>
                     <div class="dhx_cal_header"></div>
                     <div class="dhx_cal_data"></div>
@@ -854,7 +858,8 @@
         if (isTargetNode && !isSourceNode) { // external to internal drop
             if (!isCurrentNodeAdded) {
                 var node = {};
-                node.text = $(source).data("name");
+                var txt = $(source).find('td')[1];
+                node.text = $(txt).text();
                 node.id = newNodeID;
                 newNodeID = newNodeID - 1;
                 node.objectid = $(source).data("id");

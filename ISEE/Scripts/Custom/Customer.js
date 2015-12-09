@@ -522,8 +522,8 @@ function setInputValues() {
         $('#buildingCode').val(stringValidation(item[0].BuildingNumber));
         $('#zipcode').val(stringValidation(item[0].ZipCode));
         $('#visitInterval').val(stringValidation(item[0].VisitInterval));
-        $('#datepickerEndDay').val(stringValidation(item[0].EndDate));
-        $('#visitTime').val(stringValidation(item[0].VisitTime));
+        $('#datepickerEndDay input').val(stringValidation(item[0].EndDate));
+        $('#visitTime input').val(stringValidation(item[0].VisitTime));
         $('#nextVisitDatePicker').val(stringValidation(item[0].NextVisit));
         $('#inputMobile').val(stringValidation(item[0].Mobile));
         $('#inputMobile1').val(stringValidation(item[0].Mobile1));

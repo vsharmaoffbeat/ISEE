@@ -233,7 +233,7 @@ function searchEmployeeData() {
 function selectedEmployee(obj) {
     if (_employeeId == $(obj).attr('EmployeeId'))
         return false;
-
+    $('#ddlmanufacture').find('option[value=""]').remove();
     _employeeId = $(obj).attr('EmployeeId');
     setDefaultDDl();
     removeChange();
@@ -455,7 +455,7 @@ function updateEmployee() {
             dataType: "json",
             success: function (response) {
                 if (response) {
-                    alert("Updated Employee.");
+                   
                     saveTree();
                     $('#left_employee_window div').each(function () {
                         if ($(this).attr('EmployeeId') == _employeeId) {
@@ -643,7 +643,7 @@ function saveTree() {
                 treeJsonData = JSON.parse(result.NewTreeJson)
                 treeEmployeeJsonData = JSON.parse(result.NewTreeJson)
                 treeCustomerJsonData = JSON.parse(result.NewTreeJson)
-
+                alert("Updated Employee.");
                 // $scope.ShowMessageBox("Message", "Tree saved successfully.")
             }
             //else {

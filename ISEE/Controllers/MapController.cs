@@ -133,20 +133,56 @@ namespace ISEE.Controllers
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        public JsonResult GetCustomersForMap(int state, int city, int street, string buildingNumber, string companyName, string customerNumber)
+        public JsonResult GetCustomersForMap(int state, int city, int street, string building, string custNumber, string firstName, string lastName, string phone, string phone1, bool isActive)
         {
-            int factoryId = SessionManagement.FactoryID;
-            var custData = _facory.GetCustomersNew(factoryId, state, city, street, buildingNumber, customerNumber, companyName, null, null, null, true).Select(c => new
+            building = Common.Common.GetNullableValues(building);
+
+            custNumber = Common.Common.GetNullableValues(custNumber);
+            firstName = Common.Common.GetNullableValues(firstName);
+            lastName = Common.Common.GetNullableValues(lastName);
+            phone = Common.Common.GetNullableValues(phone);
+            phone1 = Common.Common.GetNullableValues(phone1);
+
+            var results = _facory.GetCustomersNew(SessionManagement.FactoryID, state, city, street, building, custNumber, firstName, lastName, phone, phone1, isActive).ToList().Select(x => new
             {
-                FirstName = c.FirstName ?? string.Empty,
-                CustomerId = c.CustomerId,
-                LastName = c.LastName ?? string.Empty,
-                AreaPhone1 = c.AreaPhone1 ?? string.Empty,
-                Phone1 = c.Phone1 ?? string.Empty,
-                CityName = c.Building.Street.City.CityDesc ?? string.Empty,
-                StateName = c.Building.Street.City.State.StateDesc ?? string.Empty,
+                CustomerId = x.CustomerId,
+                CustomerNumber = x.CustomerNumber,
+                FirstName = x.FirstName ?? "!@#$",
+                LastName = x.LastName ?? "!@#$",
+                Floor = x.Floor ?? "!@#$",
+                Apartment = x.Apartment ?? "!@#$",
+                AreaPhone1 = x.AreaPhone1 ?? "!@#$",
+                Phone1 = x.Phone1 ?? "!@#$",
+                AreaPhone2 = x.AreaPhone2 ?? "!@#$",
+                Phone2 = x.Phone2 ?? "!@#$",
+                AreaFax = x.AreaFax ?? "!@#$",
+                Fax = x.Fax ?? "!@#$",
+                Mail = x.Mail ?? "!@#$",
+                CustomerRemark1 = x.CustomerRemark1 ?? "!@#$",
+                CustomerRemark2 = x.CustomerRemark2 ?? "!@#$",
+                VisitInterval = x.VisitInterval ?? 0,
+                NextVisit = x.NextVisit == null ? "!@#$" : x.NextVisit.Value.ToString("dd/MM/yyyy"),
+                VisitDate = x.VisitDate ?? 0,
+                VisitTime = x.VisitTime ?? 0,
+                EndDate = x.EndDate == null ? "!@#$" : x.EndDate.Value.ToString("dd/MM/yyyy"),
+                Lat = x.Building.Lat,
+                BuildingCode = x.BuildingCode,
+                BuildingNumber = x.Building.Number ?? "!@#$",
+                Long = x.Building.Long,
+                ZipCode = x.Building.ZipCode,
+                StreetName = x.Building.Street.StreetDesc ?? "!@#$",
+                StreetId = x.Building.Street.StateCode,
+                CityId = x.Building.Street.City.CityCode,
+                CityName = x.Building.Street.City.CityDesc ?? "!@#$",
+                StateName = x.Building.Street.City.State.StateDesc ?? "!@#$",
+                StateId = x.Building.Street.City.State.StateCode,
+                Mobile = x.AreaCelolar ?? "!@#$",
+                Mobile1 = x.Celolar ?? "!@#$"
+
+
             }).ToList();
-            return new JsonResult { Data = custData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            return new JsonResult { Data = results, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public JsonResult GetCustomerForMapByCustomerID(string checkedcustomers)

@@ -37,7 +37,7 @@ schedulerModule.controller('SchedulerController', function ($scope, SchedulerSer
         dp.init(scheduler);
         dp.setTransactionMode("POST", false);
         var getEventsUrl = "/Calendar/Data?ID=" + _employeeId + "&startTime=" + $scope.schdulerStartTime + "&endTime=" + $scope.schdulerEndTime
-        scheduler.setLoadMode("month");
+        scheduler.setLoadMode("week");
         scheduler.load(getEventsUrl, "json");
     }
 

@@ -455,7 +455,7 @@ function updateEmployee() {
             dataType: "json",
             success: function (response) {
                 if (response) {
-                   
+
                     saveTree();
                     $('#left_employee_window div').each(function () {
                         if ($(this).attr('EmployeeId') == _employeeId) {
@@ -545,6 +545,9 @@ function showEmployeeScheduler() {
         $("#employeeSchdulerDialog").dialog({
             width: 1000,
             height: 600,
+            close: function (event, ui) {
+                $('#googleMap').dialog('close');
+            },
             open: function (event, ui) {
 
                 var appElement = document.querySelector('[ng-controller=SchedulerController]');
@@ -558,7 +561,6 @@ function showEmployeeScheduler() {
                 scheduler.config.start_on_monday = false;
                 scheduler.config.first_hour = new Date("1/1/2001 " + $scope.schdulerStartTime).getHours();
                 scheduler.config.last_hour = new Date("1/1/2001 " + $scope.schdulerEndTime).getHours();
-                scheduler.config.start_on_monday = true;
                 scheduler.config.dblclick_create = false; //false to create new event on double click
                 scheduler.config.details_on_dblclick = false;
                 scheduler.config.readonly = true;
@@ -577,7 +579,7 @@ function showEmployeeScheduler() {
                 /*Click of Event Rendered on Schdulerd*/
                 scheduler.attachEvent("onClick", function (id, e) {
                     //any custom logic here
-                    $("#searchSection").flip('toggle');
+                    $("#searchSection").flip('show');
                     if (parseInt(selectedEventID) > 0 && selectedEventID !== id) {
                         scheduler.load(getEventsUrl, "json");
                     }
@@ -592,6 +594,9 @@ function showEmployeeScheduler() {
                         var lat = scheduler.getEvent(id).latitude;
                         var long = scheduler.getEvent(id).longtitude;
 
+                        if ($('#googleMap').length > 0) {
+                            $('#googleMap').remove();
+                        }
 
 
                         $("<div id='googleMap' style'width:500px;height:380px;'></div>").dialog(

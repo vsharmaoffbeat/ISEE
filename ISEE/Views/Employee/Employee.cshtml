@@ -743,7 +743,7 @@
 <script>
     var _employeeId = 0;
 
-    $("#searchSection").flip();
+    
     var employeeId = '@ViewBag.EmployeeID'
     var todayDate = '@DateTime.Now.ToShortDateString()'
 
@@ -789,6 +789,7 @@
     var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
     var defaultTreeJsonData = JSON.parse('@Html.Raw(ViewBag.DefaultTreeJsonData)');
     $(document).ready(function () {
+        $("#searchSection").flip();
         var objEmployeeTree = {};
         createTree(defaultTreeJsonData, false);
     });

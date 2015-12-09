@@ -202,7 +202,7 @@ function searchRequestCustData() {
                     $('<tr class="tg-dx8v" RequestSysIdLevel2="' + this.RequestSysIdLevel2 + '" RequestSysIdLevel1="' + this.RequestSysIdLevel1
                         + '" sysId="' + this.customerRequestId + '"> <td class="tg-dx8v"></td><td class="tg-dx8v">' + this.CreateDate + '</td><td class="tg-dx8v">' +
                         this.RequestDescCodeLevel1 + '</td><td class="tg-dx8v">' + this.RequestDescCodeLevel2 + '</td><td class="tg-dx8v">'
-                        + this.Request + '</td><td class="tg-dx8v">' + this.Treatment + '</td><td class="tg-dx8v">' + this.TreatmentDate + '</td></tr>').appendTo($('#tblrequest'));
+                        + this.Request + '</td><td class="tg-dx8v">' + this.TreatmentDate + '</td><td class="tg-dx8v">' + this.Treatment + '</td></tr>').appendTo($('#tblrequest'));
                 });
                 $('#tblrequest tr').dblclick(function () {
                     _requestSysIdLevel2 = $(this).attr('RequestSysIdLevel2');
@@ -211,11 +211,11 @@ function searchRequestCustData() {
                     $("#addClassifications").click();
                     $('#addmanufacture [value="' + $(this).attr('RequestSysIdLevel1') + '"]').attr('selected', true);
                     popUpClassificationEdit(_requestSysIdLevel1, _requestSysIdLevel2);
-                    $('#txtRequest').text($($(this).find('td')[4]).text())
-                    $('#txtTreatment').text($($(this).find('td')[5]).text())
+                    $('#txtRequest').val($($(this).find('td')[4]).text())
+                    $('#txtTreatment').val($($(this).find('td')[6]).text())
                     $('#datepicker6 input').val($($(this).find('td')[1]).text())
-                    $('#datepicker5 input').val($($(this).find('td')[6]).text())
-                    $('#saveClassification').attr("isActive", "false");
+                    $('#datepicker5 input').val($($(this).find('td')[5]).text())
+                    $('#saveClassification').attr("isActive", true);
                     $('#addmanufacture [value="' + $(this).attr('RequestSysIdLevel2') + '"]').attr('selected', true);
                     //do something with id
                 })
@@ -523,8 +523,8 @@ function setInputValues() {
         $('#zipcode').val(stringValidation(item[0].ZipCode));
         $('#visitInterval').val(stringValidation(item[0].VisitInterval));
         $('#datepickerEndDay input').val(stringValidation(item[0].EndDate));
-        $('#visitTime input').val(stringValidation(item[0].VisitTime));
-        $('#nextVisitDatePicker').val(stringValidation(item[0].NextVisit));
+        $('#visitTime').val(stringValidation(item[0].VisitTime));
+        $('#nextVisitDatePicker input').val(stringValidation(item[0].NextVisit));
         $('#inputMobile').val(stringValidation(item[0].Mobile));
         $('#inputMobile1').val(stringValidation(item[0].Mobile1));
         if (updatedAddress != undefined && updatedAddress != null && !$.isEmptyObject(updatedAddress)) {
@@ -650,7 +650,7 @@ function updateCustomer() {
                                 _customerArray[i].CustomerRemark1 = data.cRemarks1;
                                 _customerArray[i].CustomerRemark2 = data.cRemarks2;
                                 _customerArray[i].VisitInterval = data.cvisitInterval;
-
+                                _customerArray[i].VisitTime = data.cvisitTime;
                                 _customerArray[i].BuildingCode = data.cbuildingCode;
                                 _customerArray[i].BuildingNumber = data.cbuildingNumber;
                                 _customerArray[i].Mobile = data.cMobile;
@@ -766,7 +766,7 @@ function removeChange() {
 function stringValidation(val) {
     if (val == '' || val == 'null' || val == '!@#$' || val == null)
         return '';
-    if(!isNaN(val))
+    if (!isNaN(val))
         return val.toString().trim();
     return val.trim();
 }
@@ -837,12 +837,12 @@ function clearPopupMapFields() {
 
 
 function clearPopupReqFields() {
-    $('#txtRequest').text('')
-    $('#txtTreatment').text('')
+    $('#txtRequest').val('')
+    $('#txtTreatment').val('')
     $('#datepicker6 input').val('')
     $('#datepicker5 input').val('')
-    $('#saveClassification').attr("isActive", "true");
-    $('#addmanufacture [value=""]').attr('selected', true);
+    $('#saveClassification').attr("isActive", false);
+    $('#addmanufacture [value="-1"]').attr('selected', true);
     $('#addSecondary').empty();
     $('#datepicker6').datepicker('update', new Date());
 }

@@ -115,7 +115,7 @@ namespace ISEE.Controllers
         public JsonResult GetRequestCustomerByDate(int customerID, int fromyear, string from, string to, int level1, int level2)
         {
             var fromdate = Convert.ToDateTime(from);
-            var todate = Convert.ToDateTime(to);
+            var todate = Convert.ToDateTime(to).AddDays(1).AddMilliseconds(-1);
             //var customerID = this.ObjectContext.Customer.FirstOrDefault(x => x.CustomerKey == CustomerGuidID).CustomerId;
             using (ISEEEntities context = new ISEEEntities())
             {

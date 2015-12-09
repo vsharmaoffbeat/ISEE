@@ -454,7 +454,7 @@
                             <div class="col-xs-7">
                                 <label></label>
                                 <div class="form-group phone_no">
-                                    <input class="form-control isee_input  disabledClass" disabled id="inputMobile1" maxlength="10" name=""  title="" type="text" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputMobile1" maxlength="10" name="" title="" type="text" value="">
                                 </div>
                             </div>
                         </div>
@@ -475,7 +475,7 @@
                             <div class="col-xs-7">
                                 <label></label>
                                 <div class="form-group phone_no">
-                                    <input class="form-control isee_input  disabledClass" disabled id="inputFax1" maxlength="10" name=""  title="" type="text" value="">
+                                    <input class="form-control isee_input  disabledClass" disabled id="inputFax1" maxlength="10" name="" title="" type="text" value="">
                                 </div>
                             </div>
                         </div>
@@ -637,214 +637,436 @@
                                                 </div>
                                             </div>
 
-                                        </div>
+                                                </div>
 
 
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="usr">@ISEE.Resources.Resource.To</label>
-                                                <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
-                                                    <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
-                                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="usr">@ISEE.Resources.Resource.To</label>
+                                                        <div id="datepicker2" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
+                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="usr">@ISEE.Resources.Resource.Level1</label>
+                                                        <select class="form-control isee_select_option" id="mainClassificationDdl" onchange="Classification();">
+                                                            <option value="-1"></option>
+                                                            <option>@ISEE.Resources.Resource.SelectAll</option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="usr">@ISEE.Resources.Resource.Level2</label>
+                                                        <select class="form-control isee_select_option" id="secondClassification">
+                                                            <option value="-1"></option>
+                                                            <option>@ISEE.Resources.Resource.SelectAll</option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="col-md-4">
+
+                                                    <button type="button" class="btn btn-default" onclick="searchRequestCustData()">
+                                                        <img src="../images/img/search5.png" />
+                                                    </button>
+
+
+
+
+
+                                                    <button type="button" class="btn btn-default" id="addClassifications">
+                                                        <img src="../images/img/rsz_1edit_add.png" />
+                                                    </button>
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="col-md-12 left_content_area" style="overflow: auto;">
+                                                <div class="tg-wrap_content_tabs">
+                                                    <table class="tg" id="tblrequest" style="overflow: auto;">
+                                                        <tr>
+                                                            <th class="tg-z1n2"></th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Level1</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Level2</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Request</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.TreatmentDate</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Treatment</th>
+
+                                                        </tr>
+
+
+                                                    </table>
+
                                                 </div>
                                             </div>
 
-                                        </div>
 
 
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="usr">@ISEE.Resources.Resource.Level1</label>
-                                                <select class="form-control isee_select_option" id="mainClassificationDdl" onchange="Classification();">
-                                                    <option value="-1"></option>
-                                                    <option>@ISEE.Resources.Resource.SelectAll</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="usr">@ISEE.Resources.Resource.Level2</label>
-                                                <select class="form-control isee_select_option" id="secondClassification">
-                                                    <option value="-1"></option>
-                                                    <option>@ISEE.Resources.Resource.SelectAll</option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                    <option></option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <div class="col-md-4">
-
-                                            <button type="button" class="btn btn-default" onclick="searchRequestCustData()">
-                                                <img src="../images/img/search5.png" />
-                                            </button>
-
-
-
-
-
-                                            <button type="button" class="btn btn-default" id="addClassifications">
-                                                <img src="../images/img/rsz_1edit_add.png" />
-                                            </button>
-                                        </div>
-
-
-
-                                    </div>
-
-                                    <div class="col-md-12 left_content_area" style="overflow: auto;">
-                                        <div class="tg-wrap_content_tabs">
-                                            <table class="tg" id="tblrequest" style="overflow: auto;">
-                                                <tr>
-                                                    <th class="tg-z1n2"></th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Level1</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Level2</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Request</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.TreatmentDate</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Treatment</th>
-
-                                                </tr>
-
-
-                                            </table>
 
                                         </div>
                                     </div>
 
 
+                                    <div class="tab-pane" id="Visiting">
+                                        <div class="container sms_tabs">
 
 
-                                </div>
-                            </div>
+                                            <div class="col-md-12">
+
+                                                <div class="col-md-2">
+
+                                                    <div class="form-group">
+                                                        <label for="usr">@ISEE.Resources.Resource.From</label>
+                                                        <div id="datepicker3" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text">
+                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <div class="form-group">
+                                                        <label for="usr">@ISEE.Resources.Resource.To</label>
+                                                        <div id="datepicker4" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                            <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
+                                                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <button type="button" class="btn btn-default" onclick="GetEmployeesToCustomerFilter()">
+                                                        <img src="../images/img/search5.png" />
+                                                    </button>
+                                                </div>
 
 
-                            <div class="tab-pane" id="Visiting">
-                                <div class="container sms_tabs">
+                                                <div class="col-md-6"></div>
 
 
-                                    <div class="col-md-12">
 
-                                        <div class="col-md-2">
+                                            </div>
 
-                                            <div class="form-group">
-                                                <label for="usr">@ISEE.Resources.Resource.From</label>
-                                                <div id="datepicker3" class="input-group date" data-date-format="mm-dd-yyyy">
-                                                    <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text">
-                                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                            <div class="col-md-12 left_content_area" style="overflow: auto;">
+                                                <div class="tg-wrap_content_tabs" id="tblVisiting">
+                                                    <table class="tg">
+                                                        <tr>
+                                                            <th class="tg-z1n2"></th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Time</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Employee_N</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.Employee</th>
+                                                            <th class="tg-z1n2">@ISEE.Resources.Resource.InsertStatus</th>
+
+                                                        </tr>
+
+
+                                                    </table>
+
                                                 </div>
                                             </div>
 
+
+
+
                                         </div>
 
-                                        <div class="col-md-2">
 
-                                            <div class="form-group">
-                                                <label for="usr">@ISEE.Resources.Resource.To</label>
-                                                <div id="datepicker4" class="input-group date" data-date-format="mm-dd-yyyy">
-                                                    <input class="form-control isee_input ng-valid ng-dirty ng-valid-parse ng-touched" type="text" value="" ng-model="employeeInfo.startDay">
-                                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                                </div>
+                                    </div>
+
+
+                                    <div class="tab-pane" id="Tree">
+                                        <div class="container sms_tabs">
+                                            <div class="col-md-6">
+                                                <div id="jstree_Customer_div"></div>
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-6">
 
-                                        <div class="col-md-2">
+                                                <div class="container right_content_tabs_window" id="customerDrag">
+                                                    <div class="tree_tg-wrap" style="width: 33% !important;">
+                                                        <table class="tree_tg" id="newCustomerGrid">
 
-                                            <button type="button" class="btn btn-default" onclick="GetEmployeesToCustomerFilter()">
-                                                <img src="../images/img/search5.png" />
-                                            </button>
-                                        </div>
-
-
-                                        <div class="col-md-6"></div>
-
-
-
-                                    </div>
-
-                                    <div class="col-md-12 left_content_area" style="overflow: auto;">
-                                        <div class="tg-wrap_content_tabs" id="tblVisiting">
-                                            <table class="tg">
-                                                <tr>
-                                                    <th class="tg-z1n2"></th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Date</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Time</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Employee_N</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.Employee</th>
-                                                    <th class="tg-z1n2">@ISEE.Resources.Resource.InsertStatus</th>
-
-                                                </tr>
-
-
-                                            </table>
-
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="tab-pane" id="Tree">
-                                <div class="container sms_tabs">
-                                    <div class="col-md-6">
-                                        <div id="jstree_Customer_div"></div>
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="container right_content_tabs_window" id="customerDrag">
-                                            <div class="tree_tg-wrap" style="width: 33% !important;">
-                                                <table class="tree_tg" id="newCustomerGrid">
-
-                                                    <tr data-oid='' data-id='' data-name='' data-type="customer" class="easytree-draggable">
-                                                        <td class="tg-dx8v_category">
-                                                            <i></i>
-                                                            @*<span style="display: none;" id='{gridOption.employeeID}'>{{NewAddedEmployee.employeeID}}</span>*@
+                                                            <tr data-oid='' data-id='' data-name='' data-type="customer" class="easytree-draggable">
+                                                                <td class="tg-dx8v_category">
+                                                                    <i></i>
+                                                                    @*<span style="display: none;" id='{gridOption.employeeID}'>{{NewAddedEmployee.employeeID}}</span>*@
                                                             <span style="display: none;" id=''></span>
-                                                        </td>
-                                                        @*<td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
-                                                            </td>
-                                                            <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
-                                                            </td>
-                                                        *@
+                                                                </td>
+                                                                @*<td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.LastName}}&nbsp;{{NewAddedEmployee.FirstName}}
+                                                                </td>
+                                                                <td class="tg-dx8v_category" style="text-align: left !important;">{{NewAddedEmployee.MainAreaPhone}}-{{NewAddedEmployee.MainPhone}}
+                                                                </td>
+                                                                *@
                                                         <td class="tg-dx8v_category" style="text-align: left !important;"></td>
-                                                        <td class="tg-dx8v_category" style="text-align: left !important;"></td>
-                                                    </tr>
-                                                </table>
+                                                                <td class="tg-dx8v_category" style="text-align: left !important;"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+
+                                                    @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
+                                                </div>
+
                                             </div>
-
-                                            @*<input class="form-control isee_input tree_input-tabs" id="" maxlength="50" name="phone2" type="text" value="" required />*@
                                         </div>
-
                                     </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <!------------Change address popup window--------------->
+
+
+
+
+
+        <div id="overlay" class="web_dialog_overlay"></div>
+
+        <div id="dialog" class="web_dialog">
+            <table style="width: 100%; border: 0px;" cellpadding="3" cellspacing="0">
+                <tr>
+                    <td class="web_dialog_title"></td>
+                    <td class="web_dialog_title align_right">
+                        <a href="#" id="btnClose"><i class="fa fa-close"></i></a>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="container">
+
+                <div class="col-sm-6 left_popup">
+
+                    <div class="container customer_popup_tab">
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.State</label>
+                            <input id="inputState" type="text" class="form-control isee_input" onblur="GetCitysByState()">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.City</label>
+                            <input id="inputCity" type="text" class="form-control isee_input" onblur="GetStreetByCity()">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.Street</label>
+                            <input id="inputStreet" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.BuildingNum</label>
+                            <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.Entry</label>
+                            <input class="form-control isee_input" id="inputEntry" type="text" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@ISEE.Resources.Resource.ZipCode</label>
+                            <input class="form-control isee_input" id="inputZipCode" type="tel" value="">
+                        </div>
+
+                        <button type="button" id="btnupdateAddress" class="btn btn-default pull-right send_application isee_select_button" onclick="InsertAddress()">@ISEE.Resources.Resource.UpdateAdress</button>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 right_popup">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div style="overflow: auto; height: 100px">
+                                <table id="MapHeaderGrid" class="tg">
+                                    <tr>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.Country</th>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.State</th>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.City</th>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.Street</th>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.BuildingNum</th>
+                                        <th class="tg-z1n2">@ISEE.Resources.Resource.FullAddress</th>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="map_canvas" style="min-height: 250px; min-width: 450px !important"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="container">
+                        <div class="col-md-9"></div>
+
+                        <div class="col-md-3">
+                            <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
+                            <button type="button" id="btnClose" onclick="closeDialog()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!------------Popup end--------------->
+        <!------------Classification PopUp--------------->
+
+        <form id="form1" runat="server">
+
+            <div id="Rqstab" class="Request_tab_popup"></div>
+
+            <div id="Dialogtab" class="Rqst_web_dialog">
+                <table style="width: 100%; border: 0px;" cellpadding="3" cellspacing="0">
+                    <tr>
+                        <td class="Rqst_dialog_title"></td>
+                        <td class="Rqst_dialog_title align_right">
+                            <a href="#" id="btnClose"><i class="fa fa-close"></i></a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="container Request_main_div">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="usr">@ISEE.Resources.Resource.Level1</label>
+                                    <select class="form-control isee_select_option" id="addmanufacture" onchange="popUpClassification()"></select>
                                 </div>
                             </div>
 
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="usr">@ISEE.Resources.Resource.Level2</label>
+                                    <select class="form-control isee_select_option" id="addSecondary">
+                                        <option value="-1"></option>
 
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="usr">@ISEE.Resources.Resource.Request</label>
+                                <div id="datepicker6" class="input-group date" data-date-format="mm-dd-yyyy">
+                                    <input class="form-control isee_input" type="text" id="" title="" value="" />
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <textarea class="col-md-12 rqst_areatext" id="txtRequest" name="" type="" value=""></textarea>
+
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="usr">@ISEE.Resources.Resource.Treatment</label>
+                                <div id="datepicker5" class="input-group date" data-date-format="mm-dd-yyyy">
+                                    <input class="form-control isee_input" type="text" id="" title="" value="" />
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            <textarea class="col-md-12 rqst_areatext" id="txtTreatment" name="" type="" value=""></textarea>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-9"></div>
+
+                        <div class="col-md-3">
+                            <button type="button" id="saveClassification" class="btn btn-default isee_select_button" isactive="false">@ISEE.Resources.Resource.OK</button>
+                            <button type="button" id="Closebtn" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
                         </div>
 
 
@@ -853,458 +1075,239 @@
                 </div>
 
             </div>
+        </form>
 
-        </div>
-    </div>
 
-</div>
 
 
 
 
-<!------------Change address popup window--------------->
+        <!------------END--------------->
 
 
 
 
+        <script type="text/javascript">
 
-<div id="overlay" class="web_dialog_overlay"></div>
-
-<div id="dialog" class="web_dialog">
-    <table style="width: 100%; border: 0px;" cellpadding="3" cellspacing="0">
-        <tr>
-            <td class="web_dialog_title"></td>
-            <td class="web_dialog_title align_right">
-                <a href="#" id="btnClose"><i class="fa fa-close"></i></a>
-            </td>
-        </tr>
-    </table>
-
-    <div class="container">
-
-        <div class="col-sm-6 left_popup">
-
-            <div class="container customer_popup_tab">
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.State</label>
-                    <input id="inputState" type="text" class="form-control isee_input" onblur="GetCitysByState()">
-                </div>
-
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.City</label>
-                    <input id="inputCity" type="text" class="form-control isee_input" onblur="GetStreetByCity()">
-                </div>
-
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.Street</label>
-                    <input id="inputStreet" type="text" onblur="GetAllBuildingsByCity()" class="form-control isee_input">
-                </div>
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.BuildingNum</label>
-                    <input id="inputBuldingNumber" onblur="GetSelectedBuildingLatLong()" type="text" class="form-control isee_input">
-                </div>
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.Entry</label>
-                    <input class="form-control isee_input" id="inputEntry" type="text" value="">
-                </div>
-
-                <div class="form-group">
-                    <label>@ISEE.Resources.Resource.ZipCode</label>
-                    <input class="form-control isee_input" id="inputZipCode" type="tel" value="">
-                </div>
-
-                <button type="button" id="btnupdateAddress" class="btn btn-default pull-right send_application isee_select_button" onclick="InsertAddress()">@ISEE.Resources.Resource.UpdateAdress</button>
-
-            </div>
-
-        </div>
-
-        <div class="col-sm-6 right_popup">
-            <div class="row">
-                <div class="col-md-12">
-                    <div style="overflow: auto; height: 100px">
-                        <table id="MapHeaderGrid" class="tg">
-                            <tr>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.Country</th>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.State</th>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.City</th>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.Street</th>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.BuildingNum</th>
-                                <th class="tg-z1n2">@ISEE.Resources.Resource.FullAddress</th>
-                            </tr>
-
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="map_canvas" style="min-height: 250px; min-width: 450px !important"></div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="container">
-                <div class="col-md-9"></div>
-
-                <div class="col-md-3">
-                    <button type="button" id="" onclick="OnInsertAddressOkClick()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.OK</button>
-                    <button type="button" id="btnClose" onclick="closeDialog()" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!------------Popup end--------------->
-<!------------Classification PopUp--------------->
-
-<form id="form1" runat="server">
-
-    <div id="Rqstab" class="Request_tab_popup"></div>
-
-    <div id="Dialogtab" class="Rqst_web_dialog">
-        <table style="width: 100%; border: 0px;" cellpadding="3" cellspacing="0">
-            <tr>
-                <td class="Rqst_dialog_title"></td>
-                <td class="Rqst_dialog_title align_right">
-                    <a href="#" id="btnClose"><i class="fa fa-close"></i></a>
-                </td>
-            </tr>
-        </table>
-
-        <div class="container Request_main_div">
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="usr">@ISEE.Resources.Resource.Level1</label>
-                            <select class="form-control isee_select_option" id="addmanufacture" onchange="popUpClassification()"></select>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="usr">@ISEE.Resources.Resource.Level2</label>
-                            <select class="form-control isee_select_option" id="addSecondary">
-                                <option value="-1"></option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-3"></div>
-
-                    <div class="col-sm-2"></div>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="usr">@ISEE.Resources.Resource.Request</label>
-                        <div id="datepicker6" class="input-group date" data-date-format="mm-dd-yyyy">
-                            <input class="form-control isee_input" type="text" id="" title="" value="" />
-                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-9">
-
-                    <textarea class="col-md-12 rqst_areatext" id="txtRequest" name="" type="" value=""></textarea>
-
-                </div>
-            </div>
-
-            <hr />
-
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="usr">@ISEE.Resources.Resource.Treatment</label>
-                        <div id="datepicker5" class="input-group date" data-date-format="mm-dd-yyyy">
-                            <input class="form-control isee_input" type="text" id="" title="" value="" />
-                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-9">
-
-                    <textarea class="col-md-12 rqst_areatext" id="txtTreatment" name="" type="" value=""></textarea>
-
-                </div>
-            </div>
-
-
-
-
-
-
-            <div class="row">
-
-                <div class="col-md-9"></div>
-
-                <div class="col-md-3">
-                    <button type="button" id="saveClassification" class="btn btn-default isee_select_button" isactive="true">@ISEE.Resources.Resource.OK</button>
-                    <button type="button" id="Closebtn" class="btn btn-default isee_select_button">@ISEE.Resources.Resource.Cancel</button>
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </div>
-</form>
-
-
-
-
-
-
-<!------------END--------------->
-
-
-
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#saveClassification").click(function (e) {
-            if (parseInt($('#addmanufacture :selected').val()) <= 0 || parseInt($('#addSecondary :selected').val()) <= 0 || $('#datepicker6 input').val() == '') {
-                alert("Please select Secondary Classification");
-                return false;
-            }
-            else {
-                if ($('#txtRequest').val().trim() == '')
-                    return false;
-                //function SaveClassification() {
-                //    txtTreatment
-                //}
-                if ($('#saveClassification').attr('isActive')) {
-                    data = { customerID: _customerId, requestDate: $('#datepicker6 input').val(), level2: parseInt($('#addSecondary :selected').val()), request: $('#txtRequest').val(), treatment: $('#txtTreatment').val(), treatmentDate: $('#datepicker5 input').val(), requestSysIdLevel1: _requestSysIdLevel1, requestSysIdLevel2: _requestSysIdLevel2, sysId: _sysId }
-                    $.ajax({
-                        type: "POST",
-                        url: "/Customer/UpdateClassificationRequestCustomerByDate",
-                        data: data,
-                        success: function (response) {
-                            debugger;
-                            if (response) {
-                                searchRequestCustData();
-                                alert("Save succesfully");
-                                HideDialogR();
-                            } else
-                                alert("Failed to Save");
-
-                        }
-                    })
-                }
-                data = { customerID: _customerId, requestDate: $('#datepicker6 input').val(), level2: parseInt($('#addSecondary :selected').val()), request: $('#txtRequest').val(), treatment: $('#txtTreatment').val(), treatmentDate: $('#datepicker5 input').val() }
-                $.ajax({
-                    type: "POST",
-                    url: "/Customer/SaveClassificationRequestCustomerByDate",
-                    data: data,
-                    success: function (response) {
-                        debugger;
-                        if (response) {
-                            searchRequestCustData();
-                            alert("Save succesfully");
-                            HideDialogR();
-                        } else
-                            alert("Failed to Save");
-
+            $(document).ready(function () {
+                $("#saveClassification").click(function (e) {
+                    if (parseInt($('#addmanufacture :selected').val()) <= 0 || parseInt($('#addSecondary :selected').val()) <= 0 || $('#datepicker6 input').val() == '') {
+                        alert("Please select Secondary Classification");
+                        return false;
                     }
-                })
-            }
+                    else {
+                        if ($('#txtRequest').val().trim() == '')
+                            return false;
+                        //function SaveClassification() {
+                        //    txtTreatment
+                        //}
+                        if ($('#saveClassification').attr('isActive') == "true") {
+                            data = { customerID: _customerId, requestDate: $('#datepicker6 input').val(), level2: parseInt($('#addSecondary :selected').val()), request: $('#txtRequest').val(), treatment: $('#txtTreatment').val(), treatmentDate: $('#datepicker5 input').val(), requestSysIdLevel1: _requestSysIdLevel1, requestSysIdLevel2: _requestSysIdLevel2, sysId: _sysId }
+                            $.ajax({
+                                type: "POST",
+                                url: "/Customer/UpdateClassificationRequestCustomerByDate",
+                                data: data,
+                                success: function (response) {
+                                    debugger;
+                                    if (response) {
+                                        searchRequestCustData();
+                                        alert("Save succesfully");
+                                        HideDialogR();
+                                    } else
+                                        alert("Failed to Save");
+                                    return false;
+                                }
 
-        });
-        $("#btnShowSimple").click(function (e) {
-            if (parseInt(_customerId) > 0) {
-                _existingAddress = {};
-                GetAllStatesByCountry();
-                bindTableRowClick();
-                ShowDialog(false);
-                e.preventDefault();
-            }
-            else
-                alert('Must select customer');
-        });
+                            })
+                        }
+                        else {
+                            data = { customerID: _customerId, requestDate: $('#datepicker6 input').val(), level2: parseInt($('#addSecondary :selected').val()), request: $('#txtRequest').val(), treatment: $('#txtTreatment').val(), treatmentDate: $('#datepicker5 input').val() }
+                            $.ajax({
+                                type: "POST",
+                                url: "/Customer/SaveClassificationRequestCustomerByDate",
+                                data: data,
+                                success: function (response) {
+                                    debugger;
+                                    if (response) {
+                                        searchRequestCustData();
+                                        alert("Save succesfully");
+                                        HideDialogR();
+                                    } else
+                                        alert("Failed to Save");
 
-        $("#btnClose").click(function (e) {
-            HideDialog();
-            e.preventDefault();
-        });
-        $("#overlay").click(function (e) {
-            return false;
-        });
+                                }
+                            })
+                        }
+                    }
+
+                });
+                $("#btnShowSimple").click(function (e) {
+                    if (parseInt(_customerId) > 0) {
+                        _existingAddress = {};
+                        GetAllStatesByCountry();
+                        bindTableRowClick();
+                        ShowDialog(false);
+                        e.preventDefault();
+                    }
+                    else
+                        alert('Must select customer');
+                });
+
+                $("#btnClose").click(function (e) {
+                    HideDialog();
+                    e.preventDefault();
+                });
+                $("#overlay").click(function (e) {
+                    return false;
+                });
 
 
-        $("#btnCancel").click(function (e) {
-            HideDialog();
-            e.preventDefault();
-        });
+                $("#btnCancel").click(function (e) {
+                    HideDialog();
+                    e.preventDefault();
+                });
 
-        $("#addClassifications").click(function (e) {
-            clearPopupReqFields();
-            ShowDialogR(false);
-            e.preventDefault();
-        });
+                $("#addClassifications").click(function (e) {
+                    clearPopupReqFields();
+                    ShowDialogR(false);
+                    e.preventDefault();
+                });
 
-        $("#Closebtn").click(function (e) {
-            HideDialogR();
-            clearPopupReqFields();
-            e.preventDefault();
-        });
+                $("#Closebtn").click(function (e) {
+                    HideDialogR();
+                    clearPopupReqFields();
+                    e.preventDefault();
+                });
 
 
 
-        //$("#Closebtn").click(function (e) {
-        //    HideDialogR();
-        //    e.preventDefault();
-        //});
-    });
-
-    function ShowDialog(modal) {
-        $("#overlay").show();
-        clearPopupMapFields();
-        $("#dialog").fadeIn(300);
-
-        if (modal) {
-            $("#overlay").unbind("click");
-        }
-        else {
-            $("#overlay").click(function (e) {
-                return false;
+                //$("#Closebtn").click(function (e) {
+                //    HideDialogR();
+                //    e.preventDefault();
+                //});
             });
-        }
-    }
 
-    function HideDialog() {
-        $("#overlay").hide();
-        $("#dialog").fadeOut(300);
-    }
+            function ShowDialog(modal) {
+                $("#overlay").show();
+                clearPopupMapFields();
+                $("#dialog").fadeIn(300);
 
-
-    function ShowDialogR(modal) {
-        $("#Rqstab").show();
-        $("#Dialogtab").fadeIn(300);
-
-        if (modal) {
-            $("#Rqstab").unbind("click");
-        }
-        else {
-            $("#Rqstab").click(function (e) {
-                HideDialogR();
-            });
-        }
-    }
-
-    function HideDialogR() {
-        $("#Rqstab").hide();
-        $("#Dialogtab").fadeOut(300);
-    }
-
-
-    var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
-    var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
-    var defaultTreeJsonData = JSON.parse('@Html.Raw(ViewBag.DefaultTreeJsonData)');
-    var objCustomerTree = {};
-    $(document).ready(function () {
-      
-        createTree(defaultTreeJsonData, false);
-    });
-    var newNodeID = -1000;
-    function IsNodeExist(NodeChildrenArray, source) {
-        var item = $.grep(NodeChildrenArray, function (v) {
-            return v.objectid === $(source).data("id");
-        })
-        if (item.length > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    function canDropCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
-        if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
-            return source.href ? true : false;
-        }
-        if (isTargetNode) {
-            if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
-                return false;
-            }
-            if (($(source).data("type") == "customer") && target.objecttype == "employee") {
-                return false;
-            }
-            if (($(source).data("type") == "employee") && target.objecttype == "customer") {
-                return false;
-            }
-            if (target.objecttype == undefined) {
-                return false;
-            }
-            if (target.children != null && IsNodeExist(target.children, source)) {
-                return false;
-            }
-            isCurrentNodeAdded = false;
-            return true;
-        }
-    }
-    function droppingCustomer(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
-        if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
-            //  alertMessage("Dropping node rejected '" + source.text + "'");
-        }
-    }
-
-    function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
-        // internal to external drop
-        if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
-            //  alertMessage("Dropped node accepted '" + source.text + "'");
-        }
-        if (isSourceNode && isTargetNode) { // internal to internal drop
-            // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
-        }
-        if (isTargetNode && !isSourceNode) { // external to internal drop
-            if (!isCurrentNodeAdded) {
-                var node = {};
-                node.text = $(source).data("name");
-                node.id = newNodeID;
-                newNodeID = newNodeID - 1;
-                node.objectid = $(source).data("id");
-                node.objecttype = $(source).data("type");
-                if (node.objecttype == "employee") {
-                    node.iconUrl = "/images/img/employee_16.png";
-                } else {
-                    node.iconUrl = "/images/img/customer_16.png";
+                if (modal) {
+                    $("#overlay").unbind("click");
                 }
-
-                //    objTree.addNode(node, target.id);
-                //  objEmployeeTree.addNode(node, target.id);
-                objCustomerTree.addNode(node, target.id);
-
-                isCurrentNodeAdded = true;
+                else {
+                    $("#overlay").click(function (e) {
+                        return false;
+                    });
+                }
             }
-        }
-    }
 
-</script>
+            function HideDialog() {
+                $("#overlay").hide();
+                $("#dialog").fadeOut(300);
+            }
+
+
+            function ShowDialogR(modal) {
+                $("#Rqstab").show();
+                $("#Dialogtab").fadeIn(300);
+
+                if (modal) {
+                    $("#Rqstab").unbind("click");
+                }
+                else {
+                    $("#Rqstab").click(function (e) {
+                        HideDialogR();
+                    });
+                }
+            }
+
+            function HideDialogR() {
+                $("#Rqstab").hide();
+                $("#Dialogtab").fadeOut(300);
+            }
+
+
+            var manufacture = JSON.parse('@Html.Raw(ViewBag.JsonData)');
+            var treeJsonData = JSON.parse('@Html.Raw(ViewBag.TreeJsonData)');
+            var defaultTreeJsonData = JSON.parse('@Html.Raw(ViewBag.DefaultTreeJsonData)');
+            var objCustomerTree = {};
+            $(document).ready(function () {
+
+                createTree(defaultTreeJsonData, false);
+            });
+            var newNodeID = -1000;
+            function IsNodeExist(NodeChildrenArray, source) {
+                var item = $.grep(NodeChildrenArray, function (v) {
+                    return v.objectid === $(source).data("id");
+                })
+                if (item.length > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+
+            function canDropCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+                if (!isTargetNode && target.id == 'divAcceptHref' && isSourceNode) {
+                    return source.href ? true : false;
+                }
+                if (isTargetNode) {
+                    if (($(source).data("type") == "employee" || $(source).data("type") == "customer") && $(source).data("type") == target.objecttype) {
+                        return false;
+                    }
+                    if (($(source).data("type") == "customer") && target.objecttype == "employee") {
+                        return false;
+                    }
+                    if (($(source).data("type") == "employee") && target.objecttype == "customer") {
+                        return false;
+                    }
+                    if (target.objecttype == undefined) {
+                        return false;
+                    }
+                    if (target.children != null && IsNodeExist(target.children, source)) {
+                        return false;
+                    }
+                    isCurrentNodeAdded = false;
+                    return true;
+                }
+            }
+            function droppingCustomer(event, nodes, isSourceNode, source, isTargetNode, target, canDrop) {
+                if (isSourceNode && !canDrop && target && (!isTargetNode && (target.id == 'divRejectAll' || target.id == 'divAcceptHref'))) {
+                    //  alertMessage("Dropping node rejected '" + source.text + "'");
+                }
+            }
+
+            function droppedCustomer(event, nodes, isSourceNode, source, isTargetNode, target) {
+                // internal to external drop
+                if (isSourceNode && target && (!isTargetNode && (target.id == 'divAcceptAll' || target.id == 'divAcceptHref'))) {
+                    //  alertMessage("Dropped node accepted '" + source.text + "'");
+                }
+                if (isSourceNode && isTargetNode) { // internal to internal drop
+                    // alertMessage("Internal drop accepted, '" + source.text + "'  --> '" + target.text + "'");
+                }
+                if (isTargetNode && !isSourceNode) { // external to internal drop
+                    if (!isCurrentNodeAdded) {
+                        var node = {};
+                        node.text = $(source).data("name");
+                        node.id = newNodeID;
+                        newNodeID = newNodeID - 1;
+                        node.objectid = $(source).data("id");
+                        node.objecttype = $(source).data("type");
+                        if (node.objecttype == "employee") {
+                            node.iconUrl = "/images/img/employee_16.png";
+                        } else {
+                            node.iconUrl = "/images/img/customer_16.png";
+                        }
+
+                        //    objTree.addNode(node, target.id);
+                        //  objEmployeeTree.addNode(node, target.id);
+                        objCustomerTree.addNode(node, target.id);
+
+                        isCurrentNodeAdded = true;
+                    }
+                }
+            }
+
+        </script>

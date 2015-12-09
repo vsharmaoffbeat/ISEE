@@ -18,14 +18,14 @@
             AddToSelectedCustomerDiv($(this).closest('.customerRow'));
         }
     });
-    GetAllStatesByCountry();
+
+    //GetAllStatesByCountry();
+
     var $datepicker = $("#dpDate");
     $datepicker.datepicker();
     $datepicker.datepicker('setDate', new Date());
-    $('#ddlcityinputCustomer').prop("disabled", true);
-    $('#ddlstreetinputCustomer').prop("disabled", true);
-    $('#ddlstreetinputCustomer').prop("disabled", true);
-    $('#ddlbuildinginputCustomer').prop("disabled", true);
+    $('#ddlcityinputCustomer,#ddlstreetinputCustomer,#ddlstreetinputCustomer,#ddlbuildinginputCustomer').prop("disabled", true);
+
 });
 
 
@@ -36,12 +36,6 @@ var _customerPositionArrayWithEmployee = [];
 var _custTitle = '';
 var _liverpool = '';
 var _polyLineArray = [];
-
-
-
-
-
-
 
 var _buildingLatLong = [];
 var _checkedCustomersforMap = '';
@@ -464,197 +458,267 @@ function ShowEmployee() {
     $("#searchSection").flip('toggle');
 }
 
-// To getting all the states that are in the logged user country 
-function GetAllStatesByCountry() {
-    _stateNames = [];
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetAllStatesByCountry",
-        success: function (response) {
-
-            if (response.length <= 1) {
-                $('#ddlstateinputcustomer').prop("disabled", true)
-                $('#ddlstateinputcustomer').val('');
-            } else {
-                $('#ddlstateinputcustomer').prop("disabled", false);
-            }
-            _statesArray = [];
-            $(response).each(function () {
-                if (_stateNames.indexOf(this.StateDesc.trim()) == -1) {
-                    _stateNames.push(this.StateDesc.trim());
-                }
-                _stateIds.push(this.StateCode);
-                _statesArray.push({ id: this.StateCode, name: this.StateDesc })
-            });
-
-            if (response.length <= 1) {
-                GetCitysByState(response[0].StateDesc);
-            }
-            $("#ddlstateinputcustomer").autocomplete({
-                source: _stateNames,
-                select: function (event, ui) {
-                    var label = ui.item.label;
-                    var value = ui.item.value;
-                    inputStateVal = ui.item.label;
-                    GetCitysByState(ui.item.label);
-                }
-            });
-        },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
-
-//// To getting all the citys by selected state.
-function GetCitysByState(state) {
-    _abliableDataForCityesName = [];
-    if (state == undefined) {
-        state = '';
-    }
-    if (GetIdByName(_statesArray, state) == 0) {
-        $('#ddlcityinputCustomer').val('');
-        $('#ddlstreetinputCustomer').val('');
-        $('#ddlbuildinginputCustomer').val('');
-        return false;
-    }
-    $('#ddlstreetinputCustomer').val('');
-    $('#ddlbuildinginputCustomer').val('');
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetAllCitysByState",
-        data: { stateID: GetIdByName(_statesArray, state) },
-        dataType: "json",
-        success: function (response) {
-            if (response.length <= 1) {
-                $('#ddlcityinputCustomer').prop("disabled", true)
-                $('#ddlcityinputCustomer').val('');
-            } else {
-                $('#ddlcityinputCustomer').prop("disabled", false);
-            }
-            if (response != null) {
-                _cityArray = [];
-                _abliableDataForCityesName = [];
-                $(response).each(function () {
-                    if (_abliableDataForCityesName.indexOf(this.CityDesc.trim()) == -1) {
-                        _abliableDataForCityesName.push(this.CityDesc.trim());
-                    }
-
-                    _abliableDataForCityesIds.push(this.CityCode);
-                    _cityArray.push({ id: this.CityCode, name: this.CityDesc })
-                });
-            }
-
-            $("#ddlcityinputCustomer").autocomplete({
-                source: _abliableDataForCityesName,
-                select: function (event, ui) {
-                    var label = ui.item.label;
-                    var value = ui.item.value;
-                    inputCityVal = ui.item.label;
-                    GetStreetByCity(ui.item.label);
-                }
-            });
-        },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
-
-//// To getting streets by selected city
-function GetStreetByCity(city) {
-    if (GetIdByName(_cityArray, city) == 0) {
-        _streetArray = [];
-        $('#ddlstreetinputCustomer').val('');
-        $('#ddlbuildinginputCustomer').val('');
-
-        return false;
-    }
-    $('#ddlstreetinputCustomer').val('');
-    $('#ddlbuildinginputCustomer').val('');
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetAllStreetByCity",
-        data: { cityID: GetIdByName(_cityArray, city) },
-        dataType: "json",
-        success: function (response) {
-            debugger;
-            if (response.length < 1) {
-                $('#ddlstreetinputCustomer').prop("disabled", true)
-                $('#ddlstreetinputCustomer').val('');
-            } else {
-                $('#ddlstreetinputCustomer').prop("disabled", false);
-            }
-            _streetArray = [];
-            if (response != null) {
-                $(response).each(function () {
-                    if (_abliableDataForStreetName.indexOf(this.Streetdesc.trim()) == -1) {
-                        _abliableDataForStreetName.push(this.Streetdesc.trim());
-                    }
-                    _abliableDataForStreetId.push(this.StreetCode);
-                    _streetArray.push({ id: this.StreetCode, name: this.Streetdesc })
-                });
-            }
-            $("#ddlstreetinputCustomer").autocomplete({
-                source: _abliableDataForStreetName,
-                select: function (event, ui) {
-                    var label = ui.item.label;
-                    var value = ui.item.value;
-                    inputStreetVal = ui.item.label;
-                    GetBuildingsByCity(ui.item.label, city);
-                }
-            });
+//Start 2015
 
 
+//// To getting all the states that are in the logged user country 
+//function GetAllStatesByCountry() {
+//    _stateNames = [];
+//    $.ajax({
+//        type: "POST",
+//        url: "/Data/GetAllStatesByCountry",
+//        success: function (response) {
 
-        },
-        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-    });
-}
+//            if (response.length <= 1) {
+//                $('#ddlstateinputcustomer').prop("disabled", true)
+//                $('#ddlstateinputcustomer').val('');
+//            } else {
+//                $('#ddlstateinputcustomer').prop("disabled", false);
+//            }
+//            _statesArray = [];
+//            $(response).each(function () {
+//                if (_stateNames.indexOf(this.StateDesc.trim()) == -1) {
+//                    _stateNames.push(this.StateDesc.trim());
+//                }
+//                _stateIds.push(this.StateCode);
+//                _statesArray.push({ id: this.StateCode, name: this.StateDesc })
+//            });
+
+//            if (response.length <= 1) {
+//                GetCitysByState(response[0].StateDesc);
+//            }
+//            $("#ddlstateinputcustomer").autocomplete({
+//                source: _stateNames,
+//                select: function (event, ui) {
+//                    var label = ui.item.label;
+//                    var value = ui.item.value;
+//                    inputStateVal = ui.item.label;
+//                    GetCitysByState(ui.item.label);
+//                }
+//            });
+//        },
+//        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+//    });
+//}
+
+////// To getting all the citys by selected state.
+//function GetCitysByState(state) {
+//    _abliableDataForCityesName = [];
+//    if (state == undefined) {
+//        state = '';
+//    }
+//    if (GetIdByName(_statesArray, state) == 0) {
+//        $('#ddlcityinputCustomer').val('');
+//        $('#ddlstreetinputCustomer').val('');
+//        $('#ddlbuildinginputCustomer').val('');
+//        return false;
+//    }
+//    $('#ddlstreetinputCustomer').val('');
+//    $('#ddlbuildinginputCustomer').val('');
+//    $.ajax({
+//        type: "POST",
+//        url: "/Data/GetAllCitysByState",
+//        data: { stateID: GetIdByName(_statesArray, state) },
+//        dataType: "json",
+//        success: function (response) {
+//            if (response.length <= 1) {
+//                $('#ddlcityinputCustomer').prop("disabled", true)
+//                $('#ddlcityinputCustomer').val('');
+//            } else {
+//                $('#ddlcityinputCustomer').prop("disabled", false);
+//            }
+//            if (response != null) {
+//                _cityArray = [];
+//                _abliableDataForCityesName = [];
+//                $(response).each(function () {
+//                    if (_abliableDataForCityesName.indexOf(this.CityDesc.trim()) == -1) {
+//                        _abliableDataForCityesName.push(this.CityDesc.trim());
+//                    }
+
+//                    _abliableDataForCityesIds.push(this.CityCode);
+//                    _cityArray.push({ id: this.CityCode, name: this.CityDesc })
+//                });
+//            }
+
+//            $("#ddlcityinputCustomer").autocomplete({
+//                source: _abliableDataForCityesName,
+//                select: function (event, ui) {
+//                    var label = ui.item.label;
+//                    var value = ui.item.value;
+//                    inputCityVal = ui.item.label;
+//                    GetStreetByCity(ui.item.label);
+//                }
+//            });
+//        },
+//        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+//    });
+//}
+
+////// To getting streets by selected city
+//function GetStreetByCity(city) {
+//    if (GetIdByName(_cityArray, city) == 0) {
+//        _streetArray = [];
+//        $('#ddlstreetinputCustomer').val('');
+//        $('#ddlbuildinginputCustomer').val('');
+
+//        return false;
+//    }
+//    $('#ddlstreetinputCustomer').val('');
+//    $('#ddlbuildinginputCustomer').val('');
+//    $.ajax({
+//        type: "POST",
+//        url: "/Data/GetAllStreetByCity",
+//        data: { cityID: GetIdByName(_cityArray, city) },
+//        dataType: "json",
+//        success: function (response) {
+//            debugger;
+//            if (response.length < 1) {
+//                $('#ddlstreetinputCustomer').prop("disabled", true)
+//                $('#ddlstreetinputCustomer').val('');
+//            } else {
+//                $('#ddlstreetinputCustomer').prop("disabled", false);
+//            }
+//            _streetArray = [];
+//            if (response != null) {
+//                $(response).each(function () {
+//                    if (_abliableDataForStreetName.indexOf(this.Streetdesc.trim()) == -1) {
+//                        _abliableDataForStreetName.push(this.Streetdesc.trim());
+//                    }
+//                    _abliableDataForStreetId.push(this.StreetCode);
+//                    _streetArray.push({ id: this.StreetCode, name: this.Streetdesc })
+//                });
+//            }
+//            $("#ddlstreetinputCustomer").autocomplete({
+//                source: _abliableDataForStreetName,
+//                select: function (event, ui) {
+//                    var label = ui.item.label;
+//                    var value = ui.item.value;
+//                    inputStreetVal = ui.item.label;
+//                    GetBuildingsByCity(ui.item.label, city);
+//                }
+//            });
 
 
-// To getting all buildings by selected city
-function GetBuildingsByCity(street, city) {
 
-    if (GetIdByName(_streetArray, street) == 0 && GetIdByName(_cityArray, city) == 0) {
-        _abliableDataForBuildingNumber = [];
-        _abliableDataForBuildingId = [];
-        _abliableDataForBuildingLat = [];
-        _abliableDataForBuildingLong = [];
+//        },
+//        //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+//    });
+//}
 
-        return false;
-    }
-    $('#ddlbuildinginputCustomer').val('');
-    $.ajax({
-        type: "POST",
-        url: "/Data/GetAllBuildingsByCity",
-        data: { streetID: GetIdByName(_streetArray, street), cityID: GetIdByName(_cityArray, city) },
-        dataType: "json",
-        success: function (response) {
-            if (response.length < 1) {
-                $('#ddlbuildinginputCustomer').prop("disabled", true)
-                $('#ddlbuildinginputCustomer').val('');
-            } else {
-                $('#ddlbuildinginputCustomer').prop("disabled", false);
-            }
-            if (response != null) {
-                _abliableDataForBuildingNumber = [];
-                _abliableDataForBuildingId = [];
-                _abliableDataForBuildingLat = [];
-                _abliableDataForBuildingLong = [];
-                $(response).each(function () {
-                    if (_abliableDataForBuildingNumber.indexOf(this.BuildingNumber.trim()) == -1) {
-                        _abliableDataForBuildingNumber.push(this.BuildingNumber.trim());
-                    }
-                    _abliableDataForBuildingId.push(this.BuildingCode);
-                    _buildingArray.push({ id: this.BuildingCode, name: this.BuildingNumber });
-                    _abliableDataForBuildingLat.push(this.BuildingLat);
-                    _abliableDataForBuildingLong.push(this.BuldingLong);
-                });
-                $("#ddlbuildinginputCustomer").autocomplete({
-                    source: _abliableDataForBuildingNumber,
-                });
-                GetSelectedBuildingLatLong();
-            }
-        },
-    });
-}
+
+//// To getting all buildings by selected city
+//function GetBuildingsByCity(street, city) {
+
+//    if (GetIdByName(_streetArray, street) == 0 && GetIdByName(_cityArray, city) == 0) {
+//        _abliableDataForBuildingNumber = [];
+//        _abliableDataForBuildingId = [];
+//        _abliableDataForBuildingLat = [];
+//        _abliableDataForBuildingLong = [];
+
+//        return false;
+//    }
+//    $('#ddlbuildinginputCustomer').val('');
+//    $.ajax({
+//        type: "POST",
+//        url: "/Data/GetAllBuildingsByCity",
+//        data: { streetID: GetIdByName(_streetArray, street), cityID: GetIdByName(_cityArray, city) },
+//        dataType: "json",
+//        success: function (response) {
+//            if (response.length < 1) {
+//                $('#ddlbuildinginputCustomer').prop("disabled", true)
+//                $('#ddlbuildinginputCustomer').val('');
+//            } else {
+//                $('#ddlbuildinginputCustomer').prop("disabled", false);
+//            }
+//            if (response != null) {
+//                _abliableDataForBuildingNumber = [];
+//                _abliableDataForBuildingId = [];
+//                _abliableDataForBuildingLat = [];
+//                _abliableDataForBuildingLong = [];
+//                $(response).each(function () {
+//                    if (_abliableDataForBuildingNumber.indexOf(this.BuildingNumber.trim()) == -1) {
+//                        _abliableDataForBuildingNumber.push(this.BuildingNumber.trim());
+//                    }
+//                    _abliableDataForBuildingId.push(this.BuildingCode);
+//                    _buildingArray.push({ id: this.BuildingCode, name: this.BuildingNumber });
+//                    _abliableDataForBuildingLat.push(this.BuildingLat);
+//                    _abliableDataForBuildingLong.push(this.BuldingLong);
+//                });
+//                $("#ddlbuildinginputCustomer").autocomplete({
+//                    source: _abliableDataForBuildingNumber,
+//                });
+//                GetSelectedBuildingLatLong();
+//            }
+//        },
+//    });
+//}
+
+
+//// To search customers by selected state,city,street,building,customernumber and companyname.
+//function SearchCustomers() {
+
+//    $('#selectedCustomer').html('');
+//    $('#selectedCustomer').css('display', 'none');
+//    var state = 0;
+//    var city = 0;
+//    var street = 0;
+//    var building = 0;
+
+//    if (GetIdByName(_statesArray, $('#ddlstateinputcustomer').val()) > 0)
+//        state = GetIdByName(_statesArray, $('#ddlstateinputcustomer').val());
+
+//    if (GetIdByName(_cityArray, $('#ddlcityinputCustomer').val()) > 0)
+//        city = GetIdByName(_cityArray, $('#ddlcityinputCustomer').val());
+
+//    if (GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val()) > 0)
+//        street = GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val());
+
+//    //if (GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val()) > 0) {
+//    //    building = GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val());
+//    //}
+
+//    if (street <= 0)
+//        $('#custStreet').val('');
+//    if (city <= 0)
+//        $('#custCity').val('');
+
+//    var data = { state: state, city: city, street: street, building: $('#ddlbuildinginputCustomer').val(), custNumber: $('#txtcustomernoInput').val().trim(), firstName: '', lastName: $('#txtcompanynameInputCustomer').val().trim(), phone: '', phone1: '', isActive: true }
+//    $.ajax({
+//        type: "POST",
+//        url: "/Customer/GetCustomerSarch",
+//        data: data,
+//        dataType: "json",
+//        success: function (response) {
+//            $("#tblmapsearchgridCustomer").html('');
+//            if (response.length > 0) {
+//                if (response != null) {
+//                    for (var i = 0; i < response.length; i++) {
+//                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId
+//                            + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName
+//                            + "' StreetName='" + response[i].StreetName
+//                            + "' CityName='" + response[i].CityName
+//                            + "' BuildingNumber='" + response[i].BuildingNumber
+//                            + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>"
+//                            + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName
+//                            + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>"
+//                            + response[i].StreetName + "</td></tr>");
+//                    }
+//                }
+//            }
+//            else {
+//                alert('No Records Founded');
+//                for (var i = 0; i < _custMarkers.length; i++) {
+//                    _custMarkers[i].setMap(null);
+//                }
+//                $("#tblmapsearchgridCustomer").html('');
+//                $('#selectedCustomer').html('');
+//                $('#selectedCustomer').css('display', 'none');
+//            }
+//        }
+//    })
+//};
+
+//end Comment 2015
 
 
 // To getting latittude and longitude of selected building 
@@ -666,61 +730,6 @@ function GetSelectedBuildingLatLong() {
 }
 
 
-// To search customers by selected state,city,street,building,customernumber and companyname.
-function SearchCustomers() {
-
-    $('#selectedCustomer').html('');
-    $('#selectedCustomer').css('display', 'none');
-    var state = 0;
-    var city = 0;
-    var street = 0;
-    var building = 0;
-
-    if (GetIdByName(_statesArray, $('#ddlstateinputcustomer').val()) > 0)
-        state = GetIdByName(_statesArray, $('#ddlstateinputcustomer').val());
-
-    if (GetIdByName(_cityArray, $('#ddlcityinputCustomer').val()) > 0)
-        city = GetIdByName(_cityArray, $('#ddlcityinputCustomer').val());
-
-    if (GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val()) > 0)
-        street = GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val());
-
-    //if (GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val()) > 0) {
-    //    building = GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val());
-    //}
-
-    if (street <= 0)
-        $('#custStreet').val('');
-    if (city <= 0)
-        $('#custCity').val('');
-
-    var data = { state: state, city: city, street: street, building: $('#ddlbuildinginputCustomer').val(), custNumber: $('#txtcustomernoInput').val().trim(), firstName: '', lastName: $('#txtcompanynameInputCustomer').val().trim(), phone: '', phone1: '', isActive: true }
-    $.ajax({
-        type: "POST",
-        url: "/Customer/GetCustomerSarch",
-        data: data,
-        dataType: "json",
-        success: function (response) {
-            $("#tblmapsearchgridCustomer").html('');
-            if (response.length > 0) {
-                if (response != null) {
-                    for (var i = 0; i < response.length; i++) {
-                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName + "' StreetName='" + response[i].StreetName + "' CityName='" + response[i].CityName + "' BuildingNumber='" + response[i].BuildingNumber + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>" + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>" + response[i].StreetName + "</td></tr>");
-                    }
-                }
-            }
-            else {
-                alert('No Records Founded');
-                for (var i = 0; i < _custMarkers.length; i++) {
-                    _custMarkers[i].setMap(null);
-                }
-                $("#tblmapsearchgridCustomer").html('');
-                $('#selectedCustomer').html('');
-                $('#selectedCustomer').css('display', 'none');
-            }
-        }
-    })
-};
 
 // To show selected customers on map 
 function ShowCustomerDataOnMap() {

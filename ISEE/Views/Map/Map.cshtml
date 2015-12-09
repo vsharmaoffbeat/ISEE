@@ -47,10 +47,10 @@
             </div>
 
             <div class="col-md-3 back" id="searchdivCustomer" style="background-color: white; display: block; left: 25px; overflow: auto">
-                @ISEE.Resources.Resource.State<input id="ddlstateinputcustomer" type="text" style="width:190px" /><br />
-                @ISEE.Resources.Resource.City<input id="ddlcityinputCustomer" type="text" style="width:190px" /><br />
-                @ISEE.Resources.Resource.Street<input id="ddlstreetinputCustomer" type="text" style="width:190px" /><br />
-                @ISEE.Resources.Resource.BuildingNum<input id="ddlbuildinginputCustomer"  type="text" width:190px" /><br />
+                @ISEE.Resources.Resource.State<input id="ddlstateinputcustomer" onblur="CheckSelectedState()" type="text" style="width:190px" /><br />
+                @ISEE.Resources.Resource.City<input id="ddlcityinputCustomer" onblur="CheckSelectedCity()" type="text" style="width:190px" /><br />
+                @ISEE.Resources.Resource.Street<input id="ddlstreetinputCustomer" onblur="CheckSelectedStreet()" type="text" style="width:190px" /><br />
+                @ISEE.Resources.Resource.BuildingNum<input id="ddlbuildinginputCustomer" type="text" width:190px" /><br />
                 @ISEE.Resources.Resource.FirstNameCus<input id="txtcompanynameInputCustomer" type="text" style="width:190px" /><br />
                 @ISEE.Resources.Resource.CustomerNum<input id="txtcustomernoInput" type="number" style="width:190px" /><br />
                 @ISEE.Resources.Resource.ResultSearch <button type="button" onclick="SearchCustomers()" id="btnsearchCustomer">@ISEE.Resources.Resource.ResultSearch</button>
@@ -84,7 +84,7 @@
         ShowEmployeeById(employeeID);
     }
     else if (customerID != "") {
-     //   LoadMapByCurrentLogedUser();
+        //   LoadMapByCurrentLogedUser();
         ShowCustomerById(customerID);
     }
     else {

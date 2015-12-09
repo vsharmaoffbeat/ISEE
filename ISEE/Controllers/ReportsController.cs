@@ -109,62 +109,26 @@ namespace ISEE.Controllers
 
             switch (reportName)
             {
-                case "EmployeeSms":
-                    //        var companyLogo = ReportParameters["CompanyLogo"].Value;
-
-                    //if (companyLogo != null)
-                    //{
-                    //    pictureBox2.Value = "http://isee1.blob.core.windows.net/logo/" + companyLogo;
-                    //    pictureBox2.Visible = true;
-
-                    //}
-                    //else
-                    //{ pictureBox1.Visible = true; }
-
-                    //string sql = @"SELECT  RepoetStringLabelPk, MainString, EN, HE, RU, ES, DE FROM  RepoetStringLabel";
-                    //string connectionString = ConfigurationManager.ConnectionStrings["ReportLibrary.Properties.Settings.iSEE_report"].ConnectionString;
-                    //var value = ReportParameters["lg"].Value;
-                    //var lang = "EN";//default lang
-
-                    //if (value != null)
-                    //{
-                    //    lang = value.ToString();
-                    //}
-
-                    //SqlDataAdapter adapter = new SqlDataAdapter(sql, connectionString);
-                    //DataTable datatable = new DataTable();
-                    //adapter.Fill(datatable);
-
-                    //ReportItemBase[] allTextBoxes = this.Items.Find(typeof(Telerik.Reporting.TextBox), true);
-                    //foreach (Telerik.Reporting.TextBox textBox in allTextBoxes)
-                    //{
-
-                    //    DataRow[] result = datatable.Select("MainString  = '" + textBox.Name + "'");
-                    //    if (result.Length > 0) textBox.Value = result[0][lang].ToString();
-
-                    //}
-
-                    //string commaseparatedValue = ReportParameters["EmployeeList"].Value.ToString();
-                    //string FactoryGuid = (string)ReportParameters["Factory"].Value;
-
-                    //SqlDataSource sqlDataSource = new SqlDataSource
-                    //{
-                    //    ConnectionString = connectionString,
-                    //    SelectCommand = GetSql(commaseparatedValue)
-                    //};
-                    //sqlDataSource.Parameters.Add("@Factory", DbType.Int32, GetFactoryId(FactoryGuid));
-                    //sqlDataSource.Parameters.Add("@FromDate", DbType.DateTime, ReportParameters["FromDate"].Value);
-                    //sqlDataSource.Parameters.Add("@ToDate", DbType.DateTime, ReportParameters["ToDate"].Value);
-                    //reportViewer.LocalReport.DataSources.Add(new ReportDataSource("dsLocalReport", dataSet.Tables["SampleTable"]));
-
-                    ReportDataSet dsE = new ReportDataSet();
-                    usp_GetEmployeeSMSTableAdapter daE = new usp_GetEmployeeSMSTableAdapter();
-                    dsE.EnforceConstraints = false;
-                    daE.Fill(dsE.usp_GetEmployeeSMS, reportSearchModel.StartDate, SessionManagement.FactoryID, reportSearchModel.EndDate, reportSearchModel.FilterSearch);
+                case "EmployeePresence":
+                    ReportDataSet dsEP = new ReportDataSet();
+                    usp_GetEmployeePresence1TableAdapter daEP = new usp_GetEmployeePresence1TableAdapter();
+                    dsEP.EnforceConstraints = false;
+                    daEP.Fill(dsEP.usp_GetEmployeePresence1, reportSearchModel.StartDate, SessionManagement.FactoryID, reportSearchModel.EndDate, reportSearchModel.FilterSearch);
                     List<ReportParameter> parmE = new List<ReportParameter>();
-                    DataTable dtE = dsE.Tables["usp_GetEmployeeSMS"];
-                    ReportDataSource rptDataSourceE = new ReportDataSource("Getsms", dtE);
-                    reportViewer.LocalReport.DataSources.Add(rptDataSourceE);
+                    DataTable dtEP = dsEP.Tables["usp_GetEmployeePresence1"];
+                    ReportDataSource rptDataSourceEP = new ReportDataSource("GetEmployeePresence", dtEP);
+                    reportViewer.LocalReport.DataSources.Add(rptDataSourceEP);
+                    break;
+
+                case "EmployeeSms":
+                    ReportDataSet dsES = new ReportDataSet();
+                    usp_GetEmployeeSMSTableAdapter daES = new usp_GetEmployeeSMSTableAdapter();
+                    dsES.EnforceConstraints = false;
+                    daES.Fill(dsES.usp_GetEmployeeSMS, reportSearchModel.StartDate, SessionManagement.FactoryID, reportSearchModel.EndDate, reportSearchModel.FilterSearch);
+                    List<ReportParameter> parmES = new List<ReportParameter>();
+                    DataTable dtES = dsES.Tables["usp_GetEmployeeSMS"];
+                    ReportDataSource rptDataSourceES = new ReportDataSource("Getsms", dtES);
+                    reportViewer.LocalReport.DataSources.Add(rptDataSourceES);
                     break;
 
                 case "ListCustomers":
@@ -229,8 +193,6 @@ namespace ISEE.Controllers
                 return new JsonResult { Data = new { IsSuccess = false, ErrorMessageText = "An Error has been occured...", ErrorMessageBoxTitle = "Message" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-
-
 
         public class ClsEmployee
         {

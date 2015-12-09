@@ -9,7 +9,8 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
     $scope.Reports = [
         { text: "List Of Customer", ReportName: "ListCustomers" },
         { text: "Customer Request", ReportName: "CustomerRequests" },
-        { text: "Employee Sms", ReportName: "EmployeeSms" }
+        { text: "Employee Sms", ReportName: "EmployeeSms" },
+        { text: "Employee Presence", ReportName: "EmployeePresence" }
     ];
 
     $scope.Customers = null;
@@ -57,7 +58,7 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
                 }
             })
         }
-        else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+        else if ($scope.ReportSearchParams.ReportName == "EmployeeSms" || $scope.ReportSearchParams.ReportName == "EmployeePresence") {
             $('#divEmployeeSMSReportFilter').dialog({
                 width: 1000,
                 height: 600,
@@ -121,7 +122,7 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
             angular.forEach($scope.Customers, function (itm) {
                 itm.IsSelected = toggleStatus;
             });
-        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms" || $scope.ReportSearchParams.ReportName == "EmployeePresence") {
             angular.forEach($scope.Employees, function (itm) {
                 itm.IsSelected = toggleStatus;
             });
@@ -131,7 +132,7 @@ reportModule.controller('ReportController', function ($scope, ReportService) {
     $scope.optionToggled = function () {
         if ($scope.ReportSearchParams.ReportName == "ListCustomers") {
             $scope.isAllSelected = $scope.Customers.every(function (itm) { return itm.IsSelected; })
-        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms") {
+        } else if ($scope.ReportSearchParams.ReportName == "EmployeeSms" || $scope.ReportSearchParams.ReportName == "EmployeePresence") {
             $scope.isAllSelected = $scope.Employees.every(function (itm) { return itm.IsSelected; })
         }
     }

@@ -555,7 +555,7 @@ function showEmployeeScheduler() {
                 scheduler.config.details_on_create = true;
                 scheduler.config.details_on_dblclick = true;
                 scheduler.config.prevent_cache = true;
-
+                scheduler.config.start_on_monday = false;
                 scheduler.config.first_hour = new Date("1/1/2001 " + $scope.schdulerStartTime).getHours();
                 scheduler.config.last_hour = new Date("1/1/2001 " + $scope.schdulerEndTime).getHours();
                 scheduler.config.start_on_monday = true;

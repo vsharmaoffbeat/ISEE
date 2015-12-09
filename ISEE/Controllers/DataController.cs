@@ -227,7 +227,7 @@ namespace ISEEREGION.Controllers
                     if (EmpHours[i].DayStatus == 4)
                         EmpHoursData[i] = new { Day = SessionManagement.Wednesday, Start1 = EmpHours[i].Start1 ?? "", End1 = EmpHours[i].End1 ?? "", Start2 = EmpHours[i].Start2 ?? "", End2 = EmpHours[i].End2 ?? "", DayStatus = EmpHours[i].DayStatus };
                     if (EmpHours[i].DayStatus == 5)
-                        EmpHoursData[i] = new { Day = SessionManagement.Thursday, Start1 = EmpHours[i].Start1 ?? "", End1 = EmpHours[i].End1 ?? "", Start2 = EmpHours[i].Start2 ?? "", End2 = EmpHours[i].End2 ?? "", DayStatus = EmpHours[i].DayStatus };
+                        EmpHoursData[i] = new { Day = SessionManagement.Thursday, Start1 = EmpHours[i].Start1 ?? "", End1 = EmpHours[i].End1 ?? "", Start2 = EmpHours[i].Start2 ?? "" , End2 = EmpHours[i].End2 ?? "", DayStatus = EmpHours[i].DayStatus };
                     if (EmpHours[i].DayStatus == 6)
                         EmpHoursData[i] = new { Day = SessionManagement.Friday, Start1 = EmpHours[i].Start1 ?? "", End1 = EmpHours[i].End1 ?? "", Start2 = EmpHours[i].Start2 ?? "", End2 = EmpHours[i].End2 ?? "", DayStatus = EmpHours[i].DayStatus };
                     if (EmpHours[i].DayStatus == 7)
@@ -247,7 +247,7 @@ namespace ISEEREGION.Controllers
         {
             try
             {
-                var EmpHours = _facory.GetEmployeeDiaryMonth(employeeId, month, year).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
+                var EmpHours = _facory.GetEmployeeDiaryMonth(employeeId, month + 1, year).ToList().Select(e => new { Day = e.Day.ToString("dd/MM/yyyy"), Start1 = e.Start1 != null ? Convert.ToDateTime(e.Start1.Value.ToString()).ToString("h:mm tt") : null, End1 = e.Stop1 != null ? Convert.ToDateTime(e.Stop1.Value.ToString()).ToString("h:mm tt") : null, Start2 = e.Start2 != null ? Convert.ToDateTime(e.Start2.Value.ToString()).ToString("h:mm tt") : null, End2 = e.Stop2 != null ? Convert.ToDateTime(e.Stop2.Value.ToString()).ToString("h:mm tt") : null, Start3 = e.Start3 != null ? Convert.ToDateTime(e.Start3.Value.ToString()).ToString("h:mm tt") : null, End3 = e.Stop3 != null ? Convert.ToDateTime(e.Stop3.Value.ToString()).ToString("h:mm tt") : null }).ToList();
                 return new JsonResult { Data = EmpHours, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)
@@ -641,6 +641,7 @@ namespace ISEEREGION.Controllers
                     .ToList();
 
                 return new JsonResult { Data = StateDec, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
             }
         }
         public JsonResult GetAllCitysByState(int stateID)
@@ -665,10 +666,10 @@ namespace ISEEREGION.Controllers
 
         }
 
-        public JsonResult GetAllBuildingsByStreet(int streetID)
+        public JsonResult GetAllBuildingsByCity(int streetID, int cityID)
         {
             var CountryID = SessionManagement.Country;
-            var Buildings = _facory.GetAllNumbers(CountryID, streetID).ToList().Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number.Trim() })
+            var Buildings = _facory.GetAllNumbers(CountryID, cityID, streetID).ToList().Select(d => new { BuildingCode = d.BuildingCode, BuildingLat = d.Lat, BuldingLong = d.Long, BuildingNumber = d.Number.Trim() })
                 .Distinct()
                 .ToList();
             return new JsonResult { Data = Buildings, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -682,7 +683,7 @@ namespace ISEEREGION.Controllers
             {
                 using (ISEEEntities context = new ISEEEntities())
                 {
-                    var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom, MapProvider = c.MapProvider }).Where(x => x.FactoryId == FactoryId).ToList();
+                    var CountryDetail = context.FactoryParms.Select(c => new { FactoryId = c.FactoryId, CountryID = c.Country, Lat = c.Lat, Long = c.Long, Zoom = c.Zoom, MapProvider=c.MapProvider }).Where(x => x.FactoryId == FactoryId).ToList();
                     return new JsonResult { Data = CountryDetail, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
             }

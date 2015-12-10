@@ -1065,4 +1065,25 @@
   <data name="Test" xml:space="preserve">
     <value>Test1</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="ListCustomers" xml:space="preserve">
+    <value>Lsit of customers</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EmployeePresence" xml:space="preserve">
+    <value>Presence</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
 </root>

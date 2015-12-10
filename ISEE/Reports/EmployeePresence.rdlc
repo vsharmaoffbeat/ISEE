@@ -40,7 +40,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Date</Value>
+                              <Value>=Parameters!Date.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -84,7 +84,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Start</Value>
+                              <Value>=Parameters!Start.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -129,7 +129,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Stop</Value>
+                              <Value>=Parameters!Stop.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -174,7 +174,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Start</Value>
+                              <Value>=Parameters!Start.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -219,7 +219,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Stop</Value>
+                              <Value>=Parameters!Stop.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -264,7 +264,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Start</Value>
+                              <Value>=Parameters!Start.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -309,7 +309,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Stop</Value>
+                              <Value>=Parameters!Stop.Value</Value>
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -667,7 +667,7 @@
       <BackgroundColor>White</BackgroundColor>
     </Style>
   </Body>
-  <Width>11.32167in</Width>
+  <Width>11.24875in</Width>
   <Page>
     <PageHeader>
       <Height>1in</Height>
@@ -681,9 +681,9 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Presence</Value>
+                  <Value>=Parameters!Title.Value</Value>
                   <Style>
-                    <FontSize>20pt</FontSize>
+                    <FontSize>18pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
@@ -693,9 +693,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox7</rd:DefaultName>
           <Top>0.35292in</Top>
-          <Left>3.35999in</Left>
+          <Left>2.83916in</Left>
           <Height>0.5in</Height>
-          <Width>2.32292in</Width>
+          <Width>3.65625in</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -903,6 +903,24 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Title">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Date">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Start">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Stop">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="region_see">
       <MIMEType>image/png</MIMEType>

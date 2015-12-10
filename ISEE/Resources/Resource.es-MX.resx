@@ -949,4 +949,25 @@
   <data name="WarningChangeBuildingNew" xml:space="preserve">
     <value>Cambio de domicilio exitoso. Obligación de salvar datos del cliente para finalizar la actualización</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Nombre del cliente</value>
+  </data>
+  <data name="ListCustomers" xml:space="preserve">
+    <value>Lista de Clientes</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="EmployeePresence" xml:space="preserve">
+    <value>Asistencia por empleado</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Salida</value>
+  </data>
 </root>

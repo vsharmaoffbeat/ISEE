@@ -9,9 +9,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 
 namespace ISEE.Controllers
@@ -64,6 +70,9 @@ namespace ISEE.Controllers
             return View();
         }
 
+
+
+
         private ReportViewer LoadReport(ReportSearchParams reportSearchModel)
         {
             #region Server Report
@@ -97,12 +106,13 @@ namespace ISEE.Controllers
             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + string.Format(@"Reports\{0}.rdlc", reportName);
             //TODO: To get datasource as per report;
             reportViewer.LocalReport.DataSources.Clear();
-            var value = SessionManagement.CurrentLang;
-            var lang = "EN";//default lang
+            // string value = SessionManagement.CurrentLang.ToString();
+            string value = SessionManagement.Language;
+            string lang = "EN";//default lang
 
-            if (value != null)
+            if (value != "")
             {
-                lang = value.ToString();
+                lang = value;
             }
 
             //TODO: Globalisation Of Reports
@@ -118,6 +128,13 @@ namespace ISEE.Controllers
                     DataTable dtEP = dsEP.Tables["usp_GetEmployeePresence1"];
                     ReportDataSource rptDataSourceEP = new ReportDataSource("GetEmployeePresence", dtEP);
                     reportViewer.LocalReport.DataSources.Add(rptDataSourceEP);
+                    ReportParameter[] EmployeePresenceParm = new ReportParameter[]{
+                       new ReportParameter("Title", Resources.Resource.ResourceManager.GetString("EmployeePresence", new CultureInfo(lang))),
+                        new ReportParameter("Date",Resources.Resource.ResourceManager.GetString("Date", new CultureInfo(lang))),
+                         new ReportParameter("Start",Resources.Resource.ResourceManager.GetString("Start", new CultureInfo(lang))),
+                          new ReportParameter("Stop",Resources.Resource.ResourceManager.GetString("Stop", new CultureInfo(lang)))
+                    };
+                    reportViewer.LocalReport.SetParameters(EmployeePresenceParm);
                     break;
 
                 case "EmployeeSms":
@@ -135,17 +152,24 @@ namespace ISEE.Controllers
                     ReportDataSet ds = new ReportDataSet();
                     usp_GetCustomersTableAdapter da = new usp_GetCustomersTableAdapter();
                     da.Fill(ds.usp_GetCustomers, SessionManagement.FactoryID, reportSearchModel.FilterSearch);
-                    List<ReportParameter> parm = new List<ReportParameter>();
                     DataTable dt = ds.Tables["usp_GetCustomers"];
                     ReportDataSource rptDataSource = new ReportDataSource("GetCustomers", dt);
                     reportViewer.LocalReport.DataSources.Add(rptDataSource);
+                    ReportParameter[] parm = new ReportParameter[]{
+                       new ReportParameter("Title", Resources.Resource.ResourceManager.GetString("ListCustomers", new CultureInfo(lang))),
+                        new ReportParameter("Number",Resources.Resource.ResourceManager.GetString("Number", new CultureInfo(lang))),
+                         new ReportParameter("CustomerName",Resources.Resource.ResourceManager.GetString("CustomerName", new CultureInfo(lang))),
+                          new ReportParameter("Phone",Resources.Resource.ResourceManager.GetString("Phone", new CultureInfo(lang))),
+                           new ReportParameter("Address",Resources.Resource.ResourceManager.GetString("Address", new CultureInfo(lang)))
+                    };
+                    reportViewer.LocalReport.SetParameters(parm);
                     break;
+
             }
             reportViewer.LocalReport.Refresh();
             #endregion
             return reportViewer;
         }
-
 
         public ActionResult GetCustomers(ReportFilterCriteria model)
         {

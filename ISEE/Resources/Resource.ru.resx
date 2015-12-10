@@ -1071,4 +1071,25 @@
   <data name="WarningChangeBuildingNew" xml:space="preserve">
     <value>Изменение адреса прошло успешно. Необходимо сохранить данные после изменений</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>адрес</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Имя Клиента</value>
+  </data>
+  <data name="ListCustomers" xml:space="preserve">
+    <value>список клиентов</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="EmployeePresence" xml:space="preserve">
+    <value>Сотрудник Наличие</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Стоп</value>
+  </data>
 </root>

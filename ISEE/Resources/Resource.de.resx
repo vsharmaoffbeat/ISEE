@@ -1062,4 +1062,25 @@
   <data name="WarningChangeBuildingNew" xml:space="preserve">
     <value>Änderung der Anschrift war erfolgreich. Pflicht auf Client-Update zu halten!</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="EmployeePresence" xml:space="preserve">
+    <value>PresenceTitle</value>
+  </data>
+  <data name="ListCustomers" xml:space="preserve">
+    <value>Report Customers</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
 </root>

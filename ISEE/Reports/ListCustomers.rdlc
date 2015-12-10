@@ -31,7 +31,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>   Number</Value>
+                              <Value>=Parameters!Number.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -73,7 +73,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Customer Name</Value>
+                              <Value>=Parameters!CustomerName.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -115,7 +115,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Phone</Value>
+                              <Value>=Parameters!Phone.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -157,7 +157,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Address</Value>
+                              <Value>=Parameters!Address.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -348,7 +348,7 @@
         <Top>0.24875in</Top>
         <Left>0.54042in</Left>
         <Height>0.6875in</Height>
-        <Width>10.72916in</Width>
+        <Width>10.72914in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -452,7 +452,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>List of  customers</Value>
+                  <Value>=Parameters!Title.Value</Value>
                   <Style>
                     <FontSize>20pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -626,6 +626,29 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Title">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Number">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CustomerName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Phone">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Address">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="region_see">
       <MIMEType>image/png</MIMEType>

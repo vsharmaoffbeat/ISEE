@@ -339,6 +339,7 @@
       <DependentUpon>ReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Custom\MapSearchScript.js" />
     <Content Include="Scripts\Custom\MapTab.js" />
     <Content Include="Scripts\Custom\Reports.js" />
     <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.css" />

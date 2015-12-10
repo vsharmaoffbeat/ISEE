@@ -29,14 +29,14 @@ function SearchCustomers() {
     var street = 0;
     var building = 0;
 
-    if (GetIdByName(_statesArray, $('#ddlstateinputcustomer').val()) > 0)
-        state = GetIdByName(_statesArray, $('#ddlstateinputcustomer').val());
+    if (GetIdByName(statesArray, $('#ddlstateinputcustomer').val()) > 0)
+        state = GetIdByName(statesArray, $('#ddlstateinputcustomer').val());
 
-    if (GetIdByName(_cityArray, $('#ddlcityinputCustomer').val()) > 0)
-        city = GetIdByName(_cityArray, $('#ddlcityinputCustomer').val());
+    if (GetIdByName(cityArray, $('#ddlcityinputCustomer').val()) > 0)
+        city = GetIdByName(cityArray, $('#ddlcityinputCustomer').val());
 
-    if (GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val()) > 0)
-        street = GetIdByName(_streetArray, $('#ddlstreetinputCustomer').val());
+    if (GetIdByName(streetArray, $('#ddlstreetinputCustomer').val()) > 0)
+        street = GetIdByName(streetArray, $('#ddlstreetinputCustomer').val());
 
     //if (GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val()) > 0) {
     //    building = GetIdByName(_buildingArray, $('#ddlstreetinputCustomer').val());
@@ -62,15 +62,15 @@ function SearchCustomers() {
                     $(response).each(function () {
                         _customerListArray.push(this);
 
-                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + response[i].CustomerId
-                            + "' rel='" + response[i].LastName + "' FirstName='" + response[i].FirstName
-                            + "' StreetName='" + response[i].StreetName
-                            + "' CityName='" + response[i].CityName
-                            + "' BuildingNumber='" + response[i].BuildingNumber
+                        $("#tblmapsearchgridCustomer").append("<tr class='customerRow' id='" + this.CustomerId
+                            + "' rel='" + this.LastName + "' FirstName='" + this.FirstName
+                            + "' StreetName='" + this.StreetName
+                            + "' CityName='" + this.CityName
+                            + "' BuildingNumber='" + this.BuildingNumber
                             + "' ><td class='tg-dx8v'><input type='checkbox' class='chk' name='chkCustomer' onclick='ChkcustomerChange(this)'/></td><td class='tg-dx8v'>"
-                            + response[i].CustomerId + "</td><td class='tg-dx8v'>" + response[i].LastName
-                            + "</td><td class='tg-dx8v'>" + response[i].CityName + "</td><td class='tg-dx8v'>"
-                            + response[i].StreetName + "</td></tr>");
+                            + this.CustomerId + "</td><td class='tg-dx8v'>" + this.LastName
+                            + "</td><td class='tg-dx8v'>" + this.CityName + "</td><td class='tg-dx8v'>"
+                            + this.StreetName + "</td></tr>");
                     });
                 }
             }
@@ -122,7 +122,6 @@ function GetAllStatesByCountry(inputStateId) {
                 if (stateNames.indexOf(this.StateDesc.trim()) == -1) {
                     stateNames.push(this.StateDesc.trim());
                 }
-                stateIds.push(this.StateCode);
                 statesArray.push({ id: this.StateCode, name: this.StateDesc })
             });
 
@@ -192,7 +191,7 @@ function GetAllCitysByState(state) {
 }
 
 function GetAllStreetByCity(city) {
-    if (GetIdByName(_cityArray, city) == 0) {
+    if (GetIdByName(cityArray, city) == 0) {
         _streetArray = [];
         emptyVal('#ddlstreetinputCustomer,#ddlbuildinginputCustomer');
         //$('#ddlstreetinputCustomer').val('');
@@ -212,6 +211,11 @@ function GetAllStreetByCity(city) {
         success: function (response) {
             streetArray = [];
             _streetName = [];
+            if (response.length < 1) {
+                disableProperty("#ddlstreetinputCustomer");
+            } else {
+                removeDisableProperty("#ddlstreetinputCustomer");
+            }
             if (response != null) {
                 $(response).each(function () {
                     _streetName.push(this.Streetdesc);
@@ -240,7 +244,7 @@ function GetAllStreetByCity(city) {
 
 function GetAllBuildingsByCity(street, city) {
 
-    if (GetIdByName(_streetArray, street) == 0 && GetIdByName(_cityArray, city) == 0) {
+    if (GetIdByName(streetArray, street) == 0 && GetIdByName(_cityArray, city) == 0) {
         _abliableDataForBuildingNumber = [];
         _abliableDataForBuildingId = [];
         _abliableDataForBuildingLat = [];
@@ -252,7 +256,7 @@ function GetAllBuildingsByCity(street, city) {
     $.ajax({
         type: "POST",
         url: "/Data/GetAllBuildingsByCity",
-        data: { streetID: GetIdByName(_streetArray, street), cityID: GetIdByName(_cityArray, city) },
+        data: { streetID: GetIdByName(streetArray, street), cityID: GetIdByName(cityArray, city) },
         dataType: "json",
         success: function (response) {
             if (response.length < 1) {
